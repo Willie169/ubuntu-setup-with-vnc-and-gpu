@@ -9,7 +9,7 @@ sudo ufw enable
 sudo ufw allow ssh
 ip route
 sudo nano /etc/ssh/sshd_config
-sudo apt upgrade -y && sudo apt install automake bash build-essential bzip2 clang cmake command-not-found curl dbus file gdb gh ghostscript git golang grep libboost-all-dev libeigen3-dev libgsl-dev libssl-dev iproute2 jq make maven mc neovim nodejs npm openjdk-17-jdk openssl pandoc perl procps python3-pip python3-all-dev python3-venv rust-all tar texlive-full tmux vim wget zsh -y
+sudo apt upgrade -y && sudo apt install automake bash build-essential bzip2 clang cmake command-not-found curl dbus file gdb gh ghostscript git golang grep libboost-all-dev libeigen3-dev libgsl-dev libssl-dev iproute2 jq make maven mc mlocate neovim nodejs npm openjdk-17-jdk openssl pandoc perl procps python3-pip python3-all-dev python3-venv rust-all tar texlive-full tmux vim wget zsh -y
 sudo npm install --global jsdom marked marked-gfm-heading-id node-html-markdown showdown
 python3 -m venv .env
 source .env/bin/activate

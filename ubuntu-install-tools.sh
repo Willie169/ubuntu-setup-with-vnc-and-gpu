@@ -16,6 +16,7 @@ tar -xvzf install-tl-unx.tar.gz
 sudo rm install-tl-unx.tar.gz
 cd install-tl-*
 sudo perl install-tl --no-interaction
+cd ~
 echo 'export PATH=/usr/local/texlive/2025/bin/x86_64-linux:$PATH' >> ~/.bashrc
 source ~/.bashrc
 sudo rm -rf install-tl-*

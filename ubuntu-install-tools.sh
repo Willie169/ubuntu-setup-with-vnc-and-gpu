@@ -9,12 +9,13 @@ sudo ufw enable
 sudo ufw allow ssh
 ip route
 sudo nano /etc/ssh/sshd_config
-sudo apt upgrade -y && sudo apt install automake bash build-essential bzip2 clang cmake command-not-found curl dbus ffmpeg file gdb gh ghostscript git golang grep libboost-all-dev libeigen3-dev libgsl-dev libssl-dev iproute2 jq make maven mc mlocate neovim nodejs npm openjdk-17-jdk openssl pandoc perl procps python3-pip python3-all-dev python3-venv rust-all tar tmux vim wget zsh -y
+sudo apt upgrade -y && sudo apt install automake bash build-essential bzip2 clang cmake command-not-found curl dbus ffmpeg file gdb gh ghostscript git golang grep libboost-all-dev libeigen3-dev libgsl-dev libssl-dev iproute2 jq make maven mc mlocate neovim nodejs npm openjdk-17-jdk openssl pandoc perl perl-doc procps python3-pip python3-all-dev python3-venv rust-all tar tmux vim wget zsh -y
 cd ~
 wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xvzf install-tl-unx.tar.gz
+sudo rm install-tl-unx.tar.gz
 cd install-tl-*
-sudo ./install-tl
+sudo perl install-tl --no-interaction
 echo 'export PATH=/usr/local/texlive/2025/bin/x86_64-linux:$PATH' >> ~/.bashrc
 source ~/.bashrc
 sudo rm -rf install-tl-*

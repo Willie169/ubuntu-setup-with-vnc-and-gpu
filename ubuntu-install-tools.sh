@@ -20,6 +20,14 @@ cd ~
 echo 'export PATH=/usr/local/texlive/2025/bin/x86_64-linux:$PATH' >> ~/.bashrc
 source ~/.bashrc
 sudo rm -rf install-tl-*
+mkdir -p ~/.config/fontconfig/conf.d
+cat > ~/.config/fontconfig/conf.d/99-texlive.conf << EOF
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+  <dir>/usr/local/texlive/2025/texmf-dist/fonts</dir>
+</fontconfig>
+EOF
 sudo npm install --global jsdom marked marked-gfm-heading-id node-html-markdown showdown
 python3 -m venv .env
 source .env/bin/activate

@@ -126,14 +126,24 @@ alias antlr4='java -jar $PREFIX/lib/antlr-4.13.2-complete.jar'
 alias grun='java org.antlr.v4.runtime.misc.TestRig'
 alias src=source
 
-gitPull() {
-    for dir in */ ; do
-        if [ -d "$dir/.git" ]; then
-            cd "$dir" || continue
-            git pull
-            cd ..
+gpull() {
+    level="${1:-1}"
+    if [ "$level" -eq 0 ]; then
+        repo_dir=$(git rev-parse --show-toplevel 2>/dev/null)
+        if [ -n "$repo_dir" ]; then
+            echo "$repo_dir"
+            (cd "$repo_dir" && git pull)
+        else
+            echo "Not in a Git repo."
         fi
-    done
+    else
+        depth=$((level + 1))
+        find . -mindepth "$depth" -maxdepth "$depth" -type d -name .git | while read -r gitdir; do
+            repo_dir=$(dirname "$gitdir")
+            echo "$repo_dir"
+            (cd "$repo_dir" && git pull)
+        done
+    fi
 }
 
 gacp() {

@@ -122,9 +122,11 @@ export GOROOT="$PREFIX/lib/go"
 export GOPATH="$HOME/go"
 export TORPATH="$PREFIX/etc/tor"
 export PDROOTFS="$PREFIX/var/lib/proot-distro/installed-rootfs"
+export WAYDROID="$PREFIX/.local/share/waydroid/data/media/0"
 alias antlr4='java -jar $PREFIX/lib/antlr-4.13.2-complete.jar'
 alias grun='java org.antlr.v4.runtime.misc.TestRig'
 alias src=source
+
 
 gpull() {
     level="${1:-0}"

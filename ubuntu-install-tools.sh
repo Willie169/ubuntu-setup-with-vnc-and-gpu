@@ -1,7 +1,7 @@
 sudo apt update
 sudo apt purge fcitx* -y
 sudo apt install fcitx5 fcitx5-* -y
-im-config # set to fcitx5
+im-config # Set to fcitx5. Choose methods in Fcitx 5 Configuration. For Traditional Chinese, choose Chewing
 sudo apt install nano openssh-client openssh-server -y
 sudo systemctl enable ssh
 sudo systemctl start ssh

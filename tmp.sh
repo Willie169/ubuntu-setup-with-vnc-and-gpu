@@ -1,6 +1,6 @@
 cat << 'EOF' > ~/.installtmp.sh
 #!/bin/bash
-sudo systemctl --user disable installtmp.service
+systemctl --user disable installtmp.service
 rm ~/.config/systemd/user/installtmp.service
 rm -- "$0"
 touch ~/test
@@ -20,5 +20,5 @@ RemainAfterExit=no
 [Install]
 WantedBy=default.target
 EOF
-sudo systemctl --user daemon-reload
-sudo systemctl --user enable installtmp.service
+systemctl --user daemon-reload
+systemctl --user enable installtmp.service

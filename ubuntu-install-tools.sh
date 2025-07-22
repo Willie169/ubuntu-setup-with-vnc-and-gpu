@@ -1,7 +1,7 @@
 sudo apt update
 sudo apt purge fcitx* -y
 sudo apt upgrade -y
-sudo apt install automake bash build-essential bzip2 clang cmake command-not-found curl dbus fcitx5 fcitx5-* ffmpeg file flatpak gdb gh ghostscript git gnome-software gnome-software-plugin-flatpak golang grep libboost-all-dev libeigen3-dev libgsl-dev libssl-dev iproute2 jq make maven mc mlocate nano neovim nodejs npm openjdk-17-jdk openssh-client openssh-server openssl pandoc perl perl-doc procps python3-pip python3-all-dev python3-venv rust-all tar tmux vim wget zsh -y
+sudo apt install automake bash build-essential bzip2 clang cmake command-not-found curl dbus fcitx5 fcitx5-* ffmpeg file flatpak gdb gh ghostscript git gnome-software gnome-software-plugin-flatpak golang grep libboost-all-dev libeigen3-dev libgsl-dev libssl-dev iproute2 jq make maven mc mlocate nano neovim nodejs npm openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc procps python3-pip python3-all-dev python3-venv rust-all tar tmux vim wget zsh -y
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 im-config -n fcitx5
 systemctl enable ssh

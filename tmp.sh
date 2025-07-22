@@ -13,7 +13,7 @@ Description=Installation Temporary
 After=network.target
 
 [Service]
-ExecStart="$(pwd)"/.installtmp.sh
+ExecStart=$(pwd)/.installtmp.sh
 Type=oneshot
 RemainAfterExit=no
 

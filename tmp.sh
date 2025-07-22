@@ -5,7 +5,7 @@ rm ~/.config/systemd/user/installtmp.service
 rm -- "$0"
 echo 'test'
 EOF
-chmod +x ~/installtmp.sh
+chmod +x ~/.installtmp.sh
 mkdir -p ~/.config/systemd/user
 cat << EOF > ~/.config/systemd/user/installtmp.service
 [Unit]

@@ -22,4 +22,3 @@ WantedBy=default.target
 EOF
 sudo systemctl --user daemon-reload
 sudo systemctl --user enable installtmp.service
-sudo reboot

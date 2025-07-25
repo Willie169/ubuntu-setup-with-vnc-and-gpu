@@ -26,6 +26,13 @@ cat > ~/.config/fontconfig/conf.d/99-texlive.conf << EOF
   <dir>/usr/local/texlive/2025/texmf-dist/fonts</dir>
 </fontconfig>
 EOF
+cat > ~/.vimrc << EOF
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set smartindent
+set autoindent
+EOF
 sudo npm install --global jsdom marked marked-gfm-heading-id node-html-markdown showdown
 python3 -m venv .env
 source .env/bin/activate

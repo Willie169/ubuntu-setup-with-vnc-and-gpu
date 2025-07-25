@@ -2,7 +2,7 @@ sudo add-apt-repository ppa:hluk/copyq -y
 sudo apt update
 sudo apt purge fcitx* -y
 sudo apt upgrade -y
-sudo apt install automake bash build-essential bzip2 clang cmake command-not-found copyq curl dbus fcitx5 fcitx5-* ffmpeg file flatpak gdb gh ghostscript git gnome-software gnome-software-plugin-flatpak golang grep libboost-all-dev libeigen3-dev libgsl-dev libssl-dev iproute2 jq make maven mc mlocate nano neovim nodejs npm openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc procps python3-pip python3-all-dev python3-venv rust-all tar tmux vim wget zsh -y
+sudo apt install automake bash build-essential bzip2 clang cmake command-not-found copyq curl dbus fcitx5 fcitx5-* ffmpeg file flatpak gdb gh ghostscript git glab gnome-software gnome-software-plugin-flatpak golang grep libboost-all-dev libeigen3-dev libgsl-dev libssl-dev iproute2 jq make maven mc nano neovim nodejs npm openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc procps python3-pip python3-all-dev python3-venv rust-all tar tmux vim wget zsh -y
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 im-config -n fcitx5
 systemctl enable ssh
@@ -34,6 +34,7 @@ set smartindent
 set autoindent
 EOF
 sudo npm install --global jsdom marked marked-gfm-heading-id node-html-markdown showdown
+go install github.com/danielmiessler/fabric@latest
 python3 -m venv .env
 source .env/bin/activate
 pip3 install jupyter librosa matplotlib meson ninja numpy pandas pydub scipy selenium setuptools sympy

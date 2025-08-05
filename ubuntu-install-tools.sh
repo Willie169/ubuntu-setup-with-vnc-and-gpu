@@ -11,6 +11,7 @@ sudo ufw enable
 sudo ufw allow ssh
 ip route
 cd ~
+curl https://pyenv.run | bash
 wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xvzf install-tl-unx.tar.gz
 sudo rm install-tl-unx.tar.gz
@@ -286,7 +287,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH="$PREFIX/bin:$GOPATH/bin:$GOROOT/bin:$HOME/.local/bin:$PREFIX/glibc/bin:$HOME/.cargo/bin:/opt/TurboVNC/bin:/usr/local/texlive/2025/bin/x86_64-linux/tlmgr:/usr/sbin"
+export PATH="$PREFIX/bin:$GOPATH/bin:$GOROOT/bin:$HOME/.local/bin:$PREFIX/glibc/bin:$HOME/.cargo/bin:/opt/TurboVNC/bin:/usr/local/texlive/2025/bin/x86_64-linux/tlmgr:/usr/sbin:$HOME/.pyenv/bin:$PATH"
 export CLASSPATH="$PREFIX/lib/antlr-4.13.2-complete.jar"
 export GOROOT="$PREFIX/lib/go"
 export GOPATH="$HOME/go"
@@ -296,6 +297,8 @@ export WAYDROID="$HOME/.local/share/waydroid/data/media/0"
 alias antlr4='java -jar $PREFIX/lib/antlr-4.13.2-complete.jar'
 alias grun='java org.antlr.v4.runtime.misc.TestRig'
 alias src=source
+eval "$(pyenv init --path)"
+eval "$(pyenv virtualenv-init -)"
 
 gpull() {
     level="${1:-0}"
@@ -329,6 +332,13 @@ gtr() {
     gh release create v"$1" --title "Version $1 release" --notes ''
 }
 EOF
+pyenv install 2.7.13
+pyenv install 3.9.13
+pyenv install 3.10.11
+pyenv install 3.11.9
+pyenv install 3.12.10
+pyenv install 3.13.5
+pyenv global 3.12.10
 cat << 'EOF' > ~/.installtmp.sh
 #!/bin/bash
 systemctl --user disable installtmp.service

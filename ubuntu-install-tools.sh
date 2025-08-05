@@ -332,6 +332,7 @@ gtr() {
     gh release create v"$1" --title "Version $1 release" --notes ''
 }
 EOF
+source ~/.bashrc
 pyenv install 2.7.13
 pyenv install 3.9.13
 pyenv install 3.10.11

@@ -139,9 +139,9 @@ sudo wget https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/Mono/No
 sudo wget https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/Mono/NotoSansMonoCJKkr-Bold.otf
 sudo fc-cache -fv
 cd ~
-rm -f ~/profile
+rm -f ~/.profile
 rm -f ~/.bashrc
-cat << 'EOF' > ~/profile
+cat << 'EOF' > ~/.profile
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
 # exists.

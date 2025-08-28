@@ -3,7 +3,7 @@ sudo add-apt-repository ppa:hluk/copyq -y
 sudo apt update
 sudo apt purge fcitx* -y
 sudo apt upgrade -y
-sudo apt install apt-transport-https automake bash build-essential bzip2 clang cmake command-not-found copyq curl dbus fcitx5 fcitx5-* ffmpeg file flatpak gdb gh ghostscript git glab gnome-software gnome-software-plugin-flatpak golang gpg grep libboost-all-dev libbz2-dev libdb-dev libeigen3-dev libffi-dev libgdbm-compat-dev libgdbm-dev libgsl-dev liblzma-dev libncursesw5-dev libnss3-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev llvm iproute2 jq make maven mc nano neovim nodejs npm openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc procps python3-pip python3-all-dev python3-venv rust-all tar tk-dev tmux uuid-dev vim wget xz-utils yarn zlib1g-dev zsh -y
+sudo apt install apt-transport-https automake bash build-essential bzip2 clang cmake command-not-found copyq curl dbus fcitx5 fcitx5-* ffmpeg file flatpak gdb gh ghostscript git glab gnome-software gnome-software-plugin-flatpak golang gpg grep libboost-all-dev libbz2-dev libdb-dev libeigen3-dev libffi-dev libgdbm-compat-dev libgdbm-dev libgsl-dev liblzma-dev libncursesw5-dev libnss3-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev llvm iproute2 jq make maven mc nano neovim nodejs npm openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc pipx procps python3-pip python3-all-dev python3-venv rust-all tar tk-dev tmux uuid-dev vim wget xz-utils yarn zlib1g-dev zsh -y
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
 rm packages.microsoft.gpg
@@ -50,8 +50,11 @@ set autoindent
 EOF
 sudo npm install --global jsdom marked marked-gfm-heading-id node-html-markdown showdown
 go install github.com/danielmiessler/fabric@latest
-python3 -m pip install pipx
-pipx install jupyter librosa matplotlib meson ninja numpy pandas poetry pydub scipy selenium setuptools sympy
+pipx install poetry
+python3 -m venv .env
+source .env/bin/activate
+pip3 install jupyter librosa matplotlib meson ninja numpy pandas pydub scipy selenium setuptools sympy
+deactivate
 sudo mkdir /usr/share/fonts/opentype/xits
 cd /usr/share/fonts/opentype/xits
 sudo wget https://github.com/aliftype/xits/releases/download/v1.302/XITS-1.302.zip

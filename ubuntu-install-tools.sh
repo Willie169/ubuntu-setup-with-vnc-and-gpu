@@ -301,7 +301,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH="$PREFIX/bin:$GOPATH/bin:$GOROOT/bin:$HOME/.local/bin:$PREFIX/glibc/bin:$HOME/.cargo/bin:/opt/TurboVNC/bin:/usr/local/texlive/2025/bin/x86_64-linux/tlmgr:/usr/sbin:$HOME/.pyenv/bin:$PATH"
+export PATH="$PREFIX/bin:$GOPATH/bin:$GOROOT/bin:$HOME/.local/bin:$PREFIX/glibc/bin:$HOME/.cargo/bin:/opt/TurboVNC/bin:/usr/local/texlive/2025/bin/x86_64-linux:/usr/sbin:$HOME/.pyenv/bin:$PATH"
 export CLASSPATH="$PREFIX/lib/antlr-4.13.2-complete.jar"
 export GOROOT="$PREFIX/lib/go"
 export GOPATH="$HOME/go"

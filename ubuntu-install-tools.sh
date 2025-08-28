@@ -50,10 +50,8 @@ set autoindent
 EOF
 sudo npm install --global jsdom marked marked-gfm-heading-id node-html-markdown showdown
 go install github.com/danielmiessler/fabric@latest
-python3 -m venv .env
-source .env/bin/activate
-pip3 install jupyter librosa matplotlib meson ninja numpy pandas pydub scipy selenium setuptools sympy
-deactivate
+python3 -m pip install pipx
+pipx install jupyter librosa matplotlib meson ninja numpy pandas poetry pydub scipy selenium setuptools sympy
 sudo mkdir /usr/share/fonts/opentype/xits
 cd /usr/share/fonts/opentype/xits
 sudo wget https://github.com/aliftype/xits/releases/download/v1.302/XITS-1.302.zip
@@ -301,7 +299,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH="$PREFIX/bin:$GOPATH/bin:$GOROOT/bin:$HOME/.local/bin:$PREFIX/glibc/bin:$HOME/.cargo/bin:/opt/TurboVNC/bin:/usr/local/texlive/2025/bin/x86_64-linux:/usr/sbin:$HOME/.pyenv/bin:$PATH"
+export PATH="$PREFIX/bin:$HOME/.local/bin:$GOPATH/bin:$GOROOT/bin:$PREFIX/glibc/bin:$HOME/.cargo/bin:/opt/TurboVNC/bin:/usr/local/texlive/2025/bin/x86_64-linux:/usr/sbin:$HOME/.pyenv/bin"
 export CLASSPATH="$PREFIX/lib/antlr-4.13.2-complete.jar"
 export GOROOT="$PREFIX/lib/go"
 export GOPATH="$HOME/go"

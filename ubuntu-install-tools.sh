@@ -326,6 +326,8 @@ export GOPATH="$HOME/go"
 export TORPATH="$PREFIX/etc/tor"
 export PDROOTFS="$PREFIX/var/lib/proot-distro/installed-rootfs"
 export WAYDROID="$HOME/.local/share/waydroid/data/media/0"
+export KIT="/usr/share/LaTeX-ToolKit"
+
 alias antlr4='java -jar $PREFIX/lib/antlr-4.13.2-complete.jar'
 alias grun='java org.antlr.v4.runtime.misc.TestRig'
 alias src=source

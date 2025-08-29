@@ -366,6 +366,16 @@ gtr() {
     git push origin v"$1"
     gh release create v"$1" --title "Version $1 release" --notes ''
 }
+
+updatetex() {
+    dir=$(pwd)
+    cd /usr/share/LaTeX-ToolKit
+    sudo git pull
+    cd ~/texmf/tex/latex/physics-patch
+    git pull
+    cd dir
+}
+
 EOF
 source ~/.bashrc
 pyenv install 2.7.13

@@ -3,7 +3,7 @@ sudo add-apt-repository ppa:hluk/copyq -y
 sudo apt update
 sudo apt purge fcitx* -y
 sudo apt upgrade -y
-sudo apt install apt-transport-https automake bash build-essential bzip2 ca-certificates clang cmake codeblocks* command-not-found copyq curl dbus fcitx5 fcitx5-* ffmpeg file flatpak gdb gh ghostscript git glab gnome-software gnome-software-plugin-flatpak golang gpg grep libboost-all-dev libbz2-dev libdb-dev libeigen3-dev libffi-dev libgdbm-compat-dev libgdbm-dev libgsl-dev liblzma-dev libncursesw5-dev libnss3-dev libreadline-dev libsqlite3-dev libssl-dev libxcb-cursor0 libxml2-dev libxmlsec1-dev llvm iproute2 jq make maven mc nano neovim openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc pipx procps python3-pip python3-all-dev python3-venv rust-all software-properties-common tar tk-dev tmux uuid-dev vim wget xz-utils zlib1g-dev zsh -y
+sudo apt install apt-transport-https automake bash build-essential bzip2 ca-certificates clang cmake codeblocks* command-not-found copyq curl dbus fcitx5 fcitx5-* ffmpeg file flatpak gdb gh ghostscript git glab gnome-software gnome-software-plugin-flatpak golang gpg grep libboost-all-dev libbz2-dev libdb-dev libeigen3-dev libffi-dev libgdbm-compat-dev libgdbm-dev libgsl-dev liblzma-dev libncursesw5-dev libnss3-dev libreadline-dev libsqlite3-dev libssl-dev libxcb-cursor0 libxml2-dev libxmlsec1-dev llvm iproute2 jq make maven mc nano neovim openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc pipx procps python3-pip python3-all-dev python3-venv rust-all software-properties-common tar tk-dev tmux unrar uuid-dev vim wget xz-utils zlib1g-dev zsh -y
 im-config -n fcitx5
 systemctl start ssh
 systemctl enable ssh
@@ -20,7 +20,7 @@ sudo perl install-tl --no-interaction
 cd ~
 sudo rm -rf install-tl-*
 mkdir -p ~/.config/fontconfig/conf.d
-cat > ~/.config/fontconfig/conf.d/99-texlive.conf << EOF
+cat > ~/.config/fontconfig/conf.d/99-texlive.conf << 'EOF'
 <?xml version="1.0"?>
 <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
 <fontconfig>
@@ -70,8 +70,7 @@ packages.microsoft.com
 sudo apt update
 sudo apt install powershell dotnet-sdk-8.0 dotnet-runtime-8.0 -y
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-rm -f ~/.profile
-cat << 'EOF' > ~/.profile
+cat > ~/.profile << 'EOF' 
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
 # exists.
@@ -105,8 +104,7 @@ export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 export INPUT_METHOD=fcitx
 EOF
-rm -f ~/.bashrc
-cat << 'EOF' > ~/.bashrc
+cat > ~/.bashrc << 'EOF' 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -284,8 +282,7 @@ updatetex() {
 
 EOF
 source ~/.bashrc
-rm -f ~/.vimrc
-cat > ~/.vimrc << EOF
+cat > ~/.vimrc << 'EOF'
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -394,7 +391,7 @@ cd tex
 mkdir -p latex
 cd latex
 git clone https://github.com/Willie169/physics-patch
-cat << 'EOF' > ~/.installtmp.sh
+cat > ~/.installtmp.sh << 'EOF'
 #!/bin/bash
 systemctl --user disable installtmp.service
 rm ~/.config/systemd/user/installtmp.service
@@ -403,7 +400,7 @@ flatpak install flathub fr.handbrake.ghb org.musescore.MuseScore flathub org.gno
 EOF
 chmod +x ~/.installtmp.sh
 mkdir -p ~/.config/systemd/user
-cat << EOF > ~/.config/systemd/user/installtmp.service
+cat > ~/.config/systemd/user/installtmp.service << EOF
 [Unit]
 Description=Installation Temporary
 After=network.target

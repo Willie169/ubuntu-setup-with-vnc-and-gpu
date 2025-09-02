@@ -3,14 +3,14 @@ sudo add-apt-repository ppa:hluk/copyq -y
 sudo apt update
 sudo apt purge fcitx* -y
 sudo apt upgrade -y
-sudo apt install apt-transport-https automake bash build-essential bzip2 ca-certificates clang cmake command-not-found copyq curl dbus fcitx5 fcitx5-* ffmpeg file flatpak gdb gh ghostscript git glab gnome-software gnome-software-plugin-flatpak golang gpg grep libboost-all-dev libbz2-dev libdb-dev libeigen3-dev libffi-dev libgdbm-compat-dev libgdbm-dev libgsl-dev liblzma-dev libncursesw5-dev libnss3-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev llvm iproute2 jq make maven mc nano neovim openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc pipx procps python3-pip python3-all-dev python3-venv rust-all software-properties-common tar tk-dev tmux uuid-dev vim wget xz-utils zlib1g-dev zsh -y
+sudo apt install apt-transport-https automake bash build-essential bzip2 ca-certificates clang cmake codeblocks* command-not-found copyq curl dbus fcitx5 fcitx5-* ffmpeg file flatpak gdb gh ghostscript git glab gnome-software gnome-software-plugin-flatpak golang gpg grep libboost-all-dev libbz2-dev libdb-dev libeigen3-dev libffi-dev libgdbm-compat-dev libgdbm-dev libgsl-dev liblzma-dev libncursesw5-dev libnss3-dev libreadline-dev libsqlite3-dev libssl-dev libxcb-cursor0 libxml2-dev libxmlsec1-dev llvm iproute2 jq make maven mc nano neovim openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc pipx procps python3-pip python3-all-dev python3-venv rust-all software-properties-common tar tk-dev tmux uuid-dev vim wget xz-utils zlib1g-dev zsh -y
 im-config -n fcitx5
 systemctl start ssh
 systemctl enable ssh
 yes | sudo ufw enable
 sudo ufw allow ssh
 ip route
-cd ~
+sudo -v && wget --no-check-certificate -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
 curl https://pyenv.run | bash
 wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xvzf install-tl-unx.tar.gz
@@ -289,8 +289,9 @@ cat > ~/.vimrc << EOF
 set tabstop=4
 set shiftwidth=4
 set expandtab
+set smarttab
 set smartindent
-set autoindent
+filetype plugin indent on
 EOF
 sudo mkdir -p /usr/share/fonts/opentype/xits
 cd /usr/share/fonts/opentype/xits
@@ -398,7 +399,7 @@ cat << 'EOF' > ~/.installtmp.sh
 systemctl --user disable installtmp.service
 rm ~/.config/systemd/user/installtmp.service
 rm -- "$0"
-flatpak install flathub fr.handbrake.ghb org.musescore.MuseScore -y
+flatpak install flathub fr.handbrake.ghb org.musescore.MuseScore flathub org.gnome.Aisleriot -y
 EOF
 chmod +x ~/.installtmp.sh
 mkdir -p ~/.config/systemd/user

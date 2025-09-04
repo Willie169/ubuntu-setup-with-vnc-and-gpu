@@ -226,7 +226,7 @@ fi
 export CLASSPATH="$CLASSPATH:/usr/lib/antlr-4.13.2-complete.jar"
 export GOROOT="$GOROOT:/usr/lib/go"
 export GOPATH="$GOPATH:$HOME/go"
-export PATH="$PATH:/bin:/usr/bin:$HOME/.local/bin:$GOPATH/bin:$GOROOT/bin:/usr/glibc/bin:$HOME/.cargo/bin:/opt/TurboVNC/bin:/usr/local/texlive/2025/bin/x86_64-linux:/usr/sbin:$HOME/.pyenv/bin"
+export PATH="$PATH:/bin:/sbin:/usr/bin:/usr/sbin:$HOME/.local/bin:$GOPATH/bin:$GOROOT/bin:/usr/glibc/bin:$HOME/.cargo/bin:/opt/TurboVNC/bin:/usr/local/texlive/2025/bin/x86_64-linux:/usr/sbin:$HOME/.pyenv/bin"
 export WAYDROID="$HOME/.local/share/waydroid/data/media/0"
 export KIT="/usr/share/LaTeX-ToolKit"
 export PATCH="/root/texmf/tex/latex/physics-patch"

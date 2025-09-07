@@ -32,7 +32,7 @@ and check it with <code>nvcc --version</code>.
 
 1. Run `steam` to update and open it.
 2. Follow the instructions.
-3. Close it and open it again.
+3. Close it and open it again with desktop icon. If the icon can not be launched, right click on it and click `Allow Launching`.
 4. Follow the instructions.
 5. Open Steam and click `Steam` on the menu bar (upper left corner) and click `Settings`.
 6. Click `compatibility`.

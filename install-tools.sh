@@ -409,6 +409,9 @@ git clone https://github.com/Willie169/physics-patch
 cd ~
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install flathub com.discordapp.Discord org.telegram.desktop com.spotify.Client org.videolan.VLC com.obsproject.Studio org.libreoffice.LibreOffice org.onlyoffice.desktopeditors net.cozic.joplin_desktop com.calibre_ebook.calibre com.getpostman.Postman org.gimp.GIMP org.kde.krita fr.handbrake.ghb org.musescore.MuseScore flathub org.gnome.Aisleriot -y
+sudo dpkg --add-architecture i386
+sudo apt update
+sudo apt install libgl1:i386 -y
 wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
 sudo dpkg -i steam*.deb
 rm steam*.deb

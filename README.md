@@ -28,14 +28,17 @@ You can install drivers (including NVIDIA driver) with `Driver Manager`, a GUI t
 and check it with <code>nvcc --version</code>.
 </ul>
 
-### Enable Proton Engine on Steam
+### Setup Steam and Enable Proton Engine
 
 1. Run `steam` to update and open it.
-2. Open Steam and click `Steam` on the menu bar (upper left corner) and click `Settings`.
-3. Click `compatibility`.
-4. Toggle on `Enable Steam Play for all other titles`.
-5. In `Run other titles with:`, select the option you want. The default is `Proton Hotfix`.
-6. Reboot the computer.
+2. Follow the instructions.
+3. Close it and open it again.
+4. Follow the instructions.
+5. Open Steam and click `Steam` on the menu bar (upper left corner) and click `Settings`.
+6. Click `compatibility`.
+7. Toggle on `Enable Steam Play for all other titles`.
+8. In `Run other titles with:`, select the option you want. The default is `Proton Hotfix`.
+9. Reboot the computer.
 
 ### Fcitx5
 

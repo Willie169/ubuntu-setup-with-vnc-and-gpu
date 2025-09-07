@@ -30,11 +30,12 @@ and check it with <code>nvcc --version</code>.
 
 ### Enable Proton Engine on Steam
 
-* Open Steam and click `Steam` on the menu bar (upper left corner) and click `Settings`.
-* Click `compatibility`.
-* Toggle on `Enable Steam Play for all other titles`.
-* In `Run other titles with:`, select the option you want. The default is `Proton Hotfix`.
-* Reboot.
+1. Run `steam` to update and open it.
+2. Open Steam and click `Steam` on the menu bar (upper left corner) and click `Settings`.
+3. Click `compatibility`.
+4. Toggle on `Enable Steam Play for all other titles`.
+5. In `Run other titles with:`, select the option you want. The default is `Proton Hotfix`.
+6. Reboot the computer.
 
 ### Fcitx5
 

@@ -4,11 +4,10 @@ sudo apt purge fcitx* -y
 sudo apt upgrade -y
 sudo add-apt-repository ppa:graphics-drivers/ppa
 sudo apt update
-sudo ubuntu-drivers autoinstall
-sudo apt install apt-transport-https automake bash build-essential bzip2 ca-certificates clang cmake codeblocks* command-not-found curl dbus fcitx5 fcitx5-* ffmpeg file flatpak gdb gh ghostscript git glab golang gpg grep libboost-all-dev libbz2-dev libdb-dev libeigen3-dev libffi-dev libgdbm-compat-dev libgdbm-dev libgsl-dev liblzma-dev libncursesw5-dev libnss3-dev libreadline-dev libsqlite3-dev libssl-dev libxcb-cursor0 libxml2-dev libxmlsec1-dev llvm iproute2 jq make maven mc nano neovim openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc pipx procps python-software-properties python3-pip python3-all-dev python3-venv rust-all software-properties-common tar tk-dev tmux unrar uuid-dev vim wget xz-utils zlib1g-dev zsh -y
+sudo ubuntu-drivers autoinstall -y
+sudo apt install apt-transport-https automake bash build-essential bzip2 ca-certificates clang cmake codeblocks* command-not-found curl dbus fcitx5 fcitx5-* ffmpeg file flatpak gdb gh ghostscript git glab golang gpg grep libboost-all-dev libbz2-dev libdb-dev libeigen3-dev libffi-dev libgdbm-compat-dev libgdbm-dev libgsl-dev liblzma-dev libncursesw5-dev libnss3-dev libreadline-dev libsqlite3-dev libssl-dev libxcb-cursor0 libxml2-dev libxmlsec1-dev llvm iproute2 jq make maven mc nano neovim openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc pipx procps python3-pip python3-all-dev python3-venv rust-all software-properties-common tar tk-dev tmux unrar uuid-dev vim wget xz-utils zlib1g-dev zsh -y
 im-config -n fcitx5
-systemctl start ssh
-systemctl enable ssh
+sudo systemctl enable ssh
 yes | sudo ufw enable
 sudo ufw allow ssh
 ip route
@@ -62,7 +61,6 @@ curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list
 sudo apt update
 sudo apt install tailscale -y
 sudo systemctl enable tailscaled
-sudo systemctl start tailscaled
 sudo add-apt-repository ppa:hluk/copyq -y
 sudo apt update
 sudo apt install copyq -y

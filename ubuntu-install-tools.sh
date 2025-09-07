@@ -1,17 +1,14 @@
 cd ~
-sudo add-apt-repository ppa:hluk/copyq -y
 sudo apt update
 sudo apt purge fcitx* -y
 sudo apt upgrade -y
-sudo apt install apt-transport-https automake bash build-essential bzip2 ca-certificates clang cmake codeblocks* command-not-found copyq curl dbus fcitx5 fcitx5-* ffmpeg file flatpak gdb gh ghostscript git glab gnome-software gnome-software-plugin-flatpak golang gpg grep libboost-all-dev libbz2-dev libdb-dev libeigen3-dev libffi-dev libgdbm-compat-dev libgdbm-dev libgsl-dev liblzma-dev libncursesw5-dev libnss3-dev libreadline-dev libsqlite3-dev libssl-dev libxcb-cursor0 libxml2-dev libxmlsec1-dev llvm iproute2 jq make maven mc nano neovim openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc pipx procps python3-pip python3-all-dev python3-venv rust-all software-properties-common tar tk-dev tmux unrar uuid-dev vim wget xz-utils zlib1g-dev zsh -y
+sudo apt install apt-transport-https automake bash build-essential bzip2 ca-certificates clang cmake codeblocks* command-not-found curl dbus fcitx5 fcitx5-* ffmpeg file flatpak gdb gh ghostscript git glab golang gpg grep libboost-all-dev libbz2-dev libdb-dev libeigen3-dev libffi-dev libgdbm-compat-dev libgdbm-dev libgsl-dev liblzma-dev libncursesw5-dev libnss3-dev libreadline-dev libsqlite3-dev libssl-dev libxcb-cursor0 libxml2-dev libxmlsec1-dev llvm iproute2 jq make maven mc nano neovim openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc pipx procps python-software-properties python3-pip python3-all-dev python3-venv rust-all software-properties-common tar tk-dev tmux unrar uuid-dev vim wget xz-utils zlib1g-dev zsh -y
 im-config -n fcitx5
 systemctl start ssh
 systemctl enable ssh
 yes | sudo ufw enable
 sudo ufw allow ssh
 ip route
-sudo -v && wget --no-check-certificate -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
-curl https://pyenv.run | bash
 wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xvzf install-tl-unx.tar.gz
 sudo rm install-tl-unx.tar.gz
@@ -37,6 +34,7 @@ go install github.com/danielmiessler/fabric@latest
 cd /usr/local/lib
 curl -O https://www.antlr.org/download/antlr-4.13.2-complete.jar
 cd ~
+curl https://pyenv.run | bash
 pyenv install 2.7.13
 pyenv install 3.9.13
 pyenv install 3.10.11
@@ -56,6 +54,18 @@ sudo apt install docker-ce -y
 sudo systemctl start docker
 sudo systemctl enable docker
 sudo usermod -aG docker $USER
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
+sudo apt update
+sudo apt install tailscale -y
+sudo systemctl enable tailscaled
+sudo systemctl start tailscaled
+sudo add-apt-repository ppa:hluk/copyq -y
+sudo apt update
+sudo apt install copyq -y
+wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
+sudo dpkg -i steam*.deb
+rm steam*.deb
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
 rm packages.microsoft.gpg
@@ -66,10 +76,8 @@ source /etc/os-release
 wget -q https://packages.microsoft.com/config/ubuntu/$VERSION_ID/packages-microsoft-prod.deb
 sudo dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
-packages.microsoft.com
 sudo apt update
 sudo apt install powershell dotnet-sdk-8.0 dotnet-runtime-8.0 -y
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 cat > ~/.profile << 'EOF' 
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
@@ -391,28 +399,7 @@ cd tex
 mkdir -p latex
 cd latex
 git clone https://github.com/Willie169/physics-patch
-cat > ~/.installtmp.sh << 'EOF'
-#!/bin/bash
-systemctl --user disable installtmp.service
-rm ~/.config/systemd/user/installtmp.service
-rm -- "$0"
-flatpak install flathub fr.handbrake.ghb org.musescore.MuseScore flathub org.gnome.Aisleriot -y
-EOF
-chmod +x ~/.installtmp.sh
-mkdir -p ~/.config/systemd/user
-cat > ~/.config/systemd/user/installtmp.service << EOF
-[Unit]
-Description=Installation Temporary
-After=network.target
-
-[Service]
-ExecStart=$(pwd)/.installtmp.sh
-Type=oneshot
-RemainAfterExit=no
-
-[Install]
-WantedBy=default.target
-EOF
-systemctl --user daemon-reload
-systemctl --user enable installtmp.service
+cd ~
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub com.discordapp.Discord org.telegram.desktop com.spotify.Client org.videolan.VLC com.obsproject.Studio org.libreoffice.LibreOffice org.onlyoffice.desktopeditors net.cozic.joplin_desktop com.calibre_ebook.calibre com.getpostman.Postman org.gimp.GIMP org.kde.krita fr.handbrake.ghb org.musescore.MuseScore flathub org.gnome.Aisleriot -y
 sudo reboot

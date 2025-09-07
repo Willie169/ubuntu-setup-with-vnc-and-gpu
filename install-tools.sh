@@ -35,9 +35,8 @@ y | yarn
 y | pnpm
 npm install -g jsdom marked marked-gfm-heading-id node-html-markdown showdown
 go install github.com/danielmiessler/fabric@latest
-cd /usr/local/lib
-curl -O https://www.antlr.org/download/antlr-4.13.2-complete.jar
-cd ~
+mkdir -p /usr/local/lib
+sudo curl -o /usr/local/lib/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
 curl https://pyenv.run | bash
 pyenv install 2.7.13
 pyenv install 3.9.13

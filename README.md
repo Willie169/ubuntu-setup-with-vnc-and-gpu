@@ -35,3 +35,7 @@ and check it with <code>nvcc --version</code>.
 * Toggle on `Enable Steam Play for all other titles`.
 * In `Run other titles with:`, select the option you want. The default is `Proton Hotfix`.
 * Reboot.
+
+### Fcitx5
+
+Configure Fcitx5 in `Fcitx Configuration`, a GUI tool.

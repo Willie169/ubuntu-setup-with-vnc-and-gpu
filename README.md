@@ -28,17 +28,17 @@ You can install drivers (including NVIDIA driver) with `Driver Manager`, a GUI t
 and check it with <code>nvcc --version</code>.
 </ul>
 
-### Setup Steam and Enable Proton Engine
+### Setup Steam
 
 1. Run `steam` to update and open it.
 2. Follow the instructions.
-3. Close it and open it again with desktop icon. If the icon can not be launched, right click on it and click `Allow Launching`.
+3. Restart Steam.
 4. Follow the instructions.
-5. Open Steam and click `Steam` on the menu bar (upper left corner) and click `Settings`.
+5. Click `Steam` on the menu bar (upper left corner) and click `Settings`.
 6. Click `compatibility`.
-7. Toggle on `Enable Steam Play for all other titles`.
-8. In `Run other titles with:`, select the option you want. The default is `Proton Hotfix`.
-9. Reboot the computer.
+7. Toggle on `Enable Steam Play for all other titles` if such option exists.
+8. Select the option you want.
+9. Restart Steam. 
 
 ### Fcitx5
 
@@ -55,3 +55,21 @@ sudo timedatectl set-ntp true
 </code></pre></li>
 <li>Boot into Windows and sync time in it if time still mismatches after step 1.</li>
 </ol>
+
+### Linux Mint Ubuntu Version Tweak
+
+To make a script for Ubuntu work for both Ubuntu and Linux Mint, do the following tweaks:
+
+1. `$(lsb_release -cs)`: Add `source /etc/os-release` before it and replace it with `$UBUNTU_CODENAME`.
+2. `$VERSION_ID` (from `source /etc/os-release`): Add
+```
+OS_VERSION_ID=$(
+if grep -q '^NAME="Linux Mint"' /etc/os-release; then
+    inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'
+else
+    source /etc/os-release
+    echo $VERSION_ID
+fi
+)
+```
+before it and replace it with `$OS_VERSION_ID`.

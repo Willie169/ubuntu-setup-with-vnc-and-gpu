@@ -412,5 +412,9 @@ flatpak install flathub com.discordapp.Discord org.telegram.desktop com.spotify.
 wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
 sudo dpkg -i steam*.deb
 rm steam*.deb
+sudo apt update
 sudo apt install -f -y
+sudo apt upgrade -y
+sudo apt autoremove --purge -y
+sudo apt clean
 sudo reboot

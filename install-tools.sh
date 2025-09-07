@@ -1,7 +1,7 @@
 cd ~
 sudo apt update
 sudo apt purge fcitx* -y
-sudo apt upgrade -y
+sudo apt full-upgrade -y
 sudo add-apt-repository ppa:graphics-drivers/ppa
 sudo apt update
 sudo ubuntu-drivers autoinstall -y
@@ -414,7 +414,7 @@ sudo dpkg -i steam*.deb
 rm steam*.deb
 sudo apt update
 sudo apt install -f -y
-sudo apt upgrade -y
+sudo apt full-upgrade -y
 sudo apt autoremove --purge -y
 sudo apt clean
 sudo reboot

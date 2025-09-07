@@ -16,7 +16,7 @@ See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root).
 
 ### Drivers on Linux Mint
 
-You can install drivers (including NVIDIA driver) with GUI on Linux Mint.
+You can install drivers (including NVIDIA driver) with `Driver Manager`, a GUI tool, on Linux Mint.
 
 ### NVIDIA
 

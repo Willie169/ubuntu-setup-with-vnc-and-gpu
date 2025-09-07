@@ -39,3 +39,11 @@ and check it with <code>nvcc --version</code>.
 ### Fcitx5
 
 Configure Fcitx5 in `Fcitx Configuration`, a GUI tool.
+
+### Time Issue When Dual Booting with Windows
+
+If time has issue when dual booting with Windows, run
+```
+sudo timedatectl set-local-rtc 0
+sudo timedatectl set-ntp true
+```

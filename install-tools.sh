@@ -55,7 +55,6 @@ source /etc/os-release
 sudo add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME stable" -y
 sudo apt update
 sudo apt install docker-ce -y
-sudo systemctl start docker
 sudo systemctl enable docker
 sudo usermod -aG docker $USER
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null

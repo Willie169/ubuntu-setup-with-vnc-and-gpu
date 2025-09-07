@@ -66,21 +66,13 @@ sudo systemctl start tailscaled
 sudo add-apt-repository ppa:hluk/copyq -y
 sudo apt update
 sudo apt install copyq -y
-wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
-sudo dpkg -i steam*.deb
-rm steam*.deb
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
-rm packages.microsoft.gpg
-sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-sudo apt update
-sudo apt install code -y
 source /etc/os-release
 wget -q https://packages.microsoft.com/config/ubuntu/$VERSION_ID/packages-microsoft-prod.deb
 sudo dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
+sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 sudo apt update
-sudo apt install powershell dotnet-sdk-8.0 dotnet-runtime-8.0 -y
+sudo apt install code powershell dotnet-sdk-8.0 dotnet-runtime-8.0 -y
 cat > ~/.profile << 'EOF' 
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
@@ -405,4 +397,8 @@ git clone https://github.com/Willie169/physics-patch
 cd ~
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install flathub com.discordapp.Discord org.telegram.desktop com.spotify.Client org.videolan.VLC com.obsproject.Studio org.libreoffice.LibreOffice org.onlyoffice.desktopeditors net.cozic.joplin_desktop com.calibre_ebook.calibre com.getpostman.Postman org.gimp.GIMP org.kde.krita fr.handbrake.ghb org.musescore.MuseScore flathub org.gnome.Aisleriot -y
+wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
+sudo dpkg -i steam*.deb
+rm steam*.deb
+sudo apt install -f -y
 sudo reboot

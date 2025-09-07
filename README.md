@@ -37,7 +37,7 @@ and check it with <code>nvcc --version</code>.
 5. Click `Steam` on the menu bar (upper left corner) and click `Settings`.
 6. Click `compatibility`.
 7. Toggle on `Enable Steam Play for all other titles` if such option exists.
-8. Select the option you want.
+8. Select the Proton engine you want.
 9. Restart Steam. 
 
 ### Fcitx5

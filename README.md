@@ -40,10 +40,14 @@ and check it with <code>nvcc --version</code>.
 
 Configure Fcitx5 in `Fcitx Configuration`, a GUI tool.
 
-### Time Issue When Dual Booting with Windows
+### Time Mismatches When Dual Booting with Windows
 
-If time has issue when dual booting with Windows, run
-```
-sudo timedatectl set-local-rtc 0
+If time mismatches real local time when dual booting with Windows, do the following steps:
+
+<ol>
+<li>In Linux, run:
+<pre><code>sudo timedatectl set-local-rtc 0
 sudo timedatectl set-ntp true
-```
+</code></pre></li>
+<li>Boot into Windows and sync time in it if time still mismatches after step 1.</li>
+</ol>

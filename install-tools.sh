@@ -65,6 +65,7 @@ sudo systemctl enable tailscaled
 sudo add-apt-repository ppa:hluk/copyq -y
 sudo apt update
 sudo apt install copyq -y
+copyq autostart
 OS_VERSION_ID=$(
 if grep -q '^NAME="Linux Mint"' /etc/os-release; then
     inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'
@@ -408,7 +409,12 @@ cd latex
 git clone https://github.com/Willie169/physics-patch
 cd ~
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install flathub com.discordapp.Discord org.telegram.desktop com.spotify.Client org.videolan.VLC com.obsproject.Studio org.libreoffice.LibreOffice org.onlyoffice.desktopeditors net.cozic.joplin_desktop com.calibre_ebook.calibre com.getpostman.Postman org.gimp.GIMP org.kde.krita fr.handbrake.ghb org.musescore.MuseScore flathub org.gnome.Aisleriot -y
+cat > ~/.installtmp.sh << 'EOF'
+#!/bin/bash
+systemctl --user disable installtmp.service
+rm ~/.config/systemd/user/installtmp.service
+rm -- "$0"
+flatpak install flathub com.discordapp.Discord org.telegram.desktop io.freetubeapp.FreeTube com.spotify.Client org.videolan.VLC com.obsproject.Studio org.libreoffice.LibreOffice org.onlyoffice.desktopeditors net.cozic.joplin_desktop com.calibre_ebook.calibre com.getpostman.Postman org.gimp.GIMP org.kde.krita fr.handbrake.ghb org.musescore.MuseScore flathub org.gnome.Aisleriot -y
 sudo dpkg --add-architecture i386
 sudo apt update
 sudo apt install libgl1:i386 -y
@@ -420,4 +426,23 @@ sudo apt install -f -y
 sudo apt full-upgrade -y
 sudo apt autoremove --purge -y
 sudo apt clean
+sudo reboot
+EOF
+chmod +x ~/.installtmp.sh
+mkdir -p ~/.config/systemd/user
+cat > ~/.config/systemd/user/installtmp.service << EOF
+[Unit]
+Description=Installation Temporary
+After=network.target
+
+[Service]
+ExecStart=$(pwd)/.installtmp.sh
+Type=oneshot
+RemainAfterExit=no
+
+[Install]
+WantedBy=default.target
+EOF
+systemctl --user daemon-reload
+systemctl --user enable installtmp.service
 sudo reboot

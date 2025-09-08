@@ -1,3 +1,5 @@
+THIS REPOSITORY IS NO LONGER UPDATED, FOR NEW UPDATES OF THIS PROJECT, PLEASE SEE [**ubuntu-or-linux-mint-setup**](https://github.com/Willie169/ubuntu-or-linux-mint-setup).
+
 # ubuntu-setup-with-vnc-and-gpu
 
 Scripts and instructions for setting up Ubuntu or Linux Mint with tools for development, productivity, graphics, remote control, gaming, multimedia, communication, and more.

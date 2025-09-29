@@ -1,22 +1,72 @@
-THIS REPOSITORY IS NO LONGER UPDATED, FOR NEW UPDATES OF THIS PROJECT, PLEASE SEE [**ubuntu-or-linux-mint-setup**](https://github.com/Willie169/ubuntu-or-linux-mint-setup).
-
 # ubuntu-setup-with-vnc-and-gpu
 
-Scripts and instructions for setting up Ubuntu or Linux Mint with tools for development, productivity, graphics, remote control, gaming, multimedia, communication, and more.
+Scripts and instructions for setting up Ubuntu derivatives with tools for development, productivity, graphics, remote control, gaming, multimedia, communication, and more.
 
-* [`install-tools.sh`](install-tools.sh): Scripts for setting up Ubuntu or Linux Mint with recommended drivers and tools for C/C++, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET, GitHub CLI, GitLab CLI, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, CopyQ, Tailscale, Noto CJK fonts, XITS fonts, Node.js packages, Python3 packages, pipx, Poetry, RARLAB UnRAR, Fabric, Visual Studio Code, Code::Blocks, PowerShell, ANTLR 4, Steam, Discord, Telegram, Spotify, VLC, OBS Studio, LibreOffice, OnlyOffice, Joplin, Calibre, Postman, GIMP, Krita, HandBrake, MuseScore, Aisleriot Solitaire, custom `~/.profile`, custom `~/.bashrc`, custom `~/.vimrc`, and more.
-* [`tigervnc.sh`](tigervnc.sh): Scripts for setting up TigerVNC on Ubuntu or Linux Mint.
-* [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh): Scripts for setting up VirtualGL and TurboVNC on Ubuntu or Linux Mint, compatible with NVIDIA GPU.
-* [`waydroid.sh`](waydroid.sh): Scripts for setting up Waydroid on Ubuntu or Linux Mint.
-* [`wine.sh`](wine.sh): Scripts for setting up Wine on Ubuntu or Linux Mint.
+## Scripts
+
+* [`install-tools.sh`](install-tools.sh): Scripts for setting up Ubuntu derivatives with installation of recommended drivers and tools for C/C++, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET, GitHub CLI, GitLab CLI, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, CopyQ, Tailscale, Noto CJK fonts, XITS fonts, Node.js packages, Python3 packages, pipx, Poetry, RARLAB UnRAR, Fabric, Visual Studio Code, Code::Blocks, PowerShell, ANTLR 4, Steam, Discord, Telegram, Spotify, VLC, OBS Studio, LibreOffice, OnlyOffice, Joplin, Calibre, Postman, GIMP, Krita, HandBrake, MuseScore, Aisleriot Solitaire, custom `~/.profile`, custom `~/.bashrc`, custom `~/.vimrc`, and my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch) and my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit).
+* [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh): Scripts for installation of VirtualGL and TurboVNC on Ubuntu or Linux Mint, compatible with NVIDIA GPU. See [#VNC](#vnc) for what to do after running this script.
+* [`waydroid-ubuntu.sh`](waydroid-ubuntu.sh): Scripts for installation of Waydroid on Ubuntu. See [Waydroid on Ubuntu](#waydroid-on-ubunut) for what to do after running this script.
+* [`wine.sh`](wine.sh): Scripts for installation of Wine on Debian derivatives.
 
 ## Instructions
 
-### Android Client
++ [GRUB](#grub)
++ [Driver Manager in Linux Mint](#driver-manager-in-linux-mint)
++ [NVIDIA](#nvidia)
++ [Time Mismatches When Dual Booting with Windows](#time-mismatches-when-dual-booting-with-windows)
++ [Linux Mint Ubuntu Version Tweak](#linux-mint-ubuntu-version-tweak)
++ [Desktop App Launchers](#desktop-app-launchers)
++ [Fcitx5](#fcitx5)
++ [VNC](#vnc)
++ [Waydroid on Ubuntu](#waydroid-on-ubunut)
++ [Steam](#steam)
++ [Solution for Closing Lip Overrides Power Off on Linux Mint](#Solution for Closing Lip Overrides Power Off on Linux Mint)
 
-See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root).
+### GRUB
 
-### Drivers on Linux Mint
+#### When Dual Booting with Windows
+
+When dual booting with Windows, you need to:
+- Disabe fast boot (in some context also secure boot) in BIOS.
+- In some context, `sudo nano /etc/grub.d/30_os_prober` and add or edit line `quick_boot="0"`.
+- `sudo nano /etc/default/grub` and add or edit line `GRUB_DISABLE_OS_PROBER=false`.
+- `sudo nano /etc/default/grub` and add or edit non-zero `GRUB_TIMEOUT`, when `GRUB_TIMEOUT_STYLE=menu`, or `GRUB_HIDDEN_TIMEOUT`, when otherwise.
+
+#### GRUB Menu
+
+- When `GRUB_TIMEOUT_STYLE=menu`, after `GRUB_TIMEOUT`, highlighted option will be booted.
+- When `GRUB_TIMEOUT_STYLE=hidden` or `GRUB_TIMEOUT_STYLE=countdown`, during `GRUB_HIDDEN_TIMEOUT`, press `ESC` to enter GRUB menu.
+- In menu, default highlighted option is the default option. 
+
+#### GRUB Configuration
+
+```
+sudo nano /etc/default/grub
+``` 
+
+to edit configuration, 
+
+```
+sudo update-grub
+sudo reboot
+```
+
+to apply.
+
+Variables:
+
+- `GRUB_DEFAULT=<number>`: Default boot option to boot. Options and their numbers are showed in GRUB menu.
+- `GRUB_TIMEOUT_STYLE=<string>`: GRUB timeout style when booting.
+  - `menu`: Show menu, wait until `GRUB_TIMEOUT` ends, and boot default option.
+  - `hidden`: Hide menu with black screen, wait until `GRUB_HIDDEN_TIMEOUT` ends, and boot highlighted option. Show menu when `ESC` is pressed during `GRUB_HIDDEN_TIMEOUT`.
+  - `countdown`: Hide menu with countdown shown on screen, wait until `GRUB_HIDDEN_TIMEOUT` ends, and boot default option. Show menu when `ESC` is pressed during `GRUB_HIDDEN_TIMEOUT`.
+- `GRUB_TIMEOUT=<number>`: When `GRUB_TIMEOUT_STYLE=menu`, the timeout before booting into highlighted option, `-1` for forever. Some versions may need `0.0` for `0`.
+- `GRUB_HIDDEN_TIMEOUT=<number>`: When `GRUB_TIMEOUT_STYLE=hidden` or `GRUB_TIMEOUT_STYLE=countdown`, the timeout before booting into the default option. Some versions may need `0.0` for `0`.
+- `GRUB_HIDDEN_TIMEOUT_QUIET=<boolean>`: DEPRECATED. `GRUB_TIMEOUT_STYLE=hidden` and `GRUB_HIDDEN_TIMEOUT_QUIET=false` is equivalent to `GRUB_TIMEOUT_STYLE=countdown`; `GRUB_TIMEOUT_STYLE=hidden` and `GRUB_HIDDEN_TIMEOUT_QUIET=true` is equivalent to `GRUB_TIMEOUT_STYLE=hidden`. There's a known bug that make this not work as expected in some versions after this is deprecated.
+- `GRUB_DISABLE_OS_PROBER=<boolean>`: Whether to disable OS prober. Set it to `false` when dual booting.
+
+### Driver Manager in Linux Mint
 
 You can install drivers (including NVIDIA driver) with `Driver Manager`, a GUI tool, on Linux Mint.
 
@@ -29,22 +79,6 @@ You can install drivers (including NVIDIA driver) with `Driver Manager`, a GUI t
 </code></pre>
 and check it with <code>nvcc --version</code>.
 </ul>
-
-### Setup Steam
-
-1. Run `steam` to update and open it.
-2. Follow the instructions.
-3. Restart Steam.
-4. Follow the instructions.
-5. Click `Steam` on the menu bar (upper left corner) and click `Settings`.
-6. Click `compatibility`.
-7. Toggle on `Enable Steam Play for all other titles` if such option exists.
-8. Select the Proton engine you want.
-9. Restart Steam. 
-
-### Fcitx5
-
-Configure Fcitx5 in `Fcitx Configuration`, a GUI tool.
 
 ### Time Mismatches When Dual Booting with Windows
 
@@ -63,15 +97,237 @@ sudo timedatectl set-ntp true
 To make a script for Ubuntu work for both Ubuntu and Linux Mint, do the following tweaks:
 
 1. `$(lsb_release -cs)`: Add `source /etc/os-release` before it and replace it with `$UBUNTU_CODENAME`.
-2. `$VERSION_ID` (from `source /etc/os-release`): Add
+2. `$VERSION_ID` (from `/etc/os-release`): Add
 ```
-OS_VERSION_ID=$(
+export UBUNTU_VERSION_ID=$(
 if grep -q '^NAME="Linux Mint"' /etc/os-release; then
     inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'
 else
-    source /etc/os-release
-    echo $VERSION_ID
+    . /etc/os-release
+    echo "$VERSION_ID"
 fi
 )
 ```
-before it and replace it with `$OS_VERSION_ID`.
+before it and replace it with `$UBUNTU_VERSION_ID`. This has been added to `~/.bashrc` in [`install-tools.sh`](install-tools.sh).
+
+### Desktop App Launchers
+
+#### Command line
+
+```
+cp /usr/share/applications/<application_name>.desktop ~/Desktop/`
+chmod +x ~/Desktop/<application_name>.desktop
+```
+
+#### Linux Mint GUI
+
+1. Click **Mint menu button** (lower left corner).
+2. Find the app you want.
+3. Right-click and click `Add to desktop`.
+
+### Fcitx5
+
+You can configure Fcitx5 in `Fcitx Configuration`, a GUI tool.
+
+### VNC
+
+After [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh) is run, you have to configure the things according to your desktop manager (Ubuntu usually uses GDM while Linux Mint usually uses LightDM) and GPU.
+
+#### For Nvidia and GDM
+
+<ol>
+<li>In tty or from SSH client, run:
+<pre><code>sudo systemctl stop gdm
+sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia
+sudo systemctl start gdm
+</code></pre></li>
+<li>Re-login into your computer.</li>
+<li>Run:
+<pre><code>vglrun glxinfo
+</code></pre></li>
+</ol>
+
+#### For Nvidia and LightDM
+
+<ol>
+<li>In tty or from SSH client, run:
+<pre><code>sudo systemctl stop lightdm
+sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia
+sudo systemctl start lightdm
+</code></pre></li>
+<li>Re-login into your computer.</li>
+<li>Run:
+<pre><code>vglrun glxinfo
+</code></pre></li>
+</ol>
+
+#### For GDM
+
+<ol>
+<li>In tty or from SSH client, run:
+<pre><code>sudo systemctl stop gdm
+sudo systemctl start gdm
+</code></pre></li>
+<li>Re-login into your computer.</li>
+<li>Run:
+<pre><code>vglrun glxinfo
+</code></pre></li>
+</ol>
+
+#### For LightDM
+
+<ol>
+<li>In tty or from SSH client, run:
+<pre><code>sudo systemctl stop lightdm
+sudo systemctl start lightdm
+</code></pre></li>
+<li>Re-login into your computer.</li>
+<li>Run:
+<pre><code>vglrun glxinfo
+</code></pre></li>
+</ol>
+
+#### VNC Server Usage
+
+Add `alias vncserver="/opt/TurboVNC/bin/vncserver"` in `~/.bashrc` before using it, which has been done in [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh).
+
+* Start VNC server: `vncserver`.
+* List VNC servers: `vncserver -list`.
+* Kill VNC server: `vncserver -kill :1`. Replace `:1` with your actual display number.
+
+#### Android as SSH and VNC/X Client
+
+See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root).
+
+### Waydroid on Ubuntu
+
+Site: <https://waydro.id>.
+Doc: <https://docs.waydro.id>.
+
+#### Install
+```
+sudo apt install curl ca-certificates -y
+curl -s https://repo.waydro.id | sudo bash
+sudo apt install waydroid -y
+```
+#### Enable Wayland on Ubuntu
+
+Method 1:
+```
+sudo nano /etc/gdm3/custom.conf
+```
+Edit:
+```
+WaylandEnable=true
+```
+an then
+```
+sudo systemctl restart gdm3
+```
+
+Method 2:
+1. Log out.
+2. In the down right corner of the login page, choose `Ubuntu on Wayland`.
+3. Login.
+
+#### Download Android
+
+1. Open Waydroid from application menu. 
+2. Choose options you want. In `Android Type`, `Vanilla` refers to a pure AOSP (Android Open-Source Project) build without any Google services, while `Gapps` refers to a build that provides access to Google services.
+3. Press `Download`, wait until `Done` button is shown, and press it.
+
+#### Network
+
+To allow network access in Waydroid, run:
+```
+sudo ufw allow 53
+sudo ufw allow 67
+sudo ufw default allow FORWARD
+```
+This has been done in [`waydroid-ubuntu.sh`](waydroid-ubuntu.sh).
+
+#### Storage
+Waydroid's home directory is:
+```
+~/.local/share/waydroid/data/media/0/
+```
+
+#### Google Play Certificate
+
+Run:
+```
+sudo waydroid shell
+```
+inside Waydroid’s shell, run:
+```
+ANDROID_RUNTIME_ROOT=/apex/com.android.runtime ANDROID_DATA=/data ANDROID_TZDATA_ROOT=/apex/com.android.tzdata ANDROID_I18N_ROOT=/apex/com.android.i18n sqlite3 /data/data/com.google.android.gsf/databases/gservices.db "select * from main where name = \"android_id\";"
+```
+Use the string of numbers printed by the command to register the device on your Google Account at <https://www.google.com/android/uncertified>.
+
+#### Remove
+
+Run:
+```
+waydroid session stop
+sudo waydroid container stop
+sudo apt remove waydroid
+sudo reboot
+```
+after rebooted, run:
+```
+sudo rm -rf /var/lib/waydroid /home/.waydroid ~/waydroid ~/.share/waydroid ~/.local/share/applications/*aydroid* ~/.local/share/waydroid
+```
+
+### Steam
+
+#### Install Steam
+
+<ol>
+<li>If you have run <a href="install-tools.sh"><code>install-tools.sh</code></a>, go to next step; otherwise, run:
+<pre><code>cd ~
+sudo dpkg --add-architecture i386
+sudo apt update
+sudo apt install libgl1:i386 -y
+wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
+sudo dpkg -i steam*.deb
+rm steam*.deb
+</code></pre></li>
+<li>Run <code>steam</code> to update and open it for the first time.</li>
+<li>Follow the instructions.</li>
+<li>Restart Steam.</li>
+<li>Follow the instructions.</li>
+</ol>
+
+#### Proton Engine
+
+1. Open Steam.
+2. Click `Steam` on the menu bar (upper left corner) and click `Settings`.
+3. Click `compatibility`.
+4. Toggle on `Enable Steam Play for all other titles` if such option exists.
+5. Select the Proton engine you want.
+6. Restart Steam.
+
+### Solution for Closing Lip Overrides Power Off on Linux Mint
+#### Symptom
+
+On Linux Mint, after clicked shut down and then closed the lip, the laptop didn't shut down.
+
+#### Solution
+
+Run:
+```
+sudo vim /etc/systemd/logind.conf
+```
+Add or change:
+```
+HandleLidSwitch=ignore
+HandleLidSwitchDocked=ignore
+HandleLidSwitchExternalPower=ignore
+```
+Run:
+```
+sudo systemctl restart systemd-logind
+```
+Test it.
+
+It seems worked but not sure.

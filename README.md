@@ -5,8 +5,8 @@ Scripts and instructions for setting up Ubuntu derivatives with tools for develo
 ## Scripts
 
 * [`install-tools.sh`](install-tools.sh): Scripts for setting up Ubuntu derivatives with installation of recommended drivers and tools for C/C++, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET, GitHub CLI, GitLab CLI, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, CopyQ, Tailscale, Noto CJK fonts, XITS fonts, Node.js packages, Python3 packages, pipx, Poetry, RARLAB UnRAR, Fabric, Visual Studio Code, Code::Blocks, PowerShell, ANTLR 4, Steam, Discord, Telegram, Spotify, VLC, OBS Studio, LibreOffice, OnlyOffice, Joplin, Calibre, Postman, GIMP, Krita, HandBrake, MuseScore, Aisleriot Solitaire, custom `~/.profile`, custom `~/.bashrc`, custom `~/.vimrc`, and my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch) and my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit).
-* [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh): Scripts for installation of VirtualGL and TurboVNC on Ubuntu or Linux Mint, compatible with NVIDIA GPU. See [#VNC](#vnc) for what to do after running this script.
-* [`waydroid-ubuntu.sh`](waydroid-ubuntu.sh): Scripts for installation of Waydroid on Ubuntu. See [Waydroid on Ubuntu](#waydroid-on-ubunut) for what to do after running this script.
+* [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh): Scripts for installation of VirtualGL and TurboVNC on Ubuntu derivatives, compatible with NVIDIA GPU. See [#VNC](#vnc) for what to do after running this script.
+* [`waydroid.sh`](waydroid.sh): Scripts for installation of Waydroid on Ubuntu derivatives that support Wayland. See [Waydroid](#waydroid) for what to do after running this script.
 * [`wine.sh`](wine.sh): Scripts for installation of Wine on Debian derivatives.
 
 ## Instructions
@@ -19,7 +19,7 @@ Scripts and instructions for setting up Ubuntu derivatives with tools for develo
 + [Desktop App Launchers](#desktop-app-launchers)
 + [Fcitx5](#fcitx5)
 + [VNC](#vnc)
-+ [Waydroid on Ubuntu](#waydroid-on-ubunut)
++ [Waydroid](#waydroid)
 + [Steam](#steam)
 + [Solution for Closing Lip Overrides Power Off on Linux Mint](#Solution for Closing Lip Overrides Power Off on Linux Mint)
 
@@ -131,7 +131,7 @@ You can configure Fcitx5 in `Fcitx Configuration`, a GUI tool.
 
 ### VNC
 
-After [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh) is run, you have to configure the things according to your desktop manager (Ubuntu usually uses GDM while Linux Mint usually uses LightDM) and GPU.
+**Note**: Ubuntu usually uses GDM. Linux Mint usually uses LightDM.
 
 #### For Nvidia and GDM
 
@@ -199,7 +199,11 @@ Add `alias vncserver="/opt/TurboVNC/bin/vncserver"` in `~/.bashrc` before using 
 
 See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root).
 
-### Waydroid on Ubuntu
+### Waydroid
+
+**Note**: Ubuntu usually uses GDM and supports Wayland. Linux Mint Cinnamon currently doesn't support Wayland.
+
+#### Official Site
 
 Site: <https://waydro.id>.
 Doc: <https://docs.waydro.id>.
@@ -210,7 +214,7 @@ sudo apt install curl ca-certificates -y
 curl -s https://repo.waydro.id | sudo bash
 sudo apt install waydroid -y
 ```
-#### Enable Wayland on Ubuntu
+#### Enable Wayland for GDM
 
 Method 1:
 ```

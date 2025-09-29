@@ -21,7 +21,7 @@ Scripts and instructions for setting up Ubuntu derivatives with tools for develo
 + [VNC](#vnc)
 + [Waydroid](#waydroid)
 + [Steam](#steam)
-+ [Solution for Closing Lip Overrides Power Off on Linux Mint](#Solution for Closing Lip Overrides Power Off on Linux Mint)
++ [Solution for Closing Lip Overrides Power Off on Linux Mint](#solution-for-closing-lip-overrides-power-off-on-linux-mint)
 
 ### GRUB
 

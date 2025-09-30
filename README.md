@@ -46,7 +46,7 @@ Can also be run on Debian derivatives.
 + [VNC](#vnc)
 + [Waydroid](#waydroid)
 + [Steam](#steam)
-+ [Solution for Closing Lip Overrides Power Off on Linux Mint](#solution-for-closing-lip-overrides-power-off-on-linux-mint)
++ [Solution for Closing Lip Overrides Power Off](#solution-for-closing-lip-overrides-power-off)
 + [Switching Firefox and Thunderbird from Snap to PPA](#switching-firefox-and-thunderbird-from-snap-to-ppa)
 
 ### GRUB
@@ -335,10 +335,10 @@ rm steam*.deb
 5. Select the Proton engine you want.
 6. Restart Steam.
 
-### Solution for Closing Lip Overrides Power Off on Linux Mint
+### Solution for Closing Lip Overrides Power Off
 #### Symptom
 
-On Linux Mint, after clicked shut down and then closed the lip, the laptop didn't shut down.
+After clicked shut down and then closed the lip, the laptop didn't shut down.
 
 #### Solution
 
@@ -357,8 +357,6 @@ Run:
 sudo systemctl restart systemd-logind
 ```
 Test it.
-
-It seems worked but not sure.
 
 ### Switching Firefox and Thunderbird from Snap to PPA
 

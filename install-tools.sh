@@ -508,19 +508,35 @@ sudo reboot
 EOF
 chmod +x ~/.installtmp.sh
 mkdir -p ~/.config/systemd/user
-cat > ~/.config/systemd/user/installtmp.service << EOF
+if [ "$XDG_CURRENT_DESKTOP" != "KDE" ] && [ "$DESKTOP_SESSION" != "plasma" ] && [ "$KDE_FULL_SESSION" != "true" ]; then
+    cat > ~/.config/systemd/user/installtmp.service << EOF
 [Unit]
 Description=Installation Temporary
 After=graphical.target
 
 [Service]
-ExecStart=$(pwd)/.installtmp.sh
+ExecStart=/usr/bin/gnome-terminal --hold -e $(pwd)/.installtmp.sh
 Type=oneshot
 RemainAfterExit=no
 
 [Install]
 WantedBy=default.target
 EOF
+else
+    cat > ~/.config/systemd/user/installtmp.service << EOF
+[Unit]
+Description=Installation Temporary
+After=graphical.target
+
+[Service]
+ExecStart=/usr/bin/konsole --hold -e $(pwd)/.installtmp.sh
+Type=oneshot
+RemainAfterExit=no
+
+[Install]
+WantedBy=default.target
+EOF
+fi
 systemctl --user daemon-reload
 systemctl --user enable installtmp.service
 sudo reboot

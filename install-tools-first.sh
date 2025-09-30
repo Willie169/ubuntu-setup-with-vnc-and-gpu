@@ -171,7 +171,13 @@ sudo apt install tor deb.torproject.org-keyring -y
 wget -q https://dist.torproject.org/torbrowser/14.5.7/tor-browser-linux-x86_64-14.5.7.tar.xz
 tar -xvf tor-browser-linux-x86_64-14.5.7.tar.xz
 rm tor-browser-linux-x86_64-14.5.7.tar.xz
-cp ./tor-browser/start-tor-browser.desktop ~/Desktop
+cd tor-browser
+./start-tor-browser.desktop --headless &
+PID=$!
+sleep 5
+kill $PID
+cp start-tor-browser.desktop ~/Desktop
+cd ~
 cat > ~/.profile << 'EOF'
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login

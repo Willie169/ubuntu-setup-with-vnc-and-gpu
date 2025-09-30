@@ -160,8 +160,9 @@ sudo dpkg -i liblttng-ust1t64_2.14.0-1.1_amd64.deb -y
 rm liblttng-ust1t64_2.14.0-1.1_amd64.deb
 sudo add-apt-repository ppa:dotnet/backports -y
 sudo apt install dotnet-sdk-9.0 aspnetcore-runtime-9.0 -y
+source /etc/os-release
 wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | sudo tee /usr/share/keyrings/deb.torproject.org-keyring.gpg >/dev/null
-cat > /etc/apt/sources.list.d/tor.list << EOF
+sudo tee /etc/apt/sources.list.d/tor.list > /dev/null << EOF
 deb     [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
 deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
 EOF

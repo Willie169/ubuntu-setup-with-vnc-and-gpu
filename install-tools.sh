@@ -20,6 +20,7 @@ export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 export INPUT_METHOD=fcitx
 EOF
+source ~/.xprofile
 sudo systemctl enable ssh
 yes | sudo ufw enable
 sudo ufw allow ssh
@@ -38,7 +39,7 @@ Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/mozilla-firefox
     sudo systemctl stop var-snap-firefox-common-*.mount 2>/dev/null || true
     sudo systemctl disable var-snap-firefox-common-*.mount 2>/dev/null || true
     sudo snap remove --purge firefox || true
-    sudo apt install firefox -y
+    sudo apt install firefox --allow-downgrades -y
     echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox
     echo 'Package: *
 Pin: release o=LP-PPA-mozillateam
@@ -52,13 +53,8 @@ Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/mozilla-firefox
     sudo systemctl stop var-snap-thunderbird-common-*.mount 2>/dev/null || true
     sudo systemctl disable var-snap-thunderbird-common-*.mount 2>/dev/null || true
     sudo snap remove --purge thunderbird || true
-    sudo apt install thunderbird -y
+    sudo apt install thunderbird --allow-downgrades -y
     echo "Unattended-Upgrade::Allowed-Origins:: \"LP-PPA-mozillateam:$(lsb_release -cs)\";" | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-thunderbird
-    sudo rm -f /etc/apparmor.d/usr.bin.chromium
-    sudo rm -f /etc/apparmor.d/local/usr.bin.chromium
-    sudo systemctl stop var-snap-chromium-common-*.mount 2>/dev/null || true
-    sudo systemctl disable var-snap-chromium-common-*.mount 2>/dev/null || true
-    sudo snap remove --purge chromium || true
 fi
 wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xvzf install-tl-unx.tar.gz
@@ -481,10 +477,7 @@ cat > ~/.installtmp.sh << 'EOF'
 systemctl --user disable installtmp.service
 rm ~/.config/systemd/user/installtmp.service
 rm -- "$0"
-if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
-    flatpak install org.chromium.Chromium -y
-fi
-flatpak install flathub com.discordapp.Discord org.telegram.desktop io.freetubeapp.FreeTube com.spotify.Client org.videolan.VLC com.obsproject.Studio org.onlyoffice.desktopeditors net.cozic.joplin_desktop com.calibre_ebook.calibre com.getpostman.Postman org.gimp.GIMP org.kde.krita fr.handbrake.ghb org.musescore.MuseScore flathub org.gnome.Aisleriot -y
+flatpak install flathub com.calibre_ebook.calibre com.discordapp.Discord com.getpostman.Postman com.obsproject.Studio com.spotify.Client fr.handbrake.ghb io.freetubeapp.FreeTube net.cozic.joplin_desktop org.chromium.Chromium org.gimp.GIMP org.gnome.Aisleriot org.kde.krita org.musescore.MuseScore org.onlyoffice.desktopeditors org.telegram.desktop org.videolan.VLC -y
 sudo dpkg --add-architecture i386
 sudo apt update
 sudo apt install libgl1:i386 -y

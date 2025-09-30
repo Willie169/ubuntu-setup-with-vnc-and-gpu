@@ -39,7 +39,7 @@ if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
     sudo rm -f /etc/apparmor.d/local/usr.bin.firefox
     sudo systemctl stop var-snap-firefox-common-host\\x2dhunspell.mount
     sudo systemctl disable var-snap-firefox-common-host\\x2dhunspell.mount
-    sudo snap remove --purge firefox -y
+    sudo snap remove --purge firefox || true
     sudo apt install firefox -y
     echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox
     echo '
@@ -55,7 +55,7 @@ if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
     sudo rm -f /etc/apparmor.d/local/usr.bin.thunderbird
     sudo systemctl stop var-snap-thunderbird-common-*.mount 2>/dev/null || true
     sudo systemctl disable var-snap-thunderbird-common-*.mount 2>/dev/null || true
-    sudo snap remove --purge thunderbird -y
+    sudo snap remove --purge thunderbird || true
     sudo apt update
     sudo apt install thunderbird -y
     echo "Unattended-Upgrade::Allowed-Origins:: \"LP-PPA-mozillateam:$(lsb_release -cs)\";" \
@@ -64,7 +64,7 @@ if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
     sudo rm -f /etc/apparmor.d/local/usr.bin.chromium
     sudo systemctl stop var-snap-chromium-common-*.mount 2>/dev/null || true
     sudo systemctl disable var-snap-chromium-common-*.mount 2>/dev/null || true
-    sudo snap remove --purge chromium -y
+    sudo snap remove --purge chromium || true
 fi
 wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xvzf install-tl-unx.tar.gz

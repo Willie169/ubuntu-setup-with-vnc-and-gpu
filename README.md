@@ -349,48 +349,42 @@ This has been done in [`install-tools.sh`](install-tools.sh).
 ```
 if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
     sudo add-apt-repository ppa:mozillateam/ppa -y
-    echo '
-    Package: *
-    Pin: release o=LP-PPA-mozillateam
-    Pin-Priority: 1001
-    
-    Package: firefox
-    Pin: version 1:1snap*
-    Pin-Priority: -1
-    ' | sudo tee /etc/apt/preferences.d/mozilla-firefox
+    echo 'Package: *
+Pin: release o=LP-PPA-mozillateam
+Pin-Priority: 1001
+
+Package: *
+Pin: release o=Ubuntu
+Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/mozilla-firefox
     sudo rm -f /etc/apparmor.d/usr.bin.firefox
     sudo rm -f /etc/apparmor.d/local/usr.bin.firefox
-    sudo systemctl stop var-snap-firefox-common-host\\x2dhunspell.mount
-    sudo systemctl disable var-snap-firefox-common-host\\x2dhunspell.mount
+    sudo systemctl stop var-snap-firefox-common-*.mount 2>/dev/null || true
+    sudo systemctl disable var-snap-firefox-common-*.mount 2>/dev/null || true
     sudo snap remove --purge firefox || true
     sudo apt install firefox -y
     echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox
 fi
 ```
 
-#### Script for Thunderbird
+#### Script for Firefox
 
 ```
 if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
     sudo add-apt-repository ppa:mozillateam/ppa -y
-    echo '
-    Package: *
-    Pin: release o=LP-PPA-mozillateam
-    Pin-Priority: 1001
+    echo 'Package: *
+Pin: release o=LP-PPA-mozillateam
+Pin-Priority: 1001
 
-    Package: thunderbird
-    Pin: version 2:1snap*
-    Pin-Priority: -1
-    ' | sudo tee /etc/apt/preferences.d/mozilla-thunderbird
+Package: *
+Pin: release o=Ubuntu
+Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/mozilla-firefox
     sudo rm -f /etc/apparmor.d/usr.bin.thunderbird
     sudo rm -f /etc/apparmor.d/local/usr.bin.thunderbird
     sudo systemctl stop var-snap-thunderbird-common-*.mount 2>/dev/null || true
     sudo systemctl disable var-snap-thunderbird-common-*.mount 2>/dev/null || true
     sudo snap remove --purge thunderbird || true
-    sudo apt update
     sudo apt install thunderbird -y
-    echo "Unattended-Upgrade::Allowed-Origins:: \"LP-PPA-mozillateam:$(lsb_release -cs)\";" \
-      | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-thunderbird
+    echo "Unattended-Upgrade::Allowed-Origins:: \"LP-PPA-mozillateam:$(lsb_release -cs)\";" | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-thunderbird
 fi
 ```
 
@@ -414,6 +408,6 @@ if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
     sudo systemctl stop var-snap-chromium-common-*.mount 2>/dev/null || true
     sudo systemctl disable var-snap-chromium-common-*.mount 2>/dev/null || true
     sudo snap remove --purge chromium || true
-    flatpak install flathub org.chromium.Chromium -
+    flatpak install flathub org.chromium.Chromium -y
 fi
 ```

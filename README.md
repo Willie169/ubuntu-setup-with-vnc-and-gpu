@@ -2,12 +2,37 @@
 
 Scripts and instructions for setting up Ubuntu derivatives with tools for development, productivity, graphics, remote control, gaming, multimedia, communication, and more.
 
-## Scripts
+## [`install-tools-first.sh`](install-tools-first.sh) and [`install-tools-second.sh`](install-tools-second.sh)
 
-* [`install-tools.sh`](install-tools.sh): Scripts for setting up Ubuntu derivatives with installation of recommended drivers and tools for C/C++, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET 9, GitHub CLI, GitLab CLI, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, Tailscale, Noto CJK fonts, XITS fonts, Node.js packages, Python3 packages, pipx, Poetry, RARLAB UnRAR, Fabric, Visual Studio Code, Code::Blocks, PowerShell, ANTLR 4, Steam, Discord, Telegram, Spotify, VLC, OBS Studio, LibreOffice, OnlyOffice, Joplin, Calibre, Postman, GIMP, Krita, HandBrake, MuseScore, Aisleriot Solitaire, custom `~/.profile`, custom `~/.bashrc`, custom `~/.vimrc`, CopyQ except on KDE Plasma, switching Firefox and Thunderbird from Snap to PPA except on Linux Mint, and my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch) and my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit).
-* [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh): Scripts for installation of VirtualGL and TurboVNC on Ubuntu derivatives, compatible with NVIDIA GPU. See [#VNC](#vnc) for what to do after running this script.
-* [`waydroid.sh`](waydroid.sh): Scripts for installation of Waydroid on Ubuntu derivatives that support Wayland. See [Waydroid](#waydroid) for what to do after running this script.
-* [`wine.sh`](wine.sh): Scripts for installation of Wine on Debian derivatives.
+### Usage 
+
+1. Run [`install-tools-first.sh`](install-tools-first.sh) and follow the prompts until it reboot automatically.
+2. Login and run [`install-tools-second.sh`](install-tools-second.sh) until it reboot automatically.
+3. Done.
+
+### Purpose
+
+Setting up Ubuntu derivatives with installation of recommended drivers and tools for C/C++, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET 9, GitHub CLI, GitLab CLI, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, Tailscale, Noto CJK fonts, XITS fonts, Node.js packages, Python3 packages, pipx, Poetry, RARLAB UnRAR, Fabric, Visual Studio Code, Code::Blocks, PowerShell, ANTLR 4, Steam, Discord, Telegram, Spotify, VLC, OBS Studio, LibreOffice, OnlyOffice, Joplin, Calibre, Postman, GIMP, Krita, HandBrake, MuseScore, Aisleriot Solitaire, custom `~/.profile`, custom `~/.bashrc`, custom `~/.vimrc`, CopyQ except on KDE Plasma, switching Firefox and Thunderbird from Snap to PPA except on Linux Mint, and my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch) and my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit).
+
+## Other Scripts
+
+### [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh)
+
+Installs VirtualGL and TurboVNC on Ubuntu derivatives, compatible with NVIDIA GPU. See [#VNC](#vnc) for what to do after running this script.
+
+### [`waydroid.sh`](waydroid.sh)
+
+Installs Waydroid.
+
+Waydroid only runs on Wayland, so installing it with a desktop environment that doesn't support Wayland is useless. Cinnamon, which  Linux Mint usually uses, doesn't support Wayland currently. GNOME 3, which Ubuntu uses, and KDE Plasma, which Kubuntu uses, support Wayland.
+
+See [Waydroid](#waydroid) for what to do after running this script.
+
+### [`wine.sh`](wine.sh)
+
+Installs Wine.
+
+Can also be run on Debian derivatives.
 
 ## Instructions
 
@@ -201,8 +226,6 @@ Add `alias vncserver="/opt/TurboVNC/bin/vncserver"` in `~/.bashrc` before using 
 See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root).
 
 ### Waydroid
-
-**Note**: Ubuntu usually uses GDM and supports Wayland. Linux Mint Cinnamon currently doesn't support Wayland.
 
 #### Official Site
 

@@ -149,6 +149,15 @@ sudo dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
 sudo apt update
 sudo apt install powershell -y
+wget -q http://ftp.us.debian.org/debian/pool/main/u/ust/liblttng-ust-common1t64_2.14.0-1.1_amd64.deb
+sudo dpkg -i liblttng-ust-common1t64_2.14.0-1.1_amd64.deb -y
+rm liblttng-ust-common1t64_2.14.0-1.1_amd64.deb
+wget -q http://ftp.us.debian.org/debian/pool/main/u/ust/liblttng-ust-ctl6_2.14.0-1.1_amd64.deb
+sudo dpkg -i liblttng-ust-ctl6_2.14.0-1.1_amd64.deb -y
+rm liblttng-ust-ctl6_2.14.0-1.1_amd64.deb
+wget -q http://ftp.us.debian.org/debian/pool/main/u/ust/liblttng-ust1t64_2.14.0-1.1_amd64.deb
+sudo dpkg -i liblttng-ust1t64_2.14.0-1.1_amd64.deb -y
+rm liblttng-ust1t64_2.14.0-1.1_amd64.deb
 sudo add-apt-repository ppa:dotnet/backports -y
 sudo apt install dotnet-sdk-9.0 aspnetcore-runtime-9.0 -y
 cat > ~/.profile << 'EOF'

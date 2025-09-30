@@ -19,6 +19,7 @@ export XMODIFIERS=@im=fcitx
 export INPUT_METHOD=fcitx
 EOF
 source ~/.xprofile
+fcitx5 &
 sudo systemctl enable ssh
 yes | sudo ufw enable
 sudo ufw allow ssh
@@ -53,6 +54,10 @@ Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/mozilla-firefox
     sudo snap remove --purge thunderbird || true
     sudo apt install thunderbird --allow-downgrades -y
     echo "Unattended-Upgrade::Allowed-Origins:: \"LP-PPA-mozillateam:$(lsb_release -cs)\";" | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-thunderbird
+    firefox --headless &
+    PID=$!
+    sleep 5
+    kill $PID
 fi
 wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xvzf install-tl-unx.tar.gz

@@ -10,10 +10,8 @@ if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || [ 
     sudo apt install plasma-discover-backend-flatpak -y
 fi
 im-config -n fcitx5
-if grep -q '^NAME="Linux Mint"' /etc/os-release; then
-    mkdir -p ~/.config/autostart
-    cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
-fi
+mkdir -p ~/.config/autostart
+cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
 cat >> ~/.xprofile << 'EOF'
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx

@@ -511,7 +511,7 @@ mkdir -p ~/.config/systemd/user
 cat > ~/.config/systemd/user/installtmp.service << EOF
 [Unit]
 Description=Installation Temporary
-After=network.target
+After=graphical.target
 
 [Service]
 ExecStart=$(pwd)/.installtmp.sh

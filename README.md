@@ -4,7 +4,7 @@ Scripts and instructions for setting up Ubuntu derivatives with tools for develo
 
 ## Scripts
 
-* [`install-tools.sh`](install-tools.sh): Scripts for setting up Ubuntu derivatives with installation of recommended drivers and tools for C/C++, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET, GitHub CLI, GitLab CLI, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, CopyQ, Tailscale, Noto CJK fonts, XITS fonts, Node.js packages, Python3 packages, pipx, Poetry, RARLAB UnRAR, Fabric, Visual Studio Code, Code::Blocks, PowerShell, ANTLR 4, Steam, Discord, Telegram, Spotify, VLC, OBS Studio, LibreOffice, OnlyOffice, Joplin, Calibre, Postman, GIMP, Krita, HandBrake, MuseScore, Aisleriot Solitaire, custom `~/.profile`, custom `~/.bashrc`, custom `~/.vimrc`, and my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch) and my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit).
+* [`install-tools.sh`](install-tools.sh): Scripts for setting up Ubuntu derivatives with installation of recommended drivers and tools for C/C++, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET, GitHub CLI, GitLab CLI, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, CopyQ, Tailscale, Noto CJK fonts, XITS fonts, Node.js packages, Python3 packages, pipx, Poetry, RARLAB UnRAR, Fabric, Visual Studio Code, Code::Blocks, PowerShell, ANTLR 4, Steam, Discord, Telegram, Spotify, VLC, OBS Studio, LibreOffice, OnlyOffice, Joplin, Calibre, Postman, GIMP, Krita, HandBrake, MuseScore, Aisleriot Solitaire, custom `~/.profile`, custom `~/.bashrc`, custom `~/.vimrc`, and my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch) and my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit), and switching Firefox and Thunderbird from Snap to PPA and Chromium from Snap to Flatpak except on Linux Mint.
 * [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh): Scripts for installation of VirtualGL and TurboVNC on Ubuntu derivatives, compatible with NVIDIA GPU. See [#VNC](#vnc) for what to do after running this script.
 * [`waydroid.sh`](waydroid.sh): Scripts for installation of Waydroid on Ubuntu derivatives that support Wayland. See [Waydroid](#waydroid) for what to do after running this script.
 * [`wine.sh`](wine.sh): Scripts for installation of Wine on Debian derivatives.
@@ -22,6 +22,8 @@ Scripts and instructions for setting up Ubuntu derivatives with tools for develo
 + [Waydroid](#waydroid)
 + [Steam](#steam)
 + [Solution for Closing Lip Overrides Power Off on Linux Mint](#solution-for-closing-lip-overrides-power-off-on-linux-mint)
++ [Switching Firefox and Thunderbird from Snap to PPA](#switching-firefox-and-thunderbird-from-snap-to-ppa)
++ [Switching Chromium from Snap to Flatpak](#switching-chromium-from-snap-to-flatpak)
 
 ### GRUB
 
@@ -335,3 +337,83 @@ sudo systemctl restart systemd-logind
 Test it.
 
 It seems worked but not sure.
+
+### Switching Firefox and Thunderbird from Snap to PPA
+
+Ignore this if you are on Linux Mint, which does not use Snap.
+
+This has been done in [`install-tools.sh`](install-tools.sh).
+
+#### Script for Firefox
+
+```
+if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
+    sudo add-apt-repository ppa:mozillateam/ppa -y
+    echo '
+    Package: *
+    Pin: release o=LP-PPA-mozillateam
+    Pin-Priority: 1001
+    
+    Package: firefox
+    Pin: version 1:1snap*
+    Pin-Priority: -1
+    ' | sudo tee /etc/apt/preferences.d/mozilla-firefox
+    sudo rm -f /etc/apparmor.d/usr.bin.firefox
+    sudo rm -f /etc/apparmor.d/local/usr.bin.firefox
+    sudo systemctl stop var-snap-firefox-common-host\\x2dhunspell.mount
+    sudo systemctl disable var-snap-firefox-common-host\\x2dhunspell.mount
+    sudo snap remove --purge firefox -y
+    sudo apt install firefox -y
+    echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox
+fi
+```
+
+#### Script for Thunderbird
+
+```
+if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
+    sudo add-apt-repository ppa:mozillateam/ppa -y
+    echo '
+    Package: *
+    Pin: release o=LP-PPA-mozillateam
+    Pin-Priority: 1001
+
+    Package: thunderbird
+    Pin: version 2:1snap*
+    Pin-Priority: -1
+    ' | sudo tee /etc/apt/preferences.d/mozilla-thunderbird
+    sudo rm -f /etc/apparmor.d/usr.bin.thunderbird
+    sudo rm -f /etc/apparmor.d/local/usr.bin.thunderbird
+    sudo systemctl stop var-snap-thunderbird-common-*.mount 2>/dev/null || true
+    sudo systemctl disable var-snap-thunderbird-common-*.mount 2>/dev/null || true
+    sudo snap remove --purge thunderbird -y
+    sudo apt update
+    sudo apt install thunderbird -y
+    echo "Unattended-Upgrade::Allowed-Origins:: \"LP-PPA-mozillateam:$(lsb_release -cs)\";" \
+      | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-thunderbird
+fi
+```
+
+#### Sources
+
+- Archisman Panigrahi, igi, Organic Marble, eddygeek, Yogev Neumann, & OMG Ubuntu (2024). How to install Firefox as a traditional deb package (without snap) in Ubuntu 22.04 or later versions? [https://askubuntu.com/questions/1399383/how-to-install-firefox-as-a-traditional-deb-package-without-snap-in-ubuntu-22](https://askubuntu.com/questions/1399383/how-to-install-firefox-as-a-traditional-deb-package-without-snap-in-ubuntu-22).
+- Archisman Panigrahi & BeastOfCaerbannog (2024). How to install Thunderbird as a traditional deb package without snap in Ubuntu 24.04 and later versions? [https://askubuntu.com/questions/1513445/how-to-install-thunderbird-as-a-traditional-deb-package-without-snap-in-ubuntu-2](https://askubuntu.com/questions/1513445/how-to-install-thunderbird-as-a-traditional-deb-package-without-snap-in-ubuntu-2).
+
+### Switching Chromium from Snap to Flatpak
+
+Ignore this if you are on Linux Mint, which does not use Snap.
+
+This has been done in [`install-tools.sh`](install-tools.sh).
+
+#### Script
+
+```
+if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
+    sudo rm -f /etc/apparmor.d/usr.bin.chromium
+    sudo rm -f /etc/apparmor.d/local/usr.bin.chromium
+    sudo systemctl stop var-snap-chromium-common-*.mount 2>/dev/null || true
+    sudo systemctl disable var-snap-chromium-common-*.mount 2>/dev/null || true
+    sudo snap remove --purge chromium -y
+    flatpak install flathub org.chromium.Chromium -
+fi
+```

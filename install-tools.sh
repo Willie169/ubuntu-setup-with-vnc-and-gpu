@@ -6,6 +6,9 @@ sudo add-apt-repository ppa:graphics-drivers/ppa
 sudo apt update
 sudo ubuntu-drivers autoinstall -y
 sudo apt install apt-transport-https autoconf automake bash bison build-essential bzip2 ca-certificates clang cmake codeblocks* command-not-found curl dbus dvipng dvisvgm fcitx5 fcitx5-* ffmpeg file flex flatpak gcc gdb gh ghostscript git glab golang gperf gpg grep g++ iverilog libboost-all-dev libbz2-dev libdb-dev libeigen3-dev libffi-dev libgdbm-compat-dev libgdbm-dev libgsl-dev liblzma-dev libncursesw5-dev libnss3-dev libreadline-dev libreoffice libsqlite3-dev libssl-dev libxcb-cursor0 libxml2-dev libxmlsec1-dev llvm iproute2 jq make maven mc nano neovim openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc pipx procps python3-pip python3-all-dev python3-venv rust-all software-properties-common tar tk-dev tmux tree unrar uuid-dev verilator vim wget xz-utils zlib1g-dev zsh -y
+if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || [ "$KDE_FULL_SESSION" = "true" ]; then
+    sudo apt install plasma-discover-backend-flatpak -y
+fi
 im-config -n fcitx5
 if grep -q '^NAME="Linux Mint"' /etc/os-release; then
     mkdir -p ~/.config/autostart
@@ -21,6 +24,48 @@ sudo systemctl enable ssh
 yes | sudo ufw enable
 sudo ufw allow ssh
 ip route
+if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
+    sudo add-apt-repository ppa:mozillateam/ppa -y
+    echo '
+    Package: *
+    Pin: release o=LP-PPA-mozillateam
+    Pin-Priority: 1001
+    
+    Package: firefox
+    Pin: version 1:1snap*
+    Pin-Priority: -1
+    ' | sudo tee /etc/apt/preferences.d/mozilla-firefox
+    sudo rm -f /etc/apparmor.d/usr.bin.firefox
+    sudo rm -f /etc/apparmor.d/local/usr.bin.firefox
+    sudo systemctl stop var-snap-firefox-common-host\\x2dhunspell.mount
+    sudo systemctl disable var-snap-firefox-common-host\\x2dhunspell.mount
+    sudo snap remove --purge firefox -y
+    sudo apt install firefox -y
+    echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox
+    echo '
+    Package: *
+    Pin: release o=LP-PPA-mozillateam
+    Pin-Priority: 1001
+
+    Package: thunderbird
+    Pin: version 2:1snap*
+    Pin-Priority: -1
+    ' | sudo tee /etc/apt/preferences.d/mozilla-thunderbird
+    sudo rm -f /etc/apparmor.d/usr.bin.thunderbird
+    sudo rm -f /etc/apparmor.d/local/usr.bin.thunderbird
+    sudo systemctl stop var-snap-thunderbird-common-*.mount 2>/dev/null || true
+    sudo systemctl disable var-snap-thunderbird-common-*.mount 2>/dev/null || true
+    sudo snap remove --purge thunderbird -y
+    sudo apt update
+    sudo apt install thunderbird -y
+    echo "Unattended-Upgrade::Allowed-Origins:: \"LP-PPA-mozillateam:$(lsb_release -cs)\";" \
+      | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-thunderbird
+      sudo rm -f /etc/apparmor.d/usr.bin.chromium
+    sudo rm -f /etc/apparmor.d/local/usr.bin.chromium
+    sudo systemctl stop var-snap-chromium-common-*.mount 2>/dev/null || true
+    sudo systemctl disable var-snap-chromium-common-*.mount 2>/dev/null || true
+    sudo snap remove --purge chromium -y
+fi
 wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xvzf install-tl-unx.tar.gz
 sudo rm install-tl-unx.tar.gz
@@ -442,6 +487,9 @@ cat > ~/.installtmp.sh << 'EOF'
 systemctl --user disable installtmp.service
 rm ~/.config/systemd/user/installtmp.service
 rm -- "$0"
+if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
+    flatpak install org.chromium.Chromium -
+fi
 flatpak install flathub com.discordapp.Discord org.telegram.desktop io.freetubeapp.FreeTube com.spotify.Client org.videolan.VLC com.obsproject.Studio org.onlyoffice.desktopeditors net.cozic.joplin_desktop com.calibre_ebook.calibre com.getpostman.Postman org.gimp.GIMP org.kde.krita fr.handbrake.ghb org.musescore.MuseScore flathub org.gnome.Aisleriot -y
 sudo dpkg --add-architecture i386
 sudo apt update

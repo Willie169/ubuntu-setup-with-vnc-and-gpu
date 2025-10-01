@@ -12,7 +12,8 @@ Scripts and instructions for setting up Ubuntu derivatives with tools for develo
 
 ### Purpose
 
-Setting up Ubuntu derivatives with installation of recommended drivers and tools for C/C++, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET 9, GitHub CLI, GitLab CLI, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, Tailscale, Noto CJK fonts, XITS fonts, Node.js packages, Python3 packages, pipx, Poetry, RARLAB UnRAR, Fabric, Visual Studio Code, Code::Blocks, PowerShell, ANTLR 4, Steam, Discord, Telegram, Spotify, VLC, OBS Studio, LibreOffice, OnlyOffice, Joplin, Postman, GIMP, Krita, HandBrake, MuseScore, Aisleriot Solitaire, Tor, Tor Browser, custom `~/.profile`, custom `~/.bashrc`, custom `~/.vimrc`, CopyQ except on KDE Plasma, switching Firefox and Thunderbird from Snap to PPA except on Linux Mint, and my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch) and my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit).
+Setting up Ubuntu derivatives with installation of recommended drivers and tools for C/C++, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET 9, GitHub CLI, GitLab CLI, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, Tailscale, Noto CJK fonts, XITS fonts, Node.js packages, Python3 packages, pipx, Poetry, RARLAB UnRAR, Fabric, Visual Studio Code, Code::Blocks, PowerShell, ANTLR 4, 
+Discord, Telegram, Spotify, VLC, OBS Studio, LibreOffice, OnlyOffice, Joplin, Postman, GIMP, Krita, HandBrake, MuseScore, Aisleriot Solitaire, Tor, Tor Browser, custom `~/.profile`, custom `~/.bashrc`, custom `~/.vimrc`, CopyQ except on KDE Plasma, switching Firefox and Thunderbird from Snap to PPA except on Linux Mint, and my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch) and my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit).
 
 ## Other Scripts
 
@@ -45,7 +46,6 @@ Can also be run on Debian derivatives.
 + [Fcitx5](#fcitx5)
 + [VNC](#vnc)
 + [Waydroid](#waydroid)
-+ [Steam](#steam)
 + [Solution for Closing Lip Overrides Power Off](#solution-for-closing-lip-overrides-power-off)
 + [Switching Firefox and Thunderbird from Snap to PPA](#switching-firefox-and-thunderbird-from-snap-to-ppa)
 
@@ -305,35 +305,6 @@ after rebooted, run:
 ```
 sudo rm -rf /var/lib/waydroid /home/.waydroid ~/waydroid ~/.share/waydroid ~/.local/share/applications/*aydroid* ~/.local/share/waydroid
 ```
-
-### Steam
-
-#### Install Steam
-
-<ol>
-<li>If you have run <a href="install-tools.sh"><code>install-tools.sh</code></a>, go to next step; otherwise, run:
-<pre><code>cd ~
-sudo dpkg --add-architecture i386
-sudo apt update
-sudo apt install libgl1:i386 -y
-wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
-sudo dpkg -i steam*.deb
-rm steam*.deb
-</code></pre></li>
-<li>Run <code>steam</code> to update and open it for the first time.</li>
-<li>Follow the instructions.</li>
-<li>Restart Steam.</li>
-<li>Follow the instructions.</li>
-</ol>
-
-#### Proton Engine
-
-1. Open Steam.
-2. Click `Steam` on the menu bar (upper left corner) and click `Settings`.
-3. Click `compatibility`.
-4. Toggle on `Enable Steam Play for all other titles` if such option exists.
-5. Select the Proton engine you want.
-6. Restart Steam.
 
 ### Solution for Closing Lip Overrides Power Off
 #### Symptom

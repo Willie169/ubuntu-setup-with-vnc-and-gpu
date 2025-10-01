@@ -191,6 +191,7 @@ fi
 )
 </code></pre>
 before it and replace it with <code>$UBUNTU_VERSION_ID</code>. This has been added to <code>~/.bashrc</code> in <a href="install-tools-first.sh"><code>install-tools-first.sh</code></a>.</li>
+</ol>
 
 ### Desktop App Launchers
 #### Command line

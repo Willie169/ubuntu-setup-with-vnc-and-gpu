@@ -329,30 +329,36 @@ Site: <https://waydro.id>.
 Doc: <https://docs.waydro.id>.
 
 #### Install
+
+This has been done in [`waydroid-ubuntu.sh`](waydroid-ubuntu.sh).
+
 ```
 sudo apt install curl ca-certificates -y
 curl -s https://repo.waydro.id | sudo bash
 sudo apt install waydroid -y
 ```
+
 #### Enable Wayland for GDM
 
-Method 1:
-```
-sudo nano /etc/gdm3/custom.conf
-```
-Edit:
-```
-WaylandEnable=true
-```
-an then
-```
-sudo systemctl restart gdm3
-```
+This is for GDM, which Ubuntu usually uses. For SDDM, which Kubuntu uses, simply skip this section.
 
-Method 2:
-1. Log out.
-2. In the down right corner of the login page, choose `Ubuntu on Wayland`.
-3. Login.
+<ol>
+<li>Method 1:
+<pre><code>sudo nano /etc/gdm3/custom.conf
+</code></pre>
+Edit:
+<pre><code>WaylandEnable=true
+</code></pre>
+an then
+<pre><code>sudo systemctl restart gdm3
+</code></pre></li>
+<li>Method 2:
+<ol>
+<li>Log out.</li>
+<li>In the down right corner of the login page, choose `Ubuntu on Wayland`.</li>
+<li>Login.</li>
+</ol>
+</ol>
 
 #### Download Android
 
@@ -362,13 +368,14 @@ Method 2:
 
 #### Network
 
+This has been done in [`waydroid-ubuntu.sh`](waydroid-ubuntu.sh).
+
 To allow network access in Waydroid, run:
 ```
 sudo ufw allow 53
 sudo ufw allow 67
 sudo ufw default allow FORWARD
 ```
-This has been done in [`waydroid-ubuntu.sh`](waydroid-ubuntu.sh).
 
 #### Storage
 

@@ -344,12 +344,14 @@ This is for GDM, which Ubuntu usually uses. For SDDM, which Kubuntu uses, simply
 
 <ol>
 <li>Method 1:
+
+Run:
 <pre><code>sudo nano /etc/gdm3/custom.conf
 </code></pre>
-Edit:
+Add or change:
 <pre><code>WaylandEnable=true
 </code></pre>
-an then
+And then run:
 <pre><code>sudo systemctl restart gdm3
 </code></pre></li>
 <li>Method 2:
@@ -427,7 +429,7 @@ HandleLidSwitch=ignore
 HandleLidSwitchDocked=ignore
 HandleLidSwitchExternalPower=ignore
 ```
-Run:
+And then run:
 ```
 sudo systemctl restart systemd-logind
 ```

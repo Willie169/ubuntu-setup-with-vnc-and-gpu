@@ -14,7 +14,7 @@ sudo add-apt-repository multiverse -y
 im-config -n fcitx5
 mkdir -p ~/.config/autostart
 cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
-cat >> ~/.xprofile << 'EOF'
+cat >> ~/.xprofile <<'EOF'
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
@@ -69,7 +69,7 @@ sudo perl install-tl --no-interaction
 cd ~
 sudo rm -rf install-tl-*
 mkdir -p ~/.config/fontconfig/conf.d
-cat > ~/.config/fontconfig/conf.d/99-texlive.conf << 'EOF'
+cat > ~/.config/fontconfig/conf.d/99-texlive.conf <<'EOF'
 <?xml version="1.0"?>
 <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
 <fontconfig>
@@ -118,7 +118,7 @@ if [ "$XDG_CURRENT_DESKTOP" != "KDE" ] && [ "$DESKTOP_SESSION" != "plasma" ] && 
     sudo apt install copyq -y
     copyq &
     mkdir -p ~/.config/systemd/user
-    cat > ~/.config/systemd/user/copyq.service << EOF
+    cat > ~/.config/systemd/user/copyq.service <<EOF
 [Unit]
 Description=CopyQ clipboard manager
 
@@ -164,7 +164,7 @@ sudo add-apt-repository ppa:dotnet/backports -y
 sudo apt install dotnet-sdk-9.0 aspnetcore-runtime-9.0 -y
 source /etc/os-release
 wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | sudo tee /usr/share/keyrings/deb.torproject.org-keyring.gpg >/dev/null
-sudo tee /etc/apt/sources.list.d/tor.list > /dev/null << EOF
+sudo tee /etc/apt/sources.list.d/tor.list > /dev/null <<EOF
 deb     [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
 deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
 EOF
@@ -177,7 +177,7 @@ cd tor-browser
 ./start-tor-browser.desktop --detach --headless
 cp start-tor-browser.desktop ~/Desktop
 cd ~
-cat > ~/.profile << 'EOF'
+cat > ~/.profile <<'EOF'
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
 # exists.
@@ -206,7 +206,7 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 EOF
-cat > ~/.bashrc << 'EOF'
+cat > ~/.bashrc <<'EOF'
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -390,10 +390,9 @@ updatetex() {
     git pull
     cd dir
 }
-
 EOF
 source ~/.bashrc
-cat > ~/.vimrc << 'EOF'
+cat > ~/.vimrc <<'EOF'
 set tabstop=4
 set shiftwidth=4
 set expandtab

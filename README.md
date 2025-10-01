@@ -372,7 +372,7 @@ And then run:
 
 <ol>
 <li>Run:
-<pre><code>sudo apt install libnvidia-egl-wayland1
+<pre><code>sudo apt install libnvidia-egl-wayland1 plasma-workspace-wayland -y
 echo options nvidia_drm modeset=1 | sudo tee /etc/modprobe.d/nvidia_drm.conf
 sudo update-initramfs -u
 </code></pre>

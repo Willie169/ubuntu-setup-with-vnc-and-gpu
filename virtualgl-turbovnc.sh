@@ -1,3 +1,5 @@
+cd ~
+sudo apt update
 sudo apt install wget -y
 wget -q https://launchpad.net/ubuntu/+archive/primary/+files/libegl1-mesa_23.0.4-0ubuntu1~22.04.1_amd64.deb
 sudo dpkg -i libegl1-mesa_23.0.4-0ubuntu1~22.04.1_amd64.deb

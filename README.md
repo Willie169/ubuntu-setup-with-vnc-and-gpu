@@ -382,7 +382,7 @@ Doc: <https://docs.waydro.id>.
 
 #### Install
 
-This has been done in [`waydroid-ubuntu.sh`](waydroid-ubuntu.sh).
+This has been done in [`waydroid.sh`](waydroid.sh).
 
 ```
 sudo apt install curl ca-certificates -y
@@ -398,7 +398,7 @@ sudo apt install waydroid -y
 
 #### Network
 
-This has been done in [`waydroid-ubuntu.sh`](waydroid-ubuntu.sh).
+This has been done in [`waydroid.sh`](waydroid.sh).
 
 To allow network access in Waydroid, run:
 ```

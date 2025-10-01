@@ -15,7 +15,7 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 
 ### Content
 
-Installs recommended drivers and tools for C/C++, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET 9, GitHub CLI, GitLab CLI, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, Tailscale, Noto CJK fonts, XITS fonts, Node.js packages, Python3 packages, pipx, Poetry, RARLAB UnRAR, Fabric, Visual Studio Code, Code::Blocks, PowerShell, ANTLR 4, Discord, Telegram, Spotify, VLC, OBS Studio, LibreOffice, OnlyOffice, Joplin, Postman, GIMP, Krita, HandBrake, MuseScore, Aisleriot Solitaire, Tor, Tor Browser, CopyQ except on KDE Plasma etc., custom `~/.profile`, custom `~/.bashrc`, custom `~/.vimrc`, my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch) and my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit), etc., addes APT Repositories, and switches Firefox and Thunderbird from Snap to PPA except on Linux Mint, on Ubuntu derivatives on AMD 64.
+Installs recommended drivers and tools for C/C++, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET 9, GitHub CLI, GitLab CLI, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, Tailscale, Noto CJK fonts, XITS fonts, Node.js packages, Python3 packages, pipx, Poetry, RARLAB UnRAR, Fabric, Visual Studio Code, Code::Blocks, PowerShell, ANTLR 4, Discord, Telegram, Spotify, VLC, OBS Studio, LibreOffice, OnlyOffice, Joplin, Postman, GIMP, Krita, HandBrake, MuseScore, Aisleriot Solitaire, Tor, Tor Browser, CopyQ except on KDE Plasma etc., custom `~/.profile`, custom `~/.bashrc`, custom `~/.vimrc`, my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch), my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit), and more on Ubuntu derivatives on AMD 64.
 
 ## Other Scripts
 
@@ -78,7 +78,6 @@ This script is not acitvely maintained. Please see [https://www.winehq.org](http
 - Built upon GTK.
 
 ### GRUB
-
 #### When Dual Booting with Windows
 
 When dual booting with Windows, you need to:
@@ -474,58 +473,3 @@ run:
 ```
 sudo systemctl restart systemd-logind
 ```
-
-### Switching Firefox and Thunderbird from Snap to PPA
-
-Ignore this if you are on Linux Mint, which does not use Snap.
-
-This has been done in [`install-tools-first.sh`](install-tools-first.sh).
-
-#### Script for Firefox
-
-```
-if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
-    sudo add-apt-repository ppa:mozillateam/ppa -y
-    echo 'Package: *
-Pin: release o=LP-PPA-mozillateam
-Pin-Priority: 1001
-
-Package: *
-Pin: release o=Ubuntu
-Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/mozilla-firefox
-    sudo rm -f /etc/apparmor.d/usr.bin.firefox
-    sudo rm -f /etc/apparmor.d/local/usr.bin.firefox
-    sudo systemctl stop var-snap-firefox-common-*.mount 2>/dev/null || true
-    sudo systemctl disable var-snap-firefox-common-*.mount 2>/dev/null || true
-    sudo snap remove --purge firefox || true
-    sudo apt install firefox -y
-    echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox
-fi
-```
-
-#### Script for Thunderbird
-
-```
-if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
-    sudo add-apt-repository ppa:mozillateam/ppa -y
-    echo 'Package: *
-Pin: release o=LP-PPA-mozillateam
-Pin-Priority: 1001
-
-Package: *
-Pin: release o=Ubuntu
-Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/mozilla-firefox
-    sudo rm -f /etc/apparmor.d/usr.bin.thunderbird
-    sudo rm -f /etc/apparmor.d/local/usr.bin.thunderbird
-    sudo systemctl stop var-snap-thunderbird-common-*.mount 2>/dev/null || true
-    sudo systemctl disable var-snap-thunderbird-common-*.mount 2>/dev/null || true
-    sudo snap remove --purge thunderbird || true
-    sudo apt install thunderbird -y
-    echo "Unattended-Upgrade::Allowed-Origins:: \"LP-PPA-mozillateam:$(lsb_release -cs)\";" | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-thunderbird
-fi
-```
-
-#### Sources
-
-- Archisman Panigrahi, igi, Organic Marble, eddygeek, Yogev Neumann, & OMG Ubuntu (2024). How to install Firefox as a traditional deb package (without snap) in Ubuntu 22.04 or later versions? [https://askubuntu.com/questions/1399383/how-to-install-firefox-as-a-traditional-deb-package-without-snap-in-ubuntu-22](https://askubuntu.com/questions/1399383/how-to-install-firefox-as-a-traditional-deb-package-without-snap-in-ubuntu-22).
-- Archisman Panigrahi & BeastOfCaerbannog (2024). How to install Thunderbird as a traditional deb package without snap in Ubuntu 24.04 and later versions? [https://askubuntu.com/questions/1513445/how-to-install-thunderbird-as-a-traditional-deb-package-without-snap-in-ubuntu-2](https://askubuntu.com/questions/1513445/how-to-install-thunderbird-as-a-traditional-deb-package-without-snap-in-ubuntu-2).

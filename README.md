@@ -170,7 +170,7 @@ If time mismatches real local time when dual booting with Windows, do the follow
 <li>In Linux, run:
 <pre><code>sudo timedatectl set-local-rtc 1
 </code></pre></li>
-<li>Boot into Windows and sync time by clicking `Settings` > `Time & language` > `Date & time` > `Sync now`.</li>
+<li>Boot into Windows and sync time by clicking <code>Settings</code> > <code>Time & language</code> > <code>Date & time</code> > <code>Sync now</code>.</li>
 </ol>
 
 ### Linux Mint Ubuntu Version Tweak

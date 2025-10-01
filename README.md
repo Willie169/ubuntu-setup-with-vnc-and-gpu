@@ -52,7 +52,7 @@ This script is not acitvely maintained. Please see [https://www.winehq.org](http
 + [VNC](#vnc)
 + [Waydroid](#waydroid)
 + [Solution for Closing Lip Overrides Power Off](#solution-for-closing-lip-overrides-power-off)
-+ [Switching Firefox and Thunderbird from Snap to PPA](#switching-firefox-and-thunderbird-from-snap-to-ppa)
++ [Switch Firefox from Snap to Deb](#switch-firefox-from-snap-to-deb)
 
 ### Desktop Environment
 #### GNOME 3
@@ -473,3 +473,7 @@ run:
 ```
 sudo systemctl restart systemd-logind
 ```
+
+### Switch Firefox from Snap to Deb
+
+See my [**switch-firefox-from-snap-to-deb**](https://github.com/Willie169/switch-firefox-from-snap-to-deb).

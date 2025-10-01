@@ -371,8 +371,9 @@ And then run:
 ### Enable Wayland for KDE Plasma (SDDM) with NVIDIA
 
 <ol>
-<li>RUn:
-<pre><code>echo options nvidia_drm modeset=1 | sudo tee /etc/modprobe.d/nvidia_drm.conf
+<li>Run:
+<pre><code>sudo apt install libnvidia-egl-wayland1
+echo options nvidia_drm modeset=1 | sudo tee /etc/modprobe.d/nvidia_drm.conf
 sudo update-initramfs -u
 </code></pre>
 <li>Log out.</li>

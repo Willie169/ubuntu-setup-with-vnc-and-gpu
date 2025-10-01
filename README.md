@@ -127,23 +127,9 @@ Variables:
 #### Enable Wayland for GNOME3 (GDM)
 
 <ol>
-<li>Method 1:
-
-Run:
-<pre><code>sudo vim /etc/gdm3/custom.conf
-</code></pre>
-add or change the line to:
-<pre><code>WaylandEnable=true
-</code></pre>
-run:
-<pre><code>sudo systemctl restart gdm3
-</code></pre></li>
-<li>Method 2:
-<ol>
 <li>Log out.</li>
 <li>In the down right corner of the login page, choose `Ubuntu on Wayland`.</li>
 <li>Login.</li>
-</ol>
 </ol>
 
 ### Enable Wayland for KDE Plasma (SDDM) without NVIDIA
@@ -176,15 +162,6 @@ sudo update-initramfs -u
 <li>Login.</li>
 </ol>
 
-#### For Firefox on GDM or SDDM
-
-Run:
-```
-echo 'export MOZ_ENABLE_WAYLAND=1' >> ~/.xprofile
-source ~/.xprofile
-```
-
-
 ### Time Mismatches When Dual Booting with Windows
 
 If time mismatches real local time when dual booting with Windows, do the following steps:
@@ -201,10 +178,10 @@ sudo timedatectl set-ntp true
 
 To make a script for Ubuntu work for both Ubuntu and Linux Mint, do the following tweaks:
 
-1. `$(lsb_release -cs)`: Add `source /etc/os-release` before it and replace it with `$UBUNTU_CODENAME`.
-2. `$VERSION_ID` (from `/etc/os-release`): Add
-```
-export UBUNTU_VERSION_ID=$(
+<ol>
+<li><code>$(lsb_release -cs)</code>: Add <code>source /etc/os-release</code> before it and replace it with <code>$UBUNTU_CODENAME</code>.</li>
+<li><code>$VERSION_ID</code> (from <code>/etc/os-release</code>): Add
+<pre><code>export UBUNTU_VERSION_ID=$(
 if grep -q '^NAME="Linux Mint"' /etc/os-release; then
     inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'
 else
@@ -212,8 +189,8 @@ else
     echo "$VERSION_ID"
 fi
 )
-```
-before it and replace it with `$UBUNTU_VERSION_ID`. This has been added to `~/.bashrc` in [`install-tools-first.sh`](install-tools-first.sh).
+</code></pre>
+before it and replace it with <code>$UBUNTU_VERSION_ID</code>. This has been added to <code>~/.bashrc</code> in <a href="install-tools-first.sh"><code>install-tools-first.sh</code></a>.</li>
 
 ### Desktop App Launchers
 #### Command line

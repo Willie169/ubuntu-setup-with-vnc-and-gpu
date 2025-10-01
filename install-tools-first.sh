@@ -10,19 +10,24 @@ sudo add-apt-repository universe -y
 sudo add-apt-repository multiverse -y
 im-config -n fcitx5
 if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || [ "$KDE_FULL_SESSION" = "true" ]; then
+    cat >> ~/.xprofile <<'EOF'
+export XMODIFIERS=@im=fcitx
+export INPUT_METHOD=fcitx
+EOF
+    source ~/.xprofile
     sudo apt install plasma-discover-backend-flatpak -y
 else
     mkdir -p ~/.config/autostart
     cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
-fi
-cat >> ~/.xprofile <<'EOF'
+    cat >> ~/.xprofile <<'EOF'
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 export INPUT_METHOD=fcitx
 EOF
-source ~/.xprofile
-fcitx5 &
+    source ~/.xprofile
+    fcitx5 &
+fi
 sudo systemctl enable ssh
 yes | sudo ufw enable
 sudo ufw allow ssh

@@ -1,6 +1,6 @@
 # ubuntu-setup-with-vnc-and-gpu
 
-Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools for development, productivity, graphics, remote control, gaming, multimedia, communication, and more.
+Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools for development, productivity, graphics, remote control, multimedia, communication, and more.
 
 ## Main Setup Script: [`install-tools-first.sh`](install-tools-first.sh) and [`install-tools-second.sh`](install-tools-second.sh)
 
@@ -8,20 +8,20 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 
 1. Run [`install-tools-first.sh`](install-tools-first.sh) and follow the prompts until it reboot automatically.
 2. Login and run [`install-tools-second.sh`](install-tools-second.sh) until it reboot automatically.
-3. See [Fcitx5](#fcitx5) to configure Fcitx5.
-4. See [Desktop Environment](#desktop-environment) and [Wayland](#wayland) if you want to use Wayland.
-5. See [Tailscale](#tailscale) to configure Tailscale.
+3. See [Fcitx5](#fcitx5) section to configure Fcitx5.
+4. See [Desktop Environment](#desktop-environment) section and [Wayland](#wayland) section if you want to use Wayland.
+5. See [Tailscale](#tailscale) section to configure Tailscale.
 6. Done.
 
 ### Content
 
-Installs recommended drivers and tools for C/C++, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET 9, GitHub CLI, GitLab CLI, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, Tailscale, Noto CJK fonts, XITS fonts, Node.js packages, Python3 packages, pipx, Poetry, RARLAB UnRAR, Fabric, Visual Studio Code, Code::Blocks, PowerShell, ANTLR 4, Discord, Telegram, Spotify, VLC, OBS Studio, LibreOffice, OnlyOffice, Joplin, Postman, GIMP, Krita, HandBrake, MuseScore, Aisleriot Solitaire, Tor, Tor Browser, CopyQ except on KDE Plasma etc., custom `~/.profile`, custom `~/.bashrc`, custom `~/.vimrc`, my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch), my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit), and more on Ubuntu derivatives on AMD 64.
+Installs recommended drivers and tools for C/C++, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET 9, GitHub CLI, GitLab CLI, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, Tailscale, Noto CJK fonts, XITS fonts, Node.js packages, Python3 packages, pipx, Poetry, RARLAB UnRAR, Fabric, Visual Studio Code, Code::Blocks, PowerShell, ANTLR 4, Discord, Telegram, Spotify, VLC, OBS Studio, LibreOffice, OnlyOffice, Joplin, Postman, GIMP, Krita, HandBrake, MuseScore, Aisleriot Solitaire, Tor, Tor Browser, CopyQ except on KDE Plasma etc., custom `~/.profile`, custom `~/.bashrc`, custom `~/.vimrc`, my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch), my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit), and more, on Ubuntu derivatives on AMD 64.
 
 ## Other Scripts
 
 ### [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh)
 
-Installs VirtualGL and TurboVNC on Ubuntu derivatives on AMD 64, compatible with NVIDIA GPU. See [#VNC](#vnc) for what to do after running this script.
+Installs VirtualGL and TurboVNC on Ubuntu derivatives on AMD 64, compatible with NVIDIA GPU. See [#VNC](#vnc) section for what to do after running this script.
 
 ### [`waydroid.sh`](waydroid.sh)
 
@@ -29,9 +29,9 @@ Installs Waydroid on Ubuntu derivatives on AMD 64.
 
 Waydroid only runs on Wayland.
 
-See [Waydroid](#waydroid) for what to do after running this script.
+See [Waydroid](#waydroid) section for what to do after running this script.
 
-See [Desktop Environment](#desktop-environment), [Wayland](#wayland), and [Waydroid](#waydroid) for more information.
+See [Desktop Environment](#desktop-environment), [Wayland](#wayland), and [Waydroid](#waydroid) sections for more information.
 
 ### [`wine.sh`](wine.sh)
 
@@ -383,7 +383,7 @@ See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) for
 
 ### Waydroid
 
-Waydroid only runs on Wayland, see [Wayland](#wayland) for more information.
+Waydroid only runs on Wayland, see [Wayland](#wayland) section for more information.
 
 #### Official Site
 

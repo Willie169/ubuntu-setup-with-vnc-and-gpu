@@ -177,6 +177,15 @@ sudo update-initramfs -u
 <li>Login.</li>
 </ol>
 
+#### For Firefox on GDM or SDDM
+
+Run:
+```
+echo 'export MOZ_ENABLE_WAYLAND=1' >> ~/.xprofile
+source ~/.xprofile
+```
+
+
 ### Time Mismatches When Dual Booting with Windows
 
 If time mismatches real local time when dual booting with Windows, do the following steps:

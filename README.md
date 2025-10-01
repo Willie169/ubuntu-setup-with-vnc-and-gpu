@@ -476,4 +476,6 @@ sudo systemctl restart systemd-logind
 
 ### Switch Firefox from Snap to Deb
 
+This is not used in this repo because Fcitx5 input method doesn't work with the `.deb` version of Firefox provided by `ppa:mozillateam/ppa`.
+
 See my [**switch-firefox-from-snap-to-deb**](https://github.com/Willie169/switch-firefox-from-snap-to-deb).

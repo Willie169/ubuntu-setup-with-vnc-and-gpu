@@ -373,10 +373,18 @@ And then run:
 <ol>
 <li>Run:
 <pre><code>sudo apt install libnvidia-egl-wayland1 plasma-workspace-wayland -y
-echo options nvidia_drm modeset=1 | sudo tee /etc/modprobe.d/nvidia_drm.conf
-sudo update-initramfs -u
 </code></pre>
-<li>Log out.</li>
+<li>Run:
+<pre><code>sudo nano /etc/default/grub
+</code></pre>
+add or change:
+<pre><code>GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvidia_drm.modeset=1"
+</code></pre></li>
+<li>Run:
+<pre><code>sudo update-grub
+sudo update-initramfs -u
+sudo reboot
+</code></pre></li>
 <li>In the down left corner of the login page, choose `Plasma (Wayland)`.</li>
 <li>Login.</li>
 </ol>

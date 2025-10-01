@@ -426,6 +426,8 @@ ANDROID_RUNTIME_ROOT=/apex/com.android.runtime ANDROID_DATA=/data ANDROID_TZDATA
 ```
 Use the string of numbers printed by the command to register the device on your Google Account at <https://www.google.com/android/uncertified>.
 
+Run `exit` inside Waydroid’s shell to exit it.
+
 #### Remove
 
 Run:

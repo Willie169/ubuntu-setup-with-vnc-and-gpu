@@ -19,8 +19,7 @@ sudo usermod --groups vglusers $USER
 mkdir -p /etc/opt/VirtualGL
 sudo chgrp vglusers /etc/opt/VirtualGL
 sudo chmod 750 /etc/opt/VirtualGL
-cat >> ~/.bashrc << "EOF"
+cat >> ~/.bashrc <<"EOF"
 alias vncserver="/opt/TurboVNC/bin/vncserver"
-
 EOF
 source ~/.bashrc

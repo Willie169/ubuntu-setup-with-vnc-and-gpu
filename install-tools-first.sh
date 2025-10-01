@@ -9,6 +9,8 @@ sudo apt install apt-transport-https autoconf automake bash bison build-essentia
 if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || [ "$KDE_FULL_SESSION" = "true" ]; then
     sudo apt install plasma-discover-backend-flatpak -y
 fi
+sudo add-apt-repository universe -y
+sudo add-apt-repository multiverse -y
 im-config -n fcitx5
 mkdir -p ~/.config/autostart
 cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/

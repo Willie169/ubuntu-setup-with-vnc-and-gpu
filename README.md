@@ -8,9 +8,10 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 
 1. Run [`install-tools-first.sh`](install-tools-first.sh) and follow the prompts until it reboot automatically.
 2. Login and run [`install-tools-second.sh`](install-tools-second.sh) until it reboot automatically.
-3. See [Tailscale](#tailscale) to configure Tailscale.
+3. See [Fcitx5](#fcitx5) to configure Fcitx5.
 4. See [Desktop Environment](#desktop-environment) and [Wayland](#wayland) if you want to use Wayland.
-5. Done.
+5. See [Tailscale](#tailscale) to configure Tailscale.
+6. Done.
 
 ### Content
 
@@ -228,13 +229,14 @@ chmod +x ~/Desktop/<application_name>.desktop
 
 ### Fcitx5
 
-#### GNOME 3 and Cinnamon GUI
+#### GNOME 3 and Cinnamon
 
-You can configure Fcitx5 in `Fcitx Configuration`.
+You can configure Fcitx5 input methods in `Fcitx Configuration`.
 
-#### KDE Plasma GUI
+#### KDE Plasma
 
-You can configure Fcitx5 in `System Settings` > `Input Method`.
+- Go to `System Settings` > `Input Devices` > `Virtual Keyboard`, select `Fcitx5`, and apply.
+- You can configure Fcitx5 input methods in `System Settings` > `Input Method`.
 
 ### Tailscale
 #### Log in

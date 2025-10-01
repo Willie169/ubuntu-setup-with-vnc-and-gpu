@@ -12,7 +12,6 @@ wget -q https://sourceforge.net/projects/libjpeg-turbo/files/3.0.1/libjpeg-turbo
 sudo dpkg -i libjpeg-turbo-official_3.0.1_amd64.deb
 rm libjpeg-turbo-official_3.0.1_amd64.deb
 sudo apt install dbus-x11 libglu1-mesa mesa-utils -y
-vncpasswd
 sudo vglserver_config +s +f +glx
 sudo usermod --groups vglusers root
 sudo usermod --groups vglusers $USER

@@ -8,7 +8,8 @@ Scripts and instructions for setting up Ubuntu derivatives with tools for develo
 
 1. Run [`install-tools-first.sh`](install-tools-first.sh) and follow the prompts until it reboot automatically.
 2. Login and run [`install-tools-second.sh`](install-tools-second.sh) until it reboot automatically.
-3. Done.
+3. See [Tailscale](#tailscale) to configure Tailscale.
+4. Done.
 
 ### Purpose
 
@@ -23,11 +24,12 @@ Installs VirtualGL and TurboVNC on Ubuntu derivatives, compatible with NVIDIA GP
 
 ### [`waydroid.sh`](waydroid.sh)
 
-Installs Waydroid.
+Installs Waydroid. See [Waydroid](#waydroid) for what to do after running this script.
 
-Waydroid only runs on Wayland, so installing it with a desktop environment that doesn't support Wayland is useless. Cinnamon, which  Linux Mint usually uses, doesn't support Wayland currently. GNOME 3, which Ubuntu uses, and KDE Plasma, which Kubuntu uses, support Wayland.
+Waydroid only runs on Wayland, so installing it with a desktop environment that doesn't support Wayland is useless.
 
-See [Waydroid](#waydroid) for what to do after running this script.
+- GNOME 3, which Ubuntu usually uses, and KDE Plasma, which Kubuntu uses, support Wayland.
+- Cinnamon, which Linux Mint usually uses, doesn't support Wayland currently.
 
 ### [`wine.sh`](wine.sh)
 
@@ -44,6 +46,7 @@ Can also be run on Debian derivatives.
 + [Linux Mint Ubuntu Version Tweak](#linux-mint-ubuntu-version-tweak)
 + [Desktop App Launchers](#desktop-app-launchers)
 + [Fcitx5](#fcitx5)
++ [Tailscale](#tailscale)
 + [VNC](#vnc)
 + [Waydroid](#waydroid)
 + [Solution for Closing Lip Overrides Power Off](#solution-for-closing-lip-overrides-power-off)
@@ -153,19 +156,94 @@ chmod +x ~/Desktop/<application_name>.desktop
 
 ### Fcitx5
 
-You can configure Fcitx5 in `Fcitx Configuration`, a GUI tool.
+- You can configure Fcitx5 in `Fcitx Configuration`, a GUI tool, on GNOME 3, which Ubuntu usually uses, and Cinnamon, which Linux Mint usually uses.
+- You can configure Fcitx5 in `System Settings` > `Input Method`, a GUI tool, on KDE Plasma, which Kubuntu uses.
+
+### Tailscale
+#### Log in
+
+```
+sudo tailscale up
+```
+
+Log in via <https://login.tailscale.com/login>. Google, Microsoft, GitHub, Apple, and passkey are available.
+
+#### Systemd
+
+For Linux distribution with `systemd`, you can:
+```
+sudo systemctl enable tailscaled
+sudo systemctl start tailscaled
+```
+
+#### Manually Start Userspace Networking
+
+```
+sudo tailscaled --tun=userspace-networking &
+```
+
+#### Tailscale IP
+
+Your tailscale ip will be
+
+```
+tailscale ip
+```
+
+You can connect to it from another device logged in with the same account.
+
+#### Subnet Routing
+
+If you want to access devices on your local network through Tailscale, enable subnet routing
+
+```
+sudo tailscale up --advertise-routes=192.168.1.0/24
+```
+
+#### Tailscale in Android
+
+Tailscale (`com.tailscale.ipn`) can be installed from [F-Droid](https://f-droid.org/packages/com.tailscale.ipn) or [Google Play](https://play.google.com/store/apps/details?id=com.tailscale.ipn).
+
+You can view the devices logged in and their Tailscale IPs in the app.
+
+See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) for more information.
 
 ### VNC
 
-**Note**: Ubuntu usually uses GDM. Linux Mint usually uses LightDM.
+**Note**:
+
+- GNOME 3, which Ubuntu usually uses, use GDM.
+- KDE Plasma, which Kubuntu uses, uses SDDM.
+- Cinnamon, which  Linux Mint usually uses, uses LightDM.
+
+#### For All at First
+
+For whatever setup, set your password for VNC client to access the VNC server on this computer first:
+```
+vncpasswd
+```
 
 #### For Nvidia and GDM
 
 <ol>
 <li>In tty or from SSH client, run:
 <pre><code>sudo systemctl stop gdm
-sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia
+sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia || true
 sudo systemctl start gdm
+</code></pre></li>
+<li>Re-login into your computer.</li>
+<li>Run:
+<pre><code>vglrun glxinfo
+</code></pre></li>
+</ol>
+
+#### For Nvidia and SDDM
+
+<ol>
+<li>In tty or from SSH client, run:
+<pre><code>sudo systemctl stop sddm
+sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia || true
+sudo systemctl start sddm
 </code></pre></li>
 <li>Re-login into your computer.</li>
 <li>Run:
@@ -178,7 +256,7 @@ sudo systemctl start gdm
 <ol>
 <li>In tty or from SSH client, run:
 <pre><code>sudo systemctl stop lightdm
-sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia
+sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia || true
 sudo systemctl start lightdm
 </code></pre></li>
 <li>Re-login into your computer.</li>
@@ -187,7 +265,7 @@ sudo systemctl start lightdm
 </code></pre></li>
 </ol>
 
-#### For GDM
+#### For GDM without GPU
 
 <ol>
 <li>In tty or from SSH client, run:
@@ -200,7 +278,20 @@ sudo systemctl start gdm
 </code></pre></li>
 </ol>
 
-#### For LightDM
+#### For SDDM without GPU
+
+<ol>
+<li>In tty or from SSH client, run:
+<pre><code>sudo systemctl stop sddm
+sudo systemctl start sddm
+</code></pre></li>
+<li>Re-login into your computer.</li>
+<li>Run:
+<pre><code>vglrun glxinfo
+</code></pre></li>
+</ol>
+
+#### For LightDM without GPU
 
 <ol>
 <li>In tty or from SSH client, run:
@@ -223,9 +314,14 @@ Add `alias vncserver="/opt/TurboVNC/bin/vncserver"` in `~/.bashrc` before using 
 
 #### Android as SSH and VNC/X Client
 
-See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root).
+See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) for more information.
 
 ### Waydroid
+
+Waydroid only runs on Wayland, so installing it with a desktop environment that doesn't support Wayland is useless.
+
+- GNOME 3, which Ubuntu usually uses, and KDE Plasma, which Kubuntu uses, support Wayland.
+- Cinnamon, which Linux Mint usually uses, doesn't support Wayland currently.
 
 #### Official Site
 
@@ -275,6 +371,7 @@ sudo ufw default allow FORWARD
 This has been done in [`waydroid-ubuntu.sh`](waydroid-ubuntu.sh).
 
 #### Storage
+
 Waydroid's home directory is:
 ```
 ~/.local/share/waydroid/data/media/0/

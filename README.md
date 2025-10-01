@@ -383,8 +383,8 @@ add or change:
 <li>Run:
 <pre><code>sudo update-grub
 sudo update-initramfs -u
-sudo reboot
 </code></pre></li>
+<li>Reboot.</li>
 <li>In the down left corner of the login page, choose `Plasma (Wayland)`.</li>
 <li>Login.</li>
 </ol>

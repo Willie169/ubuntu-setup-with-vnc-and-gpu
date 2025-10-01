@@ -1,6 +1,6 @@
 # ubuntu-setup-with-vnc-and-gpu
 
-Scripts and instructions for setting up Ubuntu derivatives with tools for development, productivity, graphics, remote control, gaming, multimedia, communication, and more.
+Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools for development, productivity, graphics, remote control, gaming, multimedia, communication, and more.
 
 ## [`install-tools-first.sh`](install-tools-first.sh) and [`install-tools-second.sh`](install-tools-second.sh)
 

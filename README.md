@@ -58,9 +58,9 @@ Can also be run on Debian derivatives.
 
 When dual booting with Windows, you need to:
 - Disabe fast boot (in some context also secure boot) in BIOS.
-- In some context, `sudo nano /etc/grub.d/30_os_prober` and add or edit line `quick_boot="0"`.
-- `sudo nano /etc/default/grub` and add or edit line `GRUB_DISABLE_OS_PROBER=false`.
-- `sudo nano /etc/default/grub` and add or edit non-zero `GRUB_TIMEOUT`, when `GRUB_TIMEOUT_STYLE=menu`, or `GRUB_HIDDEN_TIMEOUT`, when otherwise.
+- In some context, `sudo vim /etc/grub.d/30_os_prober` and add or edit line `quick_boot="0"`.
+- `sudo vim /etc/default/grub` and add or edit line `GRUB_DISABLE_OS_PROBER=false`.
+- `sudo vim /etc/default/grub` and add or edit non-zero `GRUB_TIMEOUT`, when `GRUB_TIMEOUT_STYLE=menu`, or `GRUB_HIDDEN_TIMEOUT`, when otherwise.
 
 #### GRUB Menu
 
@@ -71,7 +71,7 @@ When dual booting with Windows, you need to:
 #### GRUB Configuration
 
 ```
-sudo nano /etc/default/grub
+sudo vim /etc/default/grub
 ``` 
 
 to edit configuration, 
@@ -223,7 +223,7 @@ For whatever setup, set your password for VNC client to access the VNC server on
 vncpasswd
 ```
 
-#### For Nvidia and GDM
+#### For GDM with Nvidia
 
 <ol>
 <li>In tty or from SSH client, run:
@@ -237,7 +237,7 @@ sudo systemctl start gdm
 </code></pre></li>
 </ol>
 
-#### For Nvidia and SDDM
+#### For SDDM with Nvidia
 
 <ol>
 <li>In tty or from SSH client, run:
@@ -251,7 +251,7 @@ sudo systemctl start sddm
 </code></pre></li>
 </ol>
 
-#### For Nvidia and LightDM
+#### For LightDM with Nvidia
 
 <ol>
 <li>In tty or from SSH client, run:
@@ -338,15 +338,13 @@ curl -s https://repo.waydro.id | sudo bash
 sudo apt install waydroid -y
 ```
 
-#### Enable Wayland for GDM
-
-This is for GDM, which Ubuntu usually uses. For SDDM, which Kubuntu uses, simply skip this section.
+#### Enable Wayland for GNOME3 (GDM)
 
 <ol>
 <li>Method 1:
 
 Run:
-<pre><code>sudo nano /etc/gdm3/custom.conf
+<pre><code>sudo vim /etc/gdm3/custom.conf
 </code></pre>
 Add or change:
 <pre><code>WaylandEnable=true
@@ -360,6 +358,26 @@ And then run:
 <li>In the down right corner of the login page, choose `Ubuntu on Wayland`.</li>
 <li>Login.</li>
 </ol>
+</ol>
+
+### Enable Wayland for KDE Plasma (SDDM) without NVIDIA
+
+<ol>
+<li>Log out.</li>
+<li>In the down left corner of the login page, choose `Plasma (Wayland)`.</li>
+<li>Login.</li>
+</ol>
+
+### Enable Wayland for KDE Plasma (SDDM) with NVIDIA
+
+<ol>
+<li>RUn:
+<pre><code>echo options nvidia_drm modeset=1 | sudo tee /etc/modprobe.d/nvidia_drm.conf
+sudo update-initramfs -u
+</code></pre>
+<li>Log out.</li>
+<li>In the down left corner of the login page, choose `Plasma (Wayland)`.</li>
+<li>Login.</li>
 </ol>
 
 #### Download Android

@@ -2,46 +2,47 @@
 
 Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools for development, productivity, graphics, remote control, gaming, multimedia, communication, and more.
 
-## [`install-tools-first.sh`](install-tools-first.sh) and [`install-tools-second.sh`](install-tools-second.sh)
+## Main Setup Script: [`install-tools-first.sh`](install-tools-first.sh) and [`install-tools-second.sh`](install-tools-second.sh)
 
 ### Usage 
 
 1. Run [`install-tools-first.sh`](install-tools-first.sh) and follow the prompts until it reboot automatically.
 2. Login and run [`install-tools-second.sh`](install-tools-second.sh) until it reboot automatically.
 3. See [Tailscale](#tailscale) to configure Tailscale.
-4. Done.
+4. See [Desktop Environment](#desktop-environment) and [Wayland](#wayland) if you want to use Wayland.
+5. Done.
 
-### Purpose
+### Content
 
-Setting up Ubuntu derivatives with installation of recommended drivers and tools for C/C++, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET 9, GitHub CLI, GitLab CLI, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, Tailscale, Noto CJK fonts, XITS fonts, Node.js packages, Python3 packages, pipx, Poetry, RARLAB UnRAR, Fabric, Visual Studio Code, Code::Blocks, PowerShell, ANTLR 4, 
-Discord, Telegram, Spotify, VLC, OBS Studio, LibreOffice, OnlyOffice, Joplin, Postman, GIMP, Krita, HandBrake, MuseScore, Aisleriot Solitaire, Tor, Tor Browser, custom `~/.profile`, custom `~/.bashrc`, custom `~/.vimrc`, CopyQ except on KDE Plasma, switching Firefox and Thunderbird from Snap to PPA except on Linux Mint, and my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch) and my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit).
+Installs recommended drivers and tools for C/C++, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET 9, GitHub CLI, GitLab CLI, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, Tailscale, Noto CJK fonts, XITS fonts, Node.js packages, Python3 packages, pipx, Poetry, RARLAB UnRAR, Fabric, Visual Studio Code, Code::Blocks, PowerShell, ANTLR 4, Discord, Telegram, Spotify, VLC, OBS Studio, LibreOffice, OnlyOffice, Joplin, Postman, GIMP, Krita, HandBrake, MuseScore, Aisleriot Solitaire, Tor, Tor Browser, CopyQ except on KDE Plasma etc., custom `~/.profile`, custom `~/.bashrc`, custom `~/.vimrc`, my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch) and my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit), etc., addes APT Repositories, and switches Firefox and Thunderbird from Snap to PPA except on Linux Mint, on Ubuntu derivatives on AMD 64.
 
 ## Other Scripts
 
 ### [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh)
 
-Installs VirtualGL and TurboVNC on Ubuntu derivatives, compatible with NVIDIA GPU. See [#VNC](#vnc) for what to do after running this script.
+Installs VirtualGL and TurboVNC on Ubuntu derivatives on AMD 64, compatible with NVIDIA GPU. See [#VNC](#vnc) for what to do after running this script.
 
 ### [`waydroid.sh`](waydroid.sh)
 
-Installs Waydroid. See [Waydroid](#waydroid) for what to do after running this script.
+Installs Waydroid on Ubuntu derivatives on AMD 64.
 
-Waydroid only runs on Wayland, so installing it with a desktop environment that doesn't support Wayland is useless.
+Waydroid only runs on Wayland.
 
-- GNOME 3, which Ubuntu usually uses, and KDE Plasma, which Kubuntu uses, support Wayland.
-- Cinnamon, which Linux Mint usually uses, doesn't support Wayland currently.
+See [Waydroid](#waydroid) for what to do after running this script.
+
+See [Desktop Environment](#desktop-environment), [Wayland](#wayland), and [Waydroid](#waydroid) for more information.
 
 ### [`wine.sh`](wine.sh)
 
-Installs Wine.
+Installs Wine on Debian derivatives on AMD 64.
 
-Can also be run on Debian derivatives.
+This script is not acitvely maintained. Please see [https://www.winehq.org](https://www.winehq.org) for latest installation methods.
 
 ## Instructions
 
++ [Desktop Environment](#desktop-environment)
 + [GRUB](#grub)
-+ [Driver Manager in Linux Mint](#driver-manager-in-linux-mint)
-+ [NVIDIA](#nvidia)
++ [Wayland](#wayland)
 + [Time Mismatches When Dual Booting with Windows](#time-mismatches-when-dual-booting-with-windows)
 + [Linux Mint Ubuntu Version Tweak](#linux-mint-ubuntu-version-tweak)
 + [Desktop App Launchers](#desktop-app-launchers)
@@ -52,6 +53,29 @@ Can also be run on Debian derivatives.
 + [Solution for Closing Lip Overrides Power Off](#solution-for-closing-lip-overrides-power-off)
 + [Switching Firefox and Thunderbird from Snap to PPA](#switching-firefox-and-thunderbird-from-snap-to-ppa)
 
+### Desktop Environment
+#### GNOME 3
+
+- Ubuntu uses it.
+- Uses GDM.
+- Supports both X11 and Wayland.
+- Built upon GTK.
+
+#### KDE Plasma
+
+- Kubuntu uses it.
+- Uses SDDM.
+- Supports both X11 and Wayland.
+- Built upon Qt.
+
+#### Cinnamon
+
+- Linux Mint Cinnamon Edition uses it.
+- Uses LightDM.
+- Supports X11.
+- Not fully supports Wayland currently.
+- Built upon GTK.
+
 ### GRUB
 
 #### When Dual Booting with Windows
@@ -59,8 +83,8 @@ Can also be run on Debian derivatives.
 When dual booting with Windows, you need to:
 - Disabe fast boot (in some context also secure boot) in BIOS.
 - In some context, `sudo vim /etc/grub.d/30_os_prober` and add or edit line `quick_boot="0"`.
-- `sudo vim /etc/default/grub` and add or edit line `GRUB_DISABLE_OS_PROBER=false`.
-- `sudo vim /etc/default/grub` and add or edit non-zero `GRUB_TIMEOUT`, when `GRUB_TIMEOUT_STYLE=menu`, or `GRUB_HIDDEN_TIMEOUT`, when otherwise.
+- `sudo vim /etc/default/grub` and add or change the line to `GRUB_DISABLE_OS_PROBER=false`.
+- `sudo vim /etc/default/grub` and add or change to a non-zero `GRUB_TIMEOUT`, when `GRUB_TIMEOUT_STYLE=menu`, or `GRUB_HIDDEN_TIMEOUT`, when otherwise.
 
 #### GRUB Menu
 
@@ -95,19 +119,62 @@ Variables:
 - `GRUB_HIDDEN_TIMEOUT_QUIET=<boolean>`: DEPRECATED. `GRUB_TIMEOUT_STYLE=hidden` and `GRUB_HIDDEN_TIMEOUT_QUIET=false` is equivalent to `GRUB_TIMEOUT_STYLE=countdown`; `GRUB_TIMEOUT_STYLE=hidden` and `GRUB_HIDDEN_TIMEOUT_QUIET=true` is equivalent to `GRUB_TIMEOUT_STYLE=hidden`. There's a known bug that make this not work as expected in some versions after this is deprecated.
 - `GRUB_DISABLE_OS_PROBER=<boolean>`: Whether to disable OS prober. Set it to `false` when dual booting.
 
-### Driver Manager in Linux Mint
+### Wayland
 
-You can install drivers (including NVIDIA driver) with `Driver Manager`, a GUI tool, on Linux Mint.
+- GNOME 3, which Ubuntu usually uses, and KDE Plasma, which Kubuntu uses, support Wayland.
+- Cinnamon, which Linux Mint usually uses, doesn't fully support Wayland currently.
 
-### NVIDIA
+#### Enable Wayland for GNOME3 (GDM)
 
-<ul>
-<li>You can check NVIDIA driver with <code>nvidia-smi</code>.</li>
-<li>You can install CUDA Toolkit with:
-<pre><code>sudo apt install nvidia-cuda-toolkit -y
+<ol>
+<li>Method 1:
+
+Run:
+<pre><code>sudo vim /etc/gdm3/custom.conf
 </code></pre>
-and check it with <code>nvcc --version</code>.
-</ul>
+add or change the line to:
+<pre><code>WaylandEnable=true
+</code></pre>
+run:
+<pre><code>sudo systemctl restart gdm3
+</code></pre></li>
+<li>Method 2:
+<ol>
+<li>Log out.</li>
+<li>In the down right corner of the login page, choose `Ubuntu on Wayland`.</li>
+<li>Login.</li>
+</ol>
+</ol>
+
+### Enable Wayland for KDE Plasma (SDDM) without NVIDIA
+
+<ol>
+<li>Log out.</li>
+<li>In the down left corner of the login page, choose `Plasma (Wayland)`.</li>
+<li>Login.</li>
+</ol>
+
+### Enable Wayland for KDE Plasma (SDDM) with NVIDIA
+
+<ol>
+<li>Run:
+<pre><code>sudo apt install libnvidia-egl-wayland1 -y
+</code></pre>
+<li>Run:
+<pre><code>sudo nano /etc/default/grub
+</code></pre>
+change the line to:
+<pre><code>GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvidia_drm.modeset=1"
+</code></pre></li>
+<li>Run:
+<pre><code>sudo update-grub
+sudo update-initramfs -u
+</code></pre></li>
+<li>Shut down the computer.</li>
+<li>Boot the computer.</li>
+<li>In the down left corner of the login page, choose `Plasma (Wayland)`.</li>
+<li>Login.</li>
+</ol>
 
 ### Time Mismatches When Dual Booting with Windows
 
@@ -137,10 +204,9 @@ else
 fi
 )
 ```
-before it and replace it with `$UBUNTU_VERSION_ID`. This has been added to `~/.bashrc` in [`install-tools.sh`](install-tools.sh).
+before it and replace it with `$UBUNTU_VERSION_ID`. This has been added to `~/.bashrc` in [`install-tools-first.sh`](install-tools-first.sh).
 
 ### Desktop App Launchers
-
 #### Command line
 
 ```
@@ -154,10 +220,21 @@ chmod +x ~/Desktop/<application_name>.desktop
 2. Find the app you want.
 3. Right-click and click `Add to desktop`.
 
+#### KDE Plasma GUI
+
+1. Click **Application Launcher** (lower left corner).
+2. Find the app you want.
+3. Right-click and click `Add to Desktop`.
+
 ### Fcitx5
 
-- You can configure Fcitx5 in `Fcitx Configuration`, a GUI tool, on GNOME 3, which Ubuntu usually uses, and Cinnamon, which Linux Mint usually uses.
-- You can configure Fcitx5 in `System Settings` > `Input Method`, a GUI tool, on KDE Plasma, which Kubuntu uses.
+#### GNOME 3 and Cinnamon GUI
+
+You can configure Fcitx5 in `Fcitx Configuration`.
+
+#### KDE Plasma GUI
+
+You can configure Fcitx5 in `System Settings` > `Input Method`.
 
 ### Tailscale
 #### Log in
@@ -170,16 +247,9 @@ Log in via <https://login.tailscale.com/login>. Google, Microsoft, GitHub, Apple
 
 #### Systemd
 
-For Linux distribution with `systemd`, you can:
 ```
 sudo systemctl enable tailscaled
 sudo systemctl start tailscaled
-```
-
-#### Manually Start Userspace Networking
-
-```
-sudo tailscaled --tun=userspace-networking &
 ```
 
 #### Tailscale IP
@@ -192,14 +262,6 @@ tailscale ip
 
 You can connect to it from another device logged in with the same account.
 
-#### Subnet Routing
-
-If you want to access devices on your local network through Tailscale, enable subnet routing
-
-```
-sudo tailscale up --advertise-routes=192.168.1.0/24
-```
-
 #### Tailscale in Android
 
 Tailscale (`com.tailscale.ipn`) can be installed from [F-Droid](https://f-droid.org/packages/com.tailscale.ipn) or [Google Play](https://play.google.com/store/apps/details?id=com.tailscale.ipn).
@@ -209,16 +271,9 @@ You can view the devices logged in and their Tailscale IPs in the app.
 See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) for more information.
 
 ### VNC
+#### Password
 
-**Note**:
-
-- GNOME 3, which Ubuntu usually uses, use GDM.
-- KDE Plasma, which Kubuntu uses, uses SDDM.
-- Cinnamon, which  Linux Mint usually uses, uses LightDM.
-
-#### For All at First
-
-For whatever setup, set your password for VNC client to access the VNC server on this computer first:
+Set your password for VNC client to access the VNC server on the computer:
 ```
 vncpasswd
 ```
@@ -318,10 +373,7 @@ See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) for
 
 ### Waydroid
 
-Waydroid only runs on Wayland, so installing it with a desktop environment that doesn't support Wayland is useless.
-
-- GNOME 3, which Ubuntu usually uses, and KDE Plasma, which Kubuntu uses, support Wayland.
-- Cinnamon, which Linux Mint usually uses, doesn't support Wayland currently.
+Waydroid only runs on Wayland, see [Wayland](#wayland) for more information.
 
 #### Official Site
 
@@ -337,57 +389,6 @@ sudo apt install curl ca-certificates -y
 curl -s https://repo.waydro.id | sudo bash
 sudo apt install waydroid -y
 ```
-
-#### Enable Wayland for GNOME3 (GDM)
-
-<ol>
-<li>Method 1:
-
-Run:
-<pre><code>sudo vim /etc/gdm3/custom.conf
-</code></pre>
-Add or change:
-<pre><code>WaylandEnable=true
-</code></pre>
-And then run:
-<pre><code>sudo systemctl restart gdm3
-</code></pre></li>
-<li>Method 2:
-<ol>
-<li>Log out.</li>
-<li>In the down right corner of the login page, choose `Ubuntu on Wayland`.</li>
-<li>Login.</li>
-</ol>
-</ol>
-
-### Enable Wayland for KDE Plasma (SDDM) without NVIDIA
-
-<ol>
-<li>Log out.</li>
-<li>In the down left corner of the login page, choose `Plasma (Wayland)`.</li>
-<li>Login.</li>
-</ol>
-
-### Enable Wayland for KDE Plasma (SDDM) with NVIDIA
-
-<ol>
-<li>Run:
-<pre><code>sudo apt install libnvidia-egl-wayland1 plasma-workspace-wayland -y
-</code></pre>
-<li>Run:
-<pre><code>sudo nano /etc/default/grub
-</code></pre>
-add or change:
-<pre><code>GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvidia_drm.modeset=1"
-</code></pre></li>
-<li>Run:
-<pre><code>sudo update-grub
-sudo update-initramfs -u
-</code></pre></li>
-<li>Reboot.</li>
-<li>In the down left corner of the login page, choose `Plasma (Wayland)`.</li>
-<li>Login.</li>
-</ol>
 
 #### Download Android
 
@@ -450,23 +451,22 @@ Run:
 ```
 sudo vim /etc/systemd/logind.conf
 ```
-Add or change:
+add or change the line to:
 ```
 HandleLidSwitch=ignore
 HandleLidSwitchDocked=ignore
 HandleLidSwitchExternalPower=ignore
 ```
-And then run:
+run:
 ```
 sudo systemctl restart systemd-logind
 ```
-Test it.
 
 ### Switching Firefox and Thunderbird from Snap to PPA
 
 Ignore this if you are on Linux Mint, which does not use Snap.
 
-This has been done in [`install-tools.sh`](install-tools.sh).
+This has been done in [`install-tools-first.sh`](install-tools-first.sh).
 
 #### Script for Firefox
 

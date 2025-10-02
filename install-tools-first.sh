@@ -23,6 +23,40 @@ else
     cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
     fcitx5 &
 fi
+if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
+    sudo add-apt-repository ppa:mozillateam/ppa -y
+    echo 'Package: *
+    Pin: release o=LP-PPA-mozillateam
+    Pin-Priority: 1001
+    
+    Package: *
+    Pin: release o=Ubuntu
+    Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/mozilla-firefox
+    sudo rm -f /etc/apparmor.d/usr.bin.firefox
+    sudo rm -f /etc/apparmor.d/local/usr.bin.firefox
+    sudo systemctl stop var-snap-firefox-common-*.mount 2>/dev/null || true
+    sudo systemctl disable var-snap-firefox-common-*.mount 2>/dev/null || true
+    sudo snap remove --purge firefox || true
+    sudo apt install firefox --allow-downgrades -y
+    echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox
+    sudo ln -s /etc/apparmor.d/firefox /etc/apparmor.d/disable/
+    sudo apparmor_parser -R /etc/apparmor.d/firefox
+    sudo apt install kde-config-fcitx5 -y
+    echo 'Package: *
+    Pin: release o=LP-PPA-mozillateam
+    Pin-Priority: 1001
+    
+    Package: *
+    Pin: release o=Ubuntu
+    Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/thunderbird
+    sudo rm -f /etc/apparmor.d/usr.bin.thunderbird
+    sudo rm -f /etc/apparmor.d/local/usr.bin.thunderbird
+    sudo systemctl stop var-snap-thunderbird-common-*.mount 2>/dev/null || true
+    sudo systemctl disable var-snap-thunderbird-common-*.mount 2>/dev/null || true
+    sudo snap remove --purge firefox || true
+    sudo apt install thunderbird --allow-downgrades -y
+    echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-thunderbird
+fi
 sudo systemctl enable ssh
 yes | sudo ufw enable
 sudo ufw allow ssh

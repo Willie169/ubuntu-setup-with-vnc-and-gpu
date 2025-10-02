@@ -453,7 +453,7 @@ sudo systemctl restart systemd-logind
 
 ### Switch Firefox and Thunderbird from Snap to Deb
 
-[`install-tools-first.sh`](install-tools-first.sh) has switched Firefox and Thunderbird from Snap to `.deb` and fixed Fcitx5 not working on Firefox from PPA.
+[`install-tools-first.sh`](install-tools-first.sh) has switched Firefox and Thunderbird from Snap to `.deb` and fixed Fcitx5 not working on Firefox from PPA if not on Linux Mint, which doesn't use Snap.
 
 See my [**switch-firefox-from-snap-to-deb**](https://github.com/Willie169/switch-firefox-from-snap-to-deb) for more information.
 

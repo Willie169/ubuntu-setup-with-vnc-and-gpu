@@ -177,6 +177,9 @@ cd tor-browser
 ./start-tor-browser.desktop --detach --headless
 cp start-tor-browser.desktop ~/Desktop
 cd ~
+wget -q https://www.rbvi.ucsf.edu/chimerax/cgi-bin/secure/chimerax-get.py?file=1.10.1/ubuntu-24.04/ucsf-chimerax_1.10.1ubuntu24.04_amd64.deb
+sudo dpkg -i ucsf-chimerax_1.10.1ubuntu24.04_amd64.deb
+rm ucsf-chimerax_1.10.1ubuntu24.04_amd64.deb
 cat > ~/.profile <<'EOF'
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login

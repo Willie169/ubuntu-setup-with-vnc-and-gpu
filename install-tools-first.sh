@@ -177,6 +177,9 @@ cd tor-browser
 ./start-tor-browser.desktop --detach --headless
 cp start-tor-browser.desktop ~/Desktop
 cd ~
+wget -q http://ftp.us.debian.org/debian/pool/main/m/mesa/libosmesa6_25.0.7-2_amd64.deb
+sudo dpkg -i libosmesa6_25.0.7-2_amd64.deb
+rm libosmesa6_25.0.7-2_amd64.deb
 cat > ~/.profile <<'EOF'
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login

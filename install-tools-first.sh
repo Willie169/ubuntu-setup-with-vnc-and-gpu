@@ -343,7 +343,7 @@ export GOPATH="$HOME/go"
 export PATH="$PATH:/bin:/sbin:/usr/bin:/usr/sbin:$HOME/.local/bin:$GOPATH/bin:$GOROOT/bin:/usr/glibc/bin:$HOME/.cargo/bin:/opt/TurboVNC/bin:/usr/local/texlive/2025/bin/x86_64-linux:/usr/sbin:$HOME/.pyenv/bin"
 export WAYDROID="$HOME/.local/share/waydroid/data/media/0"
 export KIT="/usr/share/LaTeX-ToolKit"
-export PATCH="/root/texmf/tex/latex/physics-patch"
+export PATCH="$HOME/texmf/tex/latex/physics-patch"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

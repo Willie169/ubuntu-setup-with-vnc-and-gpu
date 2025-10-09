@@ -2,7 +2,12 @@
 
 Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools for development, productivity, graphics, remote control, multimedia, communication, and more.
 
-## Main Setup Script: [`install-tools-first.sh`](install-tools-first.sh) and [`install-tools-second.sh`](install-tools-second.sh)
+## Main Installation Scripts
+
+### Prerequisites
+
+* Sufficient storage and power.
+* Internet connection.
 
 ### Usage 
 
@@ -224,6 +229,16 @@ You can configure Fcitx5 input methods in `Fcitx Configuration`.
 2. You can configure Fcitx5 input methods in `System Settings` > `Input Method`.
 
 ### Tailscale
+#### Install
+
+Below script has been included in [`install-tools-first.sh`](install-tools-first.sh).
+```
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
+sudo apt update
+sudo apt install tailscale -y
+```
+
 #### Log in
 
 ```
@@ -255,7 +270,7 @@ Tailscale (`com.tailscale.ipn`) can be installed from [F-Droid](https://f-droid.
 
 You can view the devices logged in and their Tailscale IPs in the app.
 
-See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) for more information.
+See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) repo for more information.
 
 ### VNC
 #### Password
@@ -356,7 +371,7 @@ Add `alias vncserver="/opt/TurboVNC/bin/vncserver"` in `~/.bashrc` before using 
 
 #### Android as SSH and VNC/X Client
 
-See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) for more information.
+See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) repo for more information.
 
 ### Waydroid
 
@@ -367,32 +382,15 @@ Waydroid only runs on Wayland, see [Wayland](#wayland) section for more informat
 Site: <https://waydro.id>.
 Doc: <https://docs.waydro.id>.
 
-#### Install
+#### Install and Network
 
-This has been done in [`waydroid.sh`](waydroid.sh).
-
-```
-sudo apt install curl ca-certificates -y
-curl -s https://repo.waydro.id | sudo bash
-sudo apt install waydroid -y
-```
+See [`waydroid.sh`](waydroid.sh).
 
 #### Download Android
 
 1. Open Waydroid from application menu. 
 2. Choose options you want. In `Android Type`, `Vanilla` refers to a pure AOSP (Android Open-Source Project) build without any Google services, while `Gapps` refers to a build that provides access to Google services.
 3. Press `Download`, wait until `Done` button is shown, and press it.
-
-#### Network
-
-This has been done in [`waydroid.sh`](waydroid.sh).
-
-To allow network access in Waydroid, run:
-```
-sudo ufw allow 53
-sudo ufw allow 67
-sudo ufw default allow FORWARD
-```
 
 #### Storage
 
@@ -453,12 +451,14 @@ sudo systemctl restart systemd-logind
 
 ### Switch Firefox and Thunderbird from Snap to Deb
 
-[`install-tools-first.sh`](install-tools-first.sh) has switched Firefox and Thunderbird from Snap to `.deb` and fixed Fcitx5 not working on Firefox from PPA if not on Linux Mint, which doesn't use Snap.
-
-See my [**switch-firefox-from-snap-to-deb**](https://github.com/Willie169/switch-firefox-from-snap-to-deb) for more information.
+[`install-tools-first.sh`](install-tools-first.sh) has did this. For more information, see my [**switch-firefox-from-snap-to-deb**](https://github.com/Willie169/switch-firefox-from-snap-to-deb) repo.
 
 #### Sources
 
 - Archisman Panigrahi, igi, Organic Marble, eddygeek, Yogev Neumann, & OMG Ubuntu (2024). How to install Firefox as a traditional deb package (without snap) in Ubuntu 22.04 or later versions? <https://askubuntu.com/questions/1399383/how-to-install-firefox-as-a-traditional-deb-package-without-snap-in-ubuntu-22>.
 - Archisman Panigrahi & BeastOfCaerbannog (2024). How to install Thunderbird as a traditional deb package without snap in Ubuntu 24.04 and later versions? <https://askubuntu.com/questions/1513445/how-to-install-thunderbird-as-a-traditional-deb-package-without-snap-in-ubuntu-2>.
 - Mitsuya Shibata (2023). \[ubuntu-jp:6617\] Re: PPA にある Firefox の deb パッケージでのみ fcitx5 で日本語入力ができない問題. <https://lists.ubuntu.com/archives/ubuntu-jp/2023-May/006616.html>
+
+## TODO
+
+Count storage required for [Main Installation Scripts](#main-installation-scripts).

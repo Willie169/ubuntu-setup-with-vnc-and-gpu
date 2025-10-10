@@ -1,13 +1,13 @@
 cd ~
 sudo apt update
-sudo apt purge fcitx* -y
-sudo apt full-upgrade -y
-sudo add-apt-repository ppa:graphics-drivers/ppa -y
-sudo apt update
-sudo ubuntu-drivers autoinstall -y
-sudo apt install apt-transport-https autoconf automake bash bison build-essential bzip2 ca-certificates clang cmake codeblocks* command-not-found curl dbus dvipng dvisvgm fcitx5 fcitx5-* ffmpeg file flex flatpak gcc gdb gh ghostscript git glab golang gperf gpg grep g++ iverilog libboost-all-dev libbz2-dev libdb-dev libeigen3-dev libffi-dev libgdbm-compat-dev libgdbm-dev libgsl-dev liblzma-dev libncursesw5-dev libnss3-dev libreadline-dev libreoffice libsqlite3-dev libssl-dev libxcb-cursor0 libxml2-dev libxmlsec1-dev llvm iproute2 iverilog jq make maven mc nano neovim openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc pipx procps python3-pip python3-all-dev python3-venv rust-all software-properties-common tar tk-dev tmux tree unrar uuid-dev verilator vim wget xz-utils zlib1g zlib1g-dev zsh -y
 sudo add-apt-repository universe -y
 sudo add-apt-repository multiverse -y
+sudo add-apt-repository ppa:graphics-drivers/ppa -y
+sudo apt update
+sudo apt purge fcitx* -y
+sudo apt full-upgrade -y
+sudo ubuntu-drivers autoinstall -y
+sudo apt install apt-transport-https autoconf automake bash bison build-essential bzip2 ca-certificates clang cmake codeblocks* command-not-found curl dbus dvipng dvisvgm fcitx5 fcitx5-* ffmpeg file flex flatpak gcc gdb gh ghostscript git glab golang gperf gpg grep g++ iverilog libboost-all-dev libbz2-dev libdb-dev libeigen3-dev libffi-dev libgdbm-compat-dev libgdbm-dev libgsl-dev liblzma-dev libncursesw5-dev libnss3-dev libreadline-dev libreoffice libsqlite3-dev libssl-dev libxcb-cursor0 libxml2 libxml2-dev libxml2-utils libxmlsec1-dev llvm iproute2 iverilog jq make maven mc nano neovim openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc pipx procps python3-pip python3-all-dev python3-venv rust-all software-properties-common tar tk-dev tmux tree unrar uuid-dev verilator vim wget xz-utils zlib1g zlib1g-dev zsh -y
 im-config -n fcitx5
 cat >> ~/.xprofile <<'EOF'
 export GTK_IM_MODULE=fcitx
@@ -165,7 +165,7 @@ sudo apt install dotnet-sdk-9.0 aspnetcore-runtime-9.0 -y
 source /etc/os-release
 wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | sudo tee /usr/share/keyrings/deb.torproject.org-keyring.gpg >/dev/null
 sudo tee /etc/apt/sources.list.d/tor.list > /dev/null <<EOF
-deb     [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
+deb [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
 deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
 EOF
 sudo apt update
@@ -177,9 +177,6 @@ cd tor-browser
 ./start-tor-browser.desktop --detach --headless
 cp start-tor-browser.desktop ~/Desktop
 cd ~
-wget -q http://ftp.us.debian.org/debian/pool/main/libx/libxml2/libxml2-16_2.14.5+dfsg-0.2_amd64.deb
-sudo dpkg -i libxml2-16_2.14.5+dfsg-0.2_amd64.deb
-rm libxml2-16_2.14.5+dfsg-0.2_amd64.deb
 wget -q http://ftp.us.debian.org/debian/pool/main/z/z3/libz3-4_4.13.3-1_amd64.deb
 sudo dpkg -i libz3-4_4.13.3-1_amd64.deb
 rm libz3-4_4.13.3-1_amd64.deb

@@ -2,6 +2,7 @@ cd ~
 sudo apt update
 sudo add-apt-repository universe -y
 sudo add-apt-repository multiverse -y
+sudo add-apt-repository restricted -y
 sudo add-apt-repository ppa:graphics-drivers/ppa -y
 sudo apt update
 sudo apt purge fcitx* -y

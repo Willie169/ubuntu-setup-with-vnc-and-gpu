@@ -448,6 +448,10 @@ run:
 sudo systemctl restart systemd-logind
 ```
 
+## License
+
+This repository is licensed under GNU General Public License General Public License, see [LICENSE.md](LICENSE.md) for details.
+
 ## TODO
 
 Count storage required for [Main Installation Scripts](#main-installation-scripts).

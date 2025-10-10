@@ -170,9 +170,9 @@ deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg
 EOF
 sudo apt update
 sudo apt install tor deb.torproject.org-keyring -y
-wget -q https://dist.torproject.org/torbrowser/14.5.7/tor-browser-linux-x86_64-14.5.7.tar.xz
-tar -xvf tor-browser-linux-x86_64-14.5.7.tar.xz
-rm tor-browser-linux-x86_64-14.5.7.tar.xz
+wget -q https://dist.torproject.org/torbrowser/14.5.8/tor-browser-linux-x86_64-14.5.8.tar.xz
+tar -xvf tor-browser-linux-x86_64-14.5.8.tar.xz
+rm tor-browser-linux-x86_64-14.5.8.tar.xz
 cd tor-browser
 ./start-tor-browser.desktop --detach --headless
 cp start-tor-browser.desktop ~/Desktop

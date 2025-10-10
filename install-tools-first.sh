@@ -102,7 +102,7 @@ pip3 install jupyter librosa matplotlib meson ninja numpy pandas pydub scipy sel
 deactivate
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/trusted.gpg.d/docker.asc > /dev/null
 source /etc/os-release
-sudo add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME stable" -y
+echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt update
 sudo apt install docker-ce -y
 sudo systemctl enable docker

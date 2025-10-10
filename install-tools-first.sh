@@ -58,6 +58,18 @@ sudo snap remove --purge firefox || true
 sudo apt install thunderbird --allow-downgrades -y
 echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-thunderbird
 fi
+curl -fsSL https://ftp-master.debian.org/keys/archive-key-11.asc | sudo gpg --dearmor -o /usr/share/keyrings/debian-archive-keyring.gpg
+sudo mkdir -p /root/.gnupg
+sudo chmod 700 /root/.gnupg
+sudo gpg --no-default-keyring --keyring /usr/share/keyrings/debian-archive-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys 0E98404D386FA1D9 6ED0E7B82643E131 F8D2585B8783D481 54404762BBB6E853 BDE6D2B9216EC7A8 BDE6D2B9216EC7A8 8E9F831205B4BA95
+echo 'deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] http://deb.debian.org/debian trixie main contrib non-free-firmware
+deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] http://security.debian.org/debian-security trixie-security main contrib non-free-firmware
+deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] http://deb.debian.org/debian trixie-updates main contrib non-free-firmware' | sudo tee /etc/apt/sources.list.d/debian.list > /dev/null
+echo 'Package: *
+Pin: release o=Debian
+Pin-Priority: 1' | sudo tee /etc/apt/preferences.d/debian > /dev/null
+sudo apt update
+sudo apt install liblttng-ust-common1t64 liblttng-ust-ctl6 liblttng-ust1t64 libz3-4 libllvm19 libosmesa6 -y
 sudo systemctl enable ssh
 yes | sudo ufw enable
 sudo ufw allow ssh
@@ -153,18 +165,6 @@ sudo dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
 sudo apt update
 sudo apt install powershell -y
-curl -fsSL https://ftp-master.debian.org/keys/archive-key-11.asc | sudo gpg --dearmor -o /usr/share/keyrings/debian-archive-keyring.gpg
-sudo mkdir -p /root/.gnupg
-sudo chmod 700 /root/.gnupg
-sudo gpg --no-default-keyring --keyring /usr/share/keyrings/debian-archive-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys 0E98404D386FA1D9 6ED0E7B82643E131 F8D2585B8783D481 54404762BBB6E853 BDE6D2B9216EC7A8 BDE6D2B9216EC7A8 8E9F831205B4BA95
-echo 'deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] http://deb.debian.org/debian trixie main contrib non-free-firmware
-deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] http://security.debian.org/debian-security trixie-security main contrib non-free-firmware
-deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] http://deb.debian.org/debian trixie-updates main contrib non-free-firmware' | sudo tee /etc/apt/sources.list.d/debian.list > /dev/null
-echo 'Package: *
-Pin: release o=Debian
-Pin-Priority: 1' | sudo tee /etc/apt/preferences.d/debian > /dev/null
-sudo apt update
-sudo apt install liblttng-ust-common1t64 liblttng-ust-ctl6 liblttng-ust1t64 -y
 sudo add-apt-repository ppa:dotnet/backports -y
 sudo apt install dotnet-sdk-9.0 aspnetcore-runtime-9.0 -y
 source /etc/os-release
@@ -182,15 +182,6 @@ cd tor-browser
 ./start-tor-browser.desktop --detach --headless
 cp start-tor-browser.desktop ~/Desktop
 cd ~
-wget -q http://ftp.us.debian.org/debian/pool/main/z/z3/libz3-4_4.13.3-1_amd64.deb
-sudo dpkg -i libz3-4_4.13.3-1_amd64.deb
-rm libz3-4_4.13.3-1_amd64.deb
-wget -q http://ftp.us.debian.org/debian/pool/main/l/llvm-toolchain-19/libllvm19_19.1.7-7_amd64.deb
-sudo dpkg -i libllvm19_19.1.7-7_amd64.deb
-rm libllvm19_19.1.7-7_amd64.deb
-wget -q http://ftp.us.debian.org/debian/pool/main/m/mesa/libosmesa6_25.0.7-2_amd64.deb
-sudo dpkg -i libosmesa6_25.0.7-2_amd64.deb
-rm libosmesa6_25.0.7-2_amd64.deb
 cat > ~/.profile <<'EOF'
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login

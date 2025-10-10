@@ -100,6 +100,7 @@ python3 -m venv .env
 source .env/bin/activate
 pip3 install jupyter librosa matplotlib meson ninja numpy pandas pydub scipy selenium setuptools sympy
 deactivate
+git clone --depth=1 https://github.com/amix/vimrc.git /opt/vim_runtime && sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/trusted.gpg.d/docker.asc > /dev/null
 source /etc/os-release
 echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
@@ -401,14 +402,6 @@ updatetex() {
 }
 EOF
 source ~/.bashrc
-cat > ~/.vimrc <<'EOF'
-set tabstop=4
-set shiftwidth=4
-set expandtab
-set smarttab
-set smartindent
-filetype plugin indent on
-EOF
 sudo mkdir -p /usr/share/fonts/opentype/xits
 cd /usr/share/fonts/opentype/xits
 sudo wget -q https://github.com/aliftype/xits/releases/download/v1.302/XITS-1.302.zip

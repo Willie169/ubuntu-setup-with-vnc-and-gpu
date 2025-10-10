@@ -153,15 +153,18 @@ sudo dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
 sudo apt update
 sudo apt install powershell -y
-wget -q http://ftp.us.debian.org/debian/pool/main/u/ust/liblttng-ust-common1t64_2.14.0-1.1_amd64.deb
-sudo dpkg -i liblttng-ust-common1t64_2.14.0-1.1_amd64.deb -y
-rm liblttng-ust-common1t64_2.14.0-1.1_amd64.deb
-wget -q http://ftp.us.debian.org/debian/pool/main/u/ust/liblttng-ust-ctl6_2.14.0-1.1_amd64.deb
-sudo dpkg -i liblttng-ust-ctl6_2.14.0-1.1_amd64.deb -y
-rm liblttng-ust-ctl6_2.14.0-1.1_amd64.deb
-wget -q http://ftp.us.debian.org/debian/pool/main/u/ust/liblttng-ust1t64_2.14.0-1.1_amd64.deb
-sudo dpkg -i liblttng-ust1t64_2.14.0-1.1_amd64.deb -y
-rm liblttng-ust1t64_2.14.0-1.1_amd64.deb
+curl -fsSL https://ftp-master.debian.org/keys/archive-key-11.asc | sudo gpg --dearmor -o /usr/share/keyrings/debian-archive-keyring.gpg
+sudo mkdir -p /root/.gnupg
+sudo chmod 700 /root/.gnupg
+sudo gpg --no-default-keyring --keyring /usr/share/keyrings/debian-archive-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys 0E98404D386FA1D9 6ED0E7B82643E131 F8D2585B8783D481 54404762BBB6E853 BDE6D2B9216EC7A8 BDE6D2B9216EC7A8 8E9F831205B4BA95
+echo 'deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] http://deb.debian.org/debian trixie main contrib non-free-firmware
+deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] http://security.debian.org/debian-security trixie-security main contrib non-free-firmware
+deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] http://deb.debian.org/debian trixie-updates main contrib non-free-firmware' | sudo tee /etc/apt/sources.list.d/debian.list > /dev/null
+echo 'Package: *
+Pin: release o=Debian
+Pin-Priority: 1' | sudo tee /etc/apt/preferences.d/debian > /dev/null
+sudo apt update
+sudo apt install liblttng-ust-common1t64 liblttng-ust-ctl6 liblttng-ust1t64 -y
 sudo add-apt-repository ppa:dotnet/backports -y
 sudo apt install dotnet-sdk-9.0 aspnetcore-runtime-9.0 -y
 source /etc/os-release

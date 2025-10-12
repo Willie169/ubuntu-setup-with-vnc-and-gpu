@@ -117,15 +117,7 @@ sudo git clone --depth=1 https://github.com/amix/vimrc.git /opt/vim_runtime && s
 set signcolumn=no
 set foldcolumn=0
 
-function! ToggleMouse()
-    if &mouse ==# 'a'
-        set mouse=
-    else
-        set mouse=a
-    endif
-endfunction
-
-nnoremap <leader>k :call ToggleMouse()<CR>
+nnoremap <leader>k :if &mouse ==# 'a' \| set mouse= \| else \| set mouse=a \| endif<CR>
 ' | sudo tee /opt/vim_runtime/my_configs.vim > /dev/null
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/trusted.gpg.d/docker.asc > /dev/null
 source /etc/os-release

@@ -113,12 +113,12 @@ python3 -m venv .env
 source .env/bin/activate
 pip3 install jupyter librosa matplotlib meson ninja numpy pandas pydub scipy selenium setuptools sympy
 deactivate
-sudo git clone --depth=1 https://github.com/amix/vimrc.git /opt/vim_runtime && sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all && echo 'set mouse=a
+sudo git clone --depth=1 https://github.com/amix/vimrc.git /opt/vim_runtime && sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all && echo "set mouse=a
 set signcolumn=no
 set foldcolumn=0
 
 nnoremap <leader>k :if &mouse ==# 'a' \| set mouse= \| else \| set mouse=a \| endif<CR>
-' | sudo tee /opt/vim_runtime/my_configs.vim > /dev/null
+" | sudo tee /opt/vim_runtime/my_configs.vim > /dev/null
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/trusted.gpg.d/docker.asc > /dev/null
 source /etc/os-release
 echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null

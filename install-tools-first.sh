@@ -116,6 +116,7 @@ deactivate
 sudo git clone --depth=1 https://github.com/amix/vimrc.git /opt/vim_runtime && sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all && echo "set mouse=a
 set signcolumn=no
 set foldcolumn=0
+set nolinebreak
 
 nnoremap <leader>k :if &mouse ==# 'a' \| set mouse= \| else \| set mouse=a \| endif<CR>
 " | sudo tee /opt/vim_runtime/my_configs.vim > /dev/null

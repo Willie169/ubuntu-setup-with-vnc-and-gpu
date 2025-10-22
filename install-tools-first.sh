@@ -407,6 +407,16 @@ updatetex() {
     git pull
     cd dir
 }
+
+updatevimrc() {
+    dir=$(pwd)
+    cd /opt/vim_runtime
+    git reset --hard
+    git clean -d --force
+    git pull --rebase
+    python3 update_plugins.py
+    cd dir
+}
 EOF
 source ~/.bashrc
 sudo mkdir -p /usr/share/fonts/opentype/xits

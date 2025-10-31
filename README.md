@@ -168,14 +168,11 @@ sudo update-initramfs -u
 
 ### Time Mismatches When Dual Booting with Windows
 
-If time mismatches real local time when dual booting with Windows, do the following steps:
-
-<ol>
-<li>In Linux, run:
-<pre><code>sudo timedatectl set-local-rtc 1
-</code></pre></li>
-<li>Boot into Windows and sync time by clicking <code>Settings</code> > <code>Time & language</code> > <code>Date & time</code> > <code>Sync now</code>.</li>
-</ol>
+If time mismatches real local time when dual booting with Windows, run below in Linux:
+```
+sudo timedatectl set-local-rtc 1
+sudo timedatectl set-ntp true
+```
 
 ### Linux Mint Ubuntu Version Tweak
 

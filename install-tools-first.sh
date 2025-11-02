@@ -4,6 +4,13 @@ sudo add-apt-repository universe -y
 sudo add-apt-repository multiverse -y
 sudo add-apt-repository restricted -y
 sudo add-apt-repository ppa:graphics-drivers/ppa -y
+bash <<'EOF'
+set -e
+f=/etc/apt/sources.list.d/ubuntu.sources
+if [ -f "$f" ] && grep -q "^Types:.*deb" "$f"; then
+    sudo sed -i 's/^Types: *deb.*/Types: deb deb-src/' "$f"
+fi
+EOF
 sudo apt update
 sudo apt purge fcitx* -y
 sudo apt full-upgrade -y

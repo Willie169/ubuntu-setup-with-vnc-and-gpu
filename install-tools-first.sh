@@ -15,7 +15,7 @@ sudo apt update
 sudo apt purge fcitx* -y
 sudo apt full-upgrade -y
 sudo ubuntu-drivers autoinstall -y
-sudo apt install aptitude apt-transport-https autoconf automake bash bison build-essential bzip2 ca-certificates clang cmake codeblocks* command-not-found curl dbus dnsutils dvipng dvisvgm fcitx5 fcitx5-* ffmpeg file flex flatpak gcc gdb gh ghostscript git glab golang gperf gpg grep g++ iverilog libboost-all-dev libbz2-dev libdb-dev libconfig-dev libeigen3-dev libffi-dev libgdbm-compat-dev libgdbm-dev libgsl-dev liblzma-dev libncursesw5-dev libnss3-dev libreadline-dev libreoffice libsqlite3-dev libssl-dev libxcb-cursor0 libxml2 libxml2-dev libxml2-utils libxmlsec1-dev llvm iproute2 iverilog jq make maven mc nano neovim openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc pipx procps python3-pip python3-all-dev python3-venv rust-all software-properties-common tar testdisk tk-dev tmux tree update-manager-core unrar uuid-dev valgrind verilator vim wget xz-utils zlib1g zlib1g-dev zsh -y
+sudo apt install aptitude apt-transport-https autoconf automake bash bison build-essential bzip2 ca-certificates clang cmake codeblocks* command-not-found curl dbus dnsutils dvipng dvisvgm fcitx5 fcitx5-* ffmpeg file flex flatpak gcc gdb gh ghostscript git glab golang gperf gpg grep g++ iverilog libboost-all-dev libbz2-dev libdb-dev libconfig-dev libeigen3-dev libffi-dev libgdbm-compat-dev libgdbm-dev libgsl-dev liblttng-ust-common1t64 liblttng-ust-ctl6 liblttng-ust1t64 libllvm19 liblzma-dev libncursesw5-dev libnss3-dev libosmesa6 libreadline-dev libreoffice libsqlite3-dev libssl-dev libxcb-cursor0 libxml2 libxml2-dev libxml2-utils libxmlsec1-dev libz3-4 llvm iproute2 iverilog jq make maven mc nano neovim openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc pipx procps python3-pip python3-all-dev python3-venv rust-all software-properties-common tar testdisk tk-dev tmux tree update-manager-core unrar uuid-dev valgrind verilator vim wget xz-utils zlib1g zlib1g-dev zsh -y
 sudo mkdir -p /usr/share/codeblocks/docs
 im-config -n fcitx5
 cat >> ~/.xprofile <<'EOF'
@@ -70,14 +70,6 @@ curl -fsSL https://ftp-master.debian.org/keys/archive-key-11.asc | sudo gpg --de
 sudo mkdir -p /root/.gnupg
 sudo chmod 700 /root/.gnupg
 sudo gpg --no-default-keyring --keyring /usr/share/keyrings/debian-archive-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys 0E98404D386FA1D9 6ED0E7B82643E131 F8D2585B8783D481 54404762BBB6E853 BDE6D2B9216EC7A8 BDE6D2B9216EC7A8 8E9F831205B4BA95
-echo 'deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] http://deb.debian.org/debian trixie main contrib non-free-firmware
-deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] http://security.debian.org/debian-security trixie-security main contrib non-free-firmware
-deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] http://deb.debian.org/debian trixie-updates main contrib non-free-firmware' | sudo tee /etc/apt/sources.list.d/debian.list > /dev/null
-echo 'Package: *
-Pin: release o=Debian
-Pin-Priority: 1' | sudo tee /etc/apt/preferences.d/debian > /dev/null
-sudo apt update
-sudo apt install liblttng-ust-common1t64 liblttng-ust-ctl6 liblttng-ust1t64 libz3-4 libllvm19 libosmesa6 -y
 sudo systemctl enable ssh
 yes | sudo ufw enable
 sudo ufw allow ssh

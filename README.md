@@ -20,7 +20,7 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 
 ### Content
 
-Installs recommended drivers and tools for C, C++, COBOL, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET 9, Aptitude, GitHub CLI, GitLab CLI, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, Tailscale, Noto CJK fonts, XITS fonts, Node.js packages, Python3 packages, pipx, Poetry, RARLAB UnRAR, Icarus Verilog, Verilator, Fabric, Visual Studio Code, Code::Blocks, PowerShell, ANTLR 4, Discord, Telegram, Spotify, VLC, OBS Studio, LibreOffice, OnlyOffice, Joplin, Postman, GIMP, Krita, HandBrake, MuseScore, Aisleriot Solitaire, Tor, CopyQ except on KDE Plasma, Firefox-ESR with my [switch-firefox-from-snap-to-deb](https://github.com/Willie169/switch-firefox-from-snap-to-deb) except on Linux Mint, [vimrc by Amir Salihefendic (amix)](https://github.com/amix/vimrc) with my customization for both Vim and Neovim, my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch), my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit), and more, and adds custom `~/.profile` and `~/.bashrc`.
+Installs recommended drivers and tools for C, C++, COBOL, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET 9, Aptitude, GitHub CLI, GitLab CLI, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, Tailscale, Noto CJK fonts, XITS fonts, Node.js packages, Python3 packages, pipx, Poetry, RARLAB UnRAR, Icarus Verilog, Verilator, Fabric, Visual Studio Code, Code::Blocks, PowerShell, ANTLR 4, Discord, Telegram, Spotify, VLC, OBS Studio, LibreOffice, OnlyOffice, Joplin, Postman, GIMP, Krita, HandBrake, MuseScore, Aisleriot Solitaire, Tor, CopyQ except on KDE Plasma, Firefox-ESR with my [switch-firefox-from-snap-to-deb](https://github.com/Willie169/switch-firefox-from-snap-to-deb) except on Linux Mint, [vimrc by Amir Salihefendic (amix)](https://github.com/amix/vimrc) with my customization and GitHub plugin for both Vim and Neovim, my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch), my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit), and more, and adds custom `~/.profile` and `~/.bashrc`.
 
 ## Other Scripts
 
@@ -127,6 +127,8 @@ Variables:
 
 - GNOME 3, which Ubuntu usually uses, and KDE Plasma, which Kubuntu uses, support Wayland.
 - Cinnamon, which Linux Mint usually uses, doesn't fully support Wayland currently.
+
+See [Desktop Environment](#desktop-environment) section for more information.
 
 #### Enable Wayland for GNOME3 (GDM)
 
@@ -269,6 +271,13 @@ You can view the devices logged in and their Tailscale IPs in the app.
 See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) repo for more information.
 
 ### VNC
+
+- GNOME 3, which Ubuntu usually uses, uses GDM.
+- KDE Plasma, which Kubuntu uses, uses SDDM.
+- Cinnamon, which Linux Mint usually uses, uses LightDM.
+
+See [Desktop Environment](#desktop-environment) section for more information.
+
 #### Password
 
 Set your password for VNC client to access the VNC server on the computer:

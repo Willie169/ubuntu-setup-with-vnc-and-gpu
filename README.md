@@ -20,7 +20,8 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 3. See [Fcitx5](#fcitx5) section to configure Fcitx5.
 4. See [Desktop Environment](#desktop-environment) section and [Wayland](#wayland) section if you want to use Wayland.
 5. See [Tailscale](#tailscale) section to configure Tailscale.
-6. Done.
+6. See [SSH Server](#ssh-server) section to configure SSH server.
+7. Done.
 
 ### Content
 
@@ -60,6 +61,7 @@ This script is not acitvely maintained. Please see [https://www.winehq.org](http
 + [Desktop App Launchers](#desktop-app-launchers)
 + [Fcitx5](#fcitx5)
 + [Tailscale](#tailscale)
++ [SSH Server](#ssh-server)
 + [VNC](#vnc)
 + [Waydroid](#waydroid)
 + [Solution for Closing Lip Overrides Power Off](#solution-for-closing-lip-overrides-power-off)
@@ -272,6 +274,14 @@ Tailscale (`com.tailscale.ipn`) can be installed from [F-Droid](https://f-droid.
 You can view the devices logged in and their Tailscale IPs in the app.
 
 See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) repo for more information.
+
+### SSH Server
+
+Uncomment the line:
+```
+PasswordAuthentication yes
+```
+if you want to enable password authentication.
 
 ### VNC
 

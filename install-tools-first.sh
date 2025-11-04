@@ -54,12 +54,8 @@ sudo systemctl disable var-snap-thunderbird-common-*.mount 2>/dev/null || true
 sudo snap remove --purge thunderbird || true
 sudo apt install thunderbird --allow-downgrades -y
 echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
-if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || [ "$KDE_FULL_SESSION" = "true" ]; then
 sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
 sudo apparmor_parser -R /etc/apparmor.d/firefox
-sudo apt update
-sudo apt install kde-config-fcitx5 -y
-fi
 fi
 curl -fsSL https://ftp-master.debian.org/keys/archive-key-11.asc | sudo gpg --dearmor -o /usr/share/keyrings/debian-archive-keyring.gpg
 sudo mkdir -p /root/.gnupg

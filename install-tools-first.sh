@@ -38,9 +38,13 @@ echo 'Package: *
 Pin: release o=LP-PPA-mozillateam
 Pin-Priority: 1001
 
-Package: *
+Package: firefox*
 Pin: release o=Ubuntu
-Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/mozilla-firefox
+Pin-Priority: -1
+
+Package: thunderbird*
+Pin: release o=Ubuntu
+Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/mozilla
 sudo rm -f /etc/apparmor.d/usr.bin.firefox
 sudo rm -f /etc/apparmor.d/local/usr.bin.firefox
 sudo systemctl stop var-snap-firefox-common-*.mount 2>/dev/null || true

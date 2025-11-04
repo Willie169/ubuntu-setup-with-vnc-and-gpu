@@ -21,9 +21,10 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 4. See [Desktop Environment](#desktop-environment) section and [Wayland](#wayland) section if you want to use Wayland.
 5. See [Tailscale](#tailscale) section to configure Tailscale.
 6. See [SSH Server](#ssh-server) section to configure SSH server.
-7. Done.
+7. See [Other Scripts](#other-scripts) section for other scripts in this repository and [Instructions](#instructions) section for instructions.
+8. Done.
 
-### Content
+### Content of Main Installation Scripts
 
 Installs recommended drivers and tools for C, C++, COBOL, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET 9, Aptitude, GitHub CLI, GitLab CLI, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, Tailscale, Noto CJK fonts, XITS fonts, Node.js packages, Python3 packages, pipx, Poetry, RARLAB UnRAR, Icarus Verilog, Verilator, Fabric, Visual Studio Code, Code::Blocks, qBittorrent, ANTLR 4, Tor, CopyQ except on KDE Plasma, Firefox-ESR and Thunderbird with script of my [switch-firefox-from-snap-to-deb](https://github.com/Willie169/switch-firefox-from-snap-to-deb) except on Linux Mint, [vimrc by Amir Salihefendic (amix)](https://github.com/amix/vimrc) with my customization and GitHub plugin for both Vim and Neovim, my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch), my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit), Discord, Postman, OBS Studio, Spotify, HandBrake, FreeTube, Joplin, Chromium, GIMP, Aisleriot Solitaire, Krita, MuseScore, OnlyOffice, Telegram, VLC, and more, and adds custom `~/.profile` and `~/.bashrc`.
 

@@ -46,10 +46,12 @@ This script is not acitvely maintained. Please see [https://www.winehq.org](http
 
 ## Instructions
 
+### Table of Contents
+
++ [Dual Boot with Windows](#dual-boot-with-windows)
 + [Desktop Environment](#desktop-environment)
 + [GRUB](#grub)
 + [Wayland](#wayland)
-+ [Time Mismatches When Dual Booting with Windows](#time-mismatches-when-dual-booting-with-windows)
 + [Linux Mint Ubuntu Version Tweak](#linux-mint-ubuntu-version-tweak)
 + [Desktop App Launchers](#desktop-app-launchers)
 + [Fcitx5](#fcitx5)
@@ -57,6 +59,11 @@ This script is not acitvely maintained. Please see [https://www.winehq.org](http
 + [VNC](#vnc)
 + [Waydroid](#waydroid)
 + [Solution for Closing Lip Overrides Power Off](#solution-for-closing-lip-overrides-power-off)
++ [Vimrc](#vimrc)
+
+### Dual Boot with Windows
+
+Go to my [**dual-boot-windows-ubuntu**](https://github.com/Willie169/dual-boot-windows-ubuntu) repo.
 
 ### Desktop Environment
 #### GNOME 3
@@ -167,14 +174,6 @@ sudo update-initramfs -u
 <li>In the down left corner of the login page, choose `Plasma (Wayland)`.</li>
 <li>Login.</li>
 </ol>
-
-### Time Mismatches When Dual Booting with Windows
-
-If time mismatches real local time when dual booting with Windows, run below in Linux:
-```
-sudo timedatectl set-local-rtc 1
-sudo timedatectl set-ntp true
-```
 
 ### Linux Mint Ubuntu Version Tweak
 
@@ -453,6 +452,10 @@ run:
 ```
 sudo systemctl restart systemd-logind
 ```
+
+### Vimrc
+
+Edit your customizations in `/opt/vim_runtime/my_configs.vim`.
 
 ## License
 

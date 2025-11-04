@@ -47,24 +47,19 @@ sudo systemctl stop var-snap-firefox-common-*.mount 2>/dev/null || true
 sudo systemctl disable var-snap-firefox-common-*.mount 2>/dev/null || true
 sudo snap remove --purge firefox || true
 sudo apt install firefox-esr --allow-downgrades -y
-echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox
-sudo ln -s /etc/apparmor.d/firefox /etc/apparmor.d/disable/
-sudo apparmor_parser -R /etc/apparmor.d/firefox
-sudo apt install kde-config-fcitx5 -y
-echo 'Package: *
-Pin: release o=LP-PPA-mozillateam
-Pin-Priority: 1001
-
-Package: *
-Pin: release o=Ubuntu
-Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/thunderbird
 sudo rm -f /etc/apparmor.d/usr.bin.thunderbird
 sudo rm -f /etc/apparmor.d/local/usr.bin.thunderbird
 sudo systemctl stop var-snap-thunderbird-common-*.mount 2>/dev/null || true
 sudo systemctl disable var-snap-thunderbird-common-*.mount 2>/dev/null || true
-sudo snap remove --purge firefox || true
+sudo snap remove --purge thunderbird || true
 sudo apt install thunderbird --allow-downgrades -y
-echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-thunderbird
+echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
+if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || [ "$KDE_FULL_SESSION" = "true" ]; then
+sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
+sudo apparmor_parser -R /etc/apparmor.d/firefox
+sudo apt update
+sudo apt install kde-config-fcitx5 -y
+fi
 fi
 curl -fsSL https://ftp-master.debian.org/keys/archive-key-11.asc | sudo gpg --dearmor -o /usr/share/keyrings/debian-archive-keyring.gpg
 sudo mkdir -p /root/.gnupg

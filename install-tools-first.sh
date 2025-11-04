@@ -185,9 +185,8 @@ sudo apt install code -y
 wget -q https://packages.microsoft.com/config/ubuntu/$UBUNTU_VERSION_ID/packages-microsoft-prod.deb
 sudo dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
-sudo apt update
-sudo apt install powershell -y
 sudo add-apt-repository ppa:dotnet/backports -y
+sudo apt update
 sudo apt install dotnet-sdk-9.0 aspnetcore-runtime-9.0 -y
 source /etc/os-release
 wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | sudo tee /usr/share/keyrings/deb.torproject.org-keyring.gpg >/dev/null

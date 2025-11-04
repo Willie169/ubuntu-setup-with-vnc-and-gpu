@@ -196,6 +196,10 @@ deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg
 EOF
 sudo apt update
 sudo apt install tor deb.torproject.org-keyring -y
+sudo apt install -f -y
+sudo apt full-upgrade -y
+sudo apt autoremove --purge -y
+sudo apt clean
 cat > ~/.profile <<'EOF'
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login

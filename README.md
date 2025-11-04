@@ -222,13 +222,13 @@ You can configure Fcitx5 input methods in `Fcitx Configuration`.
 
 #### KDE Plasma
 
-1. Go to `System Settings` > `Input Devices` > `Virtual Keyboard`, select `Fcitx5`, and apply.
-2. You can configure Fcitx5 input methods in `System Settings` > `Input Method`.
+1. Go to `System Settings` > `Input & Output` > `Virtual Keyboard`, select `Fcitx5`, and apply.
+2. You can configure Fcitx5 input methods in `Fcitx Configuration`, which can be launched by right-clicking the keyboard icon on the Task Manager (bottom right) and clicking `Configure`.
 
 ### Tailscale
 #### Install
 
-Below script has been included in [`install-tools-first.sh`](install-tools-first.sh).
+The script below has been included in [`install-tools-first.sh`](install-tools-first.sh).
 ```
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list

@@ -204,6 +204,7 @@ cd ~/arduino-ide_2.3.6_Linux_64bit.AppImage
 chmod +x ~/arduino-ide_2.3.6_Linux_64bit.AppImage
 echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
 gh-latest Stellarium/stellarium Stellarium-*-qt5-x86_64.AppImage
+chmod +x Stellarium-*-qt5-x86_64.AppImage
 sudo apt update
 sudo apt install tor deb.torproject.org-keyring -y
 sudo apt install -f -y

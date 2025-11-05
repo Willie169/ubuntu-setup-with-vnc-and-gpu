@@ -543,5 +543,5 @@ mkdir -p latex
 cd latex
 git clone https://github.com/Willie169/physics-patch
 cd ~
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 sudo reboot

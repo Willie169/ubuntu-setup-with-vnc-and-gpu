@@ -90,8 +90,8 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 nvm install 22
 corepack enable yarn
 corepack enable pnpm
-y | yarn
-y | pnpm
+yarn
+pnpm
 npm install -g jsdom marked marked-gfm-heading-id node-html-markdown showdown
 go install github.com/danielmiessler/fabric@latest
 mkdir -p /usr/local/lib

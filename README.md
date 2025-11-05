@@ -6,17 +6,17 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 
 ### Prerequisites
 
-* Sufficient storage: In a test on Kubuntu 25.04 on November 4, 2025:
+* Sufficient storage: In a test on Kubuntu 25.04 on November 5, 2025:
   * Normal Installation of Kubuntu 25.04: 8.26 GB,
-  * Normal Installation of Kubuntu 25.04 + [`install-tools-first.sh`](install-tools-first.sh): 29.47 GB.
-  * Normal Installation of Kubuntu 25.04 + [`install-tools-first.sh`](install-tools-first.sh) + [`install-tools-second.sh`](install-tools-second.sh): 39.19 GB.
+  * Normal Installation of Kubuntu 25.04 + [`install-tools-first.sh`](install-tools-first.sh): 29.75 GB.
+  * Normal Installation of Kubuntu 25.04 + [`install-tools-first.sh`](install-tools-first.sh) + [`install-tools-second.sh`](install-tools-second.sh): 39.47 GB.
 * Sufficient power supply.
 * Stable internet connection.
 
 ### Usage 
 
 1. Run [`install-tools-first.sh`](install-tools-first.sh) and follow the prompts until it reboot automatically.
-2. Login and run [`install-tools-second.sh`](install-tools-second.sh) until it reboot automatically.
+2. Login and run [`install-tools-second.sh`](install-tools-second.sh) until it exits automatically.
 3. See [Fcitx5](#fcitx5) section to configure Fcitx5.
 4. See [Desktop Environment](#desktop-environment) section and [Wayland](#wayland) section if you want to use Wayland.
 5. See [Tailscale](#tailscale) section to configure Tailscale.

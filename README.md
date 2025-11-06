@@ -153,22 +153,16 @@ See [Desktop Environment](#desktop-environment) section for more information.
 <li>Login.</li>
 </ol>
 
-### Enable Wayland for KDE Plasma (SDDM) without NVIDIA
+### Enable Wayland for KDE Plasma (SDDM)
 
-<ol>
-<li>Log out.</li>
-<li>In the down left corner of the login page, choose `Plasma (Wayland)`.</li>
-<li>Login.</li>
-</ol>
-
-### Enable Wayland for KDE Plasma (SDDM) with NVIDIA
+Log out. In the down left corner of the login page, choose `Plasma (Wayland)` if such an option exists. Otherwise, if with an NVIDIA GPU, follow the instructions below:
 
 <ol>
 <li>Run:
 <pre><code>sudo apt install libnvidia-egl-wayland1 -y
 </code></pre>
 <li>Run:
-<pre><code>sudo nano /etc/default/grub
+<pre><code>sudo vim /etc/default/grub
 </code></pre>
 change the line to:
 <pre><code>GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvidia_drm.modeset=1"
@@ -180,7 +174,6 @@ sudo update-initramfs -u
 <li>Shut down the computer.</li>
 <li>Boot the computer.</li>
 <li>In the down left corner of the login page, choose `Plasma (Wayland)`.</li>
-<li>Login.</li>
 </ol>
 
 ### Linux Mint Ubuntu Version Tweak

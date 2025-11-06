@@ -8,8 +8,8 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 
 * Sufficient storage: In a test on Kubuntu 25.04 on November 5, 2025:
   * Normal Installation of Kubuntu 25.04: 8.26 GB,
-  * Normal Installation of Kubuntu 25.04 + [`install-tools-first.sh`](install-tools-first.sh): 30.19 GB.
-  * Normal Installation of Kubuntu 25.04 + [`install-tools-first.sh`](install-tools-first.sh) + [`install-tools-second.sh`](install-tools-second.sh): 39.91 GB.
+  * Normal Installation of Kubuntu 25.04 + [`install-tools-first.sh`](install-tools-first.sh): 30.20 GB.
+  * Normal Installation of Kubuntu 25.04 + [`install-tools-first.sh`](install-tools-first.sh) + [`install-tools-second.sh`](install-tools-second.sh): 39.98 GB.
 * Sufficient power supply.
 * Stable internet connection.
 
@@ -453,6 +453,8 @@ sudo rm -rf /var/lib/waydroid /home/.waydroid ~/waydroid ~/.share/waydroid ~/.lo
 After clicked shut down and then closed the lip, the laptop didn't shut down.
 
 #### Solution
+
+The operation below has been included in [`install-tools-first.sh`](install-tools-first.sh).
 
 Run:
 ```

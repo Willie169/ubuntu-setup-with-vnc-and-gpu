@@ -150,7 +150,6 @@ See [Desktop Environment](#desktop-environment) section for more information.
 <ol>
 <li>Log out.</li>
 <li>In the down right corner of the login page, choose `Ubuntu on Wayland`.</li>
-<li>Login.</li>
 </ol>
 
 ### Enable Wayland for KDE Plasma (SDDM)

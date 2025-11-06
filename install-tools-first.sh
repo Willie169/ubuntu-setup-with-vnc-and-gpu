@@ -15,7 +15,7 @@ sudo apt update
 sudo apt purge fcitx* -y
 sudo apt full-upgrade -y
 sudo ubuntu-drivers autoinstall -y
-sudo apt install aptitude apt-transport-https autoconf automake bash bison build-essential bzip2 ca-certificates clang cmake codeblocks* command-not-found curl dbus dnsutils dvipng dvisvgm fcitx5 fcitx5-* ffmpeg file flex flatpak gcc gdb gh ghostscript git glab gnucobol golang gperf gpg grep g++ iverilog libboost-all-dev libbz2-dev libdb-dev libconfig-dev libeigen3-dev libffi-dev libfuse2t64 libgdbm-compat-dev libgdbm-dev libgsl-dev liblttng-ust-common1t64 liblttng-ust1t64 libllvm19 liblzma-dev libncursesw5-dev libnss3-dev libosmesa6 libqt5core5a libqt5gui5 libqt5widgets5 libreadline-dev libreoffice libsqlite3-dev libssl-dev libxcb-cursor0 libxml2 libxml2-dev libxml2-utils libxmlsec1-dev libz3-4 llvm iproute2 iverilog jq make maven mc nano neovim openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc pipx procps python3-pip python3-all-dev python3-venv qbittorrent qtwayland5 rust-all software-properties-common tar testdisk tk-dev tmux tree update-manager-core unrar uuid-dev valgrind verilator vim vim-gtk3 wget xz-utils zlib1g zlib1g-dev zsh -y
+sudo apt install aptitude apt-transport-https autoconf automake bash bison build-essential bzip2 ca-certificates clang cmake codeblocks* command-not-found curl dbus dnsutils dvipng dvisvgm fcitx5 fcitx5-* ffmpeg file flex flatpak gcc gdb gh ghostscript git glab gnucobol golang gperf gpg grep g++ iverilog libboost-all-dev libbz2-dev libdb-dev libconfig-dev libeigen3-dev libffi-dev libfuse2t64 libgdbm-compat-dev libgdbm-dev libgdk-pixbuf-xlib-2.0-0 libgdk-pixbuf2.0-0 libgsl-dev liblttng-ust-common1t64 liblttng-ust1t64 libllvm19 liblzma-dev libncursesw5-dev libnss3-dev libosmesa6 libqt5core5a libqt5gui5 libqt5widgets5 libreadline-dev libreoffice libsqlite3-dev libssl-dev libxcb-cursor0 libxml2 libxml2-dev libxml2-utils libxmlsec1-dev libz3-4 llvm iproute2 iverilog jq make maven mc nano neovim openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl pandoc perl perl-doc pipx procps python3-pip python3-all-dev python3-venv qbittorrent qtwayland5 rust-all software-properties-common tar testdisk tk-dev tmux tree update-manager-core unrar uuid-dev valgrind verilator vim vim-gtk3 wget xz-utils zlib1g zlib1g-dev zsh -y
 sudo mkdir -p /usr/share/codeblocks/docs
 im-config -n fcitx5
 cat >> ~/.xprofile <<'EOF'
@@ -433,6 +433,9 @@ rand() {
 }
 EOF
 source ~/.bashrc
+gh-latest balena-io/etcher balena-etcher_*_amd64.deb
+sudo dpkg -i balena-etcher_*_amd64.deb
+rm balena-etcher_*_amd64.deb
 gh-latest arduino/arduino-cli arduino-cli_*_amd64.deb
 sudo dpkg -i arduino-cli_*_amd64.deb
 rm arduino-cli_*_amd64.deb

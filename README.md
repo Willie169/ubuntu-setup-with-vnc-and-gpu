@@ -21,8 +21,9 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 4. See [Desktop Environment](#desktop-environment) section and [Wayland](#wayland) section if you want to use Wayland.
 5. See [Tailscale](#tailscale) section to configure Tailscale.
 6. See [SSH Server](#ssh-server) section to configure SSH server.
-7. See [Other Scripts](#other-scripts) section for other scripts in this repository and [Instructions](#instructions) section for instructions.
-8. Done.
+7. See [Vimrc](#vimrc) section for Vim and Nvim usage.
+8. See [Other Scripts](#other-scripts) section for other scripts in this repository and [Instructions](#instructions) section for instructions.
+9. Done.
 
 ### Content of Main Installation Scripts
 
@@ -467,6 +468,7 @@ sudo systemctl restart systemd-logind
 
 * Edit your customizations in `/opt/vim_runtime/my_configs.vim`.
 * Setup GitHub Copilot with `:Copilot setup`.
+* See [vimrc by Amir Salihefendic (amix)](https://github.com/amix/vimrc) for more information.
 
 ### My Related Repositories
 
@@ -475,6 +477,8 @@ sudo systemctl restart systemd-logind
 * [**dual-boot-windows-ubuntu**](https://github.com/Willie169/dual-boot-windows-ubuntu)
 * [**LinuxAndTermuxTips**](https://github.com/Willie169/LinuxAndTermuxTips)
 * [**Android Non Root**](https://github.com/Willie169/Android-Non-Root) and its [site](https://willie169.github.io/Android-Non-Root)
+* [**physics-patch**](https://github.com/Willie169/physics-patch)
+* [**LaTeX-ToolKit**](https://github.com/Willie169/LaTeX-ToolKit)
 
 ## License
 

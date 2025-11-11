@@ -57,7 +57,6 @@ This script is not acitvely maintained. Please see [https://www.winehq.org](http
 
 + [Dual Boot with Windows](#dual-boot-with-windows)
 + [Desktop Environment](#desktop-environment)
-+ [GRUB](#grub)
 + [Wayland](#wayland)
 + [Linux Mint Ubuntu Version Tweak](#linux-mint-ubuntu-version-tweak)
 + [Desktop App Launchers](#desktop-app-launchers)
@@ -72,7 +71,7 @@ This script is not acitvely maintained. Please see [https://www.winehq.org](http
 
 ### Dual Boot with Windows
 
-Go to my [**dual-boot-windows-ubuntu**](https://github.com/Willie169/dual-boot-windows-ubuntu) repo.
+See my [**dual-boot-windows-ubuntu**](https://github.com/Willie169/dual-boot-windows-ubuntu) repo for instructions about dual-booting Windows and Ubuntu and related issues, Windows and Linux recovery, GRUB, connecting to WPA2 Enterprise PEAP MSCHAPV2 network on Ubuntu, etc.
 
 ### Desktop Environment
 #### GNOME 3
@@ -96,48 +95,6 @@ Go to my [**dual-boot-windows-ubuntu**](https://github.com/Willie169/dual-boot-w
 - Supports X11.
 - Not fully supports Wayland currently.
 - Built upon GTK.
-
-### GRUB
-#### When Dual Booting with Windows
-
-When dual booting with Windows, you need to:
-- Disabe fast boot (in some context also secure boot) in BIOS.
-- In some context, `sudo vim /etc/grub.d/30_os_prober` and add or edit line `quick_boot="0"`.
-- `sudo vim /etc/default/grub` and add or change the line to `GRUB_DISABLE_OS_PROBER=false`.
-- `sudo vim /etc/default/grub` and add or change to a non-zero `GRUB_TIMEOUT`, when `GRUB_TIMEOUT_STYLE=menu`, or `GRUB_HIDDEN_TIMEOUT`, when otherwise.
-
-#### GRUB Menu
-
-- When `GRUB_TIMEOUT_STYLE=menu`, after `GRUB_TIMEOUT`, highlighted option will be booted.
-- When `GRUB_TIMEOUT_STYLE=hidden` or `GRUB_TIMEOUT_STYLE=countdown`, during `GRUB_HIDDEN_TIMEOUT`, press `ESC` to enter GRUB menu.
-- In menu, default highlighted option is the default option. 
-
-#### GRUB Configuration
-
-```
-sudo vim /etc/default/grub
-``` 
-
-to edit configuration, 
-
-```
-sudo update-grub
-sudo reboot
-```
-
-to apply.
-
-Variables:
-
-- `GRUB_DEFAULT=<number>`: Default boot option to boot. Options and their numbers are showed in GRUB menu.
-- `GRUB_TIMEOUT_STYLE=<string>`: GRUB timeout style when booting.
-  - `menu`: Show menu, wait until `GRUB_TIMEOUT` ends, and boot default option.
-  - `hidden`: Hide menu with black screen, wait until `GRUB_HIDDEN_TIMEOUT` ends, and boot highlighted option. Show menu when `ESC` is pressed during `GRUB_HIDDEN_TIMEOUT`.
-  - `countdown`: Hide menu with countdown shown on screen, wait until `GRUB_HIDDEN_TIMEOUT` ends, and boot default option. Show menu when `ESC` is pressed during `GRUB_HIDDEN_TIMEOUT`.
-- `GRUB_TIMEOUT=<number>`: When `GRUB_TIMEOUT_STYLE=menu`, the timeout before booting into highlighted option, `-1` for forever. Some versions may need `0.0` for `0`.
-- `GRUB_HIDDEN_TIMEOUT=<number>`: When `GRUB_TIMEOUT_STYLE=hidden` or `GRUB_TIMEOUT_STYLE=countdown`, the timeout before booting into the default option. Some versions may need `0.0` for `0`.
-- `GRUB_HIDDEN_TIMEOUT_QUIET=<boolean>`: DEPRECATED. `GRUB_TIMEOUT_STYLE=hidden` and `GRUB_HIDDEN_TIMEOUT_QUIET=false` is equivalent to `GRUB_TIMEOUT_STYLE=countdown`; `GRUB_TIMEOUT_STYLE=hidden` and `GRUB_HIDDEN_TIMEOUT_QUIET=true` is equivalent to `GRUB_TIMEOUT_STYLE=hidden`. There's a known bug that make this not work as expected in some versions after this is deprecated.
-- `GRUB_DISABLE_OS_PROBER=<boolean>`: Whether to disable OS prober. Set it to `false` when dual booting.
 
 ### Wayland
 

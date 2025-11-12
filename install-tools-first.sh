@@ -111,7 +111,7 @@ pyenv global 3.12.10
 pipx install poetry
 python3 -m venv .env
 source .env/bin/activate
-pip3 install jupyter librosa matplotlib meson ninja numpy pandas pydub scipy sdl_bgi selenium setuptools sympy
+pip3 install jupyter librosa matplotlib meson ninja numpy pandas pydub scipy selenium setuptools sympy
 deactivate
 sudo git clone --depth=1 https://github.com/amix/vimrc.git /opt/vim_runtime && sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all && echo "set mouse=a
 set signcolumn=no

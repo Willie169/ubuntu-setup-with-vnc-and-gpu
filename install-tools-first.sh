@@ -521,6 +521,7 @@ sudo wget -q https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/Mono
 sudo wget -q https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/Mono/NotoSansMonoCJKkr-Bold.otf
 sudo fc-cache -fv
 cd /usr/share
+rm -rf LaTeX-ToolKit
 sudo git clone https://github.com/Willie169/LaTeX-ToolKit
 cd ~
 mkdir -p texmf

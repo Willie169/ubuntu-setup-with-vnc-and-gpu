@@ -425,6 +425,7 @@ sudo systemctl restart systemd-logind
 
 * Edit your customizations in `/opt/vim_runtime/my_configs.vim`.
 * Setup GitHub Copilot with `:Copilot setup`.
+* To disable GitHub Copilot, run `:let g:copilot_enabled = v:false`, or globally, add `let g:copilot_enabled = v:false` to `/opt/vim_runtime/my_configs.vim`.
 * See [vimrc by Amir Salihefendic (amix)](https://github.com/amix/vimrc) for more information.
 
 ### My Related Repositories

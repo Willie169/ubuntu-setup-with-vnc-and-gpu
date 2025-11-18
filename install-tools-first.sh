@@ -348,6 +348,9 @@ export NVM_DIR="$HOME/.nvm"
 alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.13.2-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
 alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.13.2-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
 alias src='source'
+alias g++20='g++ -std=gnu++20'
+alias g++202='g++ -std=gnu++20 -O2'
+alias g++SDL='g++ -lSDL_bgi -lSDL2 -lm'
 eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 

@@ -355,7 +355,6 @@ alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.13.2-complete.jar:$CLASSPA
 alias src='source'
 alias g++20='g++ -std=gnu++20'
 alias g++202='g++ -std=gnu++20 -O2'
-alias g++SDL='g++ -std=gnu++20 -lm -lSDL2 -lSDL_bgi'
 eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 
@@ -367,6 +366,14 @@ else
     echo "$VERSION_ID"
 fi
 )
+
+g++SDL2() {
+    g++ "$@" -lm -lSDL2 -lSDL_bgi
+}
+
+g++20SDL2() {
+    g++ -std=gnu++20 "$@" -lm -lSDL2 -lSDL_bgi
+}
 
 gh-latest() {
     curl -s "https://api.github.com/repos/$1/releases/latest" | jq -r ".assets[].browser_download_url | select(test(\"$(printf '%s' "$2" | sed -e 's/\./\\\\./g' -e 's/\*/.*/g')\"))" | xargs curl -L -O

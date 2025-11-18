@@ -121,6 +121,8 @@ set clipboard^=unnamed
 set clipboard^=unnamedplus
 
 nnoremap <leader>k :if &mouse ==# 'a' \| set mouse= \| else \| set mouse=a \| endif<CR>
+
+let g:copilot_enabled = v:false
 " | sudo tee /opt/vim_runtime/my_configs.vim > /dev/null
 mkdir -p ~/.config/nvim
 echo 'set runtimepath^=~/.vim runtimepath+=~/.vim/after

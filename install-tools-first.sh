@@ -66,6 +66,9 @@ echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -c
 sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
 sudo apparmor_parser -R /etc/apparmor.d/firefox
 fi
+wget -q https://sourceforge.net/projects/sdl-bgi/files/sdl2_bgi_3.0.4-1_amd64.deb/download -O sdl2_bgi_3.0.4-1_amd64.deb
+sudo dpkg -i sdl2_bgi_3.0.4-1_amd64.deb
+rm sdl2_bgi_3.0.4-1_amd64.deb
 curl -fsSL https://ftp-master.debian.org/keys/archive-key-11.asc | sudo gpg --dearmor -o /usr/share/keyrings/debian-archive-keyring.gpg
 sudo mkdir -p /root/.gnupg
 sudo chmod 700 /root/.gnupg
@@ -75,7 +78,7 @@ yes | sudo ufw enable
 sudo ufw allow ssh
 ip route
 wget -q https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-tar -xvzf install-tl-unx.tar.gz
+tar -xzf install-tl-unx.tar.gz
 sudo rm install-tl-unx.tar.gz
 cd install-tl-*
 sudo perl install-tl --no-interaction
@@ -352,7 +355,7 @@ alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.13.2-complete.jar:$CLASSPA
 alias src='source'
 alias g++20='g++ -std=gnu++20'
 alias g++202='g++ -std=gnu++20 -O2'
-alias g++SDL='g++ -lSDL_bgi -lSDL2 -lm'
+alias g++SDL='g++ -std=gnu++20 -lm -lSDL2 -lSDL_bgi'
 eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 

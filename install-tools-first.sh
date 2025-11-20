@@ -99,7 +99,7 @@ corepack enable yarn
 corepack enable pnpm
 yarn
 pnpm
-npm install -g jsdom marked marked-gfm-heading-id node-html-markdown showdown
+npm install -g jsdom marked marked-gfm-heading-id node-html-markdown showdown unibeautify @unibeautify/cli
 go install github.com/danielmiessler/fabric@latest
 mkdir -p /usr/local/lib
 sudo curl -o /usr/local/lib/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar

@@ -111,7 +111,7 @@ pyenv install 3.11.9
 pyenv install 3.12.10
 pyenv install 3.13.5
 pyenv global 3.12.10
-pipx install poetry
+pipx install poetry uv
 python3 -m venv .env
 source .env/bin/activate
 pip3 install jupyter librosa matplotlib meson ninja numpy pandas pydub scipy selenium setuptools sympy

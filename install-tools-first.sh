@@ -19,7 +19,7 @@ sudo apt update
 sudo apt purge fcitx* -y
 sudo apt full-upgrade -y
 sudo ubuntu-drivers autoinstall -y
-sudo apt install alsa-utils aptitude apt-transport-https autoconf automake bash bison build-essential bzip2 ca-certificates clang cmake codeblocks* command-not-found curl dbus dnsutils dvipng dvisvgm fcitx5 fcitx5-* ffmpeg file flex flatpak gcc gdb gh ghostscript gir1.2-appindicator3-0.1 gir1.2-ayatanaappindicator3-0.1 git glab gnucobol golang gperf gpg grep g++ iverilog libboost-all-dev libbz2-dev libdb-dev libconfig-dev libeigen3-dev libffi-dev libfuse2t64 libgdbm-compat-dev libgdbm-dev libgdk-pixbuf-xlib-2.0-0 libgdk-pixbuf2.0-0 libgsl-dev liblttng-ust-common1t64 liblttng-ust1t64 libllvm19 liblzma-dev libncursesw5-dev libnss3-dev libosmesa6 libqt5core5a libqt5gui5 libqt5widgets5 libreadline-dev libreoffice libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libxcb-cursor0 libxml2 libxml2-dev libxml2-utils libxmlsec1-dev libz3-4 llvm iproute2 iverilog jpegoptim jq make maven mc nano neovim openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc pipx procps python3-pip python3-all-dev python3-venv qbittorrent qtwayland5 rust-all software-properties-common tar testdisk tk-dev tmux tree update-manager-core unrar uuid-dev valgrind verilator vim vim-gtk3 wget xz-utils zlib1g zlib1g-dev zsh -y
+sudo apt install alsa-utils aptitude apt-transport-https autoconf automake bash bison build-essential bzip2 ca-certificates clang clang-format cmake codeblocks* command-not-found curl dbus dnsutils dvipng dvisvgm fcitx5 fcitx5-* ffmpeg file flex flatpak gcc gdb gh ghostscript gir1.2-appindicator3-0.1 gir1.2-ayatanaappindicator3-0.1 git glab gnucobol golang gperf gpg grep g++ iverilog libboost-all-dev libbz2-dev libdb-dev libconfig-dev libeigen3-dev libffi-dev libfuse2t64 libgdbm-compat-dev libgdbm-dev libgdk-pixbuf-xlib-2.0-0 libgdk-pixbuf2.0-0 libgsl-dev liblttng-ust-common1t64 liblttng-ust1t64 libllvm19 liblzma-dev libncursesw5-dev libnss3-dev libosmesa6 libqt5core5a libqt5gui5 libqt5widgets5 libreadline-dev libreoffice libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libxcb-cursor0 libxml2 libxml2-dev libxml2-utils libxmlsec1-dev libz3-4 llvm iproute2 iverilog jpegoptim jq make maven mc nano neovim openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc pipx procps python3-pip python3-all-dev python3-venv qbittorrent qtwayland5 rust-all software-properties-common tar testdisk tk-dev tmux tree update-manager-core unrar uuid-dev valgrind verilator vim vim-gtk3 wget xz-utils zlib1g zlib1g-dev zsh -y
 sudo mkdir -p /usr/share/codeblocks/docs
 im-config -n fcitx5
 cat >> ~/.xprofile <<'EOF'
@@ -354,6 +354,7 @@ export NVM_DIR="$HOME/.nvm"
 alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.13.2-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
 alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.13.2-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
 alias src='source'
+alias deact='deactivate'
 alias g++20='g++ -std=gnu++20'
 alias g++202='g++ -std=gnu++20 -O2'
 eval "$(pyenv init --path)"
@@ -390,7 +391,7 @@ gpull() {
         repo_dir=$(git rev-parse --show-toplevel 2>/dev/null)
         if [ -n "$repo_dir" ]; then
             echo "$repo_dir"
-            (cd "$repo_dir" && git pull)
+            (cd "$repo_dir" && git pull origin)
         else
             echo "Not in a Git repo."
         fi
@@ -399,7 +400,7 @@ gpull() {
         find . -mindepth "$depth" -maxdepth "$depth" -type d -name .git | while read -r gitdir; do
             repo_dir=$(dirname "$gitdir")
             echo "$repo_dir"
-            (cd "$repo_dir" && git pull)
+            (cd "$repo_dir" && git pull origin)
         done
     fi
 }

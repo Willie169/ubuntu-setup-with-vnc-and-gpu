@@ -357,6 +357,10 @@ alias src='source'
 alias deact='deactivate'
 alias g++20='g++ -std=gnu++20'
 alias g++202='g++ -std=gnu++20 -O2'
+alias c++20='clang++ -std=gnu++20'
+alias c++202='clang++ -std=gnu++20 -O2'
+alias cfm='clang-format'
+alias cfmi='clang-format -i'
 eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 

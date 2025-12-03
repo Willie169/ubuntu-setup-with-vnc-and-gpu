@@ -343,7 +343,7 @@ fi
 export CLASSPATH="$CLASSPATH:/usr/lib/antlr-4.13.2-complete.jar"
 export GOROOT="/usr/local/go"
 export GOPATH="$HOME/go"
-export PATH="$PATH:/bin:/sbin:/usr/bin:/usr/sbin:$HOME/.local/bin:$GOPATH/bin:$GOROOT/bin:/usr/glibc/bin:$HOME/.cargo/bin:/opt/TurboVNC/bin:/usr/local/texlive/2025/bin/x86_64-linux:/usr/sbin:$HOME/.pyenv/bin:/opt/android-studio-for-platform/bin"
+export PATH="$PATH:/bin:/sbin:/usr/bin:/usr/sbin:$HOME/.local/bin:$GOPATH/bin:$GOROOT/bin:/usr/glibc/bin:$HOME/.cargo/bin:/opt/TurboVNC/bin:/usr/local/texlive/2025/bin/x86_64-linux:/usr/sbin:$HOME/.pyenv/bin:/opt/android-studio-for-platform/bin:$HOME/intelFPGA/20.1/modelsim_ase/bin"
 export CPLUS_INCLUDE_PATH="/usr/include/SDL2:$CPLUS_INCLUDE_PATH"
 export WAYDROID="$HOME/.local/share/waydroid/data/media/0"
 export KIT="/usr/share/LaTeX-ToolKit"

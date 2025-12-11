@@ -441,7 +441,7 @@ Follow the screen prompts.
 flatpak run com.usebottles.bottles
 ```
 
-You can add the aliases below in `.bashrc`:
+You can add the aliases below in your `.bashrc`, which has been done in [`install-tools-first.sh`](install-tools-first.sh):
 ```
 alias bottles='flatpak run com.usebottles.bottles'
 alias bottles-cli='flatpak run --command=bottles-cli com.usebottles.bottles'

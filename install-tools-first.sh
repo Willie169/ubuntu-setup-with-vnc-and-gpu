@@ -361,6 +361,8 @@ alias c++20='clang++ -std=gnu++20'
 alias c++202='clang++ -std=gnu++20 -O2'
 alias cfm='clang-format'
 alias cfmi='clang-format -i'
+alias bottles='flatpak run com.usebottles.bottles'
+alias bottles-cli='flatpak run --command=bottles-cli com.usebottles.bottles'
 eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 

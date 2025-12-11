@@ -427,6 +427,8 @@ sudo systemctl restart systemd-logind
 
 Bottles lets you run Windows software on Linux, such as applications and games. It introduces a workflow that helps you organize by categorizing each software to your liking. Bottles provides several tools and integrations to help you manage and optimize your applications.
 
+See <https://usebottles.com> for more information.
+
 #### Install 
 
 ```

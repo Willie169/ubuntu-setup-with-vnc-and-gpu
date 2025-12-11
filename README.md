@@ -102,7 +102,7 @@ See [Desktop Environment](#desktop-environment) section for more information.
 
 <ol>
 <li>Log out.</li>
-<li>In the down right corner of the login page, choose `Ubuntu on Wayland`.</li>
+<li>In the down right corner of the login page, choose <code>Ubuntu on Wayland</code>.</li>
 </ol>
 
 ### Enable Wayland for KDE Plasma (SDDM)
@@ -125,7 +125,7 @@ sudo update-initramfs -u
 </code></pre></li>
 <li>Shut down the computer.</li>
 <li>Boot the computer.</li>
-<li>In the down left corner of the login page, choose `Plasma (Wayland)`.</li>
+<li>In the down left corner of the login page, choose <code>Plasma (Wayland)</code>.</li>
 </ol>
 
 ### Linux Mint Ubuntu Version Tweak
@@ -441,8 +441,11 @@ Follow the screen prompts.
 flatpak run com.usebottles.bottles
 ```
 
-
-
+You can add the aliases below in `.bashrc`:
+```
+alias bottles='flatpak run com.usebottles.bottles'
+alias bottles-cli='flatpak run --command=bottles-cli com.usebottles.bottles'
+```
 
 ### My Related Repositories
 

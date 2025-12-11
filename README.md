@@ -433,12 +433,14 @@ See <https://usebottles.com> for more information.
 
 Flatpak is required, which has been installed in [`install-tools-first.sh`](install-tools-first.sh).
 
+Run:
 ```
 flatpak install flathub com.usebottles.bottles
+echo y | sudo ubuntu-drivers autoinstall
 flatpak update
 flatpak run com.usebottles.bottles
 ```
-Follow the screen prompts.
+and follow the screen prompts.
 
 #### Run
 

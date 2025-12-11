@@ -16,4 +16,5 @@ sudo apt install -f -y
 sudo apt full-upgrade -y
 sudo apt autoremove --purge -y
 sudo apt clean
+flatpak update -y
 exit

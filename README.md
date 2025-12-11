@@ -431,6 +431,8 @@ See <https://usebottles.com> for more information.
 
 #### Install 
 
+Flatpak is required, which has been installed in [`install-tools-first.sh`](install-tools-first.sh).
+
 ```
 flatpak install flathub com.usebottles.bottles
 flatpak run com.usebottles.bottles

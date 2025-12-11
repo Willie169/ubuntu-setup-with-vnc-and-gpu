@@ -45,12 +45,6 @@ See [Waydroid](#waydroid) section for what to do after running this script.
 
 See [Desktop Environment](#desktop-environment), [Wayland](#wayland), and [Waydroid](#waydroid) sections for more information.
 
-### [`wine.sh`](wine.sh)
-
-Installs Wine on Debian derivatives on AMD 64.
-
-This script is not acitvely maintained. Please see [https://www.winehq.org](https://www.winehq.org) for latest installation methods.
-
 ## Instructions
 
 ### Table of Contents
@@ -67,6 +61,7 @@ This script is not acitvely maintained. Please see [https://www.winehq.org](http
 + [Waydroid](#waydroid)
 + [Solution for Closing Lip Overrides Power Off](#solution-for-closing-lip-overrides-power-off)
 + [Vimrc](#vimrc)
++ [Bottles](#bottles)
 + [My Related Repositories](#my-related-repositories)
 
 ### Dual Boot with Windows
@@ -427,6 +422,27 @@ sudo systemctl restart systemd-logind
 * Setup GitHub Copilot with `:Copilot setup`.
 * [`install-tools-first.sh`](install-tools-first.sh) disable GitHub Copilot by default. To enable it, remove `let g:copilot_enabled = v:false` from `/opt/vim_runtime/my_configs.vim`. Run `:let g:copilot_enabled = v:false` to disable GitHub Copilot temporarily. Run `:let g:copilot_enabled = v:true` to enable GitHub Copilot temporarily. Add `let g:copilot_enabled = v:false` to `/opt/vim_runtime/my_configs.vim` to disable GitHub Copilot globally.
 * See [vimrc by Amir Salihefendic (amix)](https://github.com/amix/vimrc) for more information.
+
+### Bottles
+
+Bottles lets you run Windows software on Linux, such as applications and games. It introduces a workflow that helps you organize by categorizing each software to your liking. Bottles provides several tools and integrations to help you manage and optimize your applications.
+
+#### Install 
+
+```
+flatpak install flathub com.usebottles.bottles
+flatpak run com.usebottles.bottles
+```
+Follow the screen prompts.
+
+#### Run
+
+```
+flatpak run com.usebottles.bottles
+```
+
+
+
 
 ### My Related Repositories
 

@@ -193,6 +193,10 @@ deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg
 EOF
 sudo apt update
 sudo apt install tor deb.torproject.org-keyring -y
+wget -qO plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
+sudo add-apt-repository ppa:bkryza/clang-uml
+sudo apt update
+sudo apt install clang-uml
 cat > ~/.profile <<'EOF'
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
@@ -350,6 +354,7 @@ export WAYDROID="$HOME/.local/share/waydroid/data/media/0"
 export KIT="/usr/share/LaTeX-ToolKit"
 export PATCH="$HOME/texmf/tex/latex/physics-patch"
 export NVM_DIR="$HOME/.nvm"
+export PLANTUML_JAR="$HOME/plantuml.jar"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.13.2-complete.jar:$CLASSPATH" org.antlr.v4.Tool'

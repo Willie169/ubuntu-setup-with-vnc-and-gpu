@@ -196,7 +196,10 @@ sudo apt install tor deb.torproject.org-keyring -y
 wget -qO plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
 sudo add-apt-repository ppa:bkryza/clang-uml
 sudo apt update
-sudo apt install clang-uml
+sudo apt install clang-uml -y
+sudo apt install postgresql-common -y
+sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+sudo apt install postgresql-17 -y
 cat > ~/.profile <<'EOF'
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login

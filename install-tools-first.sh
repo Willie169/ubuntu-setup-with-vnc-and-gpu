@@ -100,7 +100,7 @@ corepack enable yarn
 corepack enable pnpm
 yarn
 pnpm
-npm install -g jsdom marked marked-gfm-heading-id node-html-markdown showdown
+npm install -g http-server jsdom marked marked-gfm-heading-id node-html-markdown showdown
 go install github.com/danielmiessler/fabric@latest
 mkdir -p /usr/local/lib
 sudo curl -o /usr/local/lib/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
@@ -375,9 +375,10 @@ alias g++203='g++ -std=gnu++20 -O3'
 alias c++203='clang++ -std=gnu++20 -O3'
 alias cfm='clang-format'
 alias cfmi='clang-format -i'
-alias vnc=vncserver
-alias vnck=vncserver -kill
-alias vncl=vncserver -list
+alias vnc='vncserver'
+alias vnck='vncserver -kill'
+alias vncl='vncserver -list'
+alias httpp='http-server -p'
 alias bottles='flatpak run com.usebottles.bottles'
 alias bottles-cli='flatpak run --command=bottles-cli com.usebottles.bottles'
 eval "$(pyenv init --path)"

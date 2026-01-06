@@ -98,9 +98,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 nvm install 22
 corepack enable yarn
 corepack enable pnpm
-yarn
-pnpm
-npm install -g http-server jsdom marked marked-gfm-heading-id node-html-markdown showdown
+npm install -g http-server jsdom marked marked-gfm-heading-id node-html-markdown showdown @openai/codex
 go install github.com/danielmiessler/fabric@latest
 mkdir -p /usr/local/lib
 sudo curl -o /usr/local/lib/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar

@@ -69,7 +69,7 @@ sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
 sudo apparmor_parser -R /etc/apparmor.d/firefox
 fi
 wget -q https://sourceforge.net/projects/sdl-bgi/files/sdl2_bgi_3.0.4-1_amd64.deb/download -O sdl2_bgi_3.0.4-1_amd64.deb
-sudo apt install ./sdl2_bgi_3.0.4-1_amd64.deb
+sudo apt install ./sdl2_bgi_3.0.4-1_amd64.deb -y
 rm sdl2_bgi_3.0.4-1_amd64.deb
 curl -fsSL https://ftp-master.debian.org/keys/archive-key-11.asc | sudo gpg --dearmor -o /usr/share/keyrings/debian-archive-keyring.gpg
 sudo mkdir -p /root/.gnupg
@@ -179,7 +179,7 @@ sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trus
 sudo apt update
 sudo apt install code -y
 wget -q https://packages.microsoft.com/config/ubuntu/$UBUNTU_VERSION_ID/packages-microsoft-prod.deb
-sudo apt install ./packages-microsoft-prod.deb
+sudo apt install ./packages-microsoft-prod.deb -y
 rm packages-microsoft-prod.deb
 sudo add-apt-repository ppa:dotnet/backports -y
 sudo apt update
@@ -200,7 +200,7 @@ sudo apt install postgresql-common -y
 sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
 sudo apt install postgresql-17 -y
 wget -q https://cdn.fastly.steamstatic.com/client/installer/steam.deb
-sudo apt install ./steam.deb
+sudo apt install ./steam.deb -y
 cat > ~/.profile <<'EOF'
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
@@ -546,13 +546,13 @@ bzip-split() {
 EOF
 source ~/.bashrc
 gh-latest balena-io/etcher balena-etcher_*_amd64.deb
-sudo apt install ./balena-etcher_*_amd64.deb
+sudo apt install ./balena-etcher_*_amd64.deb -y
 rm balena-etcher_*_amd64.deb
 gh-latest Martichou/rquickshare r-quick-share-main_*_amd64.deb
-sudo apt install ./r-quick-share-main_*_amd64.deb
+sudo apt install ./r-quick-share-main_*_amd64.deb -y
 rm r-quick-share-main_*_amd64.deb
 gh-latest arduino/arduino-cli arduino-cli_*_amd64.deb
-sudo apt install ./arduino-cli_*_amd64.deb
+sudo apt install ./arduino-cli_*_amd64.deb -y
 rm arduino-cli_*_amd64.deb
 gh-latest arduino/arduino-ide arduino-ide_*_Linux_64bit.AppImage
 chmod +x ~/arduino-ide_2.3.6_Linux_64bit.AppImage

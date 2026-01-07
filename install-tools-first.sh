@@ -20,7 +20,7 @@ sudo apt purge fcitx* -y
 sudo apt full-upgrade -y
 echo y | sudo ubuntu-drivers autoinstall
 echo y | sudo ubuntu-drivers autoinstall
-sudo apt install alsa-utils aptitude apt-transport-https autoconf automake bash bc bear bison build-essential bzip2 ca-certificates clang clang-format cmake codeblocks* command-not-found curl dbus dnsutils dvipng dvisvgm fcitx5 fcitx5-* ffmpeg file flex flatpak gcc gdb gh ghostscript gir1.2-appindicator3-0.1 gir1.2-ayatanaappindicator3-0.1 git glab gnucobol golang gperf gpg grep gtkwave g++ inkscape iverilog libboost-all-dev libbz2-dev libdb-dev libconfig-dev libeigen3-dev libffi-dev libfuse2t64 libgdbm-compat-dev libgdbm-dev libgdk-pixbuf-xlib-2.0-0 libgdk-pixbuf2.0-0 libgsl-dev libheif-examples liblttng-ust-common1t64 liblttng-ust1t64 libllvm19 liblzma-dev libncursesw5-dev libnss3-dev libosmesa6 libqt5core5a libqt5gui5 libqt5widgets5 libreadline-dev libreoffice libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libxcb-cursor0 libxml2 libxml2-dev libxml2-utils libxmlsec1-dev libz3-4 llvm iproute2 iverilog jpegoptim jq make maven mc nano neovim ngspice openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc pipx plantuml procps pv python3-pip python3-all-dev python3-venv qbittorrent qtwayland5 rust-all software-properties-common tar testdisk tk-dev tmux tree update-manager-core unrar uuid-dev valgrind verilator vim vim-gtk3 wget xmlstarlet xz-utils zlib1g zlib1g-dev zsh -y
+sudo apt install alsa-utils aptitude apt-transport-https autoconf automake bash bc bear bison build-essential bzip2 ca-certificates clang clang-format cmake codeblocks* command-not-found curl dbus dnsutils dvipng dvisvgm fcitx5 fcitx5-* ffmpeg file flex flatpak gcc gdb gh ghostscript gir1.2-appindicator3-0.1 gir1.2-ayatanaappindicator3-0.1 git glab gnucobol golang gperf gpg grep gtkwave g++ inkscape iverilog libadwaita-1-0 libboost-all-dev libbz2-dev libdb-dev libconfig-dev libeigen3-dev libffi-dev libfuse2t64 libgdbm-compat-dev libgdbm-dev libgdk-pixbuf-xlib-2.0-0 libgdk-pixbuf2.0-0 libgsl-dev libheif-examples liblttng-ust-common1t64 liblttng-ust1t64 libllvm19 liblzma-dev libncursesw5-dev libnss3-dev libosmesa6 libqt5core5a libqt5gui5 libqt5widgets5 libreadline-dev libreoffice libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libxcb-cursor0 libxml2 libxml2-dev libxml2-utils libxmlsec1-dev libz3-4 llvm iproute2 iverilog jpegoptim jq make maven mc nano neovim ngspice openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc pipx plantuml procps pv python3-pip python3-all-dev python3-venv qbittorrent qtwayland5 rust-all software-properties-common tar testdisk tk-dev tmux tree update-manager-core unrar uuid-dev valgrind verilator vim vim-gtk3 wget xmlstarlet xz-utils zenity zenity-common zlib1g zlib1g-dev zsh -y
 sudo mkdir -p /usr/share/codeblocks/docs
 im-config -n fcitx5
 cat >> ~/.xprofile <<'EOF'
@@ -68,7 +68,7 @@ sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
 sudo apparmor_parser -R /etc/apparmor.d/firefox
 fi
 wget -q https://sourceforge.net/projects/sdl-bgi/files/sdl2_bgi_3.0.4-1_amd64.deb/download -O sdl2_bgi_3.0.4-1_amd64.deb
-sudo dpkg -i sdl2_bgi_3.0.4-1_amd64.deb
+sudo apt install ./sdl2_bgi_3.0.4-1_amd64.deb
 rm sdl2_bgi_3.0.4-1_amd64.deb
 curl -fsSL https://ftp-master.debian.org/keys/archive-key-11.asc | sudo gpg --dearmor -o /usr/share/keyrings/debian-archive-keyring.gpg
 sudo mkdir -p /root/.gnupg
@@ -178,7 +178,7 @@ sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trus
 sudo apt update
 sudo apt install code -y
 wget -q https://packages.microsoft.com/config/ubuntu/$UBUNTU_VERSION_ID/packages-microsoft-prod.deb
-sudo dpkg -i packages-microsoft-prod.deb
+sudo apt install ./packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
 sudo add-apt-repository ppa:dotnet/backports -y
 sudo apt update
@@ -198,6 +198,8 @@ sudo apt install clang-uml -y
 sudo apt install postgresql-common -y
 sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
 sudo apt install postgresql-17 -y
+wget -q https://cdn.fastly.steamstatic.com/client/installer/steam.deb
+sudo apt install ./steam.deb
 cat > ~/.profile <<'EOF'
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
@@ -543,10 +545,10 @@ bzip-split() {
 EOF
 source ~/.bashrc
 gh-latest balena-io/etcher balena-etcher_*_amd64.deb
-sudo dpkg -i balena-etcher_*_amd64.deb
+sudo apt install ./balena-etcher_*_amd64.deb
 rm balena-etcher_*_amd64.deb
 gh-latest arduino/arduino-cli arduino-cli_*_amd64.deb
-sudo dpkg -i arduino-cli_*_amd64.deb
+sudo apt install ./arduino-cli_*_amd64.deb
 rm arduino-cli_*_amd64.deb
 gh-latest arduino/arduino-ide arduino-ide_*_Linux_64bit.AppImage
 chmod +x ~/arduino-ide_2.3.6_Linux_64bit.AppImage

@@ -31,6 +31,7 @@ export XMODIFIERS=@im=fcitx
 export INPUT_METHOD=fcitx
 EOF
 source ~/.xprofile
+rm -rf physics-patch
 if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || [ "$KDE_FULL_SESSION" = "true" ]; then
     sudo apt install plasma-discover-backend-flatpak -y
 else
@@ -263,6 +264,7 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+rm -rf physics-patch
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
@@ -281,6 +283,7 @@ esac
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	# We have color support; assume it's compliant with Ecma-48
+rm -rf physics-patch
 	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
 	# a case would tend to support setf rather than setaf.)
 	color_prompt=yes
@@ -676,6 +679,7 @@ mkdir -p tex
 cd tex
 mkdir -p latex
 cd latex
+rm -rf physics-patch
 git clone https://github.com/Willie169/physics-patch
 cd ~
 sudo apt update

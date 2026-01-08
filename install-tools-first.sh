@@ -349,19 +349,17 @@ if ! shopt -oq posix; then
   fi
 fi
 
+export PATH="$PATH:/bin:/sbin:/usr/bin:/usr/sbin:$HOME/.local/bin:$GOPATH/bin:$GOROOT/bin:/usr/glibc/bin:$HOME/.cargo/bin:/opt/TurboVNC/bin:/usr/local/texlive/2025/bin/x86_64-linux:/usr/sbin:$HOME/.pyenv/bin:/opt/android-studio-for-platform/bin:$HOME/intelFPGA/20.1/modelsim_ase/bin"
+export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/include:/usr/include/SDL2"
 export CLASSPATH="$CLASSPATH:/usr/lib/antlr-4.13.2-complete.jar"
 export GOROOT="/usr/local/go"
-export GOPATH="$HOME/go"
-export PATH="$PATH:/bin:/sbin:/usr/bin:/usr/sbin:$HOME/.local/bin:$GOPATH/bin:$GOROOT/bin:/usr/glibc/bin:$HOME/.cargo/bin:/opt/TurboVNC/bin:/usr/local/texlive/2025/bin/x86_64-linux:/usr/sbin:$HOME/.pyenv/bin:/opt/android-studio-for-platform/bin:$HOME/intelFPGA/20.1/modelsim_ase/bin"
-export CPLUS_INCLUDE_PATH="/usr/include/SDL2:$CPLUS_INCLUDE_PATH"
+export GOPATH="$GOPATH:$HOME/go"
+export NVM_DIR="$HOME/.nvm"
 export WAYDROID="$HOME/.local/share/waydroid/data/media/0"
 export KIT="/usr/share/LaTeX-ToolKit"
 export PATCH="$HOME/texmf/tex/latex/physics-patch"
-export NVM_DIR="$HOME/.nvm"
 export PLANTUML_JAR="$HOME/plantuml.jar"
 export BOTTLES="$HOME/.var/app/com.usebottles.bottles/data/bottles"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.13.2-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
 alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.13.2-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
 alias src='source'
@@ -380,9 +378,26 @@ alias vnc='vncserver'
 alias vnck='vncserver -kill'
 alias vncl='vncserver -list'
 alias httpp='http-server -p'
+alias discord='flatpak run com.discordapp.Discord'
+alias postman='flatpak run com.getpostman.Postman'
+alias obs-studio='flatpak run com.obsproject.Studio'
+alias spotify='flatpak run com.spotify.Client'
 alias bottles='flatpak run com.usebottles.bottles'
 alias bottles-cli='flatpak run --command=bottles-cli com.usebottles.bottles'
+alias handbrake='flatpak run fr.handbrake.ghb'
+alias freetube='flatpak run io.freetubeapp.FreeTube'
 alias brisk='flatpak run io.github.BrisklyDev.Brisk'
+alias joplin='flatpak run net.cozic.joplin_desktop'
+alias chromium='flatpak run org.chromium.Chromium'
+alias gimp='flatpak run org.gimp.GIMP'
+alias aisleriot='flatpak run org.gnome.Aisleriot'
+alias krita='flatpak run org.kde.krita'
+alias musescore='flatpak run org.musescore.MuseScore'
+alias onlyoffice='flatpak run org.onlyoffice.desktopeditors'
+alias telegram='flatpak run org.telegram.desktop'
+alias vlc='flatpak run org.videolan.VLC'
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 

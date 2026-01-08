@@ -77,6 +77,7 @@ curl -fsSL https://ftp-master.debian.org/keys/archive-key-11.asc | sudo gpg --de
 sudo mkdir -p /root/.gnupg
 sudo chmod 700 /root/.gnupg
 sudo gpg --no-default-keyring --keyring /usr/share/keyrings/debian-archive-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys 0E98404D386FA1D9 6ED0E7B82643E131 F8D2585B8783D481 54404762BBB6E853 BDE6D2B9216EC7A8 BDE6D2B9216EC7A8 8E9F831205B4BA95
+sudo sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
 sudo systemctl enable ssh
 yes | sudo ufw enable
 sudo ufw allow ssh
@@ -116,7 +117,7 @@ pyenv global 3.12.10
 pipx install poetry uv
 python3 -m venv .env
 source .env/bin/activate
-pip3 install jupyter librosa matplotlib meson ninja numpy pandas pydub scipy selenium setuptools sympy
+pip3 install jupyter librosa matplotlib meson ninja numpy pandas pydub requests scipy selenium setuptools sympy
 deactivate
 sudo git clone --depth=1 https://github.com/amix/vimrc.git /opt/vim_runtime && sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all && echo "set mouse=a
 set signcolumn=no

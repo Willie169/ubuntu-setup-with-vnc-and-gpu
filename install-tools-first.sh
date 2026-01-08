@@ -202,6 +202,11 @@ sudo apt install clang-uml -y
 sudo apt install postgresql-common -y
 sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
 sudo apt install postgresql-17 -y
+wget -q https://dev.mysql.com/get/mysql-apt-config_0.8.36-1_all.deb
+sudo apt install ./mysql-apt-config_0.8.36-1_all.deb -y
+rm mysql-apt-config_0.8.36-1_all.deb
+sudo apt update
+sudo apt install mysql-community-server -y
 wget -q https://cdn.fastly.steamstatic.com/client/installer/steam.deb
 sudo apt install ./steam.deb -y
 cat > ~/.profile <<'EOF'

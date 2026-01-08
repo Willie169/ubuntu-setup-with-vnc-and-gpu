@@ -94,7 +94,7 @@ cat > ~/.config/fontconfig/conf.d/99-texlive.conf <<'EOF'
   <dir>/usr/local/texlive/2025/texmf-dist/fonts</dir>
 </fontconfig>
 EOF
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 \. "$HOME/.nvm/nvm.sh"
 nvm install 22
 corepack enable yarn
@@ -102,8 +102,8 @@ corepack enable pnpm
 npm install -g http-server jsdom marked marked-gfm-heading-id node-html-markdown showdown @openai/codex
 go install github.com/danielmiessler/fabric@latest
 mkdir -p /usr/local/lib
-sudo curl -o /usr/local/lib/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
-curl https://pyenv.run | bash
+sudo curl -fsSL -o /usr/local/lib/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
+curl -fsSL https://pyenv.run | bash
 pyenv install 2.7.13
 pyenv install 3.9.13
 pyenv install 3.10.11
@@ -488,7 +488,7 @@ vncclean() {
 }
 
 gh-latest() {
-    curl -s "https://api.github.com/repos/$1/releases/latest" | jq -r ".assets[].browser_download_url | select(test(\"$(printf '%s' "$2" | sed -e 's/\./\\\\./g' -e 's/\*/.*/g')\"))" | xargs curl -L -O
+    curl -fsSL "https://api.github.com/repos/$1/releases/latest" | jq -r ".assets[].browser_download_url | select(test(\"$(printf '%s' "$2" | sed -e 's/\./\\\\./g' -e 's/\*/.*/g')\"))" | xargs curl -fsSL -O
 }
 
 gpull() {

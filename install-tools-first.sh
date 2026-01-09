@@ -119,17 +119,7 @@ python3 -m venv .env
 source .env/bin/activate
 pip3 install jupyter librosa matplotlib meson ninja numpy pandas pydub requests scipy selenium setuptools sympy
 deactivate
-sudo git clone --depth=1 https://github.com/amix/vimrc.git /opt/vim_runtime && sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all && echo "set mouse=a
-set signcolumn=no
-set foldcolumn=0
-set nolinebreak
-set clipboard^=unnamed
-set clipboard^=unnamedplus
-
-nnoremap <leader>k :if &mouse ==# 'a' \| set mouse= \| else \| set mouse=a \| endif<CR>
-
-let g:copilot_enabled = v:false
-" | sudo tee /opt/vim_runtime/my_configs.vim > /dev/null
+sudo git clone --depth=1 https://github.com/Willie169/vimrc.git /opt/vim_runtime && sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all
 mkdir -p ~/.config/nvim
 echo 'set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath

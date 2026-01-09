@@ -21,13 +21,12 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 4. See [Desktop Environment](#desktop-environment) section and [Wayland](#wayland) section if you want to use Wayland.
 5. See [Tailscale](#tailscale) section to configure Tailscale.
 6. See [SSH Server](#ssh-server) section to configure SSH server.
-7. See [Vimrc](#vimrc) section for Vim and Nvim usage.
-8. See [Other Scripts](#other-scripts) section for other scripts in this repository and [Instructions](#instructions) section for instructions.
-9. Done.
+7. See [Other Scripts](#other-scripts) section for other scripts in this repository and [Instructions](#instructions) section for instructions.
+8. Done.
 
 ### Content of Main Installation Scripts
 
-Installs recommended drivers and tools for C, C++, COBOL, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET 9, Aptitude, GitHub CLI, GitLab CLI, GVim, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, Tailscale, aria2, Noto CJK fonts, XITS fonts, nvm, pnpm, Yarn, NPM packages including http-server, jsdom, OpenAI Codex, and tools for Markdown and HTML, Python3 packages `jupyter librosa matplotlib meson ninja numpy pandas pydub requests scipy selenium setuptools sympy` in `~/.env`, pipx, Poetry, uv, RARLAB UnRAR, Icarus Verilog, Verilator, Ngspice, jpegoptim, optipng, libheif, Inkscape, XMLStarlet, GTKWave, SDL2, SDL2 BGI, Fabric, Visual Studio Code, Code::Blocks, qBittorrent, Balena Etcher, Arduino CLI, Arduino IDE, Stellarium, ANTLR 4, Tor, PlantUML, clang-uml, PostgreSQL 17, MySQL, RQuickShare, Steam, Brisk, CopyQ except on KDE Plasma, Firefox-ESR and Thunderbird with script of my [switch-firefox-from-snap-to-deb](https://github.com/Willie169/switch-firefox-from-snap-to-deb) except on Linux Mint, [vimrc by Amir Salihefendic (amix)](https://github.com/amix/vimrc) with my customization for both Vim and Neovim, my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch), my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit), Discord, Postman, OBS Studio, Spotify, HandBrake, FreeTube, Joplin, Chromium, GIMP, Aisleriot Solitaire, Krita, MuseScore, OnlyOffice, Telegram, VLC, and more, and adds custom `~/.profile` and `~/.bashrc`.
+Installs recommended drivers and tools for C, C++, COBOL, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET 9, Aptitude, GitHub CLI, GitLab CLI, GVim, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, Tailscale, aria2, Noto CJK fonts, XITS fonts, nvm, pnpm, Yarn, NPM packages including http-server, jsdom, OpenAI Codex, and tools for Markdown and HTML, Python3 packages `jupyter librosa matplotlib meson ninja numpy pandas pydub requests scipy selenium setuptools sympy` in `~/.env`, pipx, Poetry, uv, RARLAB UnRAR, Icarus Verilog, Verilator, Ngspice, jpegoptim, optipng, libheif, Inkscape, XMLStarlet, GTKWave, SDL2, SDL2 BGI, Fabric, Visual Studio Code, Code::Blocks, qBittorrent, Balena Etcher, Arduino CLI, Arduino IDE, Stellarium, ANTLR 4, Tor, PlantUML, clang-uml, PostgreSQL 17, MySQL, RQuickShare, Steam, Brisk, CopyQ except on KDE Plasma, Firefox-ESR and Thunderbird with script of my [switch-firefox-from-snap-to-deb](https://github.com/Willie169/switch-firefox-from-snap-to-deb) except on Linux Mint, [my modified version](https://github.com/Willie169/vimrc) of [vimrc by Amir Salihefendic (amix)](https://github.com/amix/vimrc) for both Vim and Neovim, my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch), my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit), Discord, Postman, OBS Studio, Spotify, HandBrake, FreeTube, Joplin, Chromium, GIMP, Aisleriot Solitaire, Krita, MuseScore, OnlyOffice, Telegram, VLC, and more, and adds custom `~/.profile` and `~/.bashrc`.
 
 ## Other Scripts
 
@@ -60,7 +59,6 @@ See [Desktop Environment](#desktop-environment), [Wayland](#wayland), and [Waydr
 + [VNC](#vnc)
 + [Waydroid](#waydroid)
 + [Solution for Closing Lip Overrides Power Off](#solution-for-closing-lip-overrides-power-off)
-+ [Vimrc](#vimrc)
 + [Bottles](#bottles)
 + [My Related Repositories](#my-related-repositories)
 
@@ -415,13 +413,6 @@ run:
 ```
 sudo systemctl restart systemd-logind
 ```
-
-### Vimrc
-
-* Edit your customizations in `/opt/vim_runtime/my_configs.vim`.
-* Setup GitHub Copilot with `:Copilot setup`.
-* [`install-tools-first.sh`](install-tools-first.sh) disable GitHub Copilot by default. To enable it, remove `let g:copilot_enabled = v:false` from `/opt/vim_runtime/my_configs.vim`. Run `:let g:copilot_enabled = v:false` to disable GitHub Copilot temporarily. Run `:let g:copilot_enabled = v:true` to enable GitHub Copilot temporarily. Add `let g:copilot_enabled = v:false` to `/opt/vim_runtime/my_configs.vim` to disable GitHub Copilot globally.
-* See [vimrc by Amir Salihefendic (amix)](https://github.com/amix/vimrc) for more information.
 
 ### Bottles
 

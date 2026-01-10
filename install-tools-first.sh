@@ -187,7 +187,7 @@ sudo apt update
 sudo apt install tor deb.torproject.org-keyring -y
 torbrowser-launcher
 wget -qO plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
-sudo add-apt-repository ppa:bkryza/clang-uml
+sudo add-apt-repository ppa:bkryza/clang-uml -y
 sudo apt update
 sudo apt install clang-uml -y
 sudo apt install postgresql-common -y

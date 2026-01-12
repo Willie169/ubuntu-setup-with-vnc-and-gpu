@@ -451,7 +451,7 @@ alias bottles-cli='flatpak run --command=bottles-cli com.usebottles.bottles'
 
 * [**termux-sh**](https://github.com/Willie169/termux-sh)
 * [**switch-firefox-from-snap-to-deb**](https://github.com/Willie169/switch-firefox-from-snap-to-deb)
-* [**dual-boot-windows-ubuntu**](https://github.com/Willie169/dual-boot-windows-ubuntu)
+* [**dual-boot-windows-linux-and-recovery**](https://github.com/Willie169/dual-boot-windows-linux-and-recovery)
 * [**LinuxAndTermuxTips**](https://github.com/Willie169/LinuxAndTermuxTips)
 * [**Android Non Root**](https://github.com/Willie169/Android-Non-Root) and its [site](https://willie169.github.io/Android-Non-Root)
 * [**physics-patch**](https://github.com/Willie169/physics-patch)

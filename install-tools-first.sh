@@ -596,9 +596,6 @@ source ~/.bashrc
 gh-latest balena-io/etcher balena-etcher_*_amd64.deb
 sudo apt install ./balena-etcher_*_amd64.deb -y
 rm balena-etcher_*_amd64.deb
-gh-latest Martichou/rquickshare r-quick-share-main_*_amd64.deb
-sudo apt install ./r-quick-share-main_*_amd64.deb -y
-rm r-quick-share-main_*_amd64.deb
 gh-latest arduino/arduino-cli arduino-cli_*_amd64.deb
 sudo apt install ./arduino-cli_*_amd64.deb -y
 rm arduino-cli_*_amd64.deb

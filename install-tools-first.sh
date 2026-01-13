@@ -281,7 +281,9 @@ sudo apt update
 sudo apt install mysql-community-server -y
 dl -q https://cdn.fastly.steamstatic.com/client/installer/steam.deb
 sudo apt install ./steam.deb -y
-
+dl -q https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2025.2.2.8/android-studio-2025.2.2.8-linux.tar.gz
+sudo tar -xzf android-studio-2025.2.2.8-linux.tar.gz -C /opt/
+rm android-studio-2025.2.2.8-linux.tar.gz
 gh-latest balena-io/etcher balena-etcher_*_amd64.deb
 sudo apt install ./balena-etcher_*_amd64.deb -y
 rm balena-etcher_*_amd64.deb
@@ -443,12 +445,13 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH="$PATH:/bin:/sbin:/usr/bin:/usr/sbin:$HOME/.local/bin:$GOPATH/bin:$GOROOT/bin:/usr/glibc/bin:$HOME/.cargo/bin:/opt/TurboVNC/bin:/usr/local/texlive/2025/bin/x86_64-linux:/usr/sbin:$HOME/.pyenv/bin:/opt/android-studio-for-platform/bin:$HOME/intelFPGA/20.1/modelsim_ase/bin"
+export PATH="$PATH:/bin:/sbin:/usr/bin:/usr/sbin:$HOME/.local/bin:$GOPATH/bin:$GOROOT/bin:/usr/glibc/bin:$HOME/.cargo/bin:/opt/TurboVNC/bin:/usr/local/texlive/2025/bin/x86_64-linux:/usr/sbin:$HOME/.pyenv/bin:/opt/android-studio/bin:$HOME/intelFPGA/20.1/modelsim_ase/bin"
 export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/include:/usr/include/SDL2"
 export CLASSPATH="$CLASSPATH:/usr/lib/antlr-4.13.2-complete.jar"
 export GOROOT="/usr/local/go"
 export GOPATH="$GOPATH:$HOME/go"
 export NVM_DIR="$HOME/.nvm"
+export ANDROID_HOME=/opt/android-studio/android-sdk
 export WAYDROID="$HOME/.local/share/waydroid/data/media/0"
 export KIT="/usr/share/LaTeX-ToolKit"
 export PATCH="$HOME/texmf/tex/latex/physics-patch"

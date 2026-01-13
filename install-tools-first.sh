@@ -200,6 +200,8 @@ sudo apt update
 sudo apt install mysql-community-server -y
 wget -q https://cdn.fastly.steamstatic.com/client/installer/steam.deb
 sudo apt install ./steam.deb -y
+wget -q https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2025.2.2.8/android-studio-2025.2.2.8-linux.tar.gz
+
 cat > ~/.profile <<'EOF'
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login

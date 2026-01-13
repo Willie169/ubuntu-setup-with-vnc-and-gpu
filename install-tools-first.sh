@@ -445,13 +445,15 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH="$PATH:/bin:/sbin:/usr/bin:/usr/sbin:$HOME/.local/bin:$GOPATH/bin:$GOROOT/bin:/usr/glibc/bin:$HOME/.cargo/bin:/opt/TurboVNC/bin:/usr/local/texlive/2025/bin/x86_64-linux:/usr/sbin:$HOME/.pyenv/bin:/opt/android-studio/bin:$HOME/intelFPGA/20.1/modelsim_ase/bin"
 export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/include:/usr/include/SDL2"
-export CLASSPATH="$CLASSPATH:/usr/lib/antlr-4.13.2-complete.jar"
 export GOROOT="/usr/local/go"
 export GOPATH="$GOPATH:$HOME/go"
+export JAVA_HOME="/usr/lib/jvm/openjdk-17"
+export CLASSPATH="$CLASSPATH:/usr/lib/antlr-4.13.2-complete.jar"
 export NVM_DIR="$HOME/.nvm"
-export ANDROID_HOME=/opt/android-studio/android-sdk
+export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+export ANDROID_HOME="$ANDROID_SDK_ROOT"
+export PATH="$PATH:/bin:/sbin:/usr/bin:/usr/sbin:$HOME/.local/bin:$GOPATH/bin:$GOROOT/bin:/usr/glibc/bin:$HOME/.cargo/bin:/opt/TurboVNC/bin:/usr/local/texlive/2025/bin/x86_64-linux:/usr/sbin:$HOME/.pyenv/bin:/opt/android-studio/bin:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/emulator:$HOME/intelFPGA/20.1/modelsim_ase/bin"
 export WAYDROID="$HOME/.local/share/waydroid/data/media/0"
 export KIT="/usr/share/LaTeX-ToolKit"
 export PATCH="$HOME/texmf/tex/latex/physics-patch"

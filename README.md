@@ -17,16 +17,16 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 
 1. Run [`install-tools-first.sh`](install-tools-first.sh) and follow the prompts until it reboot automatically.
 2. Login and run [`install-tools-second.sh`](install-tools-second.sh) until it exits automatically.
-3. See [Fcitx5](#fcitx5) section to configure Fcitx5.
-4. See [Desktop Environment](#desktop-environment) section and [Wayland](#wayland) section if you want to use Wayland.
-5. See [Tailscale](#tailscale) section to configure Tailscale.
-6. See [SSH Server](#ssh-server) section to configure SSH server.
-7. See [Other Scripts](#other-scripts) section for other scripts in this repository and [Instructions](#instructions) section for instructions.
-8. Done.
+2. Run `studio` to setup Android Studio.
+2. See [Fcitx5](#fcitx5) section to configure Fcitx5.
+2. See [Desktop Environment](#desktop-environment) section and [Wayland](#wayland) section if you want to use Wayland.
+2. See [Tailscale](#tailscale) section to configure Tailscale.
+2. See [SSH Server](#ssh-server) section to configure SSH server.
+2. See [Other Scripts](#other-scripts) section for other scripts in this repository and [Instructions](#instructions) section for instructions.
 
 ### Content of Main Installation Scripts
 
-Installs recommended drivers and tools for C, C++, COBOL, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET 9, Aptitude, GitHub CLI, GitLab CLI, GVim, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, Tailscale, aria2, Noto CJK fonts, XITS fonts, nvm, pnpm, Yarn, NPM packages including http-server, jsdom, OpenAI Codex, and tools for Markdown and HTML, Python3 packages `jupyter librosa matplotlib meson ninja numpy pandas pydub requests scipy selenium setuptools sympy` in `~/.env`, pipx, Poetry, uv, RARLAB UnRAR, Icarus Verilog, Verilator, Ngspice, jpegoptim, optipng, libheif, Inkscape, XMLStarlet, GTKWave, SDL2, SDL2 BGI, Fabric, Visual Studio Code, Code::Blocks, qBittorrent, Balena Etcher, Arduino CLI, Arduino IDE, Stellarium, ANTLR 4, Tor, Tor Browser, PlantUML, clang-uml, PostgreSQL 17, MySQL, Steam, Brisk, CopyQ except on KDE Plasma, Firefox-ESR and Thunderbird with script of my [switch-firefox-from-snap-to-deb](https://github.com/Willie169/switch-firefox-from-snap-to-deb) except on Linux Mint, [my modified version](https://github.com/Willie169/vimrc) of [vimrc by Amir Salihefendic (amix)](https://github.com/amix/vimrc) for both Vim and Neovim, my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch), my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit), Discord, Postman, OBS Studio, Spotify, HandBrake, FreeTube, Joplin, Chromium, GIMP, Aisleriot Solitaire, Krita, MuseScore, OnlyOffice, Telegram, VLC, and more, and adds custom `~/.profile` and `~/.bashrc`.
+Installs recommended drivers and tools for C, C++, COBOL, Python3, Java8, Java11, Java17, Java21, Node.js, Rust, Go, Ruby, Perl, .NET 9, Aptitude, GitHub CLI, GitLab CLI, GVim, OpenSSL, OpenSSH, JQ, Ghostscript, FFMPEG, Maven, Zsh, Fcitx5, Flatpak, TeX Live, Pandoc, Tailscale, aria2, Noto CJK fonts, XITS fonts, nvm, pnpm, Yarn, NPM packages including http-server, jsdom, OpenAI Codex, and tools for Markdown and HTML, Python3 packages `jupyter librosa matplotlib meson ninja numpy pandas pydub requests scipy selenium setuptools sympy` in `~/.env`, pipx, Poetry, uv, RARLAB UnRAR, Icarus Verilog, Verilator, Ngspice, jpegoptim, optipng, libheif, Inkscape, XMLStarlet, GTKWave, SDL2, SDL2 BGI, Fabric, Visual Studio Code, Code::Blocks, qBittorrent, Balena Etcher, Arduino CLI, Arduino IDE, Stellarium, ANTLR 4, Tor, Tor Browser, PlantUML, clang-uml, PostgreSQL 17, MySQL, Steam, Brisk, CopyQ except on KDE Plasma, Android Studio, Android SDK (Android Command-line tools, platform-tools, API 36 platforms), Android NDK 29.0.14206865, Gradle 8.13, Firefox-ESR and Thunderbird with script of my [switch-firefox-from-snap-to-deb](https://github.com/Willie169/switch-firefox-from-snap-to-deb) except on Linux Mint, [my modified version](https://github.com/Willie169/vimrc) of [vimrc by Amir Salihefendic (amix)](https://github.com/amix/vimrc) for both Vim and Neovim, my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch), my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit), Discord, Postman, OBS Studio, Spotify, HandBrake, FreeTube, Joplin, Chromium, GIMP, Aisleriot Solitaire, Krita, MuseScore, OnlyOffice, Telegram, VLC, and more, and adds custom `~/.profile` and `~/.bashrc`.
 
 ## Other Scripts
 

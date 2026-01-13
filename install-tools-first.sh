@@ -284,6 +284,30 @@ sudo apt install ./steam.deb -y
 dl -q https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2025.2.2.8/android-studio-2025.2.2.8-linux.tar.gz
 sudo tar -xzf android-studio-2025.2.2.8-linux.tar.gz -C /opt/
 rm android-studio-2025.2.2.8-linux.tar.gz
+dl -q https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip
+unzip commandlinetools-linux-13114758_latest.zip
+rm commandlinetools-linux-13114758_latest.zip
+mkdir -p Android
+cd Android
+mkdir -p Sdk
+cd Sdk
+export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+export ANDROID_HOME="$ANDROID_SDK_ROOT"
+mkdir cmdline-tools
+cd cmdline-tools
+mkdir latest
+cd latest
+mv $HOME/cmdline-tools/* .
+rm -r $HOME/cmdline-tools
+cd bin
+echo y | ./sdkmanager "build-tools;36.1.0" "emulator" "ndk;29.0.14206865" "platform-tools" "platforms;android-36" "system-images;android-36.1;google_apis_playstore;x86_64"
+cd ~
+mkdir gradle
+cd gradle
+aria2c https://services.gradle.org/distributions/gradle-8.13-bin.zip
+unzip gradle-8.13-bin.zip
+rm gradle-8.13-bin.zip
+cd ~
 gh-latest balena-io/etcher balena-etcher_*_amd64.deb
 sudo apt install ./balena-etcher_*_amd64.deb -y
 rm balena-etcher_*_amd64.deb

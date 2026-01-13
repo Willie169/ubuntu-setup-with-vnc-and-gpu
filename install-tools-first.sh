@@ -1,3 +1,5 @@
+#!/bin/bash
+set -eu
 cd ~
 
 dl() {
@@ -379,7 +381,6 @@ deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg
 EOF
 sudo apt update
 sudo apt install tor deb.torproject.org-keyring -y
-torbrowser-launcher
 wget -O plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
 sudo add-apt-repository ppa:bkryza/clang-uml -y
 sudo apt update

@@ -18,6 +18,7 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 1. Run [`install-tools-first.sh`](install-tools-first.sh) and follow the prompts until it reboot automatically.
 2. Login and run [`install-tools-second.sh`](install-tools-second.sh) until it exits automatically.
 2. Run `studio` to setup Android Studio.
+2. Run `torbrowser-launcher` to setup Tor Browser.
 2. See [Fcitx5](#fcitx5) section to configure Fcitx5.
 2. See [Desktop Environment](#desktop-environment) section and [Wayland](#wayland) section if you want to use Wayland.
 2. See [Tailscale](#tailscale) section to configure Tailscale.

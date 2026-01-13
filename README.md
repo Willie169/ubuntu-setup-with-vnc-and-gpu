@@ -6,10 +6,10 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 
 ### Prerequisites
 
-* Sufficient storage: (calculated on Kubuntu 25.04)
-  * Normal Installation of Kubuntu 25.04: approximately 8.3 GB,
-  * Normal Installation of Kubuntu 25.04 + [`install-tools-first.sh`](install-tools-first.sh): approximately 31.0 GB.
-  * Normal Installation of Kubuntu 25.04 + [`install-tools-first.sh`](install-tools-first.sh) + [`install-tools-second.sh`](install-tools-second.sh): approximately 40.8 GB.
+* Sufficient storage: (calculated on Kubuntu 25.10)
+  * Normal Installation of Kubuntu 25.10: approximately  GB,
+  * Normal Installation of Kubuntu 25.10 + [`install-tools-first.sh`](install-tools-first.sh): approximately  GB.
+  * Normal Installation of Kubuntu 25.10 + [`install-tools-first.sh`](install-tools-first.sh) + [`install-tools-second.sh`](install-tools-second.sh): approximately  GB.
 * Sufficient power supply.
 * Stable internet connection.
 

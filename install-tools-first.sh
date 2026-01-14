@@ -376,6 +376,12 @@ rm packages-microsoft-prod.deb
 sudo add-apt-repository ppa:dotnet/backports -y
 sudo apt update
 sudo apt install dotnet-sdk-10.0 aspnetcore-runtime-10.0 -y
+sudo apt install ca-certificates gnupg
+sudo gpg --homedir /tmp --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/mono-official-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+sudo chmod +r /usr/share/keyrings/mono-official-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/mono-official-archive-keyring.gpg] https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+sudo apt update
+sudo apt install mono-complete -y
 dl 'https://downloads.godotengine.org/?version=4.5.1&flavor=stable&slug=mono_linux_x86_64.zip&platform=linux.64'
 unzip Godot_v4.5.1-stable_mono_linux_x86_64.zip
 rm Godot_v4.5.1-stable_mono_linux_x86_64.zip

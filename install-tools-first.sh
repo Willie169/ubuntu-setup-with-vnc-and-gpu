@@ -416,12 +416,6 @@ rm -r $HOME/cmdline-tools
 cd bin
 echo y | ./sdkmanager "build-tools;36.1.0" "emulator" "ndk;29.0.14206865" "platform-tools" "platforms;android-36" "system-images;android-36.1;google_apis_playstore;x86_64"
 cd ~
-mkdir gradle
-cd gradle
-dl https://services.gradle.org/distributions/gradle-8.13-bin.zip
-unzip gradle-8.13-bin.zip
-rm gradle-8.13-bin.zip
-cd ~
 gh-latest balena-io/etcher balena-etcher_*_amd64.deb
 sudo apt install ./balena-etcher_*_amd64.deb -y
 rm balena-etcher_*_amd64.deb
@@ -592,7 +586,7 @@ export NVM_DIR="$HOME/.nvm"
 export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 export ANDROID_HOME="$ANDROID_SDK_ROOT"
 export ANDROID_NDK_HOME="$HOME/Android/Sdk/ndk/29.0.14206865"
-export PATH="$PATH:/bin:/sbin:/usr/bin:/usr/sbin:$HOME/.local/bin:$GOPATH/bin:$GOROOT/bin:/usr/glibc/bin:$HOME/.cargo/bin:/opt/TurboVNC/bin:/usr/local/texlive/2025/bin/x86_64-linux:$HOME/.pyenv/bin:/opt/android-studio/bin:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/emulator:$ANDROID_NDK_HOME:$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$HOME/gradle/gradle-8.13/bin:$HOME/intelFPGA/20.1/modelsim_ase/bin"
+export PATH="$PATH:/bin:/sbin:/usr/bin:/usr/sbin:$HOME/.local/bin:$GOPATH/bin:$GOROOT/bin:/usr/glibc/bin:$HOME/.cargo/bin:/opt/TurboVNC/bin:/usr/local/texlive/2025/bin/x86_64-linux:$HOME/.pyenv/bin:/opt/android-studio/bin:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/emulator:$ANDROID_NDK_HOME:$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$HOME/intelFPGA/20.1/modelsim_ase/bin"
 export WAYDROID="$HOME/.local/share/waydroid/data/media/0"
 export KIT="/usr/share/LaTeX-ToolKit"
 export PATCH="$HOME/texmf/tex/latex/physics-patch"

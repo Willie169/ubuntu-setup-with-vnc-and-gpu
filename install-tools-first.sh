@@ -310,7 +310,7 @@ pyenv install 3.11.9
 pyenv install 3.12.10
 pyenv install 3.13.5
 pyenv global 3.12.10
-pipx install poetry uv
+pipx install poetry uv git+https://gitlab.com/fdroid/fdroidserver.git
 python3 -m venv .env
 source .env/bin/activate
 pip3 install jupyter librosa matplotlib meson ninja numpy pandas pydub requests scipy selenium setuptools sympy

@@ -310,7 +310,7 @@ pyenv install 3.11.9
 pyenv install 3.12.10
 pyenv install 3.13.5
 pyenv global 3.12.10
-pipx install poetry uv git+https://gitlab.com/fdroid/fdroidserver.git
+pipx install poetry uv
 python3 -m venv .env
 source .env/bin/activate
 pip3 install jupyter librosa matplotlib meson ninja numpy pandas pydub requests scipy selenium setuptools sympy
@@ -333,6 +333,9 @@ curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list
 sudo apt update
 sudo apt install tailscale -y
 sudo systemctl enable tailscaled
+sudo add-apt-repository ppa:fdroid/fdroidserver -y
+sudo apt update
+sudo apt install fdroidserver -y
 sudo add-apt-repository ppa:hluk/copyq -y
 sudo apt update
 if [ "$XDG_CURRENT_DESKTOP" != "KDE" ] && [ "$DESKTOP_SESSION" != "plasma" ] && [ "$KDE_FULL_SESSION" != "true" ]; then

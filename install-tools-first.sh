@@ -422,7 +422,6 @@ cd ~
 dl 'https://downloads.godotengine.org/?version=4.5.1&flavor=stable&slug=mono_linux_x86_64.zip&platform=linux.64'
 unzip Godot_v4.5.1-stable_mono_linux_x86_64.zip
 rm Godot_v4.5.1-stable_mono_linux_x86_64.zip
-cd
 sudo ln -s ~/Godot_v4.5.1-stable_mono_linux_x86_64/Godot_v4.5.1-stable_mono_linux.x86_64 /usr/local/bin/godot
 gh-latest balena-io/etcher balena-etcher_*_amd64.deb
 sudo apt install ./balena-etcher_*_amd64.deb -y

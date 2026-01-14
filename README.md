@@ -19,11 +19,9 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 2. Login and run [`install-tools-second.sh`](install-tools-second.sh) until it exits automatically.
 2. Run `studio` to setup Android Studio.
 2. Run `torbrowser-launcher` to setup Tor Browser.
-2. See [Fcitx5](#fcitx5) section to configure Fcitx5.
-2. See [Desktop Environment](#desktop-environment) section and [Wayland](#wayland) section if you want to use Wayland.
-2. See [Tailscale](#tailscale) section to configure Tailscale.
-2. See [SSH Server](#ssh-server) section to configure SSH server.
-2. See [Other Scripts](#other-scripts) section for other scripts in this repository and [Instructions](#instructions) section for instructions.
+2. Run `sudo tailscale up` to login to Tailscale.
+2. Refer to [Instructions](#instructions) section for instructions.
+2. Refer to [Other Scripts](#other-scripts) section for other scripts in this repository.
 
 ### Content of Main Installation Scripts
 

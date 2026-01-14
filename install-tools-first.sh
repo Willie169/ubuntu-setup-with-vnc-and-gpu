@@ -419,6 +419,10 @@ rm -r $HOME/cmdline-tools
 cd bin
 echo y | ./sdkmanager "build-tools;35.0.0" "build-tools;36.1.0" "emulator" "ndk;29.0.14206865" "platform-tools" "platforms;android-36" "system-images;android-36.1;google_apis_playstore;x86_64"
 cd ~
+dl 'https://downloads.godotengine.org/?version=4.5.1&flavor=stable&slug=linux.x86_64.zip&platform=linux.64'
+unzip Godot_v4.5.1-stable_linux.x86_64.zip
+rm Godot_v4.5.1-stable_linux.x86_64.zip
+sudo mv Godot_v4.5.1-stable_linux.x86_64 /usr/local/bin/godot
 gh-latest balena-io/etcher balena-etcher_*_amd64.deb
 sudo apt install ./balena-etcher_*_amd64.deb -y
 rm balena-etcher_*_amd64.deb

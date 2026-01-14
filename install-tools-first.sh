@@ -421,7 +421,7 @@ cd latest
 mv $HOME/cmdline-tools/* .
 rm -r $HOME/cmdline-tools
 cd bin
-echo y | ./sdkmanager "build-tools;35.0.0" "build-tools;36.1.0" "emulator" "ndk;29.0.14206865" "platform-tools" "platforms;android-36" "system-images;android-36.1;google_apis_playstore;x86_64"
+echo y | ./sdkmanager "build-tools;30.0.3" "build-tools;35.0.0" "build-tools;36.1.0" "emulator" "ndk;29.0.14206865" "platform-tools" "platforms;android-33" "platforms;android-36" "system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"
 cd ~
 gh-latest balena-io/etcher balena-etcher_*_amd64.deb
 sudo apt install ./balena-etcher_*_amd64.deb -y

@@ -319,7 +319,7 @@ mkdir -p /usr/local/lib
 sudo wget -O /usr/local/lib/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
 export CFLAGS='-std=c17'
 curl -fsSL https://pyenv.run | bash
-pyenv install 2.7.13
+pyenv install 2.7.18
 pyenv install 3.9.13
 pyenv install 3.10.11
 pyenv install 3.11.9

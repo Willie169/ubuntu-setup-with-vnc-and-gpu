@@ -3,7 +3,6 @@ set -eu
 cd ~
 sudo -v
 while true; do sudo -v; sleep 60; done & SUDOPID=$!
-trap 'kill "$SUDOPID"' EXIT
 
 dl() {
   local out=
@@ -1199,4 +1198,5 @@ sudo apt full-upgrade -y
 sudo apt autoremove --purge -y
 sudo apt clean
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+kill "$SUDOPID"
 sudo reboot

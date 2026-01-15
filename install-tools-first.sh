@@ -310,7 +310,11 @@ nvm install 22
 corepack enable yarn
 corepack enable pnpm
 npm install -g http-server jsdom marked marked-gfm-heading-id node-html-markdown showdown @openai/codex
-go install github.com/danielmiessler/fabric@latest
+sudo mkdir /usr/local/go
+export GOPROXY=direct
+export GOROOT="/usr/local/go"
+export GOPATH="$GOPATH:$HOME/go"
+sudo go install github.com/danielmiessler/fabric@latest
 mkdir -p /usr/local/lib
 sudo wget -O /usr/local/lib/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
 curl -fsSL https://pyenv.run | bash
@@ -621,6 +625,7 @@ if ! shopt -oq posix; then
 fi
 
 export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/include:/usr/include/SDL2"
+export GOPROXY=direct
 export GOROOT="/usr/local/go"
 export GOPATH="$GOPATH:$HOME/go"
 export NVM_DIR="$HOME/.nvm"

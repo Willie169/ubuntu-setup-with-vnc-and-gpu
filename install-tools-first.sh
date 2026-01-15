@@ -229,8 +229,8 @@ EOF
 sudo apt update
 sudo apt purge fcitx* -y
 sudo apt full-upgrade -y
-echo y | sudo ubuntu-drivers autoinstall
-echo y | sudo ubuntu-drivers autoinstall
+echo y | sudo ubuntu-drivers install
+echo y | sudo ubuntu-drivers install
 sudo apt install alsa-utils apksigner aptitude apt-transport-https aria2 autoconf automake bash bc bear bison build-essential bzip2 ca-certificates clang clang-format cmake command-not-found curl dbus default-jdk dnsutils dvipng dvisvgm fastfetch ffmpeg file flex flatpak gcc gdb gh ghostscript git glab gnucobol gnupg golang gperf gpg grep gtkwave gzip g++ inkscape iverilog libboost-all-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libheif-examples libllvm19 libosmesa6 libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libssl-dev llvm iproute2 iverilog jpegoptim jq make maven mc nano ncompress neovim ngspice openssh-client openssh-server openssl optipng pandoc perl perl-doc pipx plantuml procps pv python3-pip python3-all-dev python3-venv rust-all tar tk-dev tmux torbrowser-launcher tree unzip uuid-dev valgrind verilator vim wget xmlstarlet xz-utils x11-utils x11-xserver-utils zip zlib1g zsh -y
 sudo apt install codeblocks* fcitx5 fcitx5-* libreoffice openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk qbittorrent qtwayland5 software-properties-common testdisk update-manager-core unrar vim-gtk3 -y
 sudo mkdir -p /usr/share/codeblocks/docs

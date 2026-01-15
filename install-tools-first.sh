@@ -292,11 +292,11 @@ sudo ufw allow ssh
 ip route
 dl https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xzf install-tl-unx.tar.gz
-sudo rm install-tl-unx.tar.gz
+rm install-tl-unx.tar.gz
 cd install-tl-*
 sudo perl install-tl --no-interaction
 cd ~
-sudo rm -rf install-tl-*
+rm -rf install-tl-*
 mkdir -p ~/.config/fontconfig/conf.d
 cat > ~/.config/fontconfig/conf.d/99-texlive.conf <<'EOF'
 <?xml version="1.0"?>

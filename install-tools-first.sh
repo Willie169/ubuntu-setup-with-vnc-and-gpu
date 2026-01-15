@@ -628,6 +628,8 @@ if ! shopt -oq posix; then
 fi
 
 export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/include:/usr/include/SDL2"
+export CXXFLAGS='-std=gnu++23 -O2'
+export CFLAGS='-std=c17 -O2'
 export GOPROXY=direct
 export GOROOT="/usr/local/go"
 export GOPATH="$GOPATH:$HOME/go"

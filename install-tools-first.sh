@@ -278,7 +278,7 @@ echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -c
 sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
 sudo apparmor_parser -R /etc/apparmor.d/firefox
 fi
-dl https://sourceforge.net/projects/sdl-bgi/files/sdl2_bgi_3.0.4-1_amd64.deb/download -O sdl2_bgi_3.0.4-1_amd64.deb
+wget -O sdl2_bgi_3.0.4-1_amd64.deb https://sourceforge.net/projects/sdl-bgi/files/sdl2_bgi_3.0.4-1_amd64.deb/download
 sudo apt install ./sdl2_bgi_3.0.4-1_amd64.deb -y
 rm sdl2_bgi_3.0.4-1_amd64.deb
 curl -fsSL https://ftp-master.debian.org/keys/archive-key-11.asc | sudo gpg --dearmor -o /usr/share/keyrings/debian-archive-keyring.gpg
@@ -313,7 +313,7 @@ corepack enable pnpm
 npm install -g http-server jsdom marked marked-gfm-heading-id node-html-markdown showdown @openai/codex
 go install github.com/danielmiessler/fabric@latest
 mkdir -p /usr/local/lib
-sudo dl -o /usr/local/lib/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
+sudo wget -O /usr/local/lib/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
 curl -fsSL https://pyenv.run | bash
 pyenv install 2.7.13
 pyenv install 3.9.13
@@ -382,7 +382,7 @@ rm packages.microsoft.gpg
 sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 sudo apt update
 sudo apt install code -y
-dl https://packages.microsoft.com/config/ubuntu/$UBUNTU_VERSION_ID/packages-microsoft-prod.deb
+wget https://packages.microsoft.com/config/ubuntu/$UBUNTU_VERSION_ID/packages-microsoft-prod.deb
 sudo apt install ./packages-microsoft-prod.deb -y
 rm packages-microsoft-prod.deb
 sudo add-apt-repository ppa:dotnet/backports -y
@@ -393,7 +393,7 @@ sudo chmod +r /usr/share/keyrings/mono-official-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/mono-official-archive-keyring.gpg] https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
 sudo apt update
 sudo apt install mono-complete -y
-dl 'https://downloads.godotengine.org/?version=4.5.1&flavor=stable&slug=mono_linux_x86_64.zip&platform=linux.64'
+wget 'https://downloads.godotengine.org/?version=4.5.1&flavor=stable&slug=mono_linux_x86_64.zip&platform=linux.64'
 unzip Godot_v4.5.1-stable_mono_linux_x86_64.zip
 rm Godot_v4.5.1-stable_mono_linux_x86_64.zip
 sudo ln -s ~/Godot_v4.5.1-stable_mono_linux_x86_64/Godot_v4.5.1-stable_mono_linux.x86_64 /usr/local/bin/godot
@@ -412,12 +412,12 @@ sudo apt install clang-uml -y
 sudo apt install postgresql-common -y
 sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
 sudo apt install postgresql-17 -y
-dl https://dev.mysql.com/get/mysql-apt-config_0.8.36-1_all.deb
+wget https://dev.mysql.com/get/mysql-apt-config_0.8.36-1_all.deb
 sudo apt install ./mysql-apt-config_0.8.36-1_all.deb -y
 rm mysql-apt-config_0.8.36-1_all.deb
 sudo apt update
 sudo apt install mysql-community-server -y
-dl https://cdn.fastly.steamstatic.com/client/installer/steam.deb
+wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
 sudo apt install ./steam.deb -y
 dl https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2025.2.2.8/android-studio-2025.2.2.8-linux.tar.gz
 sudo tar -xzf android-studio-2025.2.2.8-linux.tar.gz -C /opt/

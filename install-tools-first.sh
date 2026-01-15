@@ -289,7 +289,6 @@ sudo sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ss
 sudo systemctl enable ssh
 yes | sudo ufw enable
 sudo ufw allow ssh
-ip route
 dl https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xzf install-tl-unx.tar.gz
 rm install-tl-unx.tar.gz

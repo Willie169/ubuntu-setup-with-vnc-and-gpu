@@ -7,7 +7,7 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 ### Prerequisites
 
 * Sufficient storage: (calculated on Kubuntu 25.10)
-  * Kubuntu 25.10 Full Installation with Download and install updates after installation: approximately  GB,
+  * Kubuntu 25.10 Full Installation with Download and install updates after installation: approximately 13.35 GB,
   * Plus [`install-tools-first.sh`](install-tools-first.sh): approximately  GB.
   * Plus [`install-tools-second.sh`](install-tools-second.sh): approximately  GB.
 * Sufficient power supply.
@@ -56,7 +56,6 @@ See [Desktop Environment](#desktop-environment), [Wayland](#wayland), and [Waydr
 + [Desktop App Launchers](#desktop-app-launchers)
 + [Fcitx5](#fcitx5)
 + [Tailscale](#tailscale)
-+ [SSH Server](#ssh-server)
 + [VNC](#vnc)
 + [Waydroid](#waydroid)
 + [Solution for Closing Lip Overrides Power Off](#solution-for-closing-lip-overrides-power-off)
@@ -220,14 +219,6 @@ Tailscale (`com.tailscale.ipn`) can be installed from [F-Droid](https://f-droid.
 You can view the devices logged in and their Tailscale IPs in the app.
 
 See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) repo for more information.
-
-### SSH Server
-
-Uncomment the line:
-```
-PasswordAuthentication yes
-```
-if you want to enable password authentication.
 
 ### VNC
 

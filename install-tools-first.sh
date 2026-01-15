@@ -201,6 +201,15 @@ sudo sed -i -e 's/^[# ]*HandleLidSwitch=.*/HandleLidSwitch=ignore/' -e 's/^[# ]*
 sudo grep -q '^HandleLidSwitch=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitch=ignore' | sudo tee -a "/etc/systemd/logind.conf" > /dev/null
 sudo grep -q '^HandleLidSwitchDocked=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchDocked=ignore' | sudo tee -a "/etc/systemd/logind.conf" > /dev/null
 sudo grep -q '^HandleLidSwitchExternalPower=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchExternalPower=ignore' | sudo tee -a "/etc/systemd/logind.conf" > /dev/null
+for file in "/etc/grub.d/"*_os_prober "/etc/default/grub.d/"*_os_prober; do
+    if [[ -f "$file" ]]; then
+        if grep -q '^quick_boot=' "$file"; then
+            sed -i 's/^quick_boot=.*/quick_boot="0"/' "$file"
+        else
+            echo 'quick_boot="0"' >> "$file"
+        fi
+    fi
+done
 sudo timedatectl set-local-rtc 1
 sudo timedatectl set-ntp true
 sudo apt update

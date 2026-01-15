@@ -350,10 +350,10 @@ sudo apt install fdroidserver -y
 sudo add-apt-repository ppa:hluk/copyq -y
 sudo apt update
 if [ "$XDG_CURRENT_DESKTOP" != "KDE" ] && [ "$DESKTOP_SESSION" != "plasma" ] && [ "$KDE_FULL_SESSION" != "true" ]; then
-    sudo apt install copyq -y
-    copyq &
-    mkdir -p ~/.config/systemd/user
-    cat > ~/.config/systemd/user/copyq.service <<EOF
+sudo apt install copyq -y
+copyq &
+mkdir -p ~/.config/systemd/user
+cat > ~/.config/systemd/user/copyq.service <<EOF
 [Unit]
 Description=CopyQ clipboard manager
 
@@ -364,8 +364,8 @@ Restart=on-failure
 [Install]
 WantedBy=default.target
 EOF
-    systemctl --user daemon-reload
-    systemctl --user enable copyq.service
+systemctl --user daemon-reload
+systemctl --user enable copyq.service
 fi
 UBUNTU_VERSION_ID=$(
 if grep -q '^NAME="Linux Mint"' /etc/os-release; then

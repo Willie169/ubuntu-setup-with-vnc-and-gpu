@@ -430,6 +430,28 @@ rm -r $HOME/cmdline-tools
 cd bin
 echo y | ./sdkmanager "build-tools;30.0.3" "build-tools;35.0.0" "build-tools;36.1.0" "emulator" "ndk;29.0.14206865" "platform-tools" "platforms;android-33" "platforms;android-36" "system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"
 cd ~
+curl -fsSL https://api.github.com/repos/ente-io/ente/releases | jq '
+  map(
+    select(
+      has("html_url")
+      and has("published_at")
+      and (
+        (.html_url | split("/") | last | startswith("auth"))
+      )
+    )
+  )
+  | max_by(.published_at)
+  | .url
+' | xargs curl -fsSL | jq '
+  .assets
+  | .[]
+  | select(
+      has("name")
+      and (.name | test("ente-auth-v.+-x86_64\\.deb"))
+    )
+  | .browser_download_url
+' | xargs aria2c
+sudo apt install ente-auth-v*-x86_64.deb -y
 gh-latest balena-io/etcher balena-etcher_*_amd64.deb
 sudo apt install ./balena-etcher_*_amd64.deb -y
 rm balena-etcher_*_amd64.deb

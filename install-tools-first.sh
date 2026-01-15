@@ -320,12 +320,13 @@ sudo wget -O /usr/local/lib/antlr-4.13.2-complete.jar https://www.antlr.org/down
 export CFLAGS='-std=c17'
 curl -fsSL https://pyenv.run | bash
 pyenv install 2.7.18
-pyenv install 3.9.13
-pyenv install 3.10.11
-pyenv install 3.11.9
-pyenv install 3.12.10
-pyenv install 3.13.5
-pyenv global 3.12.10
+pyenv install 3.9.25
+pyenv install 3.10.19
+pyenv install 3.11.14
+pyenv install 3.12.12
+pyenv install 3.13.11
+pyenv install 3.14.2
+pyenv global 3.13.11
 pipx install poetry uv
 python3 -m venv .env
 source .env/bin/activate

@@ -3,6 +3,7 @@ set -eu
 cd ~
 sudo -v
 while true; do sudo -v; sleep 60; done & SUDOPID=$!
+trap 'kill "$SUDOPID"' EXIT
 
 dl() {
   local out=

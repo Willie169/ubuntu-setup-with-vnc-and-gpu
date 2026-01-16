@@ -1502,18 +1502,16 @@ sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
 sudo apt install postgresql-17 -y
 wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
 sudo apt install ./steam.deb -y
-dl https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2025.2.2.8/android-studio-2025.2.2.8-linux.tar.gz
+wget https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2025.2.2.8/android-studio-2025.2.2.8-linux.tar.gz
 sudo tar -xzf android-studio-2025.2.2.8-linux.tar.gz -C /opt/
 rm android-studio-2025.2.2.8-linux.tar.gz
-dl https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip
+wget https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip
 unzip commandlinetools-linux-13114758_latest.zip
 rm commandlinetools-linux-13114758_latest.zip
-mkdir -p Android
+mkdir Android
 cd Android
-mkdir -p Sdk
+mkdir Sdk
 cd Sdk
-export ANDROID_SDK_ROOT=$HOME/Android/Sdk
-export ANDROID_HOME="$ANDROID_SDK_ROOT"
 mkdir cmdline-tools
 cd cmdline-tools
 mkdir latest
@@ -1628,7 +1626,6 @@ sudo dl https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/Mono/Noto
 sudo dl https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/Mono/NotoSansMonoCJKkr-Bold.otf
 sudo fc-cache -fv
 cd /usr/share
-rm -rf LaTeX-ToolKit
 sudo git clone https://github.com/Willie169/LaTeX-ToolKit
 cd ~
 mkdir -p texmf
@@ -1637,7 +1634,6 @@ mkdir -p tex
 cd tex
 mkdir -p latex
 cd latex
-rm -rf physics-patch
 git clone https://github.com/Willie169/physics-patch
 cd ~
 sudo apt update

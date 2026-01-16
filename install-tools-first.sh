@@ -4,6 +4,15 @@ cd ~
 sudo -v
 while true; do sudo -v; sleep 60; done & SUDOPID=$!
 
+export UBUNTU_VERSION_ID=$(
+if grep -q '^NAME="Linux Mint"' /etc/os-release; then
+    inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'
+else
+    . /etc/os-release
+    echo "$VERSION_ID"
+fi
+)
+
 dl() {
   local has_option=0
   local out=
@@ -458,6 +467,13 @@ for file in "/etc/grub.d/"*_os_prober "/etc/default/grub.d/"*_os_prober; do
         fi
     fi
 done
+if [ "${UBUNTU_VERSION_ID:-}" = "25.10" ]; then
+sudo tee /etc/apt/preferences.d/99-plucky-fallback, >/dev/null <<'EOF'
+Package: *
+Pin: release n=plucky, o=LP-PPA-*
+Pin-Priority: 100
+EOF
+fi
 sudo timedatectl set-local-rtc 1
 sudo timedatectl set-ntp true
 sudo apt update
@@ -1463,14 +1479,6 @@ EOF
 systemctl --user daemon-reload
 systemctl --user enable copyq.service
 fi
-UBUNTU_VERSION_ID=$(
-if grep -q '^NAME="Linux Mint"' /etc/os-release; then
-    inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'
-else
-    . /etc/os-release
-    echo "$VERSION_ID"
-fi
-)
 wget -O- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
 rm packages.microsoft.gpg
@@ -1502,16 +1510,14 @@ sudo apt update
 sudo apt install tor deb.torproject.org-keyring -y
 wget -O plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
 sudo add-apt-repository ppa:bkryza/clang-uml -y
+if [ "${UBUNTU_VERSION_ID:-}" = "25.10" ]; then
+sudo sed -i -e '/^Suites:/ { /plucky/! s/$/ plucky/ }' /etc/apt/sources.list.d/bkryza-ubuntu-clang-uml-questing.sources
+fi
 sudo apt update
 sudo apt install clang-uml -y
 sudo apt install postgresql-common -y
 sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
 sudo apt install postgresql-17 -y
-wget https://dev.mysql.com/get/mysql-apt-config_0.8.36-1_all.deb
-sudo apt install ./mysql-apt-config_0.8.36-1_all.deb -y
-rm mysql-apt-config_0.8.36-1_all.deb
-sudo apt update
-sudo apt install mysql-community-server -y
 wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
 sudo apt install ./steam.deb -y
 dl https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2025.2.2.8/android-studio-2025.2.2.8-linux.tar.gz

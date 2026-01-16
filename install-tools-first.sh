@@ -472,13 +472,6 @@ for file in "/etc/grub.d/"*_os_prober "/etc/default/grub.d/"*_os_prober; do
         fi
     fi
 done
-if [ "${UBUNTU_VERSION_ID:-}" = "25.10" ]; then
-sudo tee /etc/apt/preferences.d/99-plucky-fallback, >/dev/null <<'EOF'
-Package: *
-Pin: release n=plucky, o=LP-PPA-*
-Pin-Priority: 100
-EOF
-fi
 sudo timedatectl set-local-rtc 1
 sudo timedatectl set-ntp true
 sudo apt update
@@ -1499,11 +1492,6 @@ sudo apt update
 sudo apt install tor deb.torproject.org-keyring -y
 wget -O plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
 sudo add-apt-repository ppa:bkryza/clang-uml -y
-if [ "${UBUNTU_VERSION_ID:-}" = "25.10" ]; then
-sudo sed -i -e '/^Suites:/ { /plucky/! s/$/ plucky/ }' /etc/apt/sources.list.d/bkryza-ubuntu-clang-uml-questing.sources
-## reverse with:
-# sudo sed -i -e '/^Suites:/ s/\([[:space:]]\)plucky\b//g' /etc/apt/sources.list.d/bkryza-ubuntu-clang-uml-questing.sources
-fi
 sudo apt update
 sudo apt install clang-uml -y
 sudo apt install postgresql-common -y

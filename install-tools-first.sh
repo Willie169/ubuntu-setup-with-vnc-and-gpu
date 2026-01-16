@@ -1459,26 +1459,6 @@ sudo systemctl enable tailscaled
 sudo add-apt-repository ppa:fdroid/fdroidserver -y
 sudo apt update
 sudo apt install fdroidserver -y
-sudo add-apt-repository ppa:hluk/copyq -y
-sudo apt update
-if [ "$XDG_CURRENT_DESKTOP" != "KDE" ] && [ "$DESKTOP_SESSION" != "plasma" ] && [ "$KDE_FULL_SESSION" != "true" ]; then
-sudo apt install copyq -y
-copyq &
-mkdir -p ~/.config/systemd/user
-cat > ~/.config/systemd/user/copyq.service <<EOF
-[Unit]
-Description=CopyQ clipboard manager
-
-[Service]
-ExecStart=copyq
-Restart=on-failure
-
-[Install]
-WantedBy=default.target
-EOF
-systemctl --user daemon-reload
-systemctl --user enable copyq.service
-fi
 wget -O- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
 rm packages.microsoft.gpg
@@ -1512,6 +1492,8 @@ wget -O plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.ja
 sudo add-apt-repository ppa:bkryza/clang-uml -y
 if [ "${UBUNTU_VERSION_ID:-}" = "25.10" ]; then
 sudo sed -i -e '/^Suites:/ { /plucky/! s/$/ plucky/ }' /etc/apt/sources.list.d/bkryza-ubuntu-clang-uml-questing.sources
+## reverse with:
+# sudo sed -i -e '/^Suites:/ s/\([[:space:]]\)plucky\b//g' /etc/apt/sources.list.d/bkryza-ubuntu-clang-uml-questing.sources
 fi
 sudo apt update
 sudo apt install clang-uml -y

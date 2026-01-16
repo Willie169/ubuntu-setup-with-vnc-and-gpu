@@ -311,28 +311,15 @@ corepack enable yarn
 corepack enable pnpm
 npm install -g http-server jsdom marked marked-gfm-heading-id node-html-markdown showdown @openai/codex
 sudo mkdir /usr/local/go
-export GOPROXY=direct
+export GOPROXY='direct'
 export GOROOT="/usr/local/go"
 export GOPATH="$GOPATH:$HOME/go"
 sudo go install github.com/danielmiessler/fabric@latest
 mkdir -p /usr/local/lib
 sudo wget -O /usr/local/lib/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
-export CFLAGS='-std=c17 -O2'
-curl -fsSL https://pyenv.run | bash
-pyenv install 2.7.18
-pyenv install 3.9.25
-pyenv install 3.10.19
-pyenv install 3.11.14
-pyenv install 3.12.12
-pyenv install 3.13.11
-pyenv install 3.14.2
-pyenv global 3.13.11
+pipx ensurepath
+sudo pipx ensurepath --global
 pipx install poetry uv
-python3 -m venv .env
-source .env/bin/activate
-pip3 install --upgrade pip
-pip3 install jupyter librosa matplotlib meson ninja numpy pandas pydub requests scipy selenium setuptools sympy
-deactivate
 sudo git clone --depth=1 https://github.com/Willie169/vimrc.git /opt/vim_runtime && sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all
 mkdir -p ~/.config/nvim
 echo 'set runtimepath^=~/.vim runtimepath+=~/.vim/after
@@ -628,11 +615,11 @@ if ! shopt -oq posix; then
 fi
 
 export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/include:/usr/include/SDL2"
-export CXXFLAGS='-std=gnu++23 -O2'
+export CXXFLAGS='-std=gnu++20 -O2'
 export CFLAGS='-std=c17 -O2'
-export GOPROXY=direct
+export GOPROXY='direct'
 export GOROOT="/usr/local/go"
-export GOPATH="$GOPATH:$HOME/go"
+export GOPATH="$HOME/go:$GOPATH"
 export NVM_DIR="$HOME/.nvm"
 export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64/bin/java"
 export CLASSPATH="$CLASSPATH:/usr/lib/antlr-4.13.2-complete.jar"
@@ -648,7 +635,6 @@ export BOTTLES="$HOME/.var/app/com.usebottles.bottles/data/bottles"
 alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.13.2-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
 alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.13.2-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
 alias src='source'
-alias deact='deactivate'
 alias g++20='g++ -std=gnu++20'
 alias c++20='clang++ -std=gnu++20'
 alias g++201='g++ -std=gnu++20 -O1'
@@ -713,19 +699,6 @@ __git_repo_reminder() {
     fi
 }
 PROMPT_COMMAND="__git_repo_reminder${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
-
-actenv() {
-    if [ -z "$1" ]; then
-        echo "Usage: actenv <venv_path>"
-        return 1
-    fi
-    if [ -f "$1/bin/activate" ]; then
-        source "$1/bin/activate"
-    else
-        echo "Error: $1/bin/activate not found"
-        return 1
-    fi
-}
 
 gccSDL2() {
     gcc "$@" -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lSDL2_net -lm -lstdc++

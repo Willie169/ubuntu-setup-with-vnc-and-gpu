@@ -22,6 +22,7 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 2. Run `sudo tailscale up` to login to Tailscale.
 2. Run `gh auth login --scopes repo,read:org,admin:org,workflow,gist,notifications,delete_repo,write:packages,read:packages` to login to GitHub.
 2. Run `git config --global user.name [your_name]` and `git config --global user.email [your_email]` to config git.
+2. Run `steam` to setup Steam.
 2. Refer to [Instructions](#instructions) section for instructions.
 2. Refer to [Other Scripts](#other-scripts) section for other scripts in this repository.
 

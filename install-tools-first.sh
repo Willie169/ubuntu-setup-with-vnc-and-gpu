@@ -563,155 +563,6 @@ export GOPROXY='direct'
 export GOROOT="/usr/local/go"
 export GOPATH="$GOPATH:$HOME/go"
 sudo go install github.com/danielmiessler/fabric@latest
-mkdir -p /usr/local/lib
-sudo wget -O /usr/local/lib/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
-pipx install poetry uv
-sudo git clone --depth=1 https://github.com/Willie169/vimrc.git /opt/vim_runtime && sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all
-mkdir -p ~/.config/nvim
-echo 'set runtimepath^=~/.vim runtimepath+=~/.vim/after
-let &packpath = &runtimepath
-source ~/.vimrc
-' | sudo tee ~/.config/nvim/init.vim > /dev/null
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/trusted.gpg.d/docker.asc > /dev/null
-source /etc/os-release
-echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt update
-sudo apt install docker-ce -y
-sudo systemctl enable docker
-sudo usermod -aG docker $USER
-curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
-curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
-sudo apt update
-sudo apt install tailscale -y
-sudo systemctl enable tailscaled
-sudo add-apt-repository ppa:fdroid/fdroidserver -y
-sudo apt update
-sudo apt install fdroidserver -y
-sudo add-apt-repository ppa:hluk/copyq -y
-sudo apt update
-if [ "$XDG_CURRENT_DESKTOP" != "KDE" ] && [ "$DESKTOP_SESSION" != "plasma" ] && [ "$KDE_FULL_SESSION" != "true" ]; then
-sudo apt install copyq -y
-copyq &
-mkdir -p ~/.config/systemd/user
-cat > ~/.config/systemd/user/copyq.service <<EOF
-[Unit]
-Description=CopyQ clipboard manager
-
-[Service]
-ExecStart=copyq
-Restart=on-failure
-
-[Install]
-WantedBy=default.target
-EOF
-systemctl --user daemon-reload
-systemctl --user enable copyq.service
-fi
-UBUNTU_VERSION_ID=$(
-if grep -q '^NAME="Linux Mint"' /etc/os-release; then
-    inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'
-else
-    . /etc/os-release
-    echo "$VERSION_ID"
-fi
-)
-wget -O- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
-rm packages.microsoft.gpg
-sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-sudo apt update
-sudo apt install code -y
-wget https://packages.microsoft.com/config/ubuntu/$UBUNTU_VERSION_ID/packages-microsoft-prod.deb
-sudo apt install ./packages-microsoft-prod.deb -y
-rm packages-microsoft-prod.deb
-sudo add-apt-repository ppa:dotnet/backports -y
-sudo apt update
-sudo apt install dotnet-sdk-10.0 aspnetcore-runtime-10.0 -y
-sudo gpg --homedir /tmp --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/mono-official-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-sudo chmod +r /usr/share/keyrings/mono-official-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/mono-official-archive-keyring.gpg] https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
-sudo apt update
-sudo apt install mono-complete -y
-wget 'https://downloads.godotengine.org/?version=4.5.1&flavor=stable&slug=mono_linux_x86_64.zip&platform=linux.64'
-unzip Godot_v4.5.1-stable_mono_linux_x86_64.zip
-rm Godot_v4.5.1-stable_mono_linux_x86_64.zip
-sudo ln -s ~/Godot_v4.5.1-stable_mono_linux_x86_64/Godot_v4.5.1-stable_mono_linux.x86_64 /usr/local/bin/godot
-source /etc/os-release
-wget -O- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | sudo tee /usr/share/keyrings/deb.torproject.org-keyring.gpg >/dev/null
-sudo tee /etc/apt/sources.list.d/tor.list > /dev/null <<EOF
-deb [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
-deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
-EOF
-sudo apt update
-sudo apt install tor deb.torproject.org-keyring -y
-wget -O plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
-sudo add-apt-repository ppa:bkryza/clang-uml -y
-sudo apt update
-sudo apt install clang-uml -y
-sudo apt install postgresql-common -y
-sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
-sudo apt install postgresql-17 -y
-wget https://dev.mysql.com/get/mysql-apt-config_0.8.36-1_all.deb
-sudo apt install ./mysql-apt-config_0.8.36-1_all.deb -y
-rm mysql-apt-config_0.8.36-1_all.deb
-sudo apt update
-sudo apt install mysql-community-server -y
-wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
-sudo apt install ./steam.deb -y
-dl https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2025.2.2.8/android-studio-2025.2.2.8-linux.tar.gz
-sudo tar -xzf android-studio-2025.2.2.8-linux.tar.gz -C /opt/
-rm android-studio-2025.2.2.8-linux.tar.gz
-dl https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip
-unzip commandlinetools-linux-13114758_latest.zip
-rm commandlinetools-linux-13114758_latest.zip
-mkdir -p Android
-cd Android
-mkdir -p Sdk
-cd Sdk
-export ANDROID_SDK_ROOT=$HOME/Android/Sdk
-export ANDROID_HOME="$ANDROID_SDK_ROOT"
-mkdir cmdline-tools
-cd cmdline-tools
-mkdir latest
-cd latest
-mv $HOME/cmdline-tools/* .
-rm -r $HOME/cmdline-tools
-cd bin
-echo y | ./sdkmanager "build-tools;30.0.3" "build-tools;35.0.0" "build-tools;36.1.0" "emulator" "ndk;29.0.14206865" "platform-tools" "platforms;android-33" "platforms;android-36" "system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"
-cd ~
-curl -fsSL https://api.github.com/repos/ente-io/ente/releases | jq '
-  map(
-    select(
-      has("html_url")
-      and has("published_at")
-      and (
-        (.html_url | split("/") | last | startswith("auth"))
-      )
-    )
-  )
-  | max_by(.published_at)
-  | .url
-' | xargs curl -fsSL | jq '
-  .assets
-  | .[]
-  | select(
-      has("name")
-      and (.name | test("ente-auth-v.+-x86_64\\.deb"))
-    )
-  | .browser_download_url
-' | xargs aria2c
-sudo apt install ente-auth-v*-x86_64.deb -y
-gh-latest balena-io/etcher balena-etcher_*_amd64.deb
-sudo apt install ./balena-etcher_*_amd64.deb -y
-rm balena-etcher_*_amd64.deb
-gh-latest arduino/arduino-cli arduino-cli_*_amd64.deb
-sudo apt install ./arduino-cli_*_amd64.deb -y
-rm arduino-cli_*_amd64.deb
-gh-latest arduino/arduino-ide arduino-ide_*_Linux_64bit.AppImage
-chmod +x ~/arduino-ide_2.3.6_Linux_64bit.AppImage
-echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
-gh-latest Stellarium/stellarium Stellarium-*-qt5-x86_64.AppImage
-chmod +x Stellarium-*-qt5-x86_64.AppImage
 cat > ~/.profile <<'EOF'
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
@@ -1568,6 +1419,135 @@ source "${HOME}/miniforge3/etc/profile.d/mamba.sh"
 conda init
 exec bash
 rm Miniforge3-Linux-x86_64.sh
+mkdir -p /usr/local/lib
+sudo wget -O /usr/local/lib/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
+pipx install poetry uv
+sudo git clone --depth=1 https://github.com/Willie169/vimrc.git /opt/vim_runtime && sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all
+mkdir -p ~/.config/nvim
+echo 'set runtimepath^=~/.vim runtimepath+=~/.vim/after
+let &packpath = &runtimepath
+source ~/.vimrc
+' | sudo tee ~/.config/nvim/init.vim > /dev/null
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/trusted.gpg.d/docker.asc > /dev/null
+source /etc/os-release
+echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt update
+sudo apt install docker-ce -y
+sudo systemctl enable docker
+sudo usermod -aG docker $USER
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
+sudo apt update
+sudo apt install tailscale -y
+sudo systemctl enable tailscaled
+sudo add-apt-repository ppa:fdroid/fdroidserver -y
+sudo apt update
+sudo apt install fdroidserver -y
+sudo add-apt-repository ppa:hluk/copyq -y
+sudo apt update
+if [ "$XDG_CURRENT_DESKTOP" != "KDE" ] && [ "$DESKTOP_SESSION" != "plasma" ] && [ "$KDE_FULL_SESSION" != "true" ]; then
+sudo apt install copyq -y
+copyq &
+mkdir -p ~/.config/systemd/user
+cat > ~/.config/systemd/user/copyq.service <<EOF
+[Unit]
+Description=CopyQ clipboard manager
+
+[Service]
+ExecStart=copyq
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
+EOF
+systemctl --user daemon-reload
+systemctl --user enable copyq.service
+fi
+UBUNTU_VERSION_ID=$(
+if grep -q '^NAME="Linux Mint"' /etc/os-release; then
+    inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'
+else
+    . /etc/os-release
+    echo "$VERSION_ID"
+fi
+)
+wget -O- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+rm packages.microsoft.gpg
+sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+sudo apt update
+sudo apt install code -y
+wget https://packages.microsoft.com/config/ubuntu/$UBUNTU_VERSION_ID/packages-microsoft-prod.deb
+sudo apt install ./packages-microsoft-prod.deb -y
+rm packages-microsoft-prod.deb
+sudo add-apt-repository ppa:dotnet/backports -y
+sudo apt update
+sudo apt install dotnet-sdk-10.0 aspnetcore-runtime-10.0 -y
+sudo gpg --homedir /tmp --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/mono-official-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+sudo chmod +r /usr/share/keyrings/mono-official-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/mono-official-archive-keyring.gpg] https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+sudo apt update
+sudo apt install mono-complete -y
+wget 'https://downloads.godotengine.org/?version=4.5.1&flavor=stable&slug=mono_linux_x86_64.zip&platform=linux.64'
+unzip Godot_v4.5.1-stable_mono_linux_x86_64.zip
+rm Godot_v4.5.1-stable_mono_linux_x86_64.zip
+sudo ln -s ~/Godot_v4.5.1-stable_mono_linux_x86_64/Godot_v4.5.1-stable_mono_linux.x86_64 /usr/local/bin/godot
+source /etc/os-release
+wget -O- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | sudo tee /usr/share/keyrings/deb.torproject.org-keyring.gpg >/dev/null
+sudo tee /etc/apt/sources.list.d/tor.list > /dev/null <<EOF
+deb [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
+deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
+EOF
+sudo apt update
+sudo apt install tor deb.torproject.org-keyring -y
+wget -O plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
+sudo add-apt-repository ppa:bkryza/clang-uml -y
+sudo apt update
+sudo apt install clang-uml -y
+sudo apt install postgresql-common -y
+sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
+sudo apt install postgresql-17 -y
+wget https://dev.mysql.com/get/mysql-apt-config_0.8.36-1_all.deb
+sudo apt install ./mysql-apt-config_0.8.36-1_all.deb -y
+rm mysql-apt-config_0.8.36-1_all.deb
+sudo apt update
+sudo apt install mysql-community-server -y
+wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
+sudo apt install ./steam.deb -y
+dl https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2025.2.2.8/android-studio-2025.2.2.8-linux.tar.gz
+sudo tar -xzf android-studio-2025.2.2.8-linux.tar.gz -C /opt/
+rm android-studio-2025.2.2.8-linux.tar.gz
+dl https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip
+unzip commandlinetools-linux-13114758_latest.zip
+rm commandlinetools-linux-13114758_latest.zip
+mkdir -p Android
+cd Android
+mkdir -p Sdk
+cd Sdk
+export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+export ANDROID_HOME="$ANDROID_SDK_ROOT"
+mkdir cmdline-tools
+cd cmdline-tools
+mkdir latest
+cd latest
+mv $HOME/cmdline-tools/* .
+rm -r $HOME/cmdline-tools
+cd bin
+echo y | ./sdkmanager "build-tools;30.0.3" "build-tools;35.0.0" "build-tools;36.1.0" "emulator" "ndk;29.0.14206865" "platform-tools" "platforms;android-33" "platforms;android-36" "system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"
+cd ~
+gh-latest ente-io/ente -t auth* ente-auth-v*-x86_64.deb
+sudo apt install ente-auth-v*-x86_64.deb -y
+gh-latest balena-io/etcher balena-etcher_*_amd64.deb
+sudo apt install ./balena-etcher_*_amd64.deb -y
+rm balena-etcher_*_amd64.deb
+gh-latest arduino/arduino-cli arduino-cli_*_amd64.deb
+sudo apt install ./arduino-cli_*_amd64.deb -y
+rm arduino-cli_*_amd64.deb
+gh-latest arduino/arduino-ide arduino-ide_*_Linux_64bit.AppImage
+chmod +x ~/arduino-ide_2.3.6_Linux_64bit.AppImage
+echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
+gh-latest Stellarium/stellarium Stellarium-*-qt5-x86_64.AppImage
+chmod +x Stellarium-*-qt5-x86_64.AppImage
 sudo mkdir -p /usr/share/fonts/opentype/xits
 cd /usr/share/fonts/opentype/xits
 sudo dl https://github.com/aliftype/xits/releases/download/v1.302/XITS-1.302.zip

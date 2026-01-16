@@ -1567,6 +1567,7 @@ source "${HOME}/miniforge3/etc/profile.d/conda.sh"
 source "${HOME}/miniforge3/etc/profile.d/mamba.sh"
 conda init
 exec bash
+rm Miniforge3-Linux-x86_64.sh
 sudo mkdir -p /usr/share/fonts/opentype/xits
 cd /usr/share/fonts/opentype/xits
 sudo dl https://github.com/aliftype/xits/releases/download/v1.302/XITS-1.302.zip

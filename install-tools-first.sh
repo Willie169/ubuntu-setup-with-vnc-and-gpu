@@ -563,6 +563,7 @@ export GOPROXY='direct'
 export GOROOT="/usr/local/go"
 export GOPATH="$GOPATH:$HOME/go"
 sudo go install github.com/danielmiessler/fabric@latest
+pipx install poetry uv
 cat > ~/.profile <<'EOF'
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
@@ -1421,7 +1422,6 @@ exec bash
 rm Miniforge3-Linux-x86_64.sh
 mkdir -p /usr/local/lib
 sudo wget -O /usr/local/lib/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
-pipx install poetry uv
 sudo git clone --depth=1 https://github.com/Willie169/vimrc.git /opt/vim_runtime && sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all
 mkdir -p ~/.config/nvim
 echo 'set runtimepath^=~/.vim runtimepath+=~/.vim/after

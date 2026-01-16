@@ -319,7 +319,7 @@ gh-latest() {
 
   if [ -n "$name" ]; then
     local name_regex
-    name_regex=$(printf '%s' "^$name\$" | sed '
+    name_regex=$(printf '%s' "$name" | sed '
       s/\\/\\\\\\\\/g
       s/\[/\\\\[/g
       s/\]/\\\\]/g
@@ -351,7 +351,7 @@ gh-latest() {
 
   if [ -n "$tag" ]; then
     local tag_regex
-    tag_regex=$(printf '%s' "^$tag\$" | sed '
+    tag_regex=$(printf '%s' "$tag" | sed '
       s/\\/\\\\\\\\/g
       s/\[/\\\\[/g
       s/\]/\\\\]/g

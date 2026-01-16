@@ -25,7 +25,11 @@ dl() {
   local use_curl=1
   local use_wget=1
   local tmp_file
-  tmp_file=$(mktemp "$TMPDIR/dl.XXXXXXXXXX") || return 1
+  if [ -z "$TMPDIR" ]; then
+    tmp_file=$(mktemp "/tmp/dl.XXXXXXXXXX") || return 1
+  else
+    tmp_file=$(mktemp "$TMPDIR/dl.XXXXXXXXXX") || return 1
+  fi
   local old_exit old_int old_term
   old_exit=$(trap -p EXIT)
   old_int=$(trap -p INT)
@@ -728,6 +732,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
+export TMPDIR="/tmp"
 export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/include:/usr/include/SDL2"
 export CXXFLAGS='-std=gnu++20 -O2'
 export CFLAGS='-std=c17 -O2'
@@ -888,7 +893,11 @@ dl() {
   local use_curl=1
   local use_wget=1
   local tmp_file
-  tmp_file=$(mktemp "$TMPDIR/dl.XXXXXXXXXX") || return 1
+  if [ -z "$TMPDIR" ]; then
+    tmp_file=$(mktemp "/tmp/dl.XXXXXXXXXX") || return 1
+  else
+    tmp_file=$(mktemp "$TMPDIR/dl.XXXXXXXXXX") || return 1
+  fi
   local old_exit old_int old_term
   old_exit=$(trap -p EXIT)
   old_int=$(trap -p INT)
@@ -1523,6 +1532,7 @@ echo y | ./sdkmanager "build-tools;30.0.3" "build-tools;35.0.0" "build-tools;36.
 cd ~
 gh-latest ente-io/ente -t auth* ente-auth-v*-x86_64.deb
 sudo apt install ente-auth-v*-x86_64.deb -y
+rm ente-auth-v*-x86_64.deb
 gh-latest balena-io/etcher balena-etcher_*_amd64.deb
 sudo apt install ./balena-etcher_*_amd64.deb -y
 rm balena-etcher_*_amd64.deb

@@ -18,10 +18,10 @@ export BOTTLES="$HOME/.var/app/com.usebottles.bottles/data/bottles"
 export KIT="/usr/share/LaTeX-ToolKit"
 export PATCH="$HOME/texmf/tex/latex/physics-patch"
 export UBUNTU_VERSION_ID=$(
-if grep -q '^NAME="Linux Mint"' /etc/os -r elease; then
+if grep -q '^NAME="Linux Mint"' /etc/os-release; then
   inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'
 else
-  . /etc/os -r elease
+  . /etc/os-release
   echo "$VERSION_ID"
 fi
 )

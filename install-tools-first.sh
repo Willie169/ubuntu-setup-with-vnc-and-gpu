@@ -205,7 +205,7 @@ dl() {
   return "$rc"
 }
 
-gh-latest() {
+gh_latest() {
   local dl_args=()
   local quiet=0
   local verbose=0
@@ -249,11 +249,11 @@ gh-latest() {
         ;;
       -*)
         echo "Unknown option: $1" >&2
-        echo "Usage: gh-latest [-n|--name NAME] [-t|--tag TAG_NAME] [-i|--index N] [-o|--output FILE] [-q|--quiet] [-v|--verbose] [-a|--aria2] [-A|--no-aria2] [-c|--curl] [-C|--no-curl] [-w|--wget] [-W|--no-wget] [--no-fallback] <repo> [file-pattern]" >&2
-        echo "Example: gh-latest cli/cli *.deb" >&2
-        echo "Example: gh-latest https://github.com/cli/cli/ gh_*_linux_amd64.deb" >&2
-        echo "Example: gh-latest github.com/cli/cli -n '*CLI 2.85.0*' gh_*_linux_amd64.deb" >&2
-        echo "Example: gh-latest cli/cli -i 0" >&2
+        echo "Usage: gh_latest [-n|--name NAME] [-t|--tag TAG_NAME] [-i|--index N] [-o|--output FILE] [-q|--quiet] [-v|--verbose] [-a|--aria2] [-A|--no-aria2] [-c|--curl] [-C|--no-curl] [-w|--wget] [-W|--no-wget] [--no-fallback] <repo> [file-pattern]" >&2
+        echo "Example: gh_latest cli/cli *.deb" >&2
+        echo "Example: gh_latest https://github.com/cli/cli/ gh_*_linux_amd64.deb" >&2
+        echo "Example: gh_latest github.com/cli/cli -n '*CLI 2.85.0*' gh_*_linux_amd64.deb" >&2
+        echo "Example: gh_latest cli/cli -i 0" >&2
         return 1
         ;;
       *)
@@ -277,21 +277,21 @@ gh-latest() {
 
   if ! echo "$repo" | grep -Eq '^[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+$'; then
     echo "Error: invalid repo format. Expected 'user/repo' or URL" >&2
-    echo "Usage: gh-latest [-n|--name NAME] [-t|--tag TAG_NAME] [-i|--index N] [-q|--quiet] [-v|--verbose] [dl-options] <repo> [file-pattern]" >&2
-    echo "Example: gh-latest cli/cli *.deb" >&2
-    echo "Example: gh-latest https://github.com/cli/cli/ gh_*_linux_amd64.deb" >&2
-    echo "Example: gh-latest github.com/cli/cli -n '*CLI 2.85.0*' gh_*_linux_amd64.deb" >&2
-    echo "Example: gh-latest cli/cli -i 0" >&2
+    echo "Usage: gh_latest [-n|--name NAME] [-t|--tag TAG_NAME] [-i|--index N] [-q|--quiet] [-v|--verbose] [dl-options] <repo> [file-pattern]" >&2
+    echo "Example: gh_latest cli/cli *.deb" >&2
+    echo "Example: gh_latest https://github.com/cli/cli/ gh_*_linux_amd64.deb" >&2
+    echo "Example: gh_latest github.com/cli/cli -n '*CLI 2.85.0*' gh_*_linux_amd64.deb" >&2
+    echo "Example: gh_latest cli/cli -i 0" >&2
     return 1
   fi
 
   if [ -z "$repo" ]; then
     echo "Error: invalid repo format. Expected 'user/repo' or URL" >&2
-    echo "Usage: gh-latest [-n|--name NAME] [-t|--tag TAG_NAME] [-i|--index N] [-q|--quiet] [-v|--verbose] [dl-options] <repo> [file-pattern]" >&2
-    echo "Example: gh-latest cli/cli *.deb" >&2
-    echo "Example: gh-latest https://github.com/cli/cli/ gh_*_linux_amd64.deb" >&2
-    echo "Example: gh-latest github.com/cli/cli -n '*CLI 2.85.0*' gh_*_linux_amd64.deb" >&2
-    echo "Example: gh-latest cli/cli -i 0" >&2
+    echo "Usage: gh_latest [-n|--name NAME] [-t|--tag TAG_NAME] [-i|--index N] [-q|--quiet] [-v|--verbose] [dl-options] <repo> [file-pattern]" >&2
+    echo "Example: gh_latest cli/cli *.deb" >&2
+    echo "Example: gh_latest https://github.com/cli/cli/ gh_*_linux_amd64.deb" >&2
+    echo "Example: gh_latest github.com/cli/cli -n '*CLI 2.85.0*' gh_*_linux_amd64.deb" >&2
+    echo "Example: gh_latest cli/cli -i 0" >&2
     return 1
   fi
 
@@ -1066,7 +1066,7 @@ dl() {
   return "$rc"
 }
 
-gh-latest() {
+gh_latest() {
   local dl_args=()
   local quiet=0
   local verbose=0
@@ -1110,11 +1110,11 @@ gh-latest() {
         ;;
       -*)
         echo "Unknown option: $1" >&2
-        echo "Usage: gh-latest [-n|--name NAME] [-t|--tag TAG_NAME] [-i|--index N] [-o|--output FILE] [-q|--quiet] [-v|--verbose] [-a|--aria2] [-A|--no-aria2] [-c|--curl] [-C|--no-curl] [-w|--wget] [-W|--no-wget] [--no-fallback] <repo> [file-pattern]" >&2
-        echo "Example: gh-latest cli/cli *.deb" >&2
-        echo "Example: gh-latest https://github.com/cli/cli/ gh_*_linux_amd64.deb" >&2
-        echo "Example: gh-latest github.com/cli/cli -n '*CLI 2.85.0*' gh_*_linux_amd64.deb" >&2
-        echo "Example: gh-latest cli/cli -i 0" >&2
+        echo "Usage: gh_latest [-n|--name NAME] [-t|--tag TAG_NAME] [-i|--index N] [-o|--output FILE] [-q|--quiet] [-v|--verbose] [-a|--aria2] [-A|--no-aria2] [-c|--curl] [-C|--no-curl] [-w|--wget] [-W|--no-wget] [--no-fallback] <repo> [file-pattern]" >&2
+        echo "Example: gh_latest cli/cli *.deb" >&2
+        echo "Example: gh_latest https://github.com/cli/cli/ gh_*_linux_amd64.deb" >&2
+        echo "Example: gh_latest github.com/cli/cli -n '*CLI 2.85.0*' gh_*_linux_amd64.deb" >&2
+        echo "Example: gh_latest cli/cli -i 0" >&2
         return 1
         ;;
       *)
@@ -1138,21 +1138,21 @@ gh-latest() {
 
   if ! echo "$repo" | grep -Eq '^[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+$'; then
     echo "Error: invalid repo format. Expected 'user/repo' or URL" >&2
-    echo "Usage: gh-latest [-n|--name NAME] [-t|--tag TAG_NAME] [-i|--index N] [-q|--quiet] [-v|--verbose] [dl-options] <repo> [file-pattern]" >&2
-    echo "Example: gh-latest cli/cli *.deb" >&2
-    echo "Example: gh-latest https://github.com/cli/cli/ gh_*_linux_amd64.deb" >&2
-    echo "Example: gh-latest github.com/cli/cli -n '*CLI 2.85.0*' gh_*_linux_amd64.deb" >&2
-    echo "Example: gh-latest cli/cli -i 0" >&2
+    echo "Usage: gh_latest [-n|--name NAME] [-t|--tag TAG_NAME] [-i|--index N] [-q|--quiet] [-v|--verbose] [dl-options] <repo> [file-pattern]" >&2
+    echo "Example: gh_latest cli/cli *.deb" >&2
+    echo "Example: gh_latest https://github.com/cli/cli/ gh_*_linux_amd64.deb" >&2
+    echo "Example: gh_latest github.com/cli/cli -n '*CLI 2.85.0*' gh_*_linux_amd64.deb" >&2
+    echo "Example: gh_latest cli/cli -i 0" >&2
     return 1
   fi
 
   if [ -z "$repo" ]; then
     echo "Error: invalid repo format. Expected 'user/repo' or URL" >&2
-    echo "Usage: gh-latest [-n|--name NAME] [-t|--tag TAG_NAME] [-i|--index N] [-q|--quiet] [-v|--verbose] [dl-options] <repo> [file-pattern]" >&2
-    echo "Example: gh-latest cli/cli *.deb" >&2
-    echo "Example: gh-latest https://github.com/cli/cli/ gh_*_linux_amd64.deb" >&2
-    echo "Example: gh-latest github.com/cli/cli -n '*CLI 2.85.0*' gh_*_linux_amd64.deb" >&2
-    echo "Example: gh-latest cli/cli -i 0" >&2
+    echo "Usage: gh_latest [-n|--name NAME] [-t|--tag TAG_NAME] [-i|--index N] [-q|--quiet] [-v|--verbose] [dl-options] <repo> [file-pattern]" >&2
+    echo "Example: gh_latest cli/cli *.deb" >&2
+    echo "Example: gh_latest https://github.com/cli/cli/ gh_*_linux_amd64.deb" >&2
+    echo "Example: gh_latest github.com/cli/cli -n '*CLI 2.85.0*' gh_*_linux_amd64.deb" >&2
+    echo "Example: gh_latest cli/cli -i 0" >&2
     return 1
   fi
 
@@ -1519,19 +1519,19 @@ rm -r $HOME/cmdline-tools
 cd bin
 echo y | ./sdkmanager "build-tools;30.0.3" "build-tools;35.0.0" "build-tools;36.1.0" "emulator" "ndk;29.0.14206865" "platform-tools" "platforms;android-33" "platforms;android-36" "system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"
 cd ~
-gh-latest ente-io/ente -t auth* ente-auth-v*-x86_64.deb
+gh_latest ente-io/ente -t auth* ente-auth-v*-x86_64.deb
 sudo apt install ./ente-auth-v*-x86_64.deb -y
 rm ente-auth-v*-x86_64.deb
-gh-latest balena-io/etcher balena-etcher_*_amd64.deb
+gh_latest balena-io/etcher balena-etcher_*_amd64.deb
 sudo apt install ./balena-etcher_*_amd64.deb -y
 rm balena-etcher_*_amd64.deb
-gh-latest arduino/arduino-cli arduino-cli_*_amd64.deb
+gh_latest arduino/arduino-cli arduino-cli_*_amd64.deb
 sudo apt install ./arduino-cli_*_amd64.deb -y
 rm arduino-cli_*_amd64.deb
-gh-latest arduino/arduino-ide arduino-ide_*_Linux_64bit.AppImage
+gh_latest arduino/arduino-ide arduino-ide_*_Linux_64bit.AppImage
 chmod +x ~/arduino-ide_2.3.6_Linux_64bit.AppImage
 echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
-gh-latest Stellarium/stellarium Stellarium-*-qt5-x86_64.AppImage
+gh_latest Stellarium/stellarium Stellarium-*-qt5-x86_64.AppImage
 chmod +x Stellarium-*-qt5-x86_64.AppImage
 sudo mkdir -p /usr/share/fonts/opentype/xits
 cd /usr/share/fonts/opentype/xits

@@ -233,6 +233,9 @@ cd ~
 gh_latest ente-io/ente -t auth* ente-auth-v*-x86_64.deb
 sudo apt install ./ente-auth-v*-x86_64.deb -y
 rm ente-auth-v*-x86_64.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/g/gdk-pixbuf-xlib/libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb
+sudo apt install ./libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb -y
+rm libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb
 gh_latest balena-io/etcher balena-etcher_*_amd64.deb
 sudo apt install ./balena-etcher_*_amd64.deb -y
 rm balena-etcher_*_amd64.deb

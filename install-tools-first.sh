@@ -60,6 +60,8 @@ fi
 EOF
 sudo mkdir -p /usr/local/go
 sudo mkdir -p /usr/local/java
+mkdir -p ~/.local
+mkdir -p ~/.local/bin
 echo y | sudo ubuntu-drivers install
 echo y | sudo ubuntu-drivers install
 sudo apt install alsa-utils apksigner apt-transport-https aptitude aria2 autoconf automake bash bc bear bison build-essential bzip2 ca-certificates clang clang-format cmake command-not-found curl dbus default-jdk dnsutils dvipng dvisvgm fastfetch ffmpeg file flex g++ gcc gdb gfortran gh ghostscript git glab gnucobol gnupg golang gperf gpg grep gtkwave gzip info inkscape iproute2 iverilog iverilog jpegoptim jq libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libheif-examples libllvm19 liblzma-dev libncursesw5-dev libosmesa6 libreadline-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev libzstd-dev llvm make maven mc nano ncompress neovim ngspice openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc pipx plantuml procps pv python3-all-dev python3-pip python3-venv rust-all sudo tar tk-dev tmux tree unzip uuid-dev uuid-runtime valgrind verilator vim wget x11-utils x11-xserver-utils xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh -y
@@ -190,11 +192,12 @@ sudo chmod +r /usr/share/keyrings/mono-official-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/mono-official-archive-keyring.gpg] https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
 sudo apt update
 sudo apt install mono-complete -y
+mkdir ~/.local/godot
 wget -O Godot_v4.5.1-stable_mono_linux_x86_64.zip 'https://downloads.godotengine.org/?version=4.5.1&flavor=stable&slug=mono_linux_x86_64.zip&platform=linux.64'
 unzip Godot_v4.5.1-stable_mono_linux_x86_64.zip
 rm Godot_v4.5.1-stable_mono_linux_x86_64.zip
-sudo ln -s ~/Godot_v4.5.1-stable_mono_linux_x86_64/Godot_v4.5.1-stable_mono_linux.x86_64 /usr/local/bin/godot
-source /etc/os-release
+mv ~/Godot_v4.5.1-stable_mono_linux_x86_64 ~/.local/godot/
+ln -s ~/.local/godot/Godot_v4.5.1-stable_mono_linux_x86_64/Godot_v4.5.1-stable_mono_linux.x86_64 ~/.local/bin/godot
 wget -O- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | sudo tee /usr/share/keyrings/deb.torproject.org-keyring.gpg >/dev/null
 sudo tee /etc/apt/sources.list.d/tor.list > /dev/null <<EOF
 deb [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main

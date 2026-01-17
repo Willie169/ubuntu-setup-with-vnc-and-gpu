@@ -291,8 +291,8 @@ gh_latest() {
   repo="${repo%.git}"
   repo="${repo%/}"
 
-  if ! echo "$repo" | grep -Eq '^[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+$'; then
-    echo "Error: invalid repo format. Expected 'user/repo' or URL" >&2
+  if [ -z "$repo" ]; then
+    echo "Error: no repo provided. Expected 'user/repo' or URL" >&2
     echo "Usage: gh_latest [-h|--help] [-n|--name release_name_pattern] [-t|--tag release_tag_name_pattern] [-i|--index asset_index] [-o|--output output_file] [-O|--stdout] [-q|--quiet] [-v|--verbose] [-a|--aria2] [-A|--no-aria2] [-c|--curl] [-C|--no-curl] [-w|--wget] [-W|--no-wget] [--no-fallback] <GitHub_repo_'user/repo'_or_URL> [asset_pattern]" >&2
     echo "Example: gh_latest cli/cli *.deb" >&2
     echo "Example: gh_latest https://github.com/cli/cli/ gh_*_linux_amd64.deb" >&2
@@ -301,8 +301,8 @@ gh_latest() {
     return 1
   fi
 
-  if [ -z "$repo" ]; then
-    echo "Error: no repo provided. Expected 'user/repo' or URL" >&2
+  if ! echo "$repo" | grep -Eq '^[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+$'; then
+    echo "Error: invalid repo format. Expected 'user/repo' or URL" >&2
     echo "Usage: gh_latest [-h|--help] [-n|--name release_name_pattern] [-t|--tag release_tag_name_pattern] [-i|--index asset_index] [-o|--output output_file] [-O|--stdout] [-q|--quiet] [-v|--verbose] [-a|--aria2] [-A|--no-aria2] [-c|--curl] [-C|--no-curl] [-w|--wget] [-W|--no-wget] [--no-fallback] <GitHub_repo_'user/repo'_or_URL> [asset_pattern]" >&2
     echo "Example: gh_latest cli/cli *.deb" >&2
     echo "Example: gh_latest https://github.com/cli/cli/ gh_*_linux_amd64.deb" >&2

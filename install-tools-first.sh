@@ -3,10 +3,40 @@ set -eu
 cd ~
 sudo -v
 while true; do sudo -v; sleep 60; done & SUDOPID=$!
+sudo sed -i -e 's/^[# ]*HandleLidSwitch=.*/HandleLidSwitch=ignore/' -e 's/^[# ]*HandleLidSwitchDocked=.*/HandleLidSwitchDocked=ignore/' -e 's/^[# ]*HandleLidSwitchExternalPower=.*/HandleLidSwitchExternalPower=ignore/' "/etc/systemd/logind.conf"
+sudo grep -q '^HandleLidSwitch=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitch=ignore' | sudo tee -a "/etc/systemd/logind.conf" > /dev/null
+sudo grep -q '^HandleLidSwitchDocked=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchDocked=ignore' | sudo tee -a "/etc/systemd/logind.conf" > /dev/null
+sudo grep -q '^HandleLidSwitchExternalPower=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchExternalPower=ignore' | sudo tee -a "/etc/systemd/logind.conf" > /dev/null
+for file in "/etc/grub.d/"*_os_prober "/etc/default/grub.d/"*_os_prober; do
+  if [[ -f "$file" ]]; then
+    if grep -q '^quick_boot=' "$file"; then
+      sed -i 's/^quick_boot=.*/quick_boot="0"/' "$file"
+    else
+      echo 'quick_boot="0"' >> "$file"
+    fi
+  fi
+done
+sudo timedatectl set-local-rtc 1
+sudo timedatectl set-ntp true
+sudo apt update
+sudo add-apt-repository universe -y
+sudo add-apt-repository multiverse -y
+sudo add-apt-repository restricted -y
+sudo add-apt-repository ppa:graphics-drivers/ppa -y
+sudo add-apt-repository ppa:zhangsongcui3371/fastfetch -y
+bash <<'EOF'
+set -e
+f=/etc/apt/sources.list.d/ubuntu.sources
+if [ -f "$f" ] && grep -q "^Types:.*deb" "$f"; then
+  sudo sed -i 's/^Types: *deb.*/Types: deb deb-src/' "$f"
+fi
+EOF
+sudo apt update
+sudo apt purge fcitx* -y
+sudo apt full-upgrade -y
+sudo apt install wget -y
 rm -f .bashrc
 mkdir ~/.bashrc.d
-sudo apt update
-sudo apt install wget -y
 wget https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/00-env.sh -O ~/.bashrc.d/00-env.sh
 wget https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/10-exports.sh -O ~/.bashrc.d/10-exports.sh
 wget https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/15-color.sh -O ~/.bashrc.d/15-color.sh
@@ -30,36 +60,6 @@ fi
 EOF
 sudo mkdir -p /usr/local/go
 sudo mkdir -p /usr/local/java
-sudo sed -i -e 's/^[# ]*HandleLidSwitch=.*/HandleLidSwitch=ignore/' -e 's/^[# ]*HandleLidSwitchDocked=.*/HandleLidSwitchDocked=ignore/' -e 's/^[# ]*HandleLidSwitchExternalPower=.*/HandleLidSwitchExternalPower=ignore/' "/etc/systemd/logind.conf"
-sudo grep -q '^HandleLidSwitch=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitch=ignore' | sudo tee -a "/etc/systemd/logind.conf" > /dev/null
-sudo grep -q '^HandleLidSwitchDocked=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchDocked=ignore' | sudo tee -a "/etc/systemd/logind.conf" > /dev/null
-sudo grep -q '^HandleLidSwitchExternalPower=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchExternalPower=ignore' | sudo tee -a "/etc/systemd/logind.conf" > /dev/null
-for file in "/etc/grub.d/"*_os_prober "/etc/default/grub.d/"*_os_prober; do
-  if [[ -f "$file" ]]; then
-    if grep -q '^quick_boot=' "$file"; then
-      sed -i 's/^quick_boot=.*/quick_boot="0"/' "$file"
-    else
-      echo 'quick_boot="0"' >> "$file"
-    fi
-  fi
-done
-sudo timedatectl set-local-rtc 1
-sudo timedatectl set-ntp true
-sudo add-apt-repository universe -y
-sudo add-apt-repository multiverse -y
-sudo add-apt-repository restricted -y
-sudo add-apt-repository ppa:graphics-drivers/ppa -y
-sudo add-apt-repository ppa:zhangsongcui3371/fastfetch -y
-bash <<'EOF'
-set -e
-f=/etc/apt/sources.list.d/ubuntu.sources
-if [ -f "$f" ] && grep -q "^Types:.*deb" "$f"; then
-  sudo sed -i 's/^Types: *deb.*/Types: deb deb-src/' "$f"
-fi
-EOF
-sudo apt update
-sudo apt purge fcitx* -y
-sudo apt full-upgrade -y
 echo y | sudo ubuntu-drivers install
 echo y | sudo ubuntu-drivers install
 sudo apt install alsa-utils apksigner apt-transport-https aptitude aria2 autoconf automake bash bc bear bison build-essential bzip2 ca-certificates clang clang-format cmake command-not-found curl dbus default-jdk dnsutils dvipng dvisvgm fastfetch ffmpeg file flex g++ gcc gdb gfortran gh ghostscript git glab gnucobol gnupg golang gperf gpg grep gtkwave gzip info inkscape iproute2 iverilog iverilog jpegoptim jq libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libheif-examples libllvm19 liblzma-dev libncursesw5-dev libosmesa6 libreadline-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev libzstd-dev llvm make maven mc nano ncompress neovim ngspice openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc pipx plantuml procps pv python3-all-dev python3-pip python3-venv rust-all sudo tar tk-dev tmux tree unzip uuid-dev uuid-runtime valgrind verilator vim wget x11-utils x11-xserver-utils xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh -y

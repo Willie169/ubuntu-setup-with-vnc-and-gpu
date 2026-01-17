@@ -26,6 +26,8 @@ if [ -n "$BASH_VERSION" ]; then
   fi
 fi
 EOF
+sudo mkdir -p /usr/local/go
+sudo mkdir -p /usr/local/java
 sudo sed -i -e 's/^[# ]*HandleLidSwitch=.*/HandleLidSwitch=ignore/' -e 's/^[# ]*HandleLidSwitchDocked=.*/HandleLidSwitchDocked=ignore/' -e 's/^[# ]*HandleLidSwitchExternalPower=.*/HandleLidSwitchExternalPower=ignore/' "/etc/systemd/logind.conf"
 sudo grep -q '^HandleLidSwitch=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitch=ignore' | sudo tee -a "/etc/systemd/logind.conf" > /dev/null
 sudo grep -q '^HandleLidSwitchDocked=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchDocked=ignore' | sudo tee -a "/etc/systemd/logind.conf" > /dev/null
@@ -139,7 +141,6 @@ nvm install 22
 corepack enable yarn
 corepack enable pnpm
 npm install -g http-server jsdom marked marked-gfm-heading-id node-html-markdown showdown @openai/codex
-sudo mkdir /usr/local/go
 sudo go install github.com/danielmiessler/fabric@latest
 pipx install poetry uv
 source ~/.bashrc
@@ -150,8 +151,7 @@ source "${HOME}/miniforge3/etc/profile.d/mamba.sh"
 conda init
 exec bash
 rm Miniforge3-Linux-x86_64.sh
-mkdir -p /usr/local/lib
-sudo wget -O /usr/local/lib/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
+sudo wget -O /usr/local/java/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
 sudo git clone --depth=1 https://github.com/Willie169/vimrc.git /opt/vim_runtime && sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all
 mkdir -p ~/.config/nvim
 echo 'set runtimepath^=~/.vim runtimepath+=~/.vim/after
@@ -201,7 +201,7 @@ deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg
 EOF
 sudo apt update
 sudo apt install tor deb.torproject.org-keyring -y
-wget -O plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
+wget -O /usr/local/java/plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
 sudo add-apt-repository ppa:bkryza/clang-uml -y
 sudo apt update
 sudo apt install clang-uml -y

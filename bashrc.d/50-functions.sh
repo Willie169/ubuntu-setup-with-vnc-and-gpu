@@ -537,6 +537,7 @@ gh_file() {
   url="${url#github.com/}"
   url="${url%/}"
   url=$(printf '%s' "$url" | sed -E 's#^([^/]+)/([^/]+)/blob/(.+)$#https://raw.githubusercontent.com/\1/\2/\3#')
+  url=$(printf '%s' "$url" | sed 's#%2F#/#g')
 
   if [ "$print_url" -eq 1 ]; then
     echo "$url"

@@ -5,17 +5,17 @@ sudo -v
 while true; do sudo -v; sleep 60; done & SUDOPID=$!
 rm .bashrc
 mkdir ~/.bashrc.d
-wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d%2F00-env.sh -o ~/.bashrc.d/00-env.sh
-wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d%2F10-exports.sh -o ~/.bashrc.d/10-exports.sh
-wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d%2F15-color.sh -o ~/.bashrc.d/15-color.sh
-wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d%2F20-aliases.sh -o ~/.bashrc.d/20-aliases.sh
-wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d%2F21-cxx.sh -o ~/.bashrc.d/21-cxx.sh
-wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d%2F22-java.sh -o ~/.bashrc.d/22-java.sh
-wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d%2F23-vnc.sh -o ~/.bashrc.d/23-vnc.sh
-wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d%2F24-flatpak.sh -o ~/.bashrc.d/24-flatpak.sh
-wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d%2F50-functions.sh -o ~/.bashrc.d/50-functions.sh
-wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d%2F60-completion.sh -o ~/.bashrc.d/60-completion.sh
-wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d%2Fbashrc.sh -o ~/.bashrc
+wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d/00-env.sh -o ~/.bashrc.d/00-env.sh
+wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d/10-exports.sh -o ~/.bashrc.d/10-exports.sh
+wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d/15-color.sh -o ~/.bashrc.d/15-color.sh
+wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d/20-aliases.sh -o ~/.bashrc.d/20-aliases.sh
+wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d/21-cxx.sh -o ~/.bashrc.d/21-cxx.sh
+wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d/22-java.sh -o ~/.bashrc.d/22-java.sh
+wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d/23-vnc.sh -o ~/.bashrc.d/23-vnc.sh
+wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d/24-flatpak.sh -o ~/.bashrc.d/24-flatpak.sh
+wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d/50-functions.sh -o ~/.bashrc.d/50-functions.sh
+wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d/60-completion.sh -o ~/.bashrc.d/60-completion.sh
+wget https://raw.githubusercontent.com/Willie169/ubuntu-setup-with-vnc-and-gpu/main/bashrc.d/bashrc.sh -o ~/.bashrc
 source /etc/os-release
 source ~/.bashrc.d/10-exports.sh
 source ~/.bashrc.d/50-functions.sh

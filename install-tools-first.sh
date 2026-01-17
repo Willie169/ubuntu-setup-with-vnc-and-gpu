@@ -3,8 +3,10 @@ set -eu
 cd ~
 sudo -v
 while true; do sudo -v; sleep 60; done & SUDOPID=$!
-rm .bashrc
+rm -f .bashrc
 mkdir ~/.bashrc.d
+sudo apt update -y
+sudo apt install wget -y
 wget https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/00-env.sh -O ~/.bashrc.d/00-env.sh
 wget https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/10-exports.sh -O ~/.bashrc.d/10-exports.sh
 wget https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/15-color.sh -O ~/.bashrc.d/15-color.sh
@@ -43,7 +45,6 @@ for file in "/etc/grub.d/"*_os_prober "/etc/default/grub.d/"*_os_prober; do
 done
 sudo timedatectl set-local-rtc 1
 sudo timedatectl set-ntp true
-sudo apt update
 sudo add-apt-repository universe -y
 sudo add-apt-repository multiverse -y
 sudo add-apt-repository restricted -y

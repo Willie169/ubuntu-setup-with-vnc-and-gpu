@@ -5,7 +5,7 @@ sudo -v
 while true; do sudo -v; sleep 60; done & SUDOPID=$!
 rm -f .bashrc
 mkdir ~/.bashrc.d
-sudo apt update -y
+sudo apt update
 sudo apt install wget -y
 wget https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/00-env.sh -O ~/.bashrc.d/00-env.sh
 wget https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/10-exports.sh -O ~/.bashrc.d/10-exports.sh

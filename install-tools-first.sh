@@ -152,7 +152,6 @@ bash Miniforge3-Linux-x86_64.sh -b -p ${HOME}/miniforge3
 source "${HOME}/miniforge3/etc/profile.d/conda.sh"
 source "${HOME}/miniforge3/etc/profile.d/mamba.sh"
 conda init
-exec bash
 rm Miniforge3-Linux-x86_64.sh
 sudo git clone --depth=1 https://github.com/Willie169/vimrc.git /opt/vim_runtime && sudo sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all
 mkdir -p ~/.config/nvim

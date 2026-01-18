@@ -146,7 +146,6 @@ corepack enable pnpm
 npm install -g http-server jsdom marked marked-gfm-heading-id node-html-markdown showdown @openai/codex
 sudo go install github.com/danielmiessler/fabric@latest
 pipx install poetry uv
-source ~/.bashrc
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
 bash Miniforge3-Linux-x86_64.sh -b -p ${HOME}/miniforge3
 source "${HOME}/miniforge3/etc/profile.d/conda.sh"

@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+
 cd ~
 sudo -v
 while true; do sudo -v; sleep 60; done & SUDOPID=$!

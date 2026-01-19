@@ -236,22 +236,22 @@ rm -r $HOME/cmdline-tools
 cd bin
 echo y | ./sdkmanager "build-tools;30.0.3" "build-tools;35.0.0" "build-tools;36.1.0" "emulator" "ndk;29.0.14206865" "platform-tools" "platforms;android-33" "platforms;android-36" "system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"
 cd ~
-gh_latest ente-io/ente -t auth* ente-auth-v*-x86_64.deb
+gh_latest -A ente-io/ente -t auth* ente-auth-v*-x86_64.deb
 sudo apt install ./ente-auth-v*-x86_64.deb -y
 rm ente-auth-v*-x86_64.deb
 wget http://archive.ubuntu.com/ubuntu/pool/universe/g/gdk-pixbuf-xlib/libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb
 sudo apt install ./libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb -y
 rm libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb
-gh_latest balena-io/etcher balena-etcher_*_amd64.deb
+gh_latest -A balena-io/etcher balena-etcher_*_amd64.deb
 sudo apt install ./balena-etcher_*_amd64.deb -y
 rm balena-etcher_*_amd64.deb
-gh_latest arduino/arduino-cli arduino-cli_*_amd64.deb
+gh_latest -A arduino/arduino-cli arduino-cli_*_amd64.deb
 sudo apt install ./arduino-cli_*_amd64.deb -y
 rm arduino-cli_*_amd64.deb
-gh_latest arduino/arduino-ide arduino-ide_*_Linux_64bit.AppImage
+gh_latest -A arduino/arduino-ide arduino-ide_*_Linux_64bit.AppImage
 chmod +x ~/arduino-ide_2.3.6_Linux_64bit.AppImage
 echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
-gh_latest Stellarium/stellarium Stellarium-*-qt5-x86_64.AppImage
+gh_latest -A Stellarium/stellarium Stellarium-*-qt5-x86_64.AppImage
 chmod +x Stellarium-*-qt5-x86_64.AppImage
 sudo mkdir -p /usr/share/fonts/opentype/xits
 cd /usr/share/fonts/opentype/xits

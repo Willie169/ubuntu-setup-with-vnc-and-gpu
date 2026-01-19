@@ -147,15 +147,16 @@ npm install -g http-server jsdom marked marked-gfm-heading-id node-html-markdown
 sudo go install github.com/danielmiessler/fabric@latest
 pipx install poetry uv
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
-bash Miniforge3-Linux-x86_64.sh -b -p ${HOME}/miniforge3
-source "${HOME}/miniforge3/etc/profile.d/conda.sh"
-source "${HOME}/miniforge3/etc/profile.d/mamba.sh"
-conda init
-rm Miniforge3-Linux-x86_64.sh
-conda config --set auto_activate false
-rm ~/miniforge3/bin/tput
-hash -r
+bash Miniforge3-Linux-x86_64.sh -b -p ${HOME}/conda
+cat >> .bashrc << 'EOF'
+
+export MAMBA_ROOT_PREFIX="${HOME}/conda"
+source "${HOME}/conda/etc/profile.d/conda.sh"
+source "${HOME}/conda/etc/profile.d/mamba.sh"
+EOF
 source .bashrc
+conda config --set auto_activate_base false
+rm Miniforge3-Linux-x86_64.sh
 sudo git clone --depth=1 https://github.com/Willie169/vimrc.git /opt/vim_runtime && sudo sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all
 mkdir -p ~/.config/nvim
 echo 'set runtimepath^=~/.vim runtimepath+=~/.vim/after

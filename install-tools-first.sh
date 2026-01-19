@@ -251,9 +251,9 @@ rm balena-etcher_*_amd64.deb
 gh_latest -A arduino/arduino-cli arduino-cli_*_amd64.deb
 sudo apt install ./arduino-cli_*_amd64.deb -y
 rm arduino-cli_*_amd64.deb
-gh_latest -A -C arduino/arduino-ide arduino-ide_*_Linux_64bit.AppImage
-chmod +x ~/arduino-ide_*_Linux_64bit.AppImage
-echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
+gh_latest -A -C arduino/arduino-ide arduino-ide_*_Linux_64bit.zip
+#chmod +x ~/arduino-ide_*_Linux_64bit.AppImage
+#echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
 sudo mkdir -p /usr/share/fonts/opentype/xits
 cd /usr/share/fonts/opentype/xits
 sudo wget https://github.com/aliftype/xits/releases/download/v1.302/XITS-1.302.zip

@@ -136,7 +136,7 @@ To make a script for Ubuntu work for both Ubuntu and Linux Mint, do the followin
 
 <ol>
 <li><code>$(lsb_release -cs)</code>: Add <code>source /etc/os-release</code> before it and replace it with <code>$UBUNTU_CODENAME</code>.</li>
-<li><code>$VERSION_ID</code> (from <code>/etc/os-release</code>): Add
+<li><code>$VERSION_ID</code> from <code>/etc/os-release</code>: Add
 <pre><code>export UBUNTU_VERSION_ID=$(
 if grep -q '^NAME="Linux Mint"' /etc/os-release; then
     inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'
@@ -146,8 +146,9 @@ else
 fi
 )
 </code></pre>
-before it and replace it with <code>$UBUNTU_VERSION_ID</code>. This has been added to <code>~/.bashrc</code> in <a href="install-tools-first.sh"><code>install-tools-first.sh</code></a>.</li>
+before it and replace it with <code>$UBUNTU_VERSION_ID</code>.</li>
 </ol>
+These have been added to <code>~/.bashrc</code> in <a href="install-tools-first.sh"><code>install-tools-first.sh</code></a>.
 
 ### Desktop App Launchers
 #### Command line

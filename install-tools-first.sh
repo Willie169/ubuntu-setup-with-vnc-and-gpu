@@ -169,9 +169,9 @@ echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME
 sudo apt update
 sudo apt install docker-ce -y
 sudo systemctl enable docker
-sudo usermod -aG docker $USER
-curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
-curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
+sudo usermod -aG docker $(whoami)
+curl -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.noarmor.gpg" | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+curl -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.tailscale-keyring.list" | sudo tee /etc/apt/sources.list.d/tailscale.list
 sudo apt update
 sudo apt install tailscale -y
 sudo systemctl enable tailscaled

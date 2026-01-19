@@ -20,7 +20,7 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 2. Note that Snap Firefox is replaced with `.deb` Firefox ESR, and thus you may want to configure launchers in your Desktop Environment.
 2. Run `code` to setup Visual Studio Code.
 2. Run `codeblocks` to setup Code::Blocks.
-2. Run `studio` to setup Android Studio. `"system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"` installation in [`install-tools-first.sh`](install-tools-first.sh) may fail due to network issue, you can download it again via `sdkmanager "system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"` or using Android Studio GUI.
+2. Run `studio` to setup Android Studio. `"system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"` installation in [`install-tools-first.sh`](install-tools-first.sh) may fail due to network issue, you can download it again via `sdkmanager "system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"` or Android Studio GUI.
 2. Run `torbrowser-launcher` to setup Tor Browser.
 2. Run `sudo tailscale up` to login to Tailscale.
 2. Run `gh auth login --scopes repo,read:org,admin:org,workflow,gist,notifications,delete_repo,write:packages,read:packages` to login to GitHub.

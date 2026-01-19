@@ -104,14 +104,14 @@ sudo rm -f /etc/apparmor.d/usr.bin.firefox
 sudo rm -f /etc/apparmor.d/local/usr.bin.firefox
 sudo systemctl stop var-snap-firefox-common-*.mount 2>/dev/null || true
 sudo systemctl disable var-snap-firefox-common-*.mount 2>/dev/null || true
-sudo snap remove --purge firefox || true
-sudo apt remove firerox --purge -y || true
+sudo snap remove --purge firefox 2>/dev/null || true
+sudo apt remove firerox --purge -y 2>/dev/null || true
 sudo apt install firefox-esr --allow-downgrades -y
 sudo rm -f /etc/apparmor.d/usr.bin.thunderbird
 sudo rm -f /etc/apparmor.d/local/usr.bin.thunderbird
 sudo systemctl stop var-snap-thunderbird-common-*.mount 2>/dev/null || true
 sudo systemctl disable var-snap-thunderbird-common-*.mount 2>/dev/null || true
-sudo snap remove --purge thunderbird || true
+sudo snap remove --purge thunderbird 2>/dev/null || true
 sudo apt install thunderbird --allow-downgrades -y
 echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
 sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
@@ -248,10 +248,10 @@ rm balena-etcher_*_amd64.deb
 gh_latest -A arduino/arduino-cli arduino-cli_*_amd64.deb
 sudo apt install ./arduino-cli_*_amd64.deb -y
 rm arduino-cli_*_amd64.deb
-gh_latest -A arduino/arduino-ide arduino-ide_*_Linux_64bit.AppImage
+gh_latest -A -C arduino/arduino-ide arduino-ide_*_Linux_64bit.AppImage
 chmod +x ~/arduino-ide_*_Linux_64bit.AppImage
 echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
-gh_latest -A Stellarium/stellarium Stellarium-*-qt5-x86_64.AppImage
+gh_latest -A -C Stellarium/stellarium Stellarium-*-qt5-x86_64.AppImage
 chmod +x Stellarium-*-qt5-x86_64.AppImage
 sudo mkdir -p /usr/share/fonts/opentype/xits
 cd /usr/share/fonts/opentype/xits

@@ -19,6 +19,7 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 2. Login and run [`install-tools-second.sh`](install-tools-second.sh) until it exits automatically.
 2. Note that Snap Firefox is replaced with `.deb` Firefox ESR, and thus you may want to configure launchers in your Desktop Environment.
 2. Run `code` to setup Visual Studio Code.
+2. Run `codeblocks` to setup Code::Blocks.
 2. Run `studio` to setup Android Studio.
 2. Run `torbrowser-launcher` to setup Tor Browser.
 2. Run `sudo tailscale up` to login to Tailscale.

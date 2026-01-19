@@ -58,6 +58,11 @@ if [ -n "$BASH_VERSION" ]; then
   fi
 fi
 EOF
+if [ -d "$HOME/.bashrc.d"  ];  then
+  for f in "$HOME/.bashrc.d/"*; do
+    [ -r "$f"  ] && . "$f"
+  done
+fi
 sudo mkdir -p /usr/local/go
 sudo mkdir -p /usr/local/java
 mkdir -p ~/.local
@@ -138,8 +143,10 @@ cat > ~/.config/fontconfig/conf.d/99-texlive.conf <<'EOF'
   <dir>/usr/local/texlive/2025/texmf-dist/fonts</dir>
 </fontconfig>
 EOF
-curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-source .bashrc
+PROFILE=/dev/null bash -c 'curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash'
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 nvm install 24
 corepack enable yarn
 corepack enable pnpm
@@ -148,12 +155,6 @@ sudo go install github.com/danielmiessler/fabric@latest
 pipx install poetry uv
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
 bash Miniforge3-Linux-x86_64.sh -b -p ${HOME}/conda
-cat >> .bashrc << 'EOF'
-
-export MAMBA_ROOT_PREFIX="${HOME}/conda"
-source "${HOME}/conda/etc/profile.d/conda.sh"
-source "${HOME}/conda/etc/profile.d/mamba.sh"
-EOF
 source .bashrc
 conda config --set auto_activate_base false
 rm Miniforge3-Linux-x86_64.sh

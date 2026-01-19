@@ -247,11 +247,11 @@ mkdir Android/Sdk/system-images/android-36.1/google_apis_playstore
 wget https://dl.google.com/android/repository/sys-img/google_apis_playstore/x86_64-33_r09.zip
 unzip x86_64-33_r09.zip
 rm x86_64-33_r09.zip
-mv x84_64 Android/Sdk/system-images/android-33/google_apis_playstore/
+mv x86_64 Android/Sdk/system-images/android-33/google_apis_playstore/
 wget https://dl.google.com/android/repository/sys-img/google_apis_playstore/x86_64-36.1_r04.zip
 unzip x86_64-36.1_r04.zip
 rm x86_64-36.1_r04.zip
-mv x84_64 Android/Sdk/system-images/android-36.1/google_apis_playstore/
+mv x86_64 Android/Sdk/system-images/android-36.1/google_apis_playstore/
 gh_latest -A ente-io/ente -t auth* ente-auth-v*-x86_64.deb
 sudo apt install ./ente-auth-v*-x86_64.deb -y
 rm ente-auth-v*-x86_64.deb

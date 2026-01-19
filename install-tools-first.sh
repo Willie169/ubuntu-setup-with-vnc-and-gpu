@@ -32,7 +32,7 @@ if [ -f "$f" ] && grep -q "^Types:.*deb" "$f"; then
 fi
 EOF
 sudo apt update
-sudo apt purge fcitx* -y
+sudo apt purge fcitx* texlive-base -y
 sudo apt full-upgrade -y
 sudo apt install wget -y
 rm -f .bashrc
@@ -135,6 +135,7 @@ cd install-tl-*
 sudo perl install-tl --no-interaction
 cd ~
 rm -rf install-tl-*
+sudo /usr/local/texlive/2025/bin/x86_64-linux/tlmgr update --all --self --reinstall-forcibly-removed
 mkdir -p ~/.config/fontconfig/conf.d
 cat > ~/.config/fontconfig/conf.d/99-texlive.conf <<'EOF'
 <?xml version="1.0"?>

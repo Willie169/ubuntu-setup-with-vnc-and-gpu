@@ -32,7 +32,7 @@ if [ -f "$f" ] && grep -q "^Types:.*deb" "$f"; then
 fi
 EOF
 sudo apt update
-sudo apt purge fcitx* texlive-base -y
+sudo apt purge fcitx* texlive* -y
 sudo apt full-upgrade -y
 sudo apt install wget -y
 rm -f .bashrc

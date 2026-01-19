@@ -249,7 +249,7 @@ gh_latest -A arduino/arduino-cli arduino-cli_*_amd64.deb
 sudo apt install ./arduino-cli_*_amd64.deb -y
 rm arduino-cli_*_amd64.deb
 gh_latest -A arduino/arduino-ide arduino-ide_*_Linux_64bit.AppImage
-chmod +x ~/arduino-ide_2.3.6_Linux_64bit.AppImage
+chmod +x ~/arduino-ide_*_Linux_64bit.AppImage
 echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
 gh_latest -A Stellarium/stellarium Stellarium-*-qt5-x86_64.AppImage
 chmod +x Stellarium-*-qt5-x86_64.AppImage

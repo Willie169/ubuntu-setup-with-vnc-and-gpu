@@ -19,6 +19,7 @@ done
 sudo timedatectl set-local-rtc 1
 sudo timedatectl set-ntp true
 sudo apt update
+sudo apt install software-properties-common -y
 sudo add-apt-repository universe -y
 sudo add-apt-repository multiverse -y
 sudo add-apt-repository restricted -y

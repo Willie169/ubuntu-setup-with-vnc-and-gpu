@@ -84,33 +84,116 @@ else
   cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
   fcitx5 &
 fi
-if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
-sudo add-apt-repository ppa:mozillateam/ppa -y
-echo 'Package: *
+if grep -q '^NAME="Linux Mint"' /etc/os-release; then
+:
+elif [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || [ "$KDE_FULL_SESSION" = "true" ]; then
+sudo systemctl stop snapd.socket
+sudo systemctl stop snapd.service
+sudo systemctl stop snapd.seeded.service
+sudo systemctl disable snapd.socket
+sudo systemctl disable snapd.service
+sudo systemctl disable snapd.seeded.service
+sudo apt autoremove snapd --purge -y
+sudo apt autoremove plasma-discover-backend-snap -y
+sudo rm -rf $HOME/snap /root/snap /snap /bin/snap /usr/bin/x11/snap /usr/bin/snap /lib/snapd /usr/lib/snapd /usr/share/snapd /usr/share/doc/snapd /var/snap /var/lib/snapd /var/cache/snapd
+for bsymlink in /etc/systemd/system/default.target.wants/snap-* ; do
+  if [ -L "$bsymlink" ] && [ ! -e "$bsymlink" ]; then
+    sudo rm -f "$bsymlink"
+  fi
+done
+for bsymlink in /etc/systemd/system/default.target.wants/snapd-* ; do
+  if [ -L "$bsymlink" ] && [ ! -e "$bsymlink" ]; then
+    sudo rm -f "$bsymlink"
+  fi
+done
+for bsymlink in /etc/systemd/system/multi-user.target.wants/snap-* ; do
+  if [ -L "$bsymlink" ] && [ ! -e "$bsymlink" ]; then
+    sudo rm -f "$bsymlink"
+  fi
+done
+for bsymlink in /etc/systemd/system/multi-user.target.wants/snapd-* ; do
+  if [ -L "$bsymlink" ] && [ ! -e "$bsymlink" ]; then
+    sudo rm -f "$bsymlink"
+  fi
+done
+for bsymlink in /var/lib/sddm/.config/systemd/user/timers.target.wants/snap.* ; do
+  if [ -L "$bsymlink" ] && [ ! -e "$bsymlink" ]; then
+    sudo rm -f "$bsymlink"
+  fi
+done
+for bsymlink in /var/lib/sddm/.config/systemd/user/timers.target.wants/snapd.* ; do
+  if [ -L "$bsymlink" ] && [ ! -e "$bsymlink" ]; then
+    sudo rm -f "$bsymlink"
+  fi
+done
+for bsymlink in "$HOME"/.config/systemd/user/timers.target.wants/snap.* ; do
+  if [ -L "$bsymlink" ] && [ ! -e "$bsymlink" ]; then
+    sudo rm -f "$bsymlink"
+  fi
+done
+for bsymlink in "$HOME"/.config/systemd/user/timers.target.wants/snapd.* ; do
+  if [ -L "$bsymlink" ] && [ ! -e "$bsymlink" ]; then
+    sudo rm -f "$bsymlink"
+  fi
+done
+echo 'Package: firefox*
 Pin: release o=LP-PPA-mozillateam
 Pin-Priority: 1001
 
 Package: firefox*
 Pin: release o=Ubuntu
-Pin-Priority: -1
-
-Package: thunderbird*
-Pin: release o=Ubuntu
-Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/mozilla
+Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/firefox
 sudo rm -f /etc/apparmor.d/usr.bin.firefox
 sudo rm -f /etc/apparmor.d/local/usr.bin.firefox
 sudo systemctl stop var-snap-firefox-common-*.mount 2>/dev/null || true
 sudo systemctl disable var-snap-firefox-common-*.mount 2>/dev/null || true
-sudo snap remove --purge firefox 2>/dev/null || true
-sudo apt remove firerox --purge -y 2>/dev/null || true
 sudo apt install firefox --allow-downgrades -y
-sudo apt remove firefox --purge -y
+sudo apt autoremove firefox --purge -y 2>/dev/null || true
 sudo apt install firefox-esr --allow-downgrades -y
+echo 'Package: thunderbird*
+Pin: release o=LP-PPA-mozillateam
+Pin-Priority: 1001
+
+Package: thunderbird*
+Pin: release o=Ubuntu
+Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/thunderbird
 sudo rm -f /etc/apparmor.d/usr.bin.thunderbird
 sudo rm -f /etc/apparmor.d/local/usr.bin.thunderbird
 sudo systemctl stop var-snap-thunderbird-common-*.mount 2>/dev/null || true
 sudo systemctl disable var-snap-thunderbird-common-*.mount 2>/dev/null || true
-sudo snap remove --purge thunderbird 2>/dev/null || true
+sudo apt install thunderbird --allow-downgrades -y
+echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
+sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
+sudo apparmor_parser -R /etc/apparmor.d/firefox
+else
+sudo add-apt-repository ppa:mozillateam/ppa -y
+echo 'Package: firefox*
+Pin: release o=LP-PPA-mozillateam
+Pin-Priority: 1001
+
+Package: firefox*
+Pin: release o=Ubuntu
+Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/firefox
+sudo rm -f /etc/apparmor.d/usr.bin.firefox
+sudo rm -f /etc/apparmor.d/local/usr.bin.firefox
+sudo systemctl stop var-snap-firefox-common-*.mount 2>/dev/null || true
+sudo systemctl disable var-snap-firefox-common-*.mount 2>/dev/null || true
+sudo snap remove firefox 2>/dev/null || true
+sudo apt install firefox --allow-downgrades -y
+sudo apt autoremove firefox --purge -y 2>/dev/null || true
+sudo apt install firefox-esr --allow-downgrades -y
+echo 'Package: thunderbird*
+Pin: release o=LP-PPA-mozillateam
+Pin-Priority: 1001
+
+Package: thunderbird*
+Pin: release o=Ubuntu
+Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/thunderbird
+sudo rm -f /etc/apparmor.d/usr.bin.thunderbird
+sudo rm -f /etc/apparmor.d/local/usr.bin.thunderbird
+sudo systemctl stop var-snap-thunderbird-common-*.mount 2>/dev/null || true
+sudo systemctl disable var-snap-thunderbird-common-*.mount 2>/dev/null || true
+sudo snap remove thunderbird 2>/dev/null || true
 sudo apt install thunderbird --allow-downgrades -y
 echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
 sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/

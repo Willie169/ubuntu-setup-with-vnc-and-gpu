@@ -261,6 +261,20 @@ sudo systemctl enable tailscaled
 sudo add-apt-repository ppa:fdroid/fdroidserver -y
 sudo apt update
 sudo apt install fdroidserver -y
+sudo add-apt-repository ppa:xtradeb/apps -y
+if grep -q '^NAME="Linux Mint"' /etc/os-release; then
+sudo apt install chromium -y
+else
+echo 'Package: chromium*
+Pin: release o=LP-PPA-xtradeb-apps
+Pin-Priority: 1001
+
+Package: chromium*
+Pin: release o=Ubuntu
+Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/thunderbird
+sudo apt update
+sudo apt install chromium chromium-driver chromium-l10n -y
+fi
 curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg
 echo "Types: deb
 URIs: https://packages.microsoft.com/repos/code

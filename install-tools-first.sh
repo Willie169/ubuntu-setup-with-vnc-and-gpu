@@ -66,24 +66,6 @@ mkdir -p ~/.local
 mkdir -p ~/.local/bin
 echo y | sudo ubuntu-drivers install
 echo y | sudo ubuntu-drivers install
-sudo apt install alsa-utils apksigner apt-transport-https aptitude aria2 autoconf automake bash bc bear bison build-essential bzip2 ca-certificates clang clang-format cmake command-not-found curl dbus default-jdk dnsutils dvipng dvisvgm fastfetch ffmpeg file flex g++ gcc gdb gfortran gh ghostscript git glab gnucobol gnupg golang gperf gpg grep gtkwave gzip info inkscape iproute2 iverilog iverilog jpegoptim jq libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libheif-examples libllvm19 liblzma-dev libncursesw5-dev libosmesa6 libreadline-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev libzstd-dev llvm make maven mc nano ncompress neovim ngspice openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc perl-tk pipx plantuml procps pv python3-all-dev python3-pip python3-venv rust-all sudo tar tk-dev tmux tree unzip uuid-dev uuid-runtime valgrind verilator vim wget x11-utils x11-xserver-utils xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh -y
-sudo apt install codeblocks* fcitx5 fcitx5-* flatpak libreoffice openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk qbittorrent qtwayland5 software-properties-common testdisk torbrowser-launcher update-manager-core unrar vim-gtk3 -y
-sudo mkdir -p /usr/share/codeblocks/docs
-im-config -n fcitx5
-cat > ~/.xprofile <<'EOF'
-export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
-export XMODIFIERS=@im=fcitx
-export INPUT_METHOD=fcitx
-EOF
-source ~/.xprofile
-if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || [ "$KDE_FULL_SESSION" = "true" ]; then
-  sudo apt install plasma-discover-backend-flatpak -y
-else
-  mkdir -p ~/.config/autostart
-  cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
-  fcitx5 &
-fi
 if grep -q '^NAME="Linux Mint"' /etc/os-release; then
 :
 elif [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || [ "$KDE_FULL_SESSION" = "true" ]; then
@@ -199,6 +181,38 @@ echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -c
 sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
 sudo apparmor_parser -R /etc/apparmor.d/firefox
 fi
+if grep -q '^NAME="Linux Mint"' /etc/os-release; then
+sudo apt install chromium -y
+else
+sudo add-apt-repository ppa:xtradeb/apps -y
+echo 'Package: chromium*
+Pin: release o=LP-PPA-xtradeb-apps
+Pin-Priority: 1001
+
+Package: chromium*
+Pin: release o=Ubuntu
+Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/thunderbird
+sudo apt update
+sudo apt install chromium chromium-driver chromium-l10n -y
+fi
+sudo apt install alsa-utils apksigner apt-transport-https aptitude aria2 autoconf automake bash bc bear bison build-essential bzip2 ca-certificates clang clang-format cmake command-not-found curl dbus default-jdk dnsutils dvipng dvisvgm fastfetch ffmpeg file flex g++ gcc gdb gfortran gh ghostscript git glab gnucobol gnupg golang gperf gpg grep gtkwave gzip info inkscape iproute2 iverilog iverilog jpegoptim jq libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libheif-examples libllvm19 liblzma-dev libncursesw5-dev libosmesa6 libreadline-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev libzstd-dev llvm make maven mc nano ncompress neovim ngspice openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc perl-tk pipx plantuml procps pv python3-all-dev python3-pip python3-venv rust-all sudo tar tk-dev tmux tree unzip uuid-dev uuid-runtime valgrind verilator vim wget x11-utils x11-xserver-utils xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh -y
+sudo apt install codeblocks* fcitx5 fcitx5-* flatpak libreoffice openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk qbittorrent qtwayland5 software-properties-common testdisk torbrowser-launcher update-manager-core unrar vim-gtk3 -y
+sudo mkdir -p /usr/share/codeblocks/docs
+im-config -n fcitx5
+cat > ~/.xprofile <<'EOF'
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+export INPUT_METHOD=fcitx
+EOF
+source ~/.xprofile
+if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || [ "$KDE_FULL_SESSION" = "true" ]; then
+  sudo apt install plasma-discover-backend-flatpak -y
+else
+  mkdir -p ~/.config/autostart
+  cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
+  fcitx5 &
+fi
 wget -O sdl2_bgi_3.0.4-1_amd64.deb https://sourceforge.net/projects/sdl-bgi/files/sdl2_bgi_3.0.4-1_amd64.deb/download
 sudo apt install ./sdl2_bgi_3.0.4-1_amd64.deb -y
 rm sdl2_bgi_3.0.4-1_amd64.deb
@@ -210,22 +224,6 @@ sudo sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ss
 sudo systemctl enable ssh
 yes | sudo ufw enable
 sudo ufw allow ssh
-wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-tar -xzf install-tl-unx.tar.gz
-rm install-tl-unx.tar.gz
-cd install-tl-*
-sudo perl install-tl --no-interaction
-cd ~
-rm -rf install-tl-*
-sudo /usr/local/texlive/2025/bin/x86_64-linux/tlmgr update --all --self --reinstall-forcibly-removed
-mkdir -p ~/.config/fontconfig/conf.d
-cat > ~/.config/fontconfig/conf.d/99-texlive.conf <<'EOF'
-<?xml version="1.0"?>
-<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
-<fontconfig>
-  <dir>/usr/local/texlive/2025/texmf-dist/fonts</dir>
-</fontconfig>
-EOF
 PROFILE=/dev/null bash -c 'curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash'
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -261,20 +259,6 @@ sudo systemctl enable tailscaled
 sudo add-apt-repository ppa:fdroid/fdroidserver -y
 sudo apt update
 sudo apt install fdroidserver -y
-sudo add-apt-repository ppa:xtradeb/apps -y
-if grep -q '^NAME="Linux Mint"' /etc/os-release; then
-sudo apt install chromium -y
-else
-echo 'Package: chromium*
-Pin: release o=LP-PPA-xtradeb-apps
-Pin-Priority: 1001
-
-Package: chromium*
-Pin: release o=Ubuntu
-Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/thunderbird
-sudo apt update
-sudo apt install chromium chromium-driver chromium-l10n -y
-fi
 curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg
 echo "Types: deb
 URIs: https://packages.microsoft.com/repos/code
@@ -358,6 +342,22 @@ cat > ~/.local/bin/arduino-ide <<'EOF'
 EOF
 chmod +x ~/.local/bin/arduino-ide
 echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
+wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+tar -xzf install-tl-unx.tar.gz
+rm install-tl-unx.tar.gz
+cd install-tl-*
+sudo perl install-tl --no-interaction
+cd ~
+rm -rf install-tl-*
+sudo /usr/local/texlive/2025/bin/x86_64-linux/tlmgr update --all --self --reinstall-forcibly-removed
+mkdir -p ~/.config/fontconfig/conf.d
+cat > ~/.config/fontconfig/conf.d/99-texlive.conf <<'EOF'
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+  <dir>/usr/local/texlive/2025/texmf-dist/fonts</dir>
+</fontconfig>
+EOF
 sudo mkdir -p /usr/share/fonts/opentype/xits
 cd /usr/share/fonts/opentype/xits
 sudo wget https://github.com/aliftype/xits/releases/download/v1.302/XITS-1.302.zip

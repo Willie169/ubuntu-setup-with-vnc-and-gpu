@@ -324,7 +324,7 @@ sudo systemctl start lightdm
 
 #### VNC Server Usage
 
-Add `alias vncserver="/opt/TurboVNC/bin/vncserver"` in `~/.bashrc` before using it, which has been done in [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh).
+Add `alias vncserver="/opt/TurboVNC/bin/vncserver"` in `~/.bashrc` before using it, which has been done in [`install-tools-first.sh`](install-tools-first.sh).
 
 * Start VNC server: `vncserver`.
 * List VNC servers: `vncserver -list`.

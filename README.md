@@ -179,8 +179,8 @@ You can configure Fcitx5 input methods in `Fcitx Configuration`.
 
 #### KDE Plasma
 
-1. Go to `System Settings` > `Input & Output` or `Keyboard` > `Virtual Keyboard`, then select `Fcitx5`.
-2. You can configure Fcitx5 input methods in `Fcitx Configuration`, which can be launched by right-clicking the keyboard icon at the bottom right corner of the `Task Manager` and clicking `Configure`.
+1. It may automatically detect `Fcitx5`, if not go to `System Settings` > `Input & Output` or `Keyboard` > `Virtual Keyboard`, then select `Fcitx5`.
+2. You can configure Fcitx5 input methods in `Fcitx Configuration`, which can be launched by either right-clicking the keyboard icon at the bottom right corner of the `Task Manager` and clicking `Configure` or going to `System Settings` and searching `Input Method`.
 
 ### Tailscale
 #### Install

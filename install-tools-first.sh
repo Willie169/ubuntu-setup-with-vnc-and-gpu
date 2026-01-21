@@ -276,7 +276,7 @@ cat > ~/.local/bin/arduino-ide <<'EOF'
 EOF
 chmod +x ~/.local/bin/arduino-ide
 echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
-wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz --no-check-certificate
 tar -xzf install-tl-unx.tar.gz
 rm install-tl-unx.tar.gz
 cd install-tl-*

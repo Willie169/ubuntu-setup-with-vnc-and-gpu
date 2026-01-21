@@ -23,7 +23,6 @@ sudo apt install software-properties-common -y
 sudo add-apt-repository universe -y
 sudo add-apt-repository multiverse -y
 sudo add-apt-repository restricted -y
-sudo add-apt-repository ppa:graphics-drivers/ppa -y
 sudo add-apt-repository ppa:zhangsongcui3371/fastfetch -y
 sudo add-apt-repository ppa:libreoffice/ppa -y
 bash <<'EOF'

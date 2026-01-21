@@ -109,7 +109,7 @@ Pin-Priority: 1001
 
 Package: chromium*
 Pin: release o=Ubuntu
-Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/thunderbird
+Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/chromium
 sudo apt update
 sudo apt install chromium chromium-driver chromium-l10n -y
 fi

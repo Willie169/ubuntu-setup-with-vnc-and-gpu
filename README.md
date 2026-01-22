@@ -111,33 +111,51 @@ If it shows <code>wayland</code>, you are already on Wayland and can skip this i
 See <a href="#desktop-environment">Desktop Environment</a> section for more information.</li>
 </ol>
 
-#### Enable Wayland for GNOME3 (GDM)
+#### Enable Wayland for GNOME3 without NVIDIA GPU
 
 <ol>
 <li>Log out.</li>
 <li>In the down right corner of the login page, choose <code>Ubuntu on Wayland</code>.</li>
 </ol>
 
-#### Enable Wayland for KDE Plasma (SDDM)
+#### Enable Wayland for KDE Plasma without NVIDIA GPU
 
-Log out. In the down left corner of the login page, choose `Plasma (Wayland)` if such an option exists. Otherwise, if with an NVIDIA GPU, follow the instructions below:
+<ol>
+<li>Log out.</li>
+<li>In the down left corner of the login page, choose <code>Plasma (Wayland)</code>.</li>
+</ol>
+
+#### Enable Wayland for GNOME3 with NVIDIA GPU
 
 <ol>
 <li>Run:
 <pre><code>sudo apt install libnvidia-egl-wayland1 -y
 </code></pre>
 <li>Run:
-<pre><code>sudo vim /etc/default/grub
-</code></pre>
-change the line to:
-<pre><code>GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvidia_drm.modeset=1"
+<pre><code>sudo sed -i 's|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvidia_drm.modeset=1"|' /etc/default/grub
 </code></pre></li>
 <li>Run:
 <pre><code>sudo update-grub
 sudo update-initramfs -u
 </code></pre></li>
-<li>Shut down the computer.</li>
-<li>Boot the computer.</li>
+<li>Reboot the computer.</li>
+<li>In the down right corner of the login page, choose <code>Ubuntu on Wayland</code>.</li>
+</ol>
+
+#### Enable Wayland for KDE Plasma with NVIDIA GPU
+
+<ol>
+<li>Run:
+<pre><code>sudo apt install libnvidia-egl-wayland1 -y
+</code></pre>
+<li>Run:
+<pre><code>sudo sed -i 's|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvidia_drm.modeset=1"|' /etc/default/grub
+</code></pre></li>
+<li>Run:
+<pre><code>sudo update-grub
+sudo update-initramfs -u
+</code></pre></li>
+<li>Reboot the computer.</li>
 <li>In the down left corner of the login page, choose <code>Plasma (Wayland)</code>.</li>
 </ol>
 
@@ -260,12 +278,11 @@ Its usage is the same as TurboVNC, refer to [VNC Server Usage](#vnc-server-usage
 See <a href="#desktop-environment">Desktop Environment</a> section for more information.</li>
 </ol>
 
-#### For GDM with Nvidia
+#### For GDM without NVIDIA GPU
 
 <ol>
 <li>In tty or from SSH client, run:
 <pre><code>sudo systemctl stop gdm
-sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia || true
 sudo systemctl start gdm
 </code></pre></li>
 <li>Re-login into your computer.</li>
@@ -274,12 +291,11 @@ sudo systemctl start gdm
 </code></pre></li>
 </ol>
 
-#### For SDDM with Nvidia
+#### For SDDM without NVIDIA GPU
 
 <ol>
 <li>In tty or from SSH client, run:
 <pre><code>sudo systemctl stop sddm
-sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia || true
 sudo systemctl start sddm
 </code></pre></li>
 <li>Re-login into your computer.</li>
@@ -288,12 +304,11 @@ sudo systemctl start sddm
 </code></pre></li>
 </ol>
 
-#### For LightDM with Nvidia
+#### For LightDM without NVIDIA GPU
 
 <ol>
 <li>In tty or from SSH client, run:
 <pre><code>sudo systemctl stop lightdm
-sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia || true
 sudo systemctl start lightdm
 </code></pre></li>
 <li>Re-login into your computer.</li>
@@ -302,11 +317,12 @@ sudo systemctl start lightdm
 </code></pre></li>
 </ol>
 
-#### For GDM without GPU
+#### For GDM with NVIDIA GPU
 
 <ol>
 <li>In tty or from SSH client, run:
 <pre><code>sudo systemctl stop gdm
+sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia || true
 sudo systemctl start gdm
 </code></pre></li>
 <li>Re-login into your computer.</li>
@@ -315,11 +331,12 @@ sudo systemctl start gdm
 </code></pre></li>
 </ol>
 
-#### For SDDM without GPU
+#### For SDDM with NVIDIA GPU
 
 <ol>
 <li>In tty or from SSH client, run:
 <pre><code>sudo systemctl stop sddm
+sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia || true
 sudo systemctl start sddm
 </code></pre></li>
 <li>Re-login into your computer.</li>
@@ -328,11 +345,12 @@ sudo systemctl start sddm
 </code></pre></li>
 </ol>
 
-#### For LightDM without GPU
+#### For LightDM with NVIDIA GPU
 
 <ol>
 <li>In tty or from SSH client, run:
 <pre><code>sudo systemctl stop lightdm
+sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia || true
 sudo systemctl start lightdm
 </code></pre></li>
 <li>Re-login into your computer.</li>

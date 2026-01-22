@@ -49,8 +49,6 @@ Waydroid only runs on Wayland.
 
 See [Waydroid](#waydroid) section for what to do after running this script.
 
-See [Desktop Environment](#desktop-environment), [Wayland](#wayland), and [Waydroid](#waydroid) sections for more information.
-
 ## Instructions
 
 ### Table of Contents
@@ -97,8 +95,19 @@ See my [**dual-boot-windows-ubuntu**](https://github.com/Willie169/dual-boot-win
 
 ### Wayland
 
-- GNOME 3, which Ubuntu usually uses, and KDE Plasma, which Kubuntu uses, support Wayland.
-- Cinnamon, which Linux Mint usually uses, doesn't fully support Wayland currently.
+#### Introduction
+
+Run:
+```
+echo "$XDG_SESSION_TYPE"
+```
+If it shows `wayland`, you are already on Wayland and can skip this instruction. If it shows `x11` and you want to switch to Wayland, follow this instruction.
+
+First determine your Desktop Environment:
+
+- GNOME 3, which Ubuntu usually uses, supports Wayland.
+- KDE Plasma, which Kubuntu uses, supports Wayland.
+- Cinnamon, which Linux Mint usually uses, doesn't fully support Wayland currently. This instruction does not cover how to switch to Wayland on Cinnamon. Sorry.
 
 See [Desktop Environment](#desktop-environment) section for more information.
 

@@ -121,6 +121,9 @@ See <a href="#desktop-environment">Desktop Environment</a> section for more info
 #### Enable Wayland for KDE Plasma without NVIDIA GPU
 
 <ol>
+<li>Run:
+<pre><code>sudo apt install plasma-wayland-protocols kwayland-integration -y
+</code></pre></li>
 <li>Log out.</li>
 <li>In the down left corner of the login page, choose <code>Plasma (Wayland)</code>.</li>
 </ol>
@@ -129,8 +132,8 @@ See <a href="#desktop-environment">Desktop Environment</a> section for more info
 
 <ol>
 <li>Run:
-<pre><code>sudo apt install libnvidia-egl-wayland1 -y
-</code></pre>
+<pre><code>sudo apt install libnvidia-egl-wayland1 plasma-wayland-protocols kwayland-integration -y
+</code></pre></li>
 <li>Run:
 <pre><code>sudo sed -i 's|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvidia_drm.modeset=1"|' /etc/default/grub
 </code></pre></li>
@@ -147,7 +150,7 @@ sudo update-initramfs -u
 <ol>
 <li>Run:
 <pre><code>sudo apt install libnvidia-egl-wayland1 -y
-</code></pre>
+</code></pre></li>
 <li>Run:
 <pre><code>sudo sed -i 's|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvidia_drm.modeset=1"|' /etc/default/grub
 </code></pre></li>

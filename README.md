@@ -68,7 +68,7 @@ See [Waydroid](#waydroid) section for what to do after running this script.
 
 ### Dual Boot with Windows
 
-See my [**dual-boot-windows-ubuntu**](https://github.com/Willie169/dual-boot-windows-ubuntu) repo for instructions about dual-booting Windows and Ubuntu and related issues, Windows and Linux recovery, GRUB, connecting to WPA2 Enterprise PEAP MSCHAPV2 network on Ubuntu, etc.
+See my [**dual-boot-windows-linux-and-recovery**](https://github.com/Willie169/dual-boot-windows-linux-and-recovery) repo.
 
 ### Desktop Environment
 #### GNOME 3
@@ -118,7 +118,7 @@ See [Desktop Environment](#desktop-environment) section for more information.
 <li>In the down right corner of the login page, choose <code>Ubuntu on Wayland</code>.</li>
 </ol>
 
-### Enable Wayland for KDE Plasma (SDDM)
+#### Enable Wayland for KDE Plasma (SDDM)
 
 Log out. In the down left corner of the login page, choose `Plasma (Wayland)` if such an option exists. Otherwise, if with an NVIDIA GPU, follow the instructions below:
 
@@ -466,8 +466,6 @@ alias bottles-cli='flatpak run --command=bottles-cli com.usebottles.bottles'
 * [**dual-boot-windows-linux-and-recovery**](https://github.com/Willie169/dual-boot-windows-linux-and-recovery)
 * [**LinuxAndTermuxTips**](https://github.com/Willie169/LinuxAndTermuxTips)
 * [**Android Non Root**](https://github.com/Willie169/Android-Non-Root) and its [site](https://willie169.github.io/Android-Non-Root)
-* [**physics-patch**](https://github.com/Willie169/physics-patch)
-* [**LaTeX-ToolKit**](https://github.com/Willie169/LaTeX-ToolKit)
 
 ## License
 

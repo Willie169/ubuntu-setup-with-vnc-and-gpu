@@ -232,6 +232,18 @@ rm steam.deb
 wget https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2025.2.2.8/android-studio-2025.2.2.8-linux.tar.gz
 sudo tar -xzf android-studio-2025.2.2.8-linux.tar.gz -C /opt/
 rm android-studio-2025.2.2.8-linux.tar.gz
+echo '[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Android Studio
+Comment=Android IDE
+Exec=/opt/android-studio/bin/studio %f
+Icon=/opt/android-studio/bin/studio.png
+Terminal=false
+Categories=Development;IDE;
+StartupNotify=true
+StartupWMClass=android-studio' | sudo tee /usr/share/applications/android-studio.desktop > /dev/null
+sudo chmod 644 /usr/share/applications/android-studio.desktop
 wget https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip
 unzip commandlinetools-linux-13114758_latest.zip
 rm commandlinetools-linux-13114758_latest.zip

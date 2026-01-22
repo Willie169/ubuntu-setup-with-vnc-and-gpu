@@ -291,10 +291,7 @@ See <a href="#desktop-environment">Desktop Environment</a> section for more info
 <pre><code>sudo systemctl stop gdm
 sudo systemctl start gdm
 </code></pre></li>
-<li>Re-login into your computer.</li>
-<li>Run:
-<pre><code>vglrun glxinfo
-</code></pre></li>
+<li>Login into your computer.</li>
 </ol>
 
 #### For SDDM without NVIDIA GPU
@@ -304,10 +301,7 @@ sudo systemctl start gdm
 <pre><code>sudo systemctl stop sddm
 sudo systemctl start sddm
 </code></pre></li>
-<li>Re-login into your computer.</li>
-<li>Run:
-<pre><code>vglrun glxinfo
-</code></pre></li>
+<li>Login into your computer.</li>
 </ol>
 
 #### For LightDM without NVIDIA GPU
@@ -317,10 +311,7 @@ sudo systemctl start sddm
 <pre><code>sudo systemctl stop lightdm
 sudo systemctl start lightdm
 </code></pre></li>
-<li>Re-login into your computer.</li>
-<li>Run:
-<pre><code>vglrun glxinfo
-</code></pre></li>
+<li>Login into your computer.</li>
 </ol>
 
 #### For GDM with NVIDIA GPU
@@ -331,10 +322,7 @@ sudo systemctl start lightdm
 sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia || true
 sudo systemctl start gdm
 </code></pre></li>
-<li>Re-login into your computer.</li>
-<li>Run:
-<pre><code>vglrun glxinfo
-</code></pre></li>
+<li>Login into your computer.</li>
 </ol>
 
 #### For SDDM with NVIDIA GPU
@@ -345,10 +333,7 @@ sudo systemctl start gdm
 sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia || true
 sudo systemctl start sddm
 </code></pre></li>
-<li>Re-login into your computer.</li>
-<li>Run:
-<pre><code>vglrun glxinfo
-</code></pre></li>
+<li>Login into your computer.</li>
 </ol>
 
 #### For LightDM with NVIDIA GPU
@@ -359,10 +344,7 @@ sudo systemctl start sddm
 sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia || true
 sudo systemctl start lightdm
 </code></pre></li>
-<li>Re-login into your computer.</li>
-<li>Run:
-<pre><code>vglrun glxinfo
-</code></pre></li>
+<li>Login into your computer.</li>
 </ol>
 
 #### VNC Server Usage

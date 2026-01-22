@@ -18,9 +18,9 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 1. Run [`install-tools-first.sh`](install-tools-first.sh) and follow the prompts until it reboot automatically.
 2. Login and run [`install-tools-second.sh`](install-tools-second.sh) until it exits automatically.
 2. Snap Firefox is replaced with `.deb` Firefox ESR. Thus launchers you may want to configure launchers in your Desktop Environment.
-2. Run `sudo tailscale up` to login to Tailscale.
+2. Run `sudo tailscale up` and to login to Tailscale via the URL shown and click **Connect**. Google, Microsoft, GitHub, Apple, and passkey are available.
 2. Run `gh auth login --scopes repo,read:org,admin:org,workflow,gist,notifications,delete_repo,write:packages,read:packages` to login to GitHub.
-2. Run `git config --global user.name [your_name]` and `git config --global user.email [your_email]` to config git.
+2. Run `git config --global user.name [your_name] && git config --global user.email [your_email]` to config git.
 2. Run `code` or click the **Visual Studio Code** icon to setup Visual Studio Code.
 2. Run `codeblocks` or click the **Code::Blocks IDE** icon to setup Code::Blocks.
 2. Run `studio` or click the **Android Studio** icon to setup Android Studio. `"system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"` installation in [`install-tools-first.sh`](install-tools-first.sh) may fail silently due to network issue, you can download it again via `sdkmanager "system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"` or Android Studio GUI.

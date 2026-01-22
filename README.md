@@ -39,15 +39,13 @@ Installs recommended drivers and tools for C, C++, COBOL, Python3, Java8, Java11
 
 ### [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh)
 
-Installs VirtualGL and TurboVNC on Ubuntu derivatives on AMD 64, compatible with NVIDIA GPU. See [#VNC](#vnc) section for what to do after running this script.
+Installs VirtualGL and TurboVNC on Ubuntu derivatives on AMD 64, compatible with NVIDIA GPU. You may want to use TigerVNC instead if your PC does not have an independent GPU. See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for what to do after running this script and more information.
 
 ### [`waydroid.sh`](waydroid.sh)
 
 Installs Waydroid on Ubuntu derivatives on AMD 64.
 
-Waydroid only runs on Wayland.
-
-See [Waydroid](#waydroid) section for what to do after running this script.
+Note that Waydroid only runs on Wayland. See [Waydroid](#waydroid) section for what to do after running this script and more information.
 
 ## Instructions
 
@@ -60,7 +58,7 @@ See [Waydroid](#waydroid) section for what to do after running this script.
 + [Desktop App Launchers](#desktop-app-launchers)
 + [Fcitx5](#fcitx5)
 + [Tailscale](#tailscale)
-+ [VNC](#vnc)
++ [VirtualGL and TurboVNC](#virtualgl-and-turbovnc)
 + [Waydroid](#waydroid)
 + [Solution for Closing Lip Overrides Power Off](#solution-for-closing-lip-overrides-power-off)
 + [Bottles](#bottles)
@@ -95,21 +93,21 @@ See my [**dual-boot-windows-linux-and-recovery**](https://github.com/Willie169/d
 
 ### Wayland
 
-#### Introduction
+#### Prerequisites
 
-Run:
-```
-echo "$XDG_SESSION_TYPE"
-```
-If it shows `wayland`, you are already on Wayland and can skip this instruction. If it shows `x11` and you want to switch to Wayland, follow this instruction.
-
-First determine your Desktop Environment:
-
-- GNOME 3, which Ubuntu usually uses, supports Wayland.
-- KDE Plasma, which Kubuntu uses, supports Wayland.
-- Cinnamon, which Linux Mint usually uses, doesn't fully support Wayland currently. This instruction does not cover how to switch to Wayland on Cinnamon. Sorry.
-
-See [Desktop Environment](#desktop-environment) section for more information.
+<ol>
+<li>Run:
+<pre><code>echo "$XDG_SESSION_TYPE"
+</code></pre>
+If it shows <code>wayland</code>, you are already on Wayland and can skip this instruction. If it shows <code>x11</code> and you want to switch to Wayland, follow this instruction.</li>
+<li>Determine your Desktop Environment and follow the corresponding section below:
+<ul>
+<li>GNOME 3, which Ubuntu usually uses, supports Wayland.</li>
+<li>KDE Plasma, which Kubuntu uses, supports Wayland.</li>
+<li>Cinnamon, which Linux Mint usually uses, doesn't fully support Wayland currently. This instruction does not cover how to switch to Wayland on Cinnamon. Sorry.</li>
+</ul>
+See <a href="#desktop-environment">Desktop Environment</a> section for more information.</li>
+</ol>
 
 #### Enable Wayland for GNOME3 (GDM)
 
@@ -236,20 +234,29 @@ You can view the devices logged in and their Tailscale IPs in the app.
 
 See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) repo for more information.
 
-### VNC
+### VirtualGL and TurboVNC
 
-- GNOME 3, which Ubuntu usually uses, uses GDM.
-- KDE Plasma, which Kubuntu uses, uses SDDM.
-- Cinnamon, which Linux Mint usually uses, uses LightDM.
+#### TigerVNC
 
-See [Desktop Environment](#desktop-environment) section for more information.
-
-#### Password
-
-Set your password for VNC client to access the VNC server on the computer:
+You may want to use TigerVNC instead if your PC does not have an independent GPU. It can be installed via:
 ```
-vncpasswd
+sudo apt install tigervnc-standalone-server -y
 ```
+Its usage is the same as TurboVNC, refer to [VNC Server Usage](#vnc-server-usage) section for it.
+
+#### Prerequisites
+
+<ol>
+<li>Run <a href="virtualgl-turbovnc.sh"><code>virtualgl-turbovnc.sh</code></a> first if you have not.</li>
+<li>Add <code>export PATH="/opt/TurboVNC/bin:$PATH</code> in <code>~/.bashrc</code>. This has been done in <a href="install-tools-first.sh"><code>install-tools-first.sh</code></a>.</li>
+<li>Determine your Desktop Manager and GPU and follow the corresponding section below:
+<ul>
+<li>GNOME 3, which Ubuntu usually uses, uses GDM.</li>
+<li>KDE Plasma, which Kubuntu uses, uses SDDM.</li>
+<li>Cinnamon, which Linux Mint usually uses, uses LightDM.</li>
+</ul>
+See <a href="#desktop-environment">Desktop Environment</a> section for more information.</li>
+</ol>
 
 #### For GDM with Nvidia
 
@@ -334,28 +341,22 @@ sudo systemctl start lightdm
 
 #### VNC Server Usage
 
-Add `alias vncserver="/opt/TurboVNC/bin/vncserver"` in `~/.bashrc` before using it, which has been done in [`install-tools-first.sh`](install-tools-first.sh).
-
+* Set password for VNC client to access the VNC server on the PC: `vncpasswd`.
 * Start VNC server: `vncserver`.
 * List VNC servers: `vncserver -list`.
 * Kill VNC server: `vncserver -kill :1`. Replace `:1` with your actual display number.
 
 #### Android as SSH and VNC/X Client
 
-See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) repo for more information.
+SSH on [**Termux**](https://f-droid.org/packages/com.termux) and [**AVNC**](https://f-droid.org/packages/com.gaurav.avnc) from F-Droid are suggested if you do not have clients of your choice. See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) repo for more information.
 
 ### Waydroid
 
-Waydroid only runs on Wayland, see [Wayland](#wayland) section for more information.
-
-#### Official Site
-
-Site: <https://waydro.id>.
-Doc: <https://docs.waydro.id>.
+Waydroid only runs on Wayland, see [Wayland](#wayland) section for how to switch to Wayland.
 
 #### Install and Network
 
-See [`waydroid.sh`](waydroid.sh).
+Done in [`waydroid.sh`](waydroid.sh).
 
 #### Download Android
 
@@ -397,6 +398,11 @@ after rebooted, run:
 ```
 sudo rm -rf /var/lib/waydroid /home/.waydroid ~/waydroid ~/.share/waydroid ~/.local/share/applications/*aydroid* ~/.local/share/waydroid
 ```
+
+#### Official Site
+
+Site: <https://waydro.id>
+Doc: <https://docs.waydro.id>
 
 ### Solution for Closing Lip Overrides Power Off
 #### Symptom

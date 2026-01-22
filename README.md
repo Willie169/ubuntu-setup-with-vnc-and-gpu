@@ -122,7 +122,7 @@ See <a href="#desktop-environment">Desktop Environment</a> section for more info
 
 <ol>
 <li>Run:
-<pre><code>sudo apt install plasma-wayland-protocols kwayland-integration -y
+<pre><code>sudo apt install plasma-workspace-wayland -y
 </code></pre></li>
 <li>Log out.</li>
 <li>In the down left corner of the login page, choose <code>Plasma (Wayland)</code>.</li>
@@ -132,7 +132,7 @@ See <a href="#desktop-environment">Desktop Environment</a> section for more info
 
 <ol>
 <li>Run:
-<pre><code>sudo apt install libnvidia-egl-wayland1 plasma-wayland-protocols kwayland-integration -y
+<pre><code>sudo apt install libnvidia-egl-wayland1 -y
 </code></pre></li>
 <li>Run:
 <pre><code>sudo sed -i 's|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvidia_drm.modeset=1"|' /etc/default/grub
@@ -149,7 +149,7 @@ sudo update-initramfs -u
 
 <ol>
 <li>Run:
-<pre><code>sudo apt install libnvidia-egl-wayland1 -y
+<pre><code>sudo apt install libnvidia-egl-wayland1 plasma-workspace-wayland -y
 </code></pre></li>
 <li>Run:
 <pre><code>sudo sed -i 's|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvidia_drm.modeset=1"|' /etc/default/grub

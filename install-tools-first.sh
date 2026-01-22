@@ -16,6 +16,7 @@ for file in "/etc/grub.d/"*_os_prober "/etc/default/grub.d/"*_os_prober; do
     fi
   fi
 done
+sudo update-grub
 sudo timedatectl set-local-rtc 1
 sudo timedatectl set-ntp true
 sudo apt update

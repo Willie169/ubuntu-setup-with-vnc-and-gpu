@@ -17,20 +17,19 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 
 1. Run [`install-tools-first.sh`](install-tools-first.sh) and follow the prompts until it reboot automatically.
 2. Login and run [`install-tools-second.sh`](install-tools-second.sh) until it exits automatically.
-2. Note that Snap Firefox is replaced with `.deb` Firefox ESR. Thus you may want to configure launchers in your Desktop Environment.
-2. Run `code` to setup Visual Studio Code.
-2. Run `codeblocks` to setup Code::Blocks.
-2. Run `studio` to setup Android Studio. `"system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"` installation in [`install-tools-first.sh`](install-tools-first.sh) may fail due to network issue, you can download it again via `sdkmanager "system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"` or Android Studio GUI.
-2. Run `torbrowser-launcher` to setup Tor Browser.
+2. Snap Firefox is replaced with `.deb` Firefox ESR. Thus launchers you may want to configure launchers in your Desktop Environment.
 2. Run `sudo tailscale up` to login to Tailscale.
 2. Run `gh auth login --scopes repo,read:org,admin:org,workflow,gist,notifications,delete_repo,write:packages,read:packages` to login to GitHub.
 2. Run `git config --global user.name [your_name]` and `git config --global user.email [your_email]` to config git.
-2. Run `steam` to setup Steam.
+2. Run `code` or click the **Visual Studio Code** icon to setup Visual Studio Code.
+2. Run `codeblocks` or click the **Code::Blocks IDE** icon to setup Code::Blocks.
+2. Run `studio` to setup Android Studio. `"system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"` installation in [`install-tools-first.sh`](install-tools-first.sh) may fail silently due to network issue, you can download it again via `sdkmanager "system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"` or Android Studio GUI.
+2. Run `torbrowser-launcher` or click the **Tor Browser** icon to finish installing Tor Browser.
+2. Run `steam` to finish installing Steam.
 2. Run `enteauth` to setup Ente Auth.
-2. Refer to [Instructions](#instructions) section for instructions.
-2. Refer to [Other Scripts](#other-scripts) section for other scripts in this repository.
-
-3. snap remove element-desktop ffmpeg-2204 firmware-updater krita gnome-42-2204 gnome-46-2404 gtk-common-themes kf5-core22 mesa-2404
+2. You can list installed Snap packages with `snap list`. You may want to cleanup remaining Snap packages that you already have from other sources, for example, for Kubuntu 24.04.3 Full Installation, `snap remove element-desktop ffmpeg-2204 firmware-updater krita gnome-42-2204 gnome-46-2404 gtk-common-themes kf5-core22 mesa-2404`.
+2. Go to [Other Scripts](#other-scripts) section for other scripts in this repository.
+2. Go to [Instructions](#instructions) section for instructions.
 
 ### Content of Main Installation Scripts
 

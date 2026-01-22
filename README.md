@@ -263,11 +263,11 @@ See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) rep
 
 ### OpenSSH Server
 
-#### Introduction of SSH (Secure Shell) and OpenSSH
+#### Introduction
 
 * SSH provides a secure way for accessing remote hosts and replaces tools such as telnet, rlogin, rsh, ftp.
 * OpenSSH, also known as OpenBSD Secure Shell, is a suite of secure networking utilities based on the Secure Shell (SSH) protocol, which provides a secure channel over an unsecured network in a client–server architecture.
-* Default SSH port in Linux is usually `22`.
+* Default SSH port is `22`.
 
 #### Install
 
@@ -305,20 +305,15 @@ sudo ufw allow ssh
 ```
 sudo nano /etc/ssh/sshd_config
 ```
+and change lines in it.
 
-#### Listening Port
-
-Edit
+##### Port
 
 ```
 #Port 22
 ```
 
-line to change the listening port.
-
-#### Ports Listening to
-
-Edit
+##### Ports Listening to
 
 ```
 #AddressFamily any
@@ -326,37 +321,9 @@ Edit
 #ListenAddress ::
 ```
 
-lines to change ports listening to.
-
-#### PermitRootLogin
-
-Change the `PermitRootLogin` line to
-
-```
-PermitRootLogin yes
-```
-
-if you want to permit login as root. In Termux, this is common, but in normal Linux, this is discouraged.
-
-#### Systemd Start and Enable
-
-```
-sudo systemctl start ssh
-sudo systemctl enable ssh
-
-#### Systemd Stop and Disable
-```
-sudo systemctl stop ssh
-sudo systemctl disable ssh
-```
-
-#### Ubuntu Firewall
-
-```
-sudo ufw enable
-sudo ufw allow ssh
-```
 #### PasswordAuthentication
+
+This has been done in [`install-tools-first.sh`](install-tools-first.sh).
 
 Change the `PasswordAuthentication` line to
 
@@ -366,6 +333,9 @@ PasswordAuthentication yes
 
 to permit password authentication. Password can be set by running `passwd`.
 
+#### Android as SSH Client
+
+SSH on [**Termux**](https://f-droid.org/packages/com.termux) is suggested if you do not have a client of your choice. See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) repo for more information.
 
 ### VirtualGL and TurboVNC
 
@@ -463,7 +433,7 @@ sudo systemctl start lightdm
 
 #### Android as SSH and VNC/X Client
 
-SSH on [**Termux**](https://f-droid.org/packages/com.termux) and [**AVNC**](https://f-droid.org/packages/com.gaurav.avnc) from F-Droid are suggested if you do not have clients of your choice. See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) repo for more information.
+[**AVNC**](https://f-droid.org/packages/com.gaurav.avnc) from F-Droid is suggested if you do not have a client of your choice. See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) repo for more information.
 
 ### Waydroid
 

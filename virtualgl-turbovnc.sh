@@ -16,8 +16,8 @@ rm libjpeg-turbo-official_3.0.1_amd64.deb
 sudo apt install dbus-x11 libglu1-mesa mesa-utils -y
 sudo vglserver_config +s +f +glx
 sudo groupadd vglusers
-sudo usermod --groups vglusers root
-sudo usermod --groups vglusers $USER
+sudo usermod -aG vglusers root
+sudo usermod -aG vglusers $USER
 sudo mkdir -p /etc/opt/VirtualGL
 sudo chgrp vglusers /etc/opt/VirtualGL
 sudo chmod 750 /etc/opt/VirtualGL

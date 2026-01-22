@@ -307,7 +307,7 @@ sudo nano /etc/ssh/sshd_config
 ```
 and change lines in it.
 
-##### Port
+##### SSH Port
 
 ```
 #Port 22
@@ -455,6 +455,7 @@ Waydroid's home directory is:
 ```
 ~/.local/share/waydroid/data/media/0/
 ```
+This has been exported as `WAYDROID` in `.bashrc` in [`install-tools-first.sh`](install-tools-first.sh).
 
 #### Google Play Certificate
 

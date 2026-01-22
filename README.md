@@ -41,7 +41,7 @@ Installs recommended drivers and tools for C, C++, COBOL, Python3, Java8, Java11
 
 Installs VirtualGL and TurboVNC on Ubuntu derivatives on AMD 64, compatible with NVIDIA GPU.
 
-You may want to use TigerVNC instead if your PC does not have an independent GPU. See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for what to do after running this script and more information.
+You may want to use TigerVNC instead if your computer does not have an independent GPU. See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for what to do after running this script and more information.
 
 ### [`waydroid.sh`](waydroid.sh)
 
@@ -264,7 +264,7 @@ See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) rep
 
 #### TigerVNC
 
-You may want to use TigerVNC instead if your PC does not have an independent GPU. It can be installed via:
+You may want to use TigerVNC instead if your computer does not have an independent GPU. It can be installed via:
 ```
 sudo apt install tigervnc-standalone-server -y
 ```
@@ -367,7 +367,7 @@ sudo systemctl start lightdm
 
 #### VNC Server Usage
 
-* Set password for VNC client to access the VNC server on the PC: `vncpasswd`.
+* Set password for VNC client to access the VNC server on the computer: `vncpasswd`.
 * Start VNC server: `vncserver`.
 * List VNC servers: `vncserver -list`.
 * Kill VNC server: `vncserver -kill :1`. Replace `:1` with your actual display number.

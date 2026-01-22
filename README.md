@@ -213,7 +213,7 @@ You can configure Fcitx5 input methods in `Fcitx Configuration`.
 
 #### KDE Plasma
 
-1. It may automatically detect `Fcitx5`, if not go to `System Settings` > `Input & Output` or `Keyboard` > `Virtual Keyboard`, then select `Fcitx5`.
+1. It usually will automatically detect and setup Fcitx5. If not, go to `System Settings` > `Input & Output` or `Keyboard` > `Virtual Keyboard`, then select `Fcitx5`.
 2. You can configure Fcitx5 input methods in `Fcitx Configuration`, which can be launched by either right-clicking the keyboard icon at the bottom right corner of the `Task Manager` and clicking `Configure` or going to `System Settings` and searching `Input Method`.
 
 ### Tailscale
@@ -446,7 +446,7 @@ Done in [`waydroid.sh`](waydroid.sh).
 #### Download Android
 
 1. Open Waydroid by running `waydroid` or clicking the **Waydroid** icon.
-2. Choose options you want. In `Android Type`, `Vanilla` or `Minimal Android` refers to a pure AOSP (Android Open-Source Project) build without any Google services, while `Gapps` or `Android with Google Apps` refers to a build that provides access to Google services. If you don't know which to select, the `Gapps` or `Android with Google Apps` is recommended, which occupies approximately 1.2 GB.
+2. Choose options you want. In `Android Type`, `Vanilla` or `Minimal Android` refers to a pure AOSP (Android Open-Source Project) build without any Google services, while `Gapps` or `Android with Google Apps` refers to a build that provides access to Google services. If you don't know which to select, the `Gapps` or `Android with Google Apps` is recommended, which occupies approximately 1.4 GB.
 3. Press `Download`, wait until `Done` button is shown, and press it.
 
 #### Storage

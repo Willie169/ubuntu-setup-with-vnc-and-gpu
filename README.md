@@ -60,6 +60,7 @@ See [Waydroid](#waydroid) section for what to do after running this script and m
 + [Desktop App Launchers](#desktop-app-launchers)
 + [Fcitx5](#fcitx5)
 + [Tailscale](#tailscale)
++ [OpenSSH](#openssh)
 + [VirtualGL and TurboVNC](#virtualgl-and-turbovnc)
 + [Waydroid](#waydroid)
 + [Solution for Closing Lip Overrides Power Off](#solution-for-closing-lip-overrides-power-off)
@@ -260,7 +261,110 @@ You can view the devices logged in and their Tailscale IPs in the app.
 
 See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) repo for more information.
 
+### OpenSSH Server
 
+#### Introduction of SSH (Secure Shell) and OpenSSH
+
+* SSH provides a secure way for accessing remote hosts and replaces tools such as telnet, rlogin, rsh, ftp.
+* OpenSSH, also known as OpenBSD Secure Shell, is a suite of secure networking utilities based on the Secure Shell (SSH) protocol, which provides a secure channel over an unsecured network in a client–server architecture.
+* Default SSH port in Linux is usually `22`.
+
+#### Install
+
+This has been done in [`install-tools-first.sh`](install-tools-first.sh).
+
+```
+sudo apt install openssh-server
+```
+
+#### Systemd Start and Enable
+
+This has been done in [`install-tools-first.sh`](install-tools-first.sh).
+```
+sudo systemctl start ssh
+sudo systemctl enable ssh
+```
+
+#### Systemd Stop and Disable
+
+```
+sudo systemctl stop ssh
+sudo systemctl disable ssh
+```
+
+#### Ubuntu Firewall
+
+This has been done in [`install-tools-first.sh`](install-tools-first.sh).
+```
+sudo ufw enable
+sudo ufw allow ssh
+```
+
+#### Edit Configuration
+
+```
+sudo nano /etc/ssh/sshd_config
+```
+
+#### Listening Port
+
+Edit
+
+```
+#Port 22
+```
+
+line to change the listening port.
+
+#### Ports Listening to
+
+Edit
+
+```
+#AddressFamily any
+#ListenAddress 0.0.0.0
+#ListenAddress ::
+```
+
+lines to change ports listening to.
+
+#### PermitRootLogin
+
+Change the `PermitRootLogin` line to
+
+```
+PermitRootLogin yes
+```
+
+if you want to permit login as root. In Termux, this is common, but in normal Linux, this is discouraged.
+
+#### Systemd Start and Enable
+
+```
+sudo systemctl start ssh
+sudo systemctl enable ssh
+
+#### Systemd Stop and Disable
+```
+sudo systemctl stop ssh
+sudo systemctl disable ssh
+```
+
+#### Ubuntu Firewall
+
+```
+sudo ufw enable
+sudo ufw allow ssh
+```
+#### PasswordAuthentication
+
+Change the `PasswordAuthentication` line to
+
+```
+PasswordAuthentication yes
+```
+
+to permit password authentication. Password can be set by running `passwd`.
 
 
 ### VirtualGL and TurboVNC
@@ -371,8 +475,8 @@ Done in [`waydroid.sh`](waydroid.sh).
 
 #### Download Android
 
-1. Open Waydroid from application menu. 
-2. Choose options you want. In `Android Type`, `Vanilla` refers to a pure AOSP (Android Open-Source Project) build without any Google services, while `Gapps` refers to a build that provides access to Google services.
+1. Open Waydroid by running `waydroid` or clicking the **Waydroid** icon.
+2. Choose options you want. In `Android Type`, `Vanilla` or `Minimal Android` refers to a pure AOSP (Android Open-Source Project) build without any Google services, while `Gapps` or `Android with Google Apps` refers to a build that provides access to Google services. If you don't know which to select, the `Gapps` or `Android with Google Apps` is recommended, which occupies PLACEHOLDER GB.
 3. Press `Download`, wait until `Done` button is shown, and press it.
 
 #### Storage

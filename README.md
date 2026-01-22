@@ -71,6 +71,7 @@ See [Waydroid](#waydroid) section for what to do after running this script and m
 See my [**dual-boot-windows-linux-and-recovery**](https://github.com/Willie169/dual-boot-windows-linux-and-recovery) repo.
 
 ### Desktop Environment
+
 #### GNOME 3
 
 - Ubuntu uses it.
@@ -183,10 +184,11 @@ before it and replace it with <code>$UBUNTU_VERSION_ID</code>.</li>
 These have been added to <code>~/.bashrc</code> in <a href="install-tools-first.sh"><code>install-tools-first.sh</code></a>.
 
 ### Desktop App Launchers
+
 #### Command line
 
 ```
-cp /usr/share/applications/<application_name>.desktop ~/Desktop/`
+cp /usr/share/applications/<application_name>.desktop ~/Desktop/
 chmod +x ~/Desktop/<application_name>.desktop
 ```
 
@@ -214,6 +216,7 @@ You can configure Fcitx5 input methods in `Fcitx Configuration`.
 2. You can configure Fcitx5 input methods in `Fcitx Configuration`, which can be launched by either right-clicking the keyboard icon at the bottom right corner of the `Task Manager` and clicking `Configure` or going to `System Settings` and searching `Input Method`.
 
 ### Tailscale
+
 #### Install
 
 The script below has been included in [`install-tools-first.sh`](install-tools-first.sh).
@@ -428,6 +431,7 @@ Site: <https://waydro.id>
 Doc: <https://docs.waydro.id>
 
 ### Solution for Closing Lip Overrides Power Off
+
 #### Symptom
 
 After clicked shut down and then closed the lip, the laptop didn't shut down.

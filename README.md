@@ -476,7 +476,7 @@ Done in [`waydroid.sh`](waydroid.sh).
 #### Download Android
 
 1. Open Waydroid by running `waydroid` or clicking the **Waydroid** icon.
-2. Choose options you want. In `Android Type`, `Vanilla` or `Minimal Android` refers to a pure AOSP (Android Open-Source Project) build without any Google services, while `Gapps` or `Android with Google Apps` refers to a build that provides access to Google services. If you don't know which to select, the `Gapps` or `Android with Google Apps` is recommended, which occupies PLACEHOLDER GB.
+2. Choose options you want. In `Android Type`, `Vanilla` or `Minimal Android` refers to a pure AOSP (Android Open-Source Project) build without any Google services, while `Gapps` or `Android with Google Apps` refers to a build that provides access to Google services. If you don't know which to select, the `Gapps` or `Android with Google Apps` is recommended, which occupies approximately 1.2 GB.
 3. Press `Download`, wait until `Done` button is shown, and press it.
 
 #### Storage

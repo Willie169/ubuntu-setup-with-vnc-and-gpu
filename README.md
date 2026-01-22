@@ -26,7 +26,7 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 2. Run `codeblocks` or click the **Code::Blocks IDE** icon to setup Code::Blocks.
 2. Run `studio` or click the **Android Studio** icon to setup Android Studio. `"system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"` installation in [`install-tools-first.sh`](install-tools-first.sh) may fail silently due to network issue, you can download it again via `sdkmanager "system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"` or Android Studio GUI.
 2. Run `torbrowser-launcher` or click the **Tor Browser** icon to finish installing Tor Browser.
-2. Run `steam` to finish installing Steam.
+2. Run `steam` to finish installing Steam. Running twice may be required.
 2. Run `enteauth` to setup Ente Auth.
 2. Go to [Other Scripts](#other-scripts) section for other scripts in this repository.
 2. Go to [Instructions](#instructions) section for instructions.

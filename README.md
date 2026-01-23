@@ -41,7 +41,7 @@ Installs recommended drivers and tools for C, C++, COBOL, Python3, Java8, Java11
 
 Installs VirtualGL and TurboVNC on Ubuntu derivatives on AMD 64, compatible with NVIDIA GPU.
 
-You may want to use TigerVNC instead if your computer does not have an independent GPU. See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for what to do after running this script and more information.
+You may want to use TigerVNC instead if your computer does not have a discrete GPU. See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for what to do after running this script and more information.
 
 ### [`waydroid.sh`](waydroid.sh)
 
@@ -341,7 +341,7 @@ SSH on [**Termux**](https://f-droid.org/packages/com.termux) is suggested if you
 
 #### TigerVNC
 
-You may want to use TigerVNC instead if your computer does not have an independent GPU. It can be installed via:
+You may want to use TigerVNC instead if your computer does not have a discrete GPU. It can be installed via:
 ```
 sudo apt install tigervnc-standalone-server -y
 ```

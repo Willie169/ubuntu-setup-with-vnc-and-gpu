@@ -158,6 +158,7 @@ corepack enable yarn
 corepack enable pnpm
 npm install jsdom markdown-toc marked marked-gfm-heading-id node-html-markdown showdown
 npm install -g http-server @openai/codex
+curl -fsSL https://bun.com/install | bash
 sudo go install github.com/danielmiessler/fabric@latest
 pipx install poetry uv
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh

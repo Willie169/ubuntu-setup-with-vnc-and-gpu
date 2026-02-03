@@ -80,8 +80,6 @@ sudo systemctl stop var-snap-firefox-common-*.mount 2>/dev/null || true
 sudo systemctl disable var-snap-firefox-common-*.mount 2>/dev/null || true
 sudo snap remove firefox 2>/dev/null || true
 sudo apt install firefox --allow-downgrades -y
-sudo apt autoremove firefox --purge -y 2>/dev/null || true
-sudo apt install firefox-esr --allow-downgrades -y
 echo 'Package: thunderbird*
 Pin: release o=LP-PPA-mozillateam
 Pin-Priority: 1001

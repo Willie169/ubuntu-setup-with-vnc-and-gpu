@@ -141,10 +141,6 @@ fi
 wget -O sdl2_bgi_3.0.4-1_amd64.deb https://sourceforge.net/projects/sdl-bgi/files/sdl2_bgi_3.0.4-1_amd64.deb/download
 sudo apt install ./sdl2_bgi_3.0.4-1_amd64.deb -y
 rm sdl2_bgi_3.0.4-1_amd64.deb
-curl -fsSL https://ftp-master.debian.org/keys/archive-key-11.asc | sudo gpg --dearmor -o /usr/share/keyrings/debian-archive-keyring.gpg
-sudo mkdir -p /root/.gnupg
-sudo chmod 700 /root/.gnupg
-sudo gpg --no-default-keyring --keyring /usr/share/keyrings/debian-archive-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys 0E98404D386FA1D9 6ED0E7B82643E131 F8D2585B8783D481 54404762BBB6E853 BDE6D2B9216EC7A8 BDE6D2B9216EC7A8 8E9F831205B4BA95
 sudo sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
 sudo systemctl enable ssh
 yes | sudo ufw enable
@@ -165,7 +161,7 @@ npm install -g http-server @openai/codex
 curl -fsSL https://bun.com/install | bash
 curl -fsSL https://claude.ai/install.sh | bash
 pipx install poetry uv
-uv tool install --force --python python3.12 --with pip aider-chat@latest
+uv tool install --force --python python3.12 --with pip aider-chat@latest --with playwright --with aider-chat[help]
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
 bash Miniforge3-Linux-x86_64.sh -b -p ${HOME}/conda
 source .bashrc

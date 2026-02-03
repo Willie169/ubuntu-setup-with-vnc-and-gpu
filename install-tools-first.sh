@@ -165,6 +165,9 @@ wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge
 bash Miniforge3-Linux-x86_64.sh -b -p ${HOME}/conda
 source .bashrc
 conda config --set auto_activate_base false
+conda config --add channels defaults
+conda config --add channels conda-forge
+conda config --add channels microsoft
 rm Miniforge3-Linux-x86_64.sh
 sudo git clone --depth=1 https://github.com/Willie169/vimrc.git /opt/vim_runtime && sudo sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all
 mkdir -p ~/.config/nvim

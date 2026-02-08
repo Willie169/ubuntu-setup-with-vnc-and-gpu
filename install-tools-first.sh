@@ -321,7 +321,6 @@ git clone https://github.com/yzyray/lizzieyzy.git
 cd lizzieyzy
 mvn clean package
 cd ..
-mkdir .lizzieyzy
 mkdir -p ~/.local/share/applications
 cat > ~/.local/share/applications/lizzieyzy.desktop <<EOF
 [Desktop Entry]
@@ -334,10 +333,7 @@ Terminal=false
 Categories=Game;
 StartupWMClass=featurecat-lizzie-Lizzie
 EOF
-cd .lizzieyzy
-wget https://raw.githubusercontent.com/Willie169/bashrc/main/lizzieyzy/config.txt
-sed -i "s|\$HOME|$HOME|g" config.txt
-cd ..
+update_lizzieyzy_config
 wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz --no-check-certificate
 tar -xzf install-tl-unx.tar.gz
 rm install-tl-unx.tar.gz

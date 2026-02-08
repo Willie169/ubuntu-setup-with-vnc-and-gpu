@@ -119,7 +119,7 @@ echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
 sudo apt upgrade -y
 sudo apt install aisleriot alsa-utils apksigner apt-transport-https aptitude aria2 autoconf automake bash bc bear bison build-essential bzip2 ca-certificates clang clang-format cmake command-not-found curl dbus default-jdk dnsutils dvipng dvisvgm fastfetch ffmpeg file flex g++ gcc gdb gfortran gh ghc ghostscript git glab gnucobol gnugo gnupg golang gperf gpg grep gtkwave gzip info inkscape iproute2 iverilog iverilog jpegoptim jq libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libheif-examples libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libreadline-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm make maven mc nano ncompress neovim ngspice ninja-build openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc perl-tk pipx plantuml poppler-utils procps pv python3-all-dev python3-pip python3-venv rust-all sudo tar tk-dev tmux tree unrar unzip uuid-dev uuid-runtime valgrind verilator vim wget wget2 x11-utils x11-xserver-utils xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh -y
-sudo apt install codeblocks* fcitx5 fcitx5-* flatpak libreoffice openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk qbittorrent testdisk torbrowser-launcher update-manager-core vim-gtk3 wl-clipboard -y
+sudo apt install clinfo codeblocks* fcitx5 fcitx5-* flatpak libreoffice ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk qbittorrent testdisk torbrowser-launcher update-manager-core vim-gtk3 wl-clipboard -y
 sudo mkdir -p /usr/share/codeblocks/docs
 im-config -n fcitx5
 cat > ~/.xprofile <<'EOF'
@@ -304,6 +304,167 @@ cat > ~/.local/bin/arduino-ide <<'EOF'
 EOF
 chmod +x ~/.local/bin/arduino-ide
 echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
+git clone https://github.com/lightvector/KataGo.git
+cd KataGo/cpp
+if [ -n "$(clinfo -l | grep '#0')" ]; then
+cmake . -G Ninja -DUSE_BACKEND=OPENCL
+else
+cmake . -G Ninja -DUSE_BACKEND=EIGEN
+fi
+ninja
+cd ../..
+mkdir kata-models
+cd kata-models
+wget https://media.katagotraining.org/uploaded/networks/models/kata1/kata1-b6c96-s175395328-d26788732.txt.gz
+cd ..
+git clone https://github.com/yzyray/lizzieyzy.git
+cd lizzieyzy
+git checkout 2.5.3
+mvn clean package
+cd ..
+mkdir .lizzieyzy
+mkdir -p ~/.local/share/applications
+cat > ~/.local/share/applications/lizzieyzy.desktop <<EOF
+[Desktop Entry]
+Type=Application
+Name=LizzieYzy
+Comment=LizzieYzy - GUI for Game of Go
+Exec=sh -c 'cd $HOME/.lizzieyzy && java -jar "$HOME/lizzieyzy/target/lizzie-yzy2.5.3-shaded.jar"'
+Icon=$HOME/lizzieyzy/src/main/resources/assets/logo.png
+Terminal=false
+Categories=Game;
+StartupWMClass=featurecat-lizzie-Lizzie
+EOF
+cat > ~/.lizzieyzy/config.txt <<'EOF'
+{
+  "leelaz": {
+    "limit-max-suggestion": 10,
+    "analyze-update-interval-centisec": 10,
+    "enable-lizzie-cache": true,
+    "limit-branch-length": 0,
+    "max-analyze-time-seconds": 600,
+    "max-game-thinking-time-seconds": 2,
+    "engine-settings-list": [{
+      "ip": "",
+      "initialCommand": "",
+      "userName": "",
+      "preload": false,
+      "command": "/root/KataGo/cpp/katago gtp -model /root/kata-models/kata1-b6c96-s175395328-d26788732.txt.gz -config /root/KataGo/cpp/configs/gtp_example.cfg",
+      "komi": 7.5,
+      "isDefault": true,
+      "password": "",
+      "port": "",
+      "name": "kata1-b6c96-s175395328-d26788732",
+      "width": 19,
+      "useJavaSSH": false,
+      "useKeyGen": false,
+      "keyGenPath": "",
+      "height": 19
+    }]
+  },
+  "ui": {
+    "comment-font-size": 0,
+    "shadow-size": 85,
+    "autosave-interval-seconds": -1,
+    "no-refresh-on-sub": true,
+    "win-rate-always-black": false,
+    "autoload-last": false,
+    "is-ctrl-opened": false,
+    "show-move-number": false,
+    "winrate-stroke-width": 1.7,
+    "show-next-moves": true,
+    "show-comment": true,
+    "show-leelaz-variation": true,
+    "autoload-empty": false,
+    "resume-previous-game": false,
+    "use-language": 2,
+    "use-java-looks": true,
+    "show-coordinates": true,
+    "shadows-enabled": true,
+    "exit-auto-analyze-tip": true,
+    "autoload-default": true,
+    "show-variation-graph": true,
+    "show-dynamic-komi": false,
+    "minimum-blunder-bar-width": 1,
+    "confirm-exit": false,
+    "show-replace-file-hint": true,
+    "norefresh-onmouse-move": true,
+    "show-best-moves": true,
+    "append-winrate-to-comment": true,
+    "limit-playout": false,
+    "show-captured": true,
+    "replay-branch-interval-seconds": 0.9,
+    "weighted-blunder-bar-height": false,
+    "first-load-katago": true,
+    "show-winrate-graph": true,
+    "large-winrate-graph": false,
+    "theme": "default",
+    "show-winrate-in-suggestion": true,
+    "show-scoremean-in-suggestion": true,
+    "new-move-number-in-branch": true,
+    "blunder-node-colors": [
+      [
+        155,
+        25,
+        150
+      ],
+      [
+        208,
+        16,
+        19
+      ],
+      [
+        200,
+        140,
+        50
+      ],
+      [
+        180,
+        180,
+        0
+      ],
+      [
+        140,
+        202,
+        34
+      ],
+      [
+        0,
+        220,
+        0
+      ],
+      [
+        0,
+        230,
+        230
+      ]
+    ],
+    "limit-time": true,
+    "show-playouts-in-suggestion": true,
+    "blunder-winrate-thresholds": [
+      -24,
+      -12,
+      -6,
+      -3,
+      -1,
+      3,
+      100
+    ],
+    "host-name": "localhost",
+    "show-blunder-bar": true,
+    "only-last-move-number": 1,
+    "show-status": true,
+    "handicap-instead-of-winrate": false,
+    "large-subboard": false,
+    "first-time-load": false,
+    "allow-close-comment-control-hint": true,
+    "show-katago-score-lead-with-komi": false,
+    "show-subboard": true,
+    "limit-playouts": 100000,
+    "board-size": 19
+  }
+}
+EOF
 wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz --no-check-certificate
 tar -xzf install-tl-unx.tar.gz
 rm install-tl-unx.tar.gz

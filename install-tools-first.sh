@@ -65,6 +65,8 @@ sudo mkdir -p /usr/local/go
 sudo mkdir -p /usr/local/java
 mkdir -p ~/.local
 mkdir -p ~/.local/bin
+mkdir -p ~/.local/share/applications
+mkdir -p ~/Desktop
 if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
 sudo add-apt-repository ppa:mozillateam/ppa -y
 echo 'Package: firefox*
@@ -316,12 +318,11 @@ cd ../..
 mkdir katago-networks
 cd katago-networks
 wget https://media.katagotraining.org/uploaded/networks/models/kata1/kata1-b6c96-s175395328-d26788732.txt.gz
-cd ..
+cd ~
 git clone https://github.com/yzyray/lizzieyzy.git
 cd lizzieyzy
 mvn clean package
-cd ..
-mkdir -p ~/.local/share/applications
+cd ~
 cat > ~/.local/share/applications/lizzieyzy.desktop <<EOF
 [Desktop Entry]
 Type=Application
@@ -334,6 +335,45 @@ Categories=Game;
 StartupWMClass=featurecat-lizzie-Lizzie
 EOF
 update_lizzieyzy_config
+git clone https://github.com/fairy-stockfish/Fairy-Stockfish.git
+cd Fairy-Stockfish/src
+ARCH=$(uname -m)
+make -j ARCH=x86-64 profile-build largeboards=yes nnue=yes
+cd ~
+git clone https://github.com/cutechess/cutechess.git
+cd cutechess
+mkdir build
+cd build
+cmake -G Ninja ..
+ninja
+cd ~
+cat > ~/.local/share/applications/cutechess.desktop <<EOF
+[Desktop Entry]
+Type=Application
+Name=Cute Chess
+Comment=Cute Chess - GUI for Playing Chess
+Exec=$HOME/cutechess/build/cutechess
+Icon=$HOME/cutechess/projects/gui/res/icons/cutechess_128x128.png
+Terminal=false
+Categories=Game;
+EOF
+update_cutechess_config
+git clone https://github.com/hotfics/Sylvan.git
+cd Sylvan
+qmake
+make
+cd ~
+cat > ~/.local/share/applications/sylvan.desktop <<EOF
+[Desktop Entry]
+Type=Application
+Name=Sylvan
+Comment=Sylvan - GUI for Playing Xiangqi
+Exec=$HOME/Sylvan/projects/gui/sylvan
+Icon=$HOME/Sylvan/projects/gui/res/icons/app.ico
+Terminal=false
+Categories=Game;
+EOF
+update_sylvan_config
 wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz --no-check-certificate
 tar -xzf install-tl-unx.tar.gz
 rm install-tl-unx.tar.gz

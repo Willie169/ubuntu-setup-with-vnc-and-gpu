@@ -337,7 +337,6 @@ EOF
 update_lizzieyzy_config
 git clone https://github.com/fairy-stockfish/Fairy-Stockfish.git
 cd Fairy-Stockfish/src
-ARCH=$(uname -m)
 make -j ARCH=x86-64 profile-build largeboards=yes nnue=yes
 cd ~
 git clone https://github.com/cutechess/cutechess.git

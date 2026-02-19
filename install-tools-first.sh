@@ -120,8 +120,8 @@ echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
 sudo apt upgrade -y
-sudo apt install aisleriot alsa-utils apksigner apt-transport-https aptitude aria2 autoconf automake bash bc bear bison build-essential bzip2 ca-certificates clang clang-format cmake command-not-found curl dbus default-jdk dnsutils dvipng dvisvgm fastfetch ffmpeg file flex g++ gcc gdb gfortran gh ghc ghostscript git glab gnuchess gnucobol gnugo gnupg golang gperf gpg grep gtkwave gzip info inkscape iproute2 iverilog iverilog jpegoptim jq libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libheif-examples libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm make maven mc nano ncompress neovim ngspice ninja-build openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc perl-tk pipx plantuml poppler-utils procps pv python3-all-dev python3-pip python3-venv qtbase5-dev qtbase5-dev-tools rust-all sqlite3 sudo tar tk-dev tmux tree unrar unzip uuid-dev uuid-runtime valgrind verilator vim wget wget2 x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh zstd -y
-sudo apt install clinfo codeblocks* fcitx5 fcitx5-* flatpak libreoffice ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk qbittorrent testdisk torbrowser-launcher update-manager-core vim-gtk3 wl-clipboard -y
+sudo apt install aisleriot alsa-utils apksigner apt-transport-https aptitude autoconf automake bash bc bear bison build-essential bzip2 ca-certificates clang clang-format cmake command-not-found curl dbus default-jdk dnsutils dvipng dvisvgm fastfetch ffmpeg file flex g++ gcc gdb gfortran gh ghc ghostscript git glab gnupg golang gperf gpg grep gtkwave gzip info imagemagick inkscape iproute2 iverilog iverilog jpegoptim jq libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libheif-examples libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm make maven mc nano ncompress neovim ngspice ninja-build openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc perl-tk pipx plantuml poppler-utils procps pv python3-all-dev python3-pip python3-venv qtbase5-dev qtbase5-dev-tools rust-all sqlite3 sudo tar tk-dev tmux tree unrar unzip uuid-dev uuid-runtime valgrind verilator vim webp wget wget2 x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh zstd -y
+sudo apt install aria2 clinfo codeblocks* fcitx5 fcitx5-* flatpak libreoffice ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk qbittorrent testdisk torbrowser-launcher update-manager-core vim-gtk3 wl-clipboard -y
 sudo mkdir -p /usr/share/codeblocks/docs
 im-config -n fcitx5
 cat > ~/.xprofile <<'EOF'
@@ -232,10 +232,6 @@ sudo apt install postgresql-17 -y
 sudo add-apt-repository ppa:obsproject/obs-studio -y
 sudo apt update
 sudo apt install obs-studio -y
-curl -fsSL https://download.spotify.com/debian/pubkey_5384CE82BA52C83A.asc | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
-echo "deb https://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-sudo apt update
-sudo apt install spotify-client -y
 wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash
 wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
 sudo apt install ./steam.deb -y

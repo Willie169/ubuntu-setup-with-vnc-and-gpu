@@ -370,10 +370,6 @@ Categories=Game;
 EOF
 update_sylvan_config
 curl -fsSL https://ollama.com/install.sh | sh
-systemctl edit --stdin ollama <<EOF
-[Service]
-Environment="OLLAMA_HOST=0.0.0.0"
-EOF
 sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
 mkdir .open-notebook

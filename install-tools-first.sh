@@ -370,6 +370,48 @@ Categories=Game;
 EOF
 update_sylvan_config
 curl -fsSL https://ollama.com/install.sh | sh
+systemctl edit --stdin ollama <<EOF
+[Service]
+Environment="OLLAMA_HOST=0.0.0.0"
+EOF
+sudo systemctl daemon-reexec
+sudo systemctl daemon-reload
+mkdir .open-notebook
+cd .open-notebook
+cat > docker-compose.yml<<EOF
+services:
+  surrealdb:
+    image: surrealdb/surrealdb:v2
+    command: start --log info --user root --pass root rocksdb:/mydata/mydatabase.db
+    user: root
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./surreal_data:/mydata
+    restart: always
+
+  open_notebook:
+    image: lfnovo/open_notebook:v1-latest
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8502:8502"
+      - "5055:5055"
+    environment:
+      - OPEN_NOTEBOOK_ENCRYPTION_KEY=change-me-to-a-secret-string
+      - SURREAL_URL=ws://surrealdb:8000/rpc
+      - SURREAL_USER=root
+      - SURREAL_PASSWORD=root
+      - SURREAL_NAMESPACE=open_notebook
+      - SURREAL_DATABASE=open_notebook
+      - OLLAMA_API_BASE=http://host.docker.internal:11434
+    volumes:
+      - ./notebook_data:/app/data
+    depends_on:
+      - surrealdb
+    restart: always
+EOF
+cd ~
 curl -fsSL https://opencode.ai/install | bash
 curl -fsSL https://raw.githubusercontent.com/AlexsJones/llmfit/main/install.sh | sh
 wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz --no-check-certificate

@@ -31,7 +31,7 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 2. You can add LizzieYzy to desktop by running `cp ~/.local/share/applications/lizzieyzy.desktop ~/Desktop/lizzieyzy.desktop && chmod +x ~/Desktop/lizzieyzy.desktop`.
 2. You can add Cute Chess to desktop by running `cp ~/.local/share/applications/cutechess.desktop ~/Desktop/cutechess.desktop && chmod +x ~/Desktop/cutechess.desktop`.
 2. You can add Sylvan to desktop by running `cp ~/.local/share/applications/sylvan.desktop ~/Desktop/sylvan.desktop && chmod +x ~/Desktop/sylvan.desktop`.
-2. You may want to pull some Ollama models, e.g., `ollama pull deepseek-coder-v2:16b` (8.9 GB), `ollama pull llama3.2:3b` (2.0 GB), `ollama pull qwen3:4b` (2.5 GB).
+2. You may want to pull some Ollama models, e.g., `ollama pull deepseek-coder-v2:16b` (8.9 GB), `ollama pull llama3.2:3b` (2.0 GB), `ollama pull qwen3:4b` (2.5 GB), `ollama pull nomic-embed-text:latest` (274 MB).
 2. Go to [Other Scripts](#other-scripts) section for other scripts in this repository.
 2. Go to [Instructions](#instructions) section for instructions.
 

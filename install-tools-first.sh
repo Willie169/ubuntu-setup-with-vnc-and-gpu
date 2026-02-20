@@ -371,6 +371,7 @@ EOF
 update_sylvan_config
 curl -fsSL https://ollama.com/install.sh | sh
 curl -fsSL https://opencode.ai/install | bash
+curl -fsSL https://raw.githubusercontent.com/AlexsJones/llmfit/main/install.sh | sh
 wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz --no-check-certificate
 tar -xzf install-tl-unx.tar.gz
 rm install-tl-unx.tar.gz

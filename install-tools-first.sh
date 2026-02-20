@@ -186,6 +186,7 @@ sudo apt update
 sudo apt install docker-ce -y
 sudo systemctl enable docker
 sudo usermod -aG docker $(whoami)
+newgrp docker
 curl -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.noarmor.gpg" | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
 curl -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.tailscale-keyring.list" | sudo tee /etc/apt/sources.list.d/tailscale.list
 sudo apt update

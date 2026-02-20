@@ -402,6 +402,8 @@ services:
       - surrealdb
     restart: always
 EOF
+open-notebook
+open-notebook-down
 curl -fsSL https://opencode.ai/install | bash
 curl -fsSL https://raw.githubusercontent.com/AlexsJones/llmfit/main/install.sh | sh
 wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz --no-check-certificate

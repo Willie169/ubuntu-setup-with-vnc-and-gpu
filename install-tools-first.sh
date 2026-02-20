@@ -405,7 +405,7 @@ services:
 EOF
 cd ~/.open-notebook
 sudo docker compose up -d
-sudo docker compose down
+sudo docker compose stop
 cd ~
 curl -fsSL https://opencode.ai/install | bash
 curl -fsSL https://raw.githubusercontent.com/AlexsJones/llmfit/main/install.sh | sh

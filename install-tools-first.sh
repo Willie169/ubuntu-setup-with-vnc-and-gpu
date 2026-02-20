@@ -1,5 +1,6 @@
 #!/bin/bash
 
+shopt -s expand_aliases
 cd ~
 sudo -v
 while true; do sudo -v; sleep 60; done & SUDOPID=$!

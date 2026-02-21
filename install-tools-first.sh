@@ -160,7 +160,7 @@ corepack enable pnpm
 npm install jsdom markdown-toc marked marked-gfm-heading-id node-html-markdown showdown
 npm install -g http-server @google/gemini-cli @openai/codex
 curl -fsSL https://bun.com/install | bash
-pipx install poetry uv
+pipx install uv notebook jupyterlab jupytext meson
 uv tool install --force --python python3.12 --with pip aider-chat@latest --with playwright
 uv tool run playwright install --with-deps chromium
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh

@@ -158,7 +158,7 @@ nvm install 24
 corepack enable yarn
 corepack enable pnpm
 npm install jsdom markdown-toc marked marked-gfm-heading-id node-html-markdown showdown
-npm install -g http-server @openai/codex
+npm install -g http-server @google/gemini-cli @openai/codex
 curl -fsSL https://bun.com/install | bash
 curl -fsSL https://claude.ai/install.sh | bash
 pipx install poetry uv

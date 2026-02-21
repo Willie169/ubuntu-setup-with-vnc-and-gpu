@@ -160,7 +160,6 @@ corepack enable pnpm
 npm install jsdom markdown-toc marked marked-gfm-heading-id node-html-markdown showdown
 npm install -g http-server @google/gemini-cli @openai/codex
 curl -fsSL https://bun.com/install | bash
-curl -fsSL https://claude.ai/install.sh | bash
 pipx install poetry uv
 uv tool install --force --python python3.12 --with pip aider-chat@latest --with playwright
 uv tool run playwright install --with-deps chromium
@@ -408,6 +407,7 @@ sudo docker compose up -d
 sudo docker compose stop
 cd ~
 curl -fsSL https://opencode.ai/install | bash
+curl -fsSL https://claude.ai/install.sh | bash
 curl -fsSL https://raw.githubusercontent.com/AlexsJones/llmfit/main/install.sh | sh
 wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz --no-check-certificate
 tar -xzf install-tl-unx.tar.gz

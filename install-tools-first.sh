@@ -25,9 +25,12 @@ sudo apt install software-properties-common -y
 sudo add-apt-repository universe -y
 sudo add-apt-repository multiverse -y
 sudo add-apt-repository restricted -y
-sudo add-apt-repository ppa:neovim-ppa/unstable -y
-sudo add-apt-repository ppa:zhangsongcui3371/fastfetch -y
+sudo add-apt-repository ppa:bkryza/clang-uml -y
+sudo add-apt-repository ppa:fdroid/fdroidserver -y
 sudo add-apt-repository ppa:libreoffice/ppa -y
+sudo add-apt-repository ppa:neovim-ppa/unstable -y
+sudo add-apt-repository ppa:obsproject/obs-studio -y
+sudo add-apt-repository ppa:zhangsongcui3371/fastfetch -y
 bash <<'EOF'
 set -e
 f=/etc/apt/sources.list.d/ubuntu.sources
@@ -123,7 +126,7 @@ echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
 sudo apt upgrade -y
 sudo apt install aisleriot alsa-utils apksigner apt-transport-https aptitude autoconf automake bash bc bear bison build-essential bzip2 ca-certificates clang clang-format cmake command-not-found curl dbus default-jdk dnsutils dvipng dvisvgm fastfetch ffmpeg file flex g++ gcc gdb gfortran gh ghc ghostscript git glab gnupg golang gperf gpg grep gtkwave gzip info imagemagick inkscape iproute2 iverilog iverilog jpegoptim jq libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libheif-examples libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm make maven mc nano ncompress neovim ngspice ninja-build openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc perl-tk pipx plantuml poppler-utils procps pv python-is-python3 python3-all-dev python3-neovim python3-pip python3-venv qtbase5-dev qtbase5-dev-tools rust-all sqlite3 sudo tar tk-dev tmux tree unrar unzip uuid-dev uuid-runtime valgrind verilator vim webp wget wget2 x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh zstd -y
-sudo apt install aria2 clinfo codeblocks* fcitx5 fcitx5-* flatpak libreoffice ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk qbittorrent testdisk torbrowser-launcher update-manager-core vim-gtk3 wl-clipboard -y
+sudo apt install aria2 clang-uml clinfo codeblocks* fcitx5 fcitx5-* fdroidserver flatpak libreoffice obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk qbittorrent testdisk torbrowser-launcher update-manager-core vim-gtk3 wl-clipboard -y
 sudo mkdir -p /usr/share/codeblocks/docs
 im-config -n fcitx5
 cat > ~/.xprofile <<'EOF'
@@ -249,9 +252,6 @@ curl -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.tailscale-
 sudo apt update
 sudo apt install tailscale -y
 sudo systemctl enable tailscaled
-sudo add-apt-repository ppa:fdroid/fdroidserver -y
-sudo apt update
-sudo apt install fdroidserver -y
 curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg
 echo "Types: deb
 URIs: https://packages.microsoft.com/repos/code
@@ -281,15 +281,13 @@ sudo apt update
 sudo apt install tor deb.torproject.org-keyring -y
 sudo wget -O /usr/local/java/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
 sudo wget -O /usr/local/java/plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
-sudo add-apt-repository ppa:bkryza/clang-uml -y
-sudo apt update
-sudo apt install clang-uml -y
 sudo apt install postgresql-common -y
 sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
 sudo apt install postgresql-17 -y
-sudo add-apt-repository ppa:obsproject/obs-studio -y
-sudo apt update
-sudo apt install obs-studio -y
+sudo mkdir -p /var/log/postgresql
+sudo chown -R postgres:postgres /var/log/postgresql
+sudo chmod 755 /var/log/postgresql
+sudo chmod 640 /var/log/postgresql/*
 wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash
 wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
 sudo apt install ./steam.deb -y

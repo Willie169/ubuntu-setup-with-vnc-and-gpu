@@ -287,7 +287,7 @@ sudo apt install postgresql-17 -y
 sudo mkdir -p /var/log/postgresql
 sudo chown -R postgres:postgres /var/log/postgresql
 sudo chmod 755 /var/log/postgresql
-sudo chmod 640 /var/log/postgresql/*
+sudo chmod 640 /var/log/postgresql/* 2>/dev/null || true
 wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash
 wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
 sudo apt install ./steam.deb -y

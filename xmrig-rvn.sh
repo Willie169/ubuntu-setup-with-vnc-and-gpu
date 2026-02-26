@@ -8,4 +8,4 @@ EOF
 tor -f .tor/torrc &
 TORPID=$!
 trap 'kill $TORPID; rm -r ~/xmrig/build/.tor' EXIT
-./xmrig -a kawpow -o rvn.2miners.com:6060 -u RCo4QqzEnEtEVv749TJfNz293p2xVVhXFx -p x -k -x 127.0.0.1:9054
+./xmrig -a kawpow -o rvn.2miners.com:6060 -u RCo4QqzEnEtEVv749TJfNz293p2xVVhXFx -p x -k -x 127.0.0.1:9054 --opencl --opencl-platform=0

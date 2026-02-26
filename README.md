@@ -56,7 +56,8 @@ See [Waydroid](#waydroid) section for what to do after running this script and m
 ### [`xmrig-install.sh`](xmrig-install.sh) and [`xmrig.sh`](xmrig.sh)
 
 - [`xmrig-install.sh`](xmrig-install.sh): Install **xmrig**, an open source, cross-platform RandomX, KawPow, CryptoNight and GhostRider CPU/GPU miner, RandomX benchmark, and stratum proxy.
-- [`xmrig-xmr.sh`](xmrig-xmr.sh): Mines XMR to [the repository owner](https://github.com/Willie169)'s wallet, `48j6iQDeCSDeH46gw4dPJnMsa6TQzPa6WJaYbBS9JJucKqg9Mkt5EDe9nSkES3b8u7V6XJfL8neAPAtbEpmV2f4XC7bdbkv`, using [xmrig](https://github.com/xmrig/xmrig) and through Tor.
+- [`xmrig-xmr.sh`](xmrig-xmr.sh): Mines XMR to [the repository owner](https://github.com/Willie169)'s wallet, `48j6iQDeCSDeH46gw4dPJnMsa6TQzPa6WJaYbBS9JJucKqg9Mkt5EDe9nSkES3b8u7V6XJfL8neAPAtbEpmV2f4XC7bdbkv`, using [xmrig](https://github.com/xmrig/xmrig) and through Tor. Change the wallet address and other configurations if you want.
+- [`xmrig-rvn.sh`](xmrig-rvn.sh): Mines RVN to [the repository owner](https://github.com/Willie169)'s wallet, `RCo4QqzEnEtEVv749TJfNz293p2xVVhXFx`, using [xmrig](https://github.com/xmrig/xmrig) and through Tor. Change the wallet address and other configurations if you want.
 
 ## Instructions
 

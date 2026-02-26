@@ -1,4 +1,6 @@
+sudo -v
 cd ~/xmrig/build
+if ! ss -ltnp 2>/dev/null | grep -q ':9054.*tor' && [ ! -d .tor ]; then
 rm -r .tor 2>/dev/null || true
 mkdir .tor
 cat > .tor/torrc <<'EOF'
@@ -8,4 +10,6 @@ EOF
 tor -f .tor/torrc &
 TORPID=$!
 trap 'kill $TORPID; rm -r ~/xmrig/build/.tor' EXIT
-./xmrig -o pool.supportxmr.com:3333 -u 48j6iQDeCSDeH46gw4dPJnMsa6TQzPa6WJaYbBS9JJucKqg9Mkt5EDe9nSkES3b8u7V6XJfL8neAPAtbEpmV2f4XC7bdbkv -k -x 127.0.0.1:9054 -t $(nproc) --cpu-priority=0
+fi
+sudo ./xmrig -o pool.supportxmr.com:3333 -u 48j6iQDeCSDeH46gw4dPJnMsa6TQzPa6WJaYbBS9JJucKqg9Mkt5EDe9nSkES3b8u7V6XJfL8neAPAtbEpmV2f4XC7bdbkv -k -x 127.0.0.1:9054 -t $(nproc) --cpu-priority=0
+if [ "$(ss -ltnp | grep 9054 | grep tor)" == "" ] && ![ -d .tor ]; then

@@ -104,6 +104,8 @@ echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -c
 sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
 sudo apparmor_parser -R /etc/apparmor.d/firefox
 sudo rm /var/lib/snapd/desktop/applications/firefox*.desktop 2>/dev/null || true
+sudo rm /var/lib/snapd/inhibit/firefox.lock 2>/dev/null || true
+rm -r snap/firefox 2>/dev/null || true
 sudo rm /var/lib/snapd/desktop/applications/thunderbird*.desktop 2>/dev/null || true
 fi
 if grep -q '^NAME="Linux Mint"' /etc/os-release; then

@@ -18,15 +18,23 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 <ol>
 <li>Run <a href="install-tools-first.sh"><code>install-tools-first.sh</code></a> and follow the prompts until it reboot automatically.</li>
 <li>Login and run <a href="install-tools-second.sh"><code>install-tools-second.sh</code></a> until it exits automatically.</li>
-<li>You can list installed Snap packages with <code>snap list</code>. You may want to cleanup remaining Snap packages that you don&#39;t need or are already installed from other sources in previous scripts, for example, for Kubuntu 24.04.3 Full Installation, <code>snap remove element-desktop ffmpeg-2204 firmware-updater krita gnome-42-2204 gnome-46-2404 gtk-common-themes kf5-core22 mesa-2404</code>.</li>
+<li>You can list installed Snap packages with <code>snap list</code>. You may want to cleanup remaining Snap packages that you don&#39;t need or are already installed from other sources in previous scripts, e.g., 
+<pre><code>snap remove element-desktop ffmpeg-2204 firmware-updater krita gnome-42-2204 gnome-46-2404 gtk-common-themes kf5-core22 mesa-2404</code></pre>
+</li>
 <li>Snap Firefox and Thunderbird are replaced with Deb Firefox and Thunderbird from Mozilla Team PPA, and thus you may want to re-configure launchers in your Desktop Environment.</li>
 <li>If any error occurs when opening Firefox, try running:
 <pre><code>sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
 sudo apparmor_parser -R /etc/apparmor.d/firefox
 </code></pre>
 to disable Firefox AppArmor profile.</li>
-<li>Run <code>sudo tailscale up</code> and to login to Tailscale via the URL shown and click <strong>Connect</strong>. Google, Microsoft, GitHub, Apple, and passkey are available.</li>
-<li>Run <code>gh auth login --scopes repo,read:org,admin:org,workflow,gist,notifications,delete_repo,write:packages,read:packages</code> to login to GitHub.</li>
+<li>Run
+<pre><code>sudo tailscale up
+</code></pre>
+to login to Tailscale via the URL shown and click <strong>Connect</strong>. Google, Microsoft, GitHub, Apple, and passkey are available.</li>
+<li>Run
+<pre><code>gh auth login --scopes repo,read:org,admin:org,workflow,gist,notifications,delete_repo,write:packages,read:packages
+</code></pre>
+to login to GitHub.</li>
 <li>You may want to config git with <code>git config --global user.name [your_name] &amp;&amp; git config --global user.email [your_email]</code>, <code>git config --global pull.rebase true</code> etc.</li>
 <li>Run <code>code</code> or click the <strong>Visual Studio Code</strong> icon to setup Visual Studio Code.</li>
 <li>Run <code>codeblocks</code> or click the <strong>Code::Blocks IDE</strong> icon to setup Code::Blocks.</li>
@@ -34,9 +42,16 @@ to disable Firefox AppArmor profile.</li>
 <li>Run <code>torbrowser-launcher</code> or click the <strong>Tor Browser</strong> icon to finish installing Tor Browser.</li>
 <li>Run <code>steam</code> to finish installing Steam. Running twice may be required.</li>
 <li>Run <code>enteauth</code> to setup Ente Auth.</li>
-<li>You can add LizzieYzy to desktop by running <code>cp ~/.local/share/applications/lizzieyzy.desktop ~/Desktop/lizzieyzy.desktop &amp;&amp; chmod +x ~/Desktop/lizzieyzy.desktop</code>.</li>
-<li>You can add Cute Chess to desktop by running <code>cp ~/.local/share/applications/cutechess.desktop ~/Desktop/cutechess.desktop &amp;&amp; chmod +x ~/Desktop/cutechess.desktop</code>.</li>
-<li>You can add Sylvan to desktop by running <code>cp ~/.local/share/applications/sylvan.desktop ~/Desktop/sylvan.desktop &amp;&amp; chmod +x ~/Desktop/sylvan.desktop</code>.</li>
+<li>You can add LizzieYzy to desktop by running
+<pre><code>cp ~/.local/share/applications/lizzieyzy.desktop ~/Desktop/lizzieyzy.desktop &amp;&amp; chmod +x ~/Desktop/lizzieyzy.desktop
+</code></pre>
+</li>
+<li>You can add Cute Chess to desktop by running
+<pre><code>cp ~/.local/share/applications/cutechess.desktop ~/Desktop/cutechess.desktop &amp;&amp; chmod +x ~/Desktop/cutechess.desktop</code></pre>
+</li>
+<li>You can add Sylvan to desktop by running
+<pre><code>cp ~/.local/share/applications/sylvan.desktop ~/Desktop/sylvan.desktop &amp;&amp; chmod +x ~/Desktop/sylvan.desktop</code></pre>
+</li>
 <li>You may want to pull some Ollama models, e.g., <code>ollama pull deepseek-coder-v2:16b</code> (8.9 GB), <code>ollama pull llama3.2:3b</code> (2.0 GB), <code>ollama pull qwen3:4b</code> (2.5 GB), <code>ollama pull nomic-embed-text:latest</code> (274 MB).</li>
 <li>Go to <a href="#other-scripts">Other Scripts</a> section for other scripts in this repository.</li>
 <li>Go to <a href="#instructions">Instructions</a> section for instructions.</li>

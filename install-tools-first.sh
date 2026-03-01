@@ -10,7 +10,7 @@ sudo grep -q '^HandleLidSwitchDocked=' "/etc/systemd/logind.conf" || echo 'Handl
 sudo grep -q '^HandleLidSwitchExternalPower=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchExternalPower=ignore' | sudo tee -a "/etc/systemd/logind.conf" > /dev/null
 for file in "/etc/grub.d/30_os-prober" "/etc/default/grub.d/30_os-prober"; do
   if [[ -f "$file" ]]; then
-    if sudo grep -q '^quick_boot=' "$file"; then
+    if grep -q '^quick_boot=' "$file"; then
       sudo sed -i 's/^quick_boot=.*/quick_boot="0"/' "$file"
     else
       echo 'quick_boot="0"' | sudo tee -a "$file"

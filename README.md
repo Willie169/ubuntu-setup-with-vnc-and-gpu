@@ -19,7 +19,8 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 <li>Run <a href="install-tools-first.sh"><code>install-tools-first.sh</code></a> and follow the prompts until it reboot automatically.</li>
 <li>Login and run <a href="install-tools-second.sh"><code>install-tools-second.sh</code></a> until it exits automatically.</li>
 <li>You can list installed Snap packages with <code>snap list</code>. You may want to cleanup remaining Snap packages that you don&#39;t need or are already installed from other sources in previous scripts, for example, for Kubuntu 24.04.3 Full Installation, <code>snap remove element-desktop ffmpeg-2204 firmware-updater krita gnome-42-2204 gnome-46-2404 gtk-common-themes kf5-core22 mesa-2404</code>.</li>
-<li>Snap Firefox and Thunderbird are replaced with Deb Firefox and Thunderbird from Mozilla Team PPA, and thus you may want to configure launchers in your Desktop Environment. If any error occurs when opening Firefox, try running:
+<li>Snap Firefox and Thunderbird are replaced with Deb Firefox and Thunderbird from Mozilla Team PPA, and thus you may want to re-configure launchers in your Desktop Environment.</li>
+<li>If any error occurs when opening Firefox, try running:
 <pre><code>sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
 sudo apparmor_parser -R /etc/apparmor.d/firefox
 </code></pre>

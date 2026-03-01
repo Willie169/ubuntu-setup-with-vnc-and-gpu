@@ -8,32 +8,38 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 
 * Sufficient storage: (calculated on Kubuntu 24.04.3)
   * Kubuntu 24.04.3 Full Installation: approximately 11.2 GB,
-  * Plus [`install-tools-first.sh`](install-tools-first.sh): approximately 63.6 GB.
-  * Plus [`install-tools-second.sh`](install-tools-second.sh): approximately  GB.
+  * Kubuntu 24.04.3 Full Installation plus [`install-tools-first.sh`](install-tools-first.sh): approximately 63.6 GB.
+  * [`install-tools-second.sh`](install-tools-second.sh): approximately  GB.
 * Sufficient power supply.
 * Stable internet connection.
 
 ### Usage 
 
-1. Run [`install-tools-first.sh`](install-tools-first.sh) and follow the prompts until it reboot automatically.
-2. Login and run [`install-tools-second.sh`](install-tools-second.sh) until it exits automatically.
-2. You can list installed Snap packages with `snap list`. You may want to cleanup remaining Snap packages that you don't need or are already installed from other sources in previous scripts, for example, for Kubuntu 24.04.3 Full Installation, `snap remove element-desktop ffmpeg-2204 firmware-updater krita gnome-42-2204 gnome-46-2404 gtk-common-themes kf5-core22 mesa-2404`.
-2. Snap Firefox and Thunderbird are replaced with Deb Firefox and Thunderbird from Mozilla Team PPA, and thus you may want to configure launchers in your Desktop Environment.
-2. Run `sudo tailscale up` and to login to Tailscale via the URL shown and click **Connect**. Google, Microsoft, GitHub, Apple, and passkey are available.
-2. Run `gh auth login --scopes repo,read:org,admin:org,workflow,gist,notifications,delete_repo,write:packages,read:packages` to login to GitHub.
-2. You may want to config git with `git config --global user.name [your_name] && git config --global user.email [your_email]`, `git config --global pull.rebase true` etc.
-2. Run `code` or click the **Visual Studio Code** icon to setup Visual Studio Code.
-2. Run `codeblocks` or click the **Code::Blocks IDE** icon to setup Code::Blocks.
-2. Run `studio` or click the **Android Studio** icon to setup Android Studio. `"system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"` installation in [`install-tools-first.sh`](install-tools-first.sh) may fail silently due to network issue, you can download it again via `sdkmanager "system-images;android-33;google_apis_playstore;x86_64" "system-images;android-36.1;google_apis_playstore;x86_64"` or Android Studio GUI.
-2. Run `torbrowser-launcher` or click the **Tor Browser** icon to finish installing Tor Browser.
-2. Run `steam` to finish installing Steam. Running twice may be required.
-2. Run `enteauth` to setup Ente Auth.
-2. You can add LizzieYzy to desktop by running `cp ~/.local/share/applications/lizzieyzy.desktop ~/Desktop/lizzieyzy.desktop && chmod +x ~/Desktop/lizzieyzy.desktop`.
-2. You can add Cute Chess to desktop by running `cp ~/.local/share/applications/cutechess.desktop ~/Desktop/cutechess.desktop && chmod +x ~/Desktop/cutechess.desktop`.
-2. You can add Sylvan to desktop by running `cp ~/.local/share/applications/sylvan.desktop ~/Desktop/sylvan.desktop && chmod +x ~/Desktop/sylvan.desktop`.
-2. You may want to pull some Ollama models, e.g., `ollama pull deepseek-coder-v2:16b` (8.9 GB), `ollama pull llama3.2:3b` (2.0 GB), `ollama pull qwen3:4b` (2.5 GB), `ollama pull nomic-embed-text:latest` (274 MB).
-2. Go to [Other Scripts](#other-scripts) section for other scripts in this repository.
-2. Go to [Instructions](#instructions) section for instructions.
+<ol>
+<li>Run <a href="install-tools-first.sh"><code>install-tools-first.sh</code></a> and follow the prompts until it reboot automatically.</li>
+<li>Login and run <a href="install-tools-second.sh"><code>install-tools-second.sh</code></a> until it exits automatically.</li>
+<li>You can list installed Snap packages with <code>snap list</code>. You may want to cleanup remaining Snap packages that you don&#39;t need or are already installed from other sources in previous scripts, for example, for Kubuntu 24.04.3 Full Installation, <code>snap remove element-desktop ffmpeg-2204 firmware-updater krita gnome-42-2204 gnome-46-2404 gtk-common-themes kf5-core22 mesa-2404</code>.</li>
+<li>Snap Firefox and Thunderbird are replaced with Deb Firefox and Thunderbird from Mozilla Team PPA, and thus you may want to configure launchers in your Desktop Environment. If any error occurs when opening Firefox, try running:
+<pre><code>sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
+sudo apparmor_parser -R /etc/apparmor.d/firefox
+</code></pre>
+to disable Firefox AppArmor profile.</li>
+<li>Run <code>sudo tailscale up</code> and to login to Tailscale via the URL shown and click <strong>Connect</strong>. Google, Microsoft, GitHub, Apple, and passkey are available.</li>
+<li>Run <code>gh auth login --scopes repo,read:org,admin:org,workflow,gist,notifications,delete_repo,write:packages,read:packages</code> to login to GitHub.</li>
+<li>You may want to config git with <code>git config --global user.name [your_name] &amp;&amp; git config --global user.email [your_email]</code>, <code>git config --global pull.rebase true</code> etc.</li>
+<li>Run <code>code</code> or click the <strong>Visual Studio Code</strong> icon to setup Visual Studio Code.</li>
+<li>Run <code>codeblocks</code> or click the <strong>Code::Blocks IDE</strong> icon to setup Code::Blocks.</li>
+<li>Run <code>studio</code> or click the <strong>Android Studio</strong> icon to setup Android Studio. <code>&quot;system-images;android-33;google_apis_playstore;x86_64&quot; &quot;system-images;android-36.1;google_apis_playstore;x86_64&quot;</code> installation in <a href="install-tools-first.sh"><code>install-tools-first.sh</code></a> may fail silently due to network issue, you can download it again via <code>sdkmanager &quot;system-images;android-33;google_apis_playstore;x86_64&quot; &quot;system-images;android-36.1;google_apis_playstore;x86_64&quot;</code> or Android Studio GUI.</li>
+<li>Run <code>torbrowser-launcher</code> or click the <strong>Tor Browser</strong> icon to finish installing Tor Browser.</li>
+<li>Run <code>steam</code> to finish installing Steam. Running twice may be required.</li>
+<li>Run <code>enteauth</code> to setup Ente Auth.</li>
+<li>You can add LizzieYzy to desktop by running <code>cp ~/.local/share/applications/lizzieyzy.desktop ~/Desktop/lizzieyzy.desktop &amp;&amp; chmod +x ~/Desktop/lizzieyzy.desktop</code>.</li>
+<li>You can add Cute Chess to desktop by running <code>cp ~/.local/share/applications/cutechess.desktop ~/Desktop/cutechess.desktop &amp;&amp; chmod +x ~/Desktop/cutechess.desktop</code>.</li>
+<li>You can add Sylvan to desktop by running <code>cp ~/.local/share/applications/sylvan.desktop ~/Desktop/sylvan.desktop &amp;&amp; chmod +x ~/Desktop/sylvan.desktop</code>.</li>
+<li>You may want to pull some Ollama models, e.g., <code>ollama pull deepseek-coder-v2:16b</code> (8.9 GB), <code>ollama pull llama3.2:3b</code> (2.0 GB), <code>ollama pull qwen3:4b</code> (2.5 GB), <code>ollama pull nomic-embed-text:latest</code> (274 MB).</li>
+<li>Go to <a href="#other-scripts">Other Scripts</a> section for other scripts in this repository.</li>
+<li>Go to <a href="#instructions">Instructions</a> section for instructions.</li>
+</ol>
 
 ### Content of Main Installation Scripts
 

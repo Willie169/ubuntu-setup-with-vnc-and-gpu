@@ -336,12 +336,12 @@ rm ente-auth-v*-x86_64.deb
 wget -O discord.deb 'https://discord.com/api/download?platform=linux&format=deb'
 sudo apt install ./discord.deb
 rm discord.deb
-wget https://proton.me/download/mail/linux/1.11.0/ProtonMail-desktop-beta.deb
+wget https://proton.me/download/mail/linux/1.12.1/ProtonMail-desktop-beta.deb
 sudo apt install ./ProtonMail-desktop-beta.deb -y
 rm ProtonMail-desktop-beta.deb
 wget https://proton.me/download/bridge/protonmail-bridge_3.21.2-1_amd64.deb
-sudo apt install ./protonmail-bridge_3.21.2-1_amd64.deb -y
-rm protonmail-bridge_3.21.2-1_amd64.deb
+sudo apt install ./protonmail-bridge_*_amd64.deb -y
+rm protonmail-bridge_*_amd64.deb
 wget http://archive.ubuntu.com/ubuntu/pool/universe/g/gdk-pixbuf-xlib/libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb
 sudo apt install ./libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb -y
 rm libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb
@@ -430,9 +430,7 @@ Categories=Game;
 EOF
 update_sylvan_config
 curl -fsSL https://ollama.com/install.sh | sh
-sudo systemctl daemon-reexec
-sudo systemctl daemon-reload
-mkdir .open-notebook
+mkdir ~/.open-notebook
 cat > ~/.open-notebook/docker-compose.yml<<EOF
 services:
   surrealdb:

@@ -269,12 +269,6 @@ sudo apt install ./packages-microsoft-prod.deb -y
 rm packages-microsoft-prod.deb
 sudo apt update
 sudo apt install dotnet-sdk-10.0 aspnetcore-runtime-10.0 -y
-mkdir ~/.local/godot
-wget -O Godot_v4.5.1-stable_mono_linux_x86_64.zip 'https://downloads.godotengine.org/?version=4.5.1&flavor=stable&slug=mono_linux_x86_64.zip&platform=linux.64'
-unzip Godot_v4.5.1-stable_mono_linux_x86_64.zip
-rm Godot_v4.5.1-stable_mono_linux_x86_64.zip
-mv ~/Godot_v4.5.1-stable_mono_linux_x86_64 ~/.local/godot/
-ln -s ~/.local/godot/Godot_v4.5.1-stable_mono_linux_x86_64/Godot_v4.5.1-stable_mono_linux.x86_64 ~/.local/bin/godot
 wget -O- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | sudo tee /usr/share/keyrings/deb.torproject.org-keyring.gpg >/dev/null
 sudo tee /etc/apt/sources.list.d/tor.list > /dev/null <<EOF
 deb [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
@@ -295,9 +289,16 @@ wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_
 wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
 sudo apt install ./steam.deb -y
 rm steam.deb
-wget https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2025.2.2.8/android-studio-2025.2.2.8-linux.tar.gz
-sudo tar -xzf android-studio-2025.2.2.8-linux.tar.gz -C /opt/
-rm android-studio-2025.2.2.8-linux.tar.gz
+cd ~/.local
+gh_latest -A -C godotengine/godot Godot_*-stable_mono_linux_x86_64.zip
+unzip Godot_*-stable_mono_linux_x86_64.zip
+rm Godot_*-stable_mono_linux_x86_64.zip
+mv Godot_*-stable_mono_linux_x86_64 godot
+ln -s ~/.local/godot/Godot_*-stable_mono_linux.x86_64 ~/.local/bin/godot
+cd ~
+wget https://edgedl.me.gvt1.com/android/studio/ide-zips/2025.3.1.8/android-studio-panda1-patch1-linux.tar.gz
+sudo tar -xzf android-studio-panda1-patch1-linux.tar.gz -C /opt/
+rm android-studio-panda1-patch1-linux.tar.gz
 echo '[Desktop Entry]
 Version=1.0
 Type=Application
@@ -310,9 +311,9 @@ Categories=Development;IDE;
 StartupNotify=true
 StartupWMClass=android-studio' | sudo tee /usr/share/applications/android-studio.desktop > /dev/null
 sudo chmod 644 /usr/share/applications/android-studio.desktop
-wget https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip
-unzip commandlinetools-linux-13114758_latest.zip
-rm commandlinetools-linux-13114758_latest.zip
+wget https://dl.google.com/android/repository/commandlinetools-linux-14742923_latest.zip
+unzip commandlinetools-linux-14742923_latest.zip
+rm commandlinetools-linux-14742923_latest.zip
 mkdir Android
 cd Android
 mkdir Sdk

@@ -64,9 +64,9 @@ Configures dual-boot friendly configurations, installs recommended drivers and t
 
 ### [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh)
 
-Installs VirtualGL and TurboVNC on Ubuntu derivatives on AMD 64, compatible with NVIDIA GPU.
+Installs VirtualGL and TurboVNC on Debian derivatives on AMD 64, compatible with NVIDIA GPU.
 
-You may want to use TigerVNC instead if your computer does not have a discrete GPU. See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for what to do after running this script and more information.
+See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for what to do after running this script and more information.
 
 ### [`waydroid.sh`](waydroid.sh)
 

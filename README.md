@@ -78,7 +78,13 @@ See [Waydroid](#waydroid) section for what to do after running this script and m
 
 ### [`cuda.sh`](cuda.sh)
 
-Installs NVIDIA drivers, NVIDIA Wayland, and CUDA Toolkit on Ubuntu 24.04 with Nvidia GPU. Typically requires about 6.4 GB storage.
+Installs NVIDIA drivers, NVIDIA Wayland, and CUDA Toolkit on Ubuntu 24.04 with Nvidia GPU. Requires about 8 GB storage.
+
+Restart your computer after running the script and then test with:
+```
+nvidia-smi
+nvcc --version
+```
 
 ### [`xmrig-install.sh`](xmrig-install.sh) and [`xmrig.sh`](xmrig.sh)
 

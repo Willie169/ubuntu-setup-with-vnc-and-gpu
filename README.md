@@ -8,7 +8,7 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 
 * Sufficient storage: (calculated on Kubuntu 24.04.3)
   * Kubuntu 24.04.3 Full Installation: approximately 11.2 GB,
-  * Kubuntu 24.04.3 Full Installation plus [`install-tools-first.sh`](install-tools-first.sh): approximately 63.6 GB.
+  * Kubuntu 24.04.3 Full Installation plus [`install-tools-first.sh`](install-tools-first.sh): approximately 64.9 GB.
   * [`install-tools-second.sh`](install-tools-second.sh): approximately 12.5 GB.
 * Sufficient power supply.
 * Stable internet connection.
@@ -70,7 +70,7 @@ See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for what to do aft
 
 ### [`waydroid.sh`](waydroid.sh)
 
-Installs Waydroid on Ubuntu derivatives on AMD 64.
+Installs Waydroid on Debian derivatives on AMD 64.
 
 See [Waydroid](#waydroid) section for what to do after running this script and more information.
 

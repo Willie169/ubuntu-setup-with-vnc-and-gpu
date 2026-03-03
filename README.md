@@ -64,9 +64,9 @@ Configures dual-boot friendly configurations, installs recommended drivers and t
 
 ### [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh)
 
-Installs VirtualGL and TurboVNC on Debian derivatives on AMD 64, compatible with NVIDIA GPU.
+Installs VirtualGL and TurboVNC on Debian derivatives on AMD 64, compatible with most GPU. Requires about 0.1 GB storage.
 
-See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for what to do after running this script and more information.
+See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for the necessary steps to do after running this script and more information.
 
 ### [`waydroid.sh`](waydroid.sh)
 
@@ -381,7 +381,7 @@ Its usage is the same as TurboVNC, refer to [VNC Server Usage](#vnc-server-usage
 #### Prerequisites
 
 <ol>
-<li>Run <a href="virtualgl-turbovnc.sh"><code>virtualgl-turbovnc.sh</code></a> first if you have not.</li>
+<li>Run <a href="virtualgl-turbovnc.sh"><code>virtualgl-turbovnc.sh</code></a> first if you have not. This requires about 0.1 GB storage.</li>
 <li>Add <code>export PATH="/opt/TurboVNC/bin:$PATH</code> in <code>~/.bashrc</code>. This has been done in <a href="install-tools-first.sh"><code>install-tools-first.sh</code></a>.</li>
 <li>Determine your Desktop Manager and GPU and follow the corresponding section below:
 <ul>

@@ -68,6 +68,8 @@ Installs VirtualGL and TurboVNC on Debian derivatives on AMD 64, compatible with
 
 See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for the necessary steps to do after running this script and more information.
 
+You may want to use TigerVNC instead if your computer does not have a GPU. See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for more information.
+
 ### [`waydroid.sh`](waydroid.sh)
 
 Installs Waydroid on Debian derivatives on AMD 64.
@@ -90,8 +92,8 @@ See [Waydroid](#waydroid) section for what to do after running this script and m
 + [Linux Mint Ubuntu Version Tweak](#linux-mint-ubuntu-version-tweak)
 + [Desktop App Launchers](#desktop-app-launchers)
 + [Fcitx5](#fcitx5)
-+ [Tailscale](#tailscale)
 + [OpenSSH](#openssh)
++ [Tailscale](#tailscale)
 + [VirtualGL and TurboVNC](#virtualgl-and-turbovnc)
 + [Waydroid](#waydroid)
 + [Solution for Closing Lip Overrides Power Off](#solution-for-closing-lip-overrides-power-off)
@@ -247,51 +249,6 @@ You can configure Fcitx5 input methods in `Fcitx Configuration`.
 1. It usually will automatically detect and setup Fcitx5 after running [`install-tools-first.sh`](install-tools-first.sh). If not, go to `System Settings` > `Input & Output` or `Keyboard` > `Virtual Keyboard`, then select `Fcitx5`.
 2. You can configure Fcitx5 input methods in `Input Method`, which can be launched by either right-clicking the keyboard icon at the bottom right corner of the `Task Manager` and clicking `Configure` or going to `System Settings` and searching `Input Method`.
 
-### Tailscale
-
-#### Install
-
-The script below has been included in [`install-tools-first.sh`](install-tools-first.sh).
-```
-curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
-curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
-sudo apt update
-sudo apt install tailscale -y
-```
-
-#### Log in
-
-```
-sudo tailscale up
-```
-
-Log in via the URL shown and click **Connect**. Google, Microsoft, GitHub, Apple, and passkey are available.
-
-#### Systemd
-
-```
-sudo systemctl enable tailscaled
-sudo systemctl start tailscaled
-```
-
-#### Tailscale IP
-
-Your tailscale ip will be
-
-```
-tailscale ip
-```
-
-You can connect to it from another device logged in with the same account.
-
-#### Tailscale in Android
-
-Tailscale (`com.tailscale.ipn`) can be installed from [F-Droid](https://f-droid.org/packages/com.tailscale.ipn) or [Google Play](https://play.google.com/store/apps/details?id=com.tailscale.ipn).
-
-You can view the devices logged in and their Tailscale IPs in the app.
-
-See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) repo for more information.
-
 ### OpenSSH Server
 
 #### Introduction
@@ -368,15 +325,52 @@ to permit password authentication. Password can be set by running `passwd`.
 
 SSH on [**Termux**](https://f-droid.org/packages/com.termux) is suggested if you do not have a client of your choice. See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) repo for more information.
 
+### Tailscale
+
+#### Install
+
+The script below has been included in [`install-tools-first.sh`](install-tools-first.sh).
+```
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
+sudo apt update
+sudo apt install tailscale -y
+```
+
+#### Log in
+
+```
+sudo tailscale up
+```
+
+Log in via the URL shown and click **Connect**. Google, Microsoft, GitHub, Apple, and passkey are available.
+
+#### Systemd
+
+```
+sudo systemctl enable tailscaled
+sudo systemctl start tailscaled
+```
+
+#### Tailscale IP
+
+Your tailscale ip will be
+
+```
+tailscale ip
+```
+
+You can connect to it from another device logged in with the same account.
+
+#### Tailscale in Android
+
+Tailscale (`com.tailscale.ipn`) can be installed from [F-Droid](https://f-droid.org/packages/com.tailscale.ipn) or [Google Play](https://play.google.com/store/apps/details?id=com.tailscale.ipn).
+
+You can view the devices logged in and their Tailscale IPs in the app.
+
+See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) repo for more information.
+
 ### VirtualGL and TurboVNC
-
-#### TigerVNC
-
-You may want to use TigerVNC instead if your computer does not have a discrete GPU. It can be installed via:
-```
-sudo apt install tigervnc-standalone-server -y
-```
-Its usage is the same as TurboVNC, refer to [VNC Server Usage](#vnc-server-usage) section for it.
 
 #### Prerequisites
 
@@ -390,6 +384,7 @@ Its usage is the same as TurboVNC, refer to [VNC Server Usage](#vnc-server-usage
 <li>Cinnamon, which Linux Mint usually uses, uses LightDM.</li>
 </ul>
 See <a href="#desktop-environment">Desktop Environment</a> section for more information.</li>
+<li>You may need a SSH server on your PC and client otherwhere. See [OpenSSH](#openssh) and [Tailscale](#tailscale) for more information.
 </ol>
 
 #### For GDM without NVIDIA GPU
@@ -454,6 +449,14 @@ sudo systemctl start lightdm
 </code></pre></li>
 <li>Login into your computer.</li>
 </ol>
+
+#### TigerVNC
+
+You may want to use TigerVNC instead if your computer does not have a GPU. It can be installed via:
+```
+sudo apt install tigervnc-standalone-server -y
+```
+Its usage is the same as TurboVNC, refer to [VNC Server Usage](#vnc-server-usage) section for it.
 
 #### VNC Server Usage
 

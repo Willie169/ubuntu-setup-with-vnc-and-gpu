@@ -172,6 +172,26 @@ curl -fsSL https://bun.com/install | bash
 pipx install uv notebook jupyterlab jupytext meson
 uv tool install --force --python python3.12 --with pip aider-chat@latest --with playwright
 uv tool run playwright install --with-deps chromium
+uv tool install --force --python python3.11 open-webui@latest
+mkdir -p ~/.config/systemd/user
+cat > ~/.config/systemd/user/open-webui.service <<EOF
+[Unit]
+Description=Open WebUI
+
+[Service]
+ExecStart=$HOME/.local/bin/open-webui serve
+Environment=DATA_DIR=$HOME/.open-webui
+Environment=OLLAMA_BASE_URL=http://127.0.0.1:11434
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target
+EOF
+systemctl --user daemon-reload
+systemctl --user enable open-webui
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
 bash Miniforge3-Linux-x86_64.sh -b -p ${HOME}/conda
 source .bashrc
@@ -254,6 +274,7 @@ curl -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.noarmor.gp
 curl -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.tailscale-keyring.list" | sudo tee /etc/apt/sources.list.d/tailscale.list
 sudo apt update
 sudo apt install tailscale -y
+sudo systemctl daemon-reload
 sudo systemctl enable tailscaled
 curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg
 echo "Types: deb

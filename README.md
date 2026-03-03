@@ -42,16 +42,6 @@ to login to GitHub.</li>
 <li>Run <code>torbrowser-launcher</code> or click the <strong>Tor Browser</strong> icon to finish installing Tor Browser.</li>
 <li>Run <code>steam</code> to finish installing Steam. Running twice may be required.</li>
 <li>Run <code>enteauth</code> to setup Ente Auth.</li>
-<li>You can add LizzieYzy to desktop by running
-<pre><code>cp ~/.local/share/applications/lizzieyzy.desktop ~/Desktop/lizzieyzy.desktop &amp;&amp; chmod +x ~/Desktop/lizzieyzy.desktop
-</code></pre>
-</li>
-<li>You can add Cute Chess to desktop by running
-<pre><code>cp ~/.local/share/applications/cutechess.desktop ~/Desktop/cutechess.desktop &amp;&amp; chmod +x ~/Desktop/cutechess.desktop</code></pre>
-</li>
-<li>You can add Sylvan to desktop by running
-<pre><code>cp ~/.local/share/applications/sylvan.desktop ~/Desktop/sylvan.desktop &amp;&amp; chmod +x ~/Desktop/sylvan.desktop</code></pre>
-</li>
 <li>Go to <a href="#other-scripts">Other Scripts</a> section for other scripts in this repository.</li>
 <li>Go to <a href="#instructions">Instructions</a> section for instructions.</li>
 </ol>
@@ -64,17 +54,13 @@ Configures dual-boot friendly configurations, installs recommended drivers and t
 
 ### [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh)
 
-Installs VirtualGL and TurboVNC on Debian derivatives on AMD 64, compatible with most GPU. Requires about 0.1 GB storage.
-
-See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for the necessary steps to do after running this script and more information.
+Installs VirtualGL and TurboVNC on Debian derivatives on AMD 64, compatible with most GPU. Requires about 0.1 GB storage. See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for the necessary steps to do after running this script and more information.
 
 You may want to use TigerVNC instead if your computer does not have a GPU. See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for more information.
 
 ### [`waydroid.sh`](waydroid.sh)
 
-Installs Waydroid on Debian derivatives on AMD 64.
-
-See [Waydroid](#waydroid) section for what to do after running this script and more information.
+Installs Waydroid on Debian derivatives on AMD 64. See [Waydroid](#waydroid) section for what to do after running this script and more information.
 
 ### [`cuda.sh`](cuda.sh)
 

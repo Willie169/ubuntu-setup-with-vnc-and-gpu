@@ -76,6 +76,10 @@ Installs Waydroid on Debian derivatives on AMD 64.
 
 See [Waydroid](#waydroid) section for what to do after running this script and more information.
 
+### [`cuda.sh`](cuda.sh)
+
+Installs recommended driver and CUDA Toolkit on Ubuntu 24.04 with Nvidia GPU. Excluding drivers since drivers are already installed in [`install-tools-first.sh`](install-tools-first.sh), it requires about 6.4 GB storage.
+
 ### [`xmrig-install.sh`](xmrig-install.sh) and [`xmrig.sh`](xmrig.sh)
 
 - [`xmrig-install.sh`](xmrig-install.sh): Builds my modified version of [XMRig](https://github.com/Willie169/xmrig), an open source, cross-platform RandomX, KawPow, CryptoNight and GhostRider CPU/GPU miner, RandomX benchmark, and stratum proxy.

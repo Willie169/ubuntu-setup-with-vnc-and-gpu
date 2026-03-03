@@ -203,6 +203,7 @@ conda config --add channels microsoft
 conda config --add channels defaults
 conda config --add channels conda-forge
 rm Miniforge3-Linux-x86_64.sh
+conda update -n base -c conda-forge conda -y
 sudo git clone --depth=1 https://github.com/Willie169/vimrc.git /opt/vim_runtime && sudo sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all
 mkdir -p ~/.config/nvim/lua/config
 mkdir -p ~/.config/nvim/lua/plugins

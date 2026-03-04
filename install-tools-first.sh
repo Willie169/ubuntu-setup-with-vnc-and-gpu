@@ -358,6 +358,10 @@ rm ente-auth-v*-x86_64.deb
 wget -O discord.deb 'https://discord.com/api/download?platform=linux&format=deb'
 sudo apt install ./discord.deb
 rm discord.deb
+sudo wget -O /usr/share/keyrings/element-io-archive-keyring.gpg https://packages.element.io/debian/element-io-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/element-io-archive-keyring.gpg] https://packages.element.io/debian/ default main" | sudo tee /etc/apt/sources.list.d/element-io.list
+sudo apt update
+sudo apt install element-desktop -y
 wget https://proton.me/download/mail/linux/1.12.1/ProtonMail-desktop-beta.deb
 sudo apt install ./ProtonMail-desktop-beta.deb -y
 rm ProtonMail-desktop-beta.deb

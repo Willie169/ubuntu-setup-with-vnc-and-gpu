@@ -88,6 +88,11 @@ sudo systemctl stop var-snap-firefox-common-*.mount 2>/dev/null || true
 sudo systemctl disable var-snap-firefox-common-*.mount 2>/dev/null || true
 sudo snap remove firefox 2>/dev/null || true
 sudo apt install firefox --allow-downgrades -y
+sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
+sudo apparmor_parser -R /etc/apparmor.d/firefox
+sudo rm /var/lib/snapd/desktop/applications/firefox*.desktop 2>/dev/null || true
+sudo rm /var/lib/snapd/inhibit/firefox.lock 2>/dev/null || true
+rm -r snap/firefox 2>/dev/null || true
 echo 'Package: thunderbird*
 Pin: release o=LP-PPA-mozillateam
 Pin-Priority: 1001
@@ -101,13 +106,8 @@ sudo systemctl stop var-snap-thunderbird-common-*.mount 2>/dev/null || true
 sudo systemctl disable var-snap-thunderbird-common-*.mount 2>/dev/null || true
 sudo snap remove thunderbird 2>/dev/null || true
 sudo apt install thunderbird --allow-downgrades -y
-echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
-sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
-sudo apparmor_parser -R /etc/apparmor.d/firefox
-sudo rm /var/lib/snapd/desktop/applications/firefox*.desktop 2>/dev/null || true
-sudo rm /var/lib/snapd/inhibit/firefox.lock 2>/dev/null || true
-rm -r snap/firefox 2>/dev/null || true
 sudo rm /var/lib/snapd/desktop/applications/thunderbird*.desktop 2>/dev/null || true
+echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
 fi
 if grep -q '^NAME="Linux Mint"' /etc/os-release; then
 sudo apt install chromium -y

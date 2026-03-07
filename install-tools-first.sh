@@ -487,8 +487,8 @@ services:
     restart: always
 EOF
 cd ~/.open-notebook
-sudo docker compose up -d
-sudo docker compose stop
+docker compose up -d
+docker compose stop
 cd ~
 curl -fsSL https://opencode.ai/install | bash
 curl -fsSL https://claude.ai/install.sh | bash

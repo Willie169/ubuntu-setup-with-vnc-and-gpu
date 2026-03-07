@@ -457,6 +457,12 @@ Categories=Game;
 EOF
 update_sylvan_config
 curl -fsSL https://ollama.com/install.sh | sh
+sudo env SYSTEMD_EDITOR=tee systemctl edit ollama <<EOF
+[Service]
+Environment="OLLAMA_HOST=0.0.0.0"
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart ollama
 mkdir ~/.open-notebook
 cat > ~/.open-notebook/docker-compose.yml<<EOF
 services:

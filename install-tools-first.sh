@@ -29,6 +29,7 @@ sudo add-apt-repository ppa:bkryza/clang-uml -y
 sudo add-apt-repository ppa:fdroid/fdroidserver -y
 sudo apt-add-repository ppa:flexiondotorg/quickemu -y
 sudo add-apt-repository ppa:libreoffice/ppa -y
+sudo add-apt-repository ppa:longsleep/golang-backports -y
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
 sudo add-apt-repository ppa:obsproject/obs-studio -y
 sudo add-apt-repository ppa:zhangsongcui3371/fastfetch -y
@@ -71,7 +72,6 @@ if [ -d "$HOME/.bashrc.d"  ];  then
 fi
 sudo mkdir -p /usr/local/go
 sudo mkdir -p /usr/local/java
-mkdir -p ~/.local
 mkdir -p ~/.local/bin
 mkdir -p ~/.local/share/applications
 mkdir -p ~/Desktop
@@ -132,7 +132,7 @@ echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
 sudo apt upgrade -y
-sudo apt install aisleriot alien alsa-utils apksigner apt-transport-https aptitude autoconf automake bash bc bear bison build-essential bzip2 ca-certificates clang clang-format cmake command-not-found curl dbus default-jdk dmg2img dnsutils dvipng dvisvgm fastfetch ffmpeg file flex g++ gcc gdb gfortran gh ghc ghostscript git glab gnupg golang gperf gpg grep gtkwave gzip info imagemagick inkscape iproute2 iverilog jpegoptim jq libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libguestfs-tools libheif-examples libhwloc-dev libhwloc-plugins libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libuv1t64 libuv1-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm make maven mc nano ncompress neovim netcat-openbsd ngspice ninja-build nmap openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc pcregrep perl perl-doc perl-tk pipx plantuml poppler-utils procps pv python-is-python3 python3-all-dev python3-neovim python3-pip python3-venv qtbase5-dev qtbase5-dev-tools rust-all socat sqlite3 sudo tar tk-dev tmux tree unrar unzip uuid-dev uuid-runtime valgrind verilator vim webp wget wget2 x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh zstd -y
+sudo apt install aisleriot alien alsa-utils apksigner apt-transport-https aptitude autoconf automake bash bc bear bison build-essential bzip2 ca-certificates clang clangd clang-format cmake command-not-found curl dbus default-jdk dmg2img dnsutils dvipng dvisvgm fastfetch ffmpeg file flex g++ gcc gdb gfortran gh ghc ghostscript git glab gnupg golang-go gopls gperf gpg grep gtkwave gzip info imagemagick inkscape iproute2 iverilog jpegoptim jq libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libguestfs-tools libheif-examples libhwloc-dev libhwloc-plugins libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libuv1t64 libuv1-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm make maven mc nano ncompress neovim netcat-openbsd ngspice ninja-build nmap openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc pcregrep perl perl-doc perl-tk pipx plantuml poppler-utils procps pv python-is-python3 python3-all-dev python3-neovim python3-pip python3-venv qtbase5-dev qtbase5-dev-tools rust-all socat sqlite3 sudo tar tk-dev tmux tree unrar unzip uuid-dev uuid-runtime valgrind verilator vim webp wget wget2 x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh zstd -y
 sudo apt install apparmor-utils aria2 bridge-utils clang-uml clinfo codeblocks* fcitx5 fcitx5-* fdroidserver flatpak libreoffice libvirt-daemon-system libvirt-clients msr-tools obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk podman qbittorrent qemu-system qemu-user-static quickemu quickgui snapd spice-vdagent testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wl-clipboard -y
 sudo mkdir -p /usr/share/codeblocks/docs
 im-config -n fcitx5
@@ -172,9 +172,9 @@ nvm install 24
 corepack enable yarn
 corepack enable pnpm
 npm install jsdom markdown-toc marked marked-gfm-heading-id node-html-markdown showdown
-npm install -g http-server @google/gemini-cli @openai/codex
+npm install -g bash-language-server http-server pyright tree-sitter-cli @google/gemini-cli @openai/codex
 curl -fsSL https://bun.com/install | bash
-pipx install uv notebook jupyterlab jupytext meson
+pipx install uv notebook jupyterlab jupytext meson pylatexenc
 uv tool install --force --python python3.12 --with pip aider-chat@latest --with playwright
 uv tool run playwright install --with-deps chromium
 uv tool install --force --python python3.11 open-webui@latest
@@ -255,22 +255,7 @@ require("lazy").setup({
   checker = { enabled = true },
 })
 EOF
-cat > ~/.config/nvim/lua/plugins/jupytext.lua <<'EOF'
-return {
-    {
-        'goerz/jupytext.nvim',
-        version = '0.2.0',
-        opts = {
-            jupytext = 'jupytext',
-            format = "auto",
-            update = true,
-            sync_patterns = { '*.md', '*.py', '*.jl', '*.R', '*.Rmd', '*.qmd' },
-            autosync = true,
-            handle_url_schemes = true,
-        }
-    }
-}
-EOF
+curl -fsSL https://raw.githubusercontent.com/Willie169/bashrc/main/nvim.sh | bash
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/trusted.gpg.d/docker.asc > /dev/null
 echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt update
@@ -389,6 +374,16 @@ cat > ~/.local/bin/arduino-ide <<'EOF'
 EOF
 chmod +x ~/.local/bin/arduino-ide
 echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
+gh_latest -A -C kristoff-it/superhtml x86_64-linux-musl.tar.xz
+tar -xJf x86_64-linux-musl.tar.xz
+rm x86_64-linux-musl.tar.xz
+mv superhtml ~/.local/bin
+mkdir eclipse.jdt.ls
+cd eclipse.jdt.ls
+wget 'https://www.eclipse.org/downloads/download.php?file=/jdtls/milestones/1.57.0/jdt-language-server-1.57.0-202602261110.tar.gz'
+tar -xzf 'download.php?file=%2Fjdtls%2Fmilestones%2F1.57.0%2Fjdt-language-server-1.57.0-202602261110.tar.gz'
+rm 'download.php?file=%2Fjdtls%2Fmilestones%2F1.57.0%2Fjdt-language-server-1.57.0-202602261110.tar.gz'
+cd ~
 git clone https://github.com/lightvector/KataGo.git
 cd KataGo/cpp
 if [ -n "$(clinfo -l | grep '#0')" ]; then

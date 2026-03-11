@@ -529,13 +529,13 @@ cd install-tl-*
 sudo perl install-tl --no-interaction
 cd ~
 rm -rf install-tl-*
-sudo /usr/local/texlive/2025/bin/x86_64-linux/tlmgr update --all --self --reinstall-forcibly-removed
+sudo /usr/local/texlive/2026/bin/x86_64-linux/tlmgr update --all --self --reinstall-forcibly-removed
 mkdir -p ~/.config/fontconfig/conf.d
 cat > ~/.config/fontconfig/conf.d/99-texlive.conf <<'EOF'
 <?xml version="1.0"?>
 <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
 <fontconfig>
-  <dir>/usr/local/texlive/2025/texmf-dist/fonts</dir>
+  <dir>/usr/local/texlive/2026/texmf-dist/fonts</dir>
 </fontconfig>
 EOF
 sudo mkdir -p /usr/share/fonts/opentype/xits

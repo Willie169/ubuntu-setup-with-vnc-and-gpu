@@ -35,8 +35,6 @@ sudo add-apt-repository ppa:obsproject/obs-studio -y
 sudo add-apt-repository ppa:zhangsongcui3371/fastfetch -y
 bash <<'EOF'
 set -e
-alias tcg='termux-clipboard-get'
-alias tcs='termux-clipboard-set'
 f=/etc/apt/sources.list.d/ubuntu.sources
 if [ -f "$f" ] && grep -q "^Types:.*deb" "$f"; then
   sudo sed -i 's/^Types: *deb.*/Types: deb deb-src/' "$f"

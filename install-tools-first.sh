@@ -18,6 +18,64 @@ for file in "/etc/grub.d/30_os-prober" "/etc/default/grub.d/30_os-prober"; do
   fi
 done
 sudo update-grub
+DM=$(basename "$(basename "$(readlink -f /etc/systemd/system/display-manager.service)" || true)" ".service" || true)
+USER_NAME=${SUDO_USER:-$(logname 2>/dev/null || true)}
+if [[ -n "$DM" ]] && [[ -n "$USER_NAME" ]]; then
+case "$DM" in
+gdm|gdm3)
+CONF="/etc/gdm/custom.conf"
+TMP=$(mktemp)
+if sudo test -f "$CONF"; then
+    sudo cat "$CONF" > "$TMP"
+fi
+sed -i '/AutomaticLoginEnable/d' "$TMP"
+sed -i '/AutomaticLogin=/d' "$TMP"
+if ! grep -q "^\[daemon\]" "$TMP"; then
+  printf "\n[daemon]\n" >> "$TMP"
+fi
+sed -i "/^\[daemon\]/a AutomaticLoginEnable=True\nAutomaticLogin=$USER_NAME" "$TMP"
+sudo tee "$CONF" < "$TMP" >/dev/null
+;;
+sddm)
+CONF="/etc/sddm.conf"
+TMP=$(mktemp)
+if sudo test -f "$CONF"; then
+  sudo cat "$CONF" > "$TMP"
+fi
+sed -i '/User=/d' "$TMP"
+if ! grep -q "^\[Autologin\]" "$TMP"; then
+  printf "\n[Autologin]\n" >> "$TMP"
+fi
+sed -i "/^\[Autologin\]/a User=$USER_NAME" "$TMP"
+sudo tee "$CONF" < "$TMP" >/dev/null
+;;
+lightdm)
+CONF="/etc/lightdm/lightdm.conf"
+TMP=$(mktemp)
+if sudo test -f "$CONF"; then
+  sudo cat "$CONF" > "$TMP"
+fi
+sed -i '/autologin-user=/d' "$TMP"
+sed -i '/autologin-user-timeout=/d' "$TMP"
+if ! grep -q "^\[Seat:\*\]" "$TMP"; then
+  printf "\n[Seat:*]\n" >> "$TMP"
+fi
+sed -i "/^\[Seat:\*\]/a autologin-user=$USER_NAME\nautologin-user-timeout=0" "$TMP"
+sudo tee "$CONF" < "$TMP" >/dev/null
+;;
+esac
+fi
+if dpkg -s kwalletmanager &>/dev/null; then
+  if [[ ! -f ~/.config/kwalletrc ]]; then
+    touch ~/.config/kwalletrc
+  else
+    sed -i '/Enabled=/d' ~/.config/kwalletrc
+  fi
+  if ! grep -q "^\[Wallet\]" ~/.config/kwalletrc; then
+    printf "\n[Wallet]\n" >> ~/.config/kwalletrc
+  fi
+  sed -i "/^\[Wallet\]/a Enabled=false" ~/.config/kwalletrc
+fi
 sudo timedatectl set-local-rtc 1
 sudo timedatectl set-ntp true
 sudo apt update

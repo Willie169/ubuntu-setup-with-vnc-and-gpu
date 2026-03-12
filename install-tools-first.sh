@@ -79,7 +79,7 @@ fi
 sudo timedatectl set-local-rtc 1
 sudo timedatectl set-ntp true
 sudo apt update
-sudo apt install software-properties-common -y
+sudo apt install software-properties-common -y </dev/null
 sudo add-apt-repository universe -y
 sudo add-apt-repository multiverse -y
 sudo add-apt-repository restricted -y
@@ -99,8 +99,8 @@ if [ -f "$f" ] && grep -q "^Types:.*deb" "$f"; then
 fi
 EOF
 sudo apt update
-sudo apt purge fcitx* texlive* -y
-sudo apt install wget -y
+sudo apt purge fcitx* texlive* -y </dev/null
+sudo apt install wget -y </dev/null
 rm -f .bashrc
 mkdir ~/.bashrc.d
 wget https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/00-env.sh -O ~/.bashrc.d/00-env.sh
@@ -145,7 +145,7 @@ sudo rm -f /etc/apparmor.d/local/usr.bin.firefox
 sudo systemctl stop var-snap-firefox-common-*.mount 2>/dev/null || true
 sudo systemctl disable var-snap-firefox-common-*.mount 2>/dev/null || true
 sudo snap remove firefox 2>/dev/null || true
-sudo apt install firefox --allow-downgrades -y
+sudo apt install firefox --allow-downgrades -y </dev/null
 sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
 sudo apparmor_parser -R /etc/apparmor.d/firefox
 sudo rm /var/lib/snapd/desktop/applications/firefox*.desktop 2>/dev/null || true
@@ -163,12 +163,12 @@ sudo rm -f /etc/apparmor.d/local/usr.bin.thunderbird
 sudo systemctl stop var-snap-thunderbird-common-*.mount 2>/dev/null || true
 sudo systemctl disable var-snap-thunderbird-common-*.mount 2>/dev/null || true
 sudo snap remove thunderbird 2>/dev/null || true
-sudo apt install thunderbird --allow-downgrades -y
+sudo apt install thunderbird --allow-downgrades -y </dev/null
 sudo rm /var/lib/snapd/desktop/applications/thunderbird*.desktop 2>/dev/null || true
 echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
 fi
 if grep -q '^NAME="Linux Mint"' /etc/os-release; then
-sudo apt install chromium -y
+sudo apt install chromium -y </dev/null
 else
 sudo add-apt-repository ppa:xtradeb/apps -y
 echo 'Package: chromium*
@@ -179,7 +179,7 @@ Package: chromium*
 Pin: release o=Ubuntu
 Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/chromium
 sudo apt update
-sudo apt install chromium chromium-driver chromium-l10n -y
+sudo apt install chromium chromium-driver chromium-l10n -y </dev/null
 fi
 echo y | sudo ubuntu-drivers install || true
 echo y | sudo ubuntu-drivers install || true
@@ -187,9 +187,9 @@ echo y | sudo ubuntu-drivers install || true
 echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
-sudo apt upgrade -y
-sudo apt install aisleriot alien alsa-utils apksigner apt-transport-https aptitude autoconf automake bash bc bear bison build-essential bzip2 caneda ca-certificates clang clangd clang-format cmake command-not-found curl dbus default-jdk dmg2img dnsutils dvipng dvisvgm fastfetch ffmpeg file flex g++ gcc gdb gfortran gh ghc ghostscript git glab gnupg golang-go gopls gperf gpg grep gtkwave gzip info imagemagick inkscape iproute2 iverilog jpegoptim jq libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libguestfs-tools libheif-examples libhwloc-dev libhwloc-plugins libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libuv1t64 libuv1-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm make maven mc nano ncompress neovim netcat-openbsd ngspice ninja-build nmap openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc pcregrep perl perl-doc perl-tk pipx plantuml poppler-utils procps pv python-is-python3 python3-all-dev python3-neovim python3-pip python3-venv qtbase5-dev qtbase5-dev-tools rust-all socat sqlite3 sudo tar tk-dev tmux tree unrar unzip uuid-dev uuid-runtime valgrind verilator vim webp wget wget2 x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh zstd -y
-sudo apt install apparmor-utils aria2 bridge-utils clang-uml clinfo codeblocks* fcitx5 fcitx5-* fdroidserver flatpak libreoffice libvirt-daemon-system libvirt-clients msr-tools obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk podman qbittorrent qemu-system qemu-user-static quickemu quickgui snapd spice-vdagent testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wl-clipboard -y
+sudo apt upgrade -y </dev/null
+sudo apt install aisleriot alien alsa-utils apksigner apt-transport-https aptitude autoconf automake bash bc bear bison build-essential bzip2 caneda ca-certificates clang clangd clang-format cmake command-not-found curl dbus default-jdk dmg2img dnsutils dvipng dvisvgm fastfetch ffmpeg file flex g++ gcc gdb gfortran gh ghc ghostscript git glab gnupg golang-go gopls gperf gpg grep gtkwave gzip info imagemagick inkscape iproute2 iverilog jpegoptim jq libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libguestfs-tools libheif-examples libhwloc-dev libhwloc-plugins libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libuv1t64 libuv1-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm make maven mc nano ncompress neovim netcat-openbsd ngspice ninja-build nmap openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc pcregrep perl perl-doc perl-tk pipx plantuml poppler-utils procps pv python-is-python3 python3-all-dev python3-neovim python3-pip python3-venv qtbase5-dev qtbase5-dev-tools rust-all socat sqlite3 sudo tar tk-dev tmux tree unrar unzip uuid-dev uuid-runtime valgrind verilator vim webp wget wget2 x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh zstd -y </dev/null
+sudo apt install apparmor-utils aria2 bridge-utils clang-uml clinfo codeblocks* fcitx5 fcitx5-* fdroidserver flatpak libreoffice libvirt-daemon-system libvirt-clients msr-tools obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk podman qbittorrent qemu-system qemu-user-static quickemu quickgui snapd spice-vdagent testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wl-clipboard -y </dev/null
 sudo mkdir -p /usr/share/codeblocks/docs
 im-config -n fcitx5
 cat > ~/.xprofile <<'EOF'
@@ -200,14 +200,14 @@ export INPUT_METHOD=fcitx
 EOF
 source ~/.xprofile
 if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || [ "$KDE_FULL_SESSION" = "true" ]; then
-  sudo apt install plasma-discover-backend-flatpak -y
+  sudo apt install plasma-discover-backend-flatpak -y </dev/null
 else
   mkdir -p ~/.config/autostart
   cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
   fcitx5 &
 fi
 wget -O sdl2_bgi_3.0.4-1_amd64.deb https://sourceforge.net/projects/sdl-bgi/files/sdl2_bgi_3.0.4-1_amd64.deb/download
-sudo apt install ./sdl2_bgi_3.0.4-1_amd64.deb -y
+sudo apt install ./sdl2_bgi_3.0.4-1_amd64.deb -y </dev/null
 rm sdl2_bgi_3.0.4-1_amd64.deb
 sudo sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
 sudo mkdir -p /run/sshd
@@ -219,7 +219,7 @@ sudo ufw allow ssh
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
 sudo apt update
-sudo apt install brave-browser -y
+sudo apt install brave-browser -y </dev/null
 PROFILE=/dev/null bash -c 'curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash'
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -315,12 +315,12 @@ curl -fsSL https://raw.githubusercontent.com/Willie169/bashrc/main/nvim.sh | bas
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/trusted.gpg.d/docker.asc > /dev/null
 echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt update
-sudo apt install docker-ce docker-ce-rootless-extras -y
+sudo apt install docker-ce docker-ce-rootless-extras -y </dev/null
 dockerd-rootless-setuptool.sh install
 curl -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.noarmor.gpg" | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
 curl -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.tailscale-keyring.list" | sudo tee /etc/apt/sources.list.d/tailscale.list
 sudo apt update
-sudo apt install tailscale -y
+sudo apt install tailscale -y </dev/null
 sudo systemctl daemon-reload
 sudo systemctl enable tailscaled
 curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg
@@ -331,31 +331,31 @@ Components: main
 Architectures: amd64
 Signed-By: /usr/share/keyrings/microsoft.gpg" | sudo tee /etc/apt/sources.list.d/vscode.sources > /dev/null
 sudo apt update
-sudo apt install code -y
+sudo apt install code -y </dev/null
 wget "https://packages.microsoft.com/config/ubuntu/$UBUNTU_VERSION_ID/packages-microsoft-prod.deb" -O packages-microsoft-prod.deb
-sudo apt install ./packages-microsoft-prod.deb -y
+sudo apt install ./packages-microsoft-prod.deb -y </dev/null
 rm packages-microsoft-prod.deb
 sudo apt update
-sudo apt install dotnet-sdk-10.0 aspnetcore-runtime-10.0 -y
+sudo apt install dotnet-sdk-10.0 aspnetcore-runtime-10.0 -y </dev/null
 wget -O- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | sudo tee /usr/share/keyrings/deb.torproject.org-keyring.gpg >/dev/null
 sudo tee /etc/apt/sources.list.d/tor.list > /dev/null <<EOF
 deb [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
 deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
 EOF
 sudo apt update
-sudo apt install tor deb.torproject.org-keyring -y
+sudo apt install tor deb.torproject.org-keyring -y </dev/null
 sudo wget -O /usr/local/java/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
 sudo wget -O /usr/local/java/plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
-sudo apt install postgresql-common -y
+sudo apt install postgresql-common -y </dev/null
 sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
-sudo apt install postgresql-17 -y
+sudo apt install postgresql-17 -y </dev/null
 sudo mkdir -p /var/log/postgresql
 sudo chown -R postgres:postgres /var/log/postgresql
 sudo chmod 755 /var/log/postgresql
 sudo chmod 640 /var/log/postgresql/* 2>/dev/null || true
 wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash
 wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
-sudo apt install ./steam.deb -y
+sudo apt install ./steam.deb -y </dev/null
 rm steam.deb
 cd ~/.local
 gh_latest -A -C godotengine/godot Godot_*-stable_mono_linux_x86_64.zip
@@ -399,25 +399,25 @@ echo y | ./sdkmanager "system-images;android-36.1;google_apis_playstore;x86_64"
 cd ~
 sudo rm /bin/sdkmanager 2>/dev/null || true
 gh_latest -A ente-io/ente -t auth* ente-auth-v*-x86_64.deb
-sudo apt install ./ente-auth-v*-x86_64.deb -y
+sudo apt install ./ente-auth-v*-x86_64.deb -y </dev/null
 rm ente-auth-v*-x86_64.deb
 wget -O discord.deb 'https://discord.com/api/download?platform=linux&format=deb'
-sudo apt install ./discord.deb
+sudo apt install ./discord.deb </dev/null
 rm discord.deb
 wget https://proton.me/download/mail/linux/1.12.1/ProtonMail-desktop-beta.deb
-sudo apt install ./ProtonMail-desktop-beta.deb -y
+sudo apt install ./ProtonMail-desktop-beta.deb -y </dev/null
 rm ProtonMail-desktop-beta.deb
 wget https://proton.me/download/bridge/protonmail-bridge_3.21.2-1_amd64.deb
-sudo apt install ./protonmail-bridge_*_amd64.deb -y
+sudo apt install ./protonmail-bridge_*_amd64.deb -y </dev/null
 rm protonmail-bridge_*_amd64.deb
 wget http://archive.ubuntu.com/ubuntu/pool/universe/g/gdk-pixbuf-xlib/libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb
-sudo apt install ./libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb -y
+sudo apt install ./libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb -y </dev/null
 rm libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb
 gh_latest -A balena-io/etcher balena-etcher_*_amd64.deb
-sudo apt install ./balena-etcher_*_amd64.deb -y
+sudo apt install ./balena-etcher_*_amd64.deb -y </dev/null
 rm balena-etcher_*_amd64.deb
 gh_latest -A arduino/arduino-cli arduino-cli_*_amd64.deb
-sudo apt install ./arduino-cli_*_amd64.deb -y
+sudo apt install ./arduino-cli_*_amd64.deb -y </dev/null
 rm arduino-cli_*_amd64.deb
 mkdir ~/.local/arduino-ide
 gh_latest -A -C arduino/arduino-ide arduino-ide_*_Linux_64bit.zip
@@ -697,9 +697,9 @@ cd latex
 git clone https://github.com/Willie169/physics-patch
 cd ~
 sudo apt update
-sudo apt install -f -y
-sudo apt upgrade -y
-sudo apt autoremove --purge -y
+sudo apt install -f -y </dev/null
+sudo apt upgrade -y </dev/null
+sudo apt autoremove --purge -y </dev/null
 sudo apt clean
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 kill "$SUDOPID"

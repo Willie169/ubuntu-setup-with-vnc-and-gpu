@@ -103,17 +103,17 @@ sudo apt purge fcitx* texlive* -y </dev/null
 sudo apt install wget -y </dev/null
 rm -f .bashrc
 mkdir ~/.bashrc.d
-wget -c --tries=0 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/00-env.sh -O ~/.bashrc.d/00-env.sh
-wget -c --tries=0 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/10-exports.sh -O ~/.bashrc.d/10-exports.sh
-wget -c --tries=0 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/15-color.sh -O ~/.bashrc.d/15-color.sh
-wget -c --tries=0 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/20-aliases.sh -O ~/.bashrc.d/20-aliases.sh
-wget -c --tries=0 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/21-cxx.sh -O ~/.bashrc.d/21-cxx.sh
-wget -c --tries=0 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/22-java.sh -O ~/.bashrc.d/22-java.sh
-wget -c --tries=0 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/23-vnc.sh -O ~/.bashrc.d/23-vnc.sh
-wget -c --tries=0 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/24-launchers.sh -O ~/.bashrc.d/24-launchers.sh
-wget -c --tries=0 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/50-functions.sh -O ~/.bashrc.d/50-functions.sh
-wget -c --tries=0 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/60-completion.sh -O ~/.bashrc.d/60-completion.sh
-wget -c --tries=0 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/bashrc.sh -O ~/.bashrc
+wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/00-env.sh -O ~/.bashrc.d/00-env.sh
+wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/10-exports.sh -O ~/.bashrc.d/10-exports.sh
+wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/15-color.sh -O ~/.bashrc.d/15-color.sh
+wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/20-aliases.sh -O ~/.bashrc.d/20-aliases.sh
+wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/21-cxx.sh -O ~/.bashrc.d/21-cxx.sh
+wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/22-java.sh -O ~/.bashrc.d/22-java.sh
+wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/23-vnc.sh -O ~/.bashrc.d/23-vnc.sh
+wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/24-launchers.sh -O ~/.bashrc.d/24-launchers.sh
+wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/50-functions.sh -O ~/.bashrc.d/50-functions.sh
+wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/60-completion.sh -O ~/.bashrc.d/60-completion.sh
+wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/bashrc.sh -O ~/.bashrc
 cat > ~/.profile <<'EOF'
 if [ -n "$BASH_VERSION" ]; then
   if [ -f "$HOME/.bashrc" ]; then
@@ -206,7 +206,7 @@ else
   cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
   fcitx5 &
 fi
-wget -c --tries=0 --retry-connrefused --waitretry=5 -O sdl2_bgi_3.0.4-1_amd64.deb https://sourceforge.net/projects/sdl-bgi/files/sdl2_bgi_3.0.4-1_amd64.deb/download
+wget --tries=100 --retry-connrefused --waitretry=5 -O sdl2_bgi_3.0.4-1_amd64.deb https://sourceforge.net/projects/sdl-bgi/files/sdl2_bgi_3.0.4-1_amd64.deb/download
 sudo apt install ./sdl2_bgi_3.0.4-1_amd64.deb -y </dev/null
 rm sdl2_bgi_3.0.4-1_amd64.deb
 sudo sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
@@ -229,7 +229,7 @@ corepack enable yarn
 corepack enable pnpm
 npm install jsdom markdown-toc marked marked-gfm-heading-id node-html-markdown showdown
 npm install -g bash-language-server dockerfile-language-server-nodejs http-server pyright tree-sitter-cli @google/gemini-cli @openai/codex
-curl --retry 999999 --retry-connrefused --retry-delay 5 -fsSL https://bun.com/install | bash
+curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://bun.com/install | bash
 pipx install uv notebook jupyterlab jupytext meson pylatexenc
 uv tool install --force --python python3.12 --with pip aider-chat@latest --with playwright
 uv tool run playwright install --with-deps chromium
@@ -253,7 +253,7 @@ WantedBy=default.target
 EOF
 systemctl --user daemon-reload
 systemctl --user enable open-webui
-wget -c --tries=0 --retry-connrefused --waitretry=5 https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
+wget --tries=100 --retry-connrefused --waitretry=5 https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
 bash Miniforge3-Linux-x86_64.sh -b -p ${HOME}/conda
 source .bashrc
 conda config --set auto_activate_base false
@@ -311,19 +311,19 @@ require("lazy").setup({
   checker = { enabled = true },
 })
 EOF
-curl --retry 999999 --retry-connrefused --retry-delay 5 -fsSL https://raw.githubusercontent.com/Willie169/bashrc/main/nvim.sh | bash
-curl --retry 999999 --retry-connrefused --retry-delay 5 -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/trusted.gpg.d/docker.asc > /dev/null
+curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://raw.githubusercontent.com/Willie169/bashrc/main/nvim.sh | bash
+curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/trusted.gpg.d/docker.asc > /dev/null
 echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt update
 sudo apt install docker-ce docker-ce-rootless-extras -y </dev/null
 dockerd-rootless-setuptool.sh install
-curl --retry 999999 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.noarmor.gpg" | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
-curl --retry 999999 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.tailscale-keyring.list" | sudo tee /etc/apt/sources.list.d/tailscale.list
+curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.noarmor.gpg" | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.tailscale-keyring.list" | sudo tee /etc/apt/sources.list.d/tailscale.list
 sudo apt update
 sudo apt install tailscale -y </dev/null
 sudo systemctl daemon-reload
 sudo systemctl enable tailscaled
-curl --retry 999999 --retry-connrefused --retry-delay 5 -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg
+curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg
 echo "Types: deb
 URIs: https://packages.microsoft.com/repos/code
 Suites: stable
@@ -332,12 +332,12 @@ Architectures: amd64
 Signed-By: /usr/share/keyrings/microsoft.gpg" | sudo tee /etc/apt/sources.list.d/vscode.sources > /dev/null
 sudo apt update
 sudo apt install code -y </dev/null
-wget -c --tries=0 --retry-connrefused --waitretry=5 "https://packages.microsoft.com/config/ubuntu/$UBUNTU_VERSION_ID/packages-microsoft-prod.deb" -O packages-microsoft-prod.deb
+wget --tries=100 --retry-connrefused --waitretry=5 "https://packages.microsoft.com/config/ubuntu/$UBUNTU_VERSION_ID/packages-microsoft-prod.deb" -O packages-microsoft-prod.deb
 sudo apt install ./packages-microsoft-prod.deb -y </dev/null
 rm packages-microsoft-prod.deb
 sudo apt update
 sudo apt install dotnet-sdk-10.0 aspnetcore-runtime-10.0 -y </dev/null
-wget -c --tries=0 --retry-connrefused --waitretry=5 -O- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | sudo tee /usr/share/keyrings/deb.torproject.org-keyring.gpg >/dev/null
+wget --tries=100 --retry-connrefused --waitretry=5 -O- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | sudo tee /usr/share/keyrings/deb.torproject.org-keyring.gpg >/dev/null
 sudo tee /etc/apt/sources.list.d/tor.list > /dev/null <<EOF
 deb [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
 deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
@@ -353,8 +353,8 @@ sudo mkdir -p /var/log/postgresql
 sudo chown -R postgres:postgres /var/log/postgresql
 sudo chmod 755 /var/log/postgresql
 sudo chmod 640 /var/log/postgresql/* 2>/dev/null || true
-wget -c --tries=0 --retry-connrefused --waitretry=5 -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash
-wget -c --tries=0 --retry-connrefused --waitretry=5 https://cdn.fastly.steamstatic.com/client/installer/steam.deb
+wget --tries=100 --retry-connrefused --waitretry=5 -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash
+wget --tries=100 --retry-connrefused --waitretry=5 https://cdn.fastly.steamstatic.com/client/installer/steam.deb
 sudo apt install ./steam.deb -y </dev/null
 rm steam.deb
 cd ~/.local
@@ -364,7 +364,7 @@ rm Godot_*-stable_mono_linux_x86_64.zip
 mv Godot_*-stable_mono_linux_x86_64 godot
 ln -s ~/.local/godot/Godot_*-stable_mono_linux.x86_64 ~/.local/bin/godot
 cd ~
-wget -c --tries=0 --retry-connrefused --waitretry=5 https://edgedl.me.gvt1.com/android/studio/ide-zips/2025.3.1.8/android-studio-panda1-patch1-linux.tar.gz
+wget --tries=100 --retry-connrefused --waitretry=5 https://edgedl.me.gvt1.com/android/studio/ide-zips/2025.3.1.8/android-studio-panda1-patch1-linux.tar.gz
 sudo tar -xzf android-studio-panda1-patch1-linux.tar.gz -C /opt/
 rm android-studio-panda1-patch1-linux.tar.gz
 echo '[Desktop Entry]
@@ -379,7 +379,7 @@ Categories=Development;IDE;
 StartupNotify=true
 StartupWMClass=android-studio' | sudo tee /usr/share/applications/android-studio.desktop > /dev/null
 sudo chmod 644 /usr/share/applications/android-studio.desktop
-wget -c --tries=0 --retry-connrefused --waitretry=5 https://dl.google.com/android/repository/commandlinetools-linux-14742923_latest.zip
+wget --tries=100 --retry-connrefused --waitretry=5 https://dl.google.com/android/repository/commandlinetools-linux-14742923_latest.zip
 unzip commandlinetools-linux-14742923_latest.zip
 rm commandlinetools-linux-14742923_latest.zip
 mkdir Android
@@ -401,16 +401,16 @@ sudo rm /bin/sdkmanager 2>/dev/null || true
 gh_latest -A ente-io/ente -t auth* ente-auth-v*-x86_64.deb
 sudo apt install ./ente-auth-v*-x86_64.deb -y </dev/null
 rm ente-auth-v*-x86_64.deb
-wget -c --tries=0 --retry-connrefused --waitretry=5 -O discord.deb 'https://discord.com/api/download?platform=linux&format=deb'
+wget --tries=100 --retry-connrefused --waitretry=5 -O discord.deb 'https://discord.com/api/download?platform=linux&format=deb'
 sudo apt install ./discord.deb </dev/null
 rm discord.deb
-wget -c --tries=0 --retry-connrefused --waitretry=5 https://proton.me/download/mail/linux/1.12.1/ProtonMail-desktop-beta.deb
+wget --tries=100 --retry-connrefused --waitretry=5 https://proton.me/download/mail/linux/1.12.1/ProtonMail-desktop-beta.deb
 sudo apt install ./ProtonMail-desktop-beta.deb -y </dev/null
 rm ProtonMail-desktop-beta.deb
-wget -c --tries=0 --retry-connrefused --waitretry=5 https://proton.me/download/bridge/protonmail-bridge_3.21.2-1_amd64.deb
+wget --tries=100 --retry-connrefused --waitretry=5 https://proton.me/download/bridge/protonmail-bridge_3.21.2-1_amd64.deb
 sudo apt install ./protonmail-bridge_*_amd64.deb -y </dev/null
 rm protonmail-bridge_*_amd64.deb
-wget -c --tries=0 --retry-connrefused --waitretry=5 http://archive.ubuntu.com/ubuntu/pool/universe/g/gdk-pixbuf-xlib/libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb
+wget --tries=100 --retry-connrefused --waitretry=5 http://archive.ubuntu.com/ubuntu/pool/universe/g/gdk-pixbuf-xlib/libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb
 sudo apt install ./libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb -y </dev/null
 rm libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb
 gh_latest -A balena-io/etcher balena-etcher_*_amd64.deb
@@ -436,7 +436,7 @@ rm x86_64-linux-musl.tar.xz
 mv superhtml ~/.local/bin
 mkdir eclipse.jdt.ls
 cd eclipse.jdt.ls
-wget -c --tries=0 --retry-connrefused --waitretry=5 'https://www.eclipse.org/downloads/download.php?file=/jdtls/milestones/1.57.0/jdt-language-server-1.57.0-202602261110.tar.gz'
+wget --tries=100 --retry-connrefused --waitretry=5 'https://www.eclipse.org/downloads/download.php?file=/jdtls/milestones/1.57.0/jdt-language-server-1.57.0-202602261110.tar.gz'
 tar -xzf 'download.php?file=%2Fjdtls%2Fmilestones%2F1.57.0%2Fjdt-language-server-1.57.0-202602261110.tar.gz'
 rm 'download.php?file=%2Fjdtls%2Fmilestones%2F1.57.0%2Fjdt-language-server-1.57.0-202602261110.tar.gz'
 cd ~
@@ -451,7 +451,7 @@ ninja
 cd ../..
 mkdir katago-networks
 cd katago-networks
-wget -c --tries=0 --retry-connrefused --waitretry=5 https://media.katagotraining.org/uploaded/networks/models/kata1/kata1-b6c96-s175395328-d26788732.txt.gz
+wget --tries=100 --retry-connrefused --waitretry=5 https://media.katagotraining.org/uploaded/networks/models/kata1/kata1-b6c96-s175395328-d26788732.txt.gz
 cd ~
 git clone https://github.com/yzyray/lizzieyzy.git
 cd lizzieyzy
@@ -507,7 +507,7 @@ Terminal=false
 Categories=Game;
 EOF
 update_sylvan_config
-curl --retry 999999 --retry-connrefused --retry-delay 5 -fsSL https://ollama.com/install.sh | sh
+curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://ollama.com/install.sh | sh
 sudo env SYSTEMD_EDITOR=tee systemctl edit ollama <<EOF
 [Service]
 Environment="OLLAMA_HOST=0.0.0.0"
@@ -547,9 +547,9 @@ cd ~/.open-notebook
 docker compose up -d
 docker compose stop
 cd ~
-curl --retry 999999 --retry-connrefused --retry-delay 5 -fsSL https://opencode.ai/install | bash
-curl --retry 999999 --retry-connrefused --retry-delay 5 -fsSL https://claude.ai/install.sh | bash
-curl --retry 999999 --retry-connrefused --retry-delay 5 -fsSL https://raw.githubusercontent.com/AlexsJones/llmfit/main/install.sh | sh
+curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://opencode.ai/install | bash
+curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://claude.ai/install.sh | bash
+curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://raw.githubusercontent.com/AlexsJones/llmfit/main/install.sh | sh
 mkdir -p ~/dev/llm
 cd ~/dev/llm
 git clone https://github.com/KhronosGroup/OpenCL-Headers && cd OpenCL-Headers
@@ -578,7 +578,7 @@ cmake .. -G Ninja \
   -DGGML_OPENCL=ON
 ninja
 cd ~
-wget -c --tries=0 --retry-connrefused --waitretry=5 https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+wget --tries=100 --retry-connrefused --waitretry=5 https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 zcat < install-tl-unx.tar.gz | tar xf -
 rm install-tl-unx.tar.gz
 cd install-tl-*

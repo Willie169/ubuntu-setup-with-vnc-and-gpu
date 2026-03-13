@@ -358,7 +358,7 @@ wget --tries=100 --retry-connrefused --waitretry=5 https://cdn.fastly.steamstati
 sudo apt install ./steam.deb -y </dev/null
 rm steam.deb
 cd ~/.local
-gh_latest -A -C godotengine/godot Godot_*-stable_mono_linux_x86_64.zip
+gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' godotengine/godot Godot_*-stable_mono_linux_x86_64.zip
 unzip Godot_*-stable_mono_linux_x86_64.zip
 rm Godot_*-stable_mono_linux_x86_64.zip
 mv Godot_*-stable_mono_linux_x86_64 godot
@@ -398,7 +398,7 @@ echo y | ./sdkmanager "system-images;android-33;google_apis_playstore;x86_64"
 echo y | ./sdkmanager "system-images;android-36.1;google_apis_playstore;x86_64"
 cd ~
 sudo rm /bin/sdkmanager 2>/dev/null || true
-gh_latest -A ente-io/ente -t auth* ente-auth-v*-x86_64.deb
+gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' ente-io/ente -t auth* ente-auth-v*-x86_64.deb
 sudo apt install ./ente-auth-v*-x86_64.deb -y </dev/null
 rm ente-auth-v*-x86_64.deb
 wget --tries=100 --retry-connrefused --waitretry=5 -O discord.deb 'https://discord.com/api/download?platform=linux&format=deb'
@@ -413,14 +413,14 @@ rm protonmail-bridge_*_amd64.deb
 wget --tries=100 --retry-connrefused --waitretry=5 http://archive.ubuntu.com/ubuntu/pool/universe/g/gdk-pixbuf-xlib/libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb
 sudo apt install ./libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb -y </dev/null
 rm libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb
-gh_latest -A balena-io/etcher balena-etcher_*_amd64.deb
+gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' balena-io/etcher balena-etcher_*_amd64.deb
 sudo apt install ./balena-etcher_*_amd64.deb -y </dev/null
 rm balena-etcher_*_amd64.deb
-gh_latest -A arduino/arduino-cli arduino-cli_*_amd64.deb
+gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' arduino/arduino-cli arduino-cli_*_amd64.deb
 sudo apt install ./arduino-cli_*_amd64.deb -y </dev/null
 rm arduino-cli_*_amd64.deb
 mkdir ~/.local/arduino-ide
-gh_latest -A -C arduino/arduino-ide arduino-ide_*_Linux_64bit.zip
+gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' arduino/arduino-ide arduino-ide_*_Linux_64bit.zip
 unzip arduino-ide_*_Linux_64bit.zip
 rm arduino-ide_*_Linux_64bit.zip
 mv ~/arduino-ide_*_Linux_64bit ~/.local/arduino-ide/
@@ -430,7 +430,7 @@ cat > ~/.local/bin/arduino-ide <<'EOF'
 EOF
 chmod +x ~/.local/bin/arduino-ide
 echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
-gh_latest -A -C kristoff-it/superhtml x86_64-linux-musl.tar.xz
+gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' kristoff-it/superhtml x86_64-linux-musl.tar.xz
 tar -xJf x86_64-linux-musl.tar.xz
 rm x86_64-linux-musl.tar.xz
 mv superhtml ~/.local/bin

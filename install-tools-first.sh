@@ -580,7 +580,7 @@ cmake .. -G Ninja \
 ninja
 cd ~
 wget --tries=100 --retry-connrefused --waitretry=5 https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-zcat < install-tl-unx.tar.gz | tar xf -
+tar -xzf install-tl-unx.tar.gz
 rm install-tl-unx.tar.gz
 cd install-tl-*
 sudo perl ./install-tl --no-interaction

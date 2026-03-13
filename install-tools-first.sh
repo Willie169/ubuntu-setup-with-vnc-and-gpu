@@ -255,7 +255,9 @@ systemctl --user daemon-reload
 systemctl --user enable open-webui
 wget --tries=100 --retry-connrefused --waitretry=5 https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
 bash Miniforge3-Linux-x86_64.sh -b -p ${HOME}/conda
-source .bashrc
+export MAMBA_ROOT_PREFIX="${HOME}/conda"
+source "${HOME}/conda/etc/profile.d/conda.sh" 2>/dev/null || true
+source "${HOME}/conda/etc/profile.d/mamba.sh" 2>/dev/null || true
 conda config --set auto_activate_base false
 conda config --add channels bioconda
 conda config --add channels pypi

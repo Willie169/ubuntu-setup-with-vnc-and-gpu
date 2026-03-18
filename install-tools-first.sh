@@ -400,9 +400,6 @@ echo y | ./sdkmanager "system-images;android-33;google_apis_playstore;x86_64"
 echo y | ./sdkmanager "system-images;android-36.1;google_apis_playstore;x86_64"
 cd ~
 sudo rm /bin/sdkmanager 2>/dev/null || true
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' ente-io/ente -t auth* ente-auth-v*-x86_64.deb
-sudo apt install ./ente-auth-v*-x86_64.deb -y </dev/null
-rm ente-auth-v*-x86_64.deb
 wget --tries=100 --retry-connrefused --waitretry=5 -O discord.deb 'https://discord.com/api/download?platform=linux&format=deb'
 sudo apt install ./discord.deb </dev/null
 rm discord.deb

@@ -132,6 +132,7 @@ sudo mkdir -p /usr/local/java
 mkdir -p ~/.local/bin
 mkdir -p ~/.local/share/applications
 mkdir -p ~/Desktop
+mkdir -p ~/.config/systemd/user
 if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
 sudo add-apt-repository ppa:mozillateam/ppa -y
 echo 'Package: firefox*
@@ -233,7 +234,6 @@ npm install -g bash-language-server dockerfile-language-server-nodejs http-serve
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://bun.com/install | bash
 pipx install cmake-language-server libretranslate notebook jupyterlab jupytext meson poetry pylatexenc uv
 uv tool install --force --python python3.11 open-webui@latest
-mkdir -p ~/.config/systemd/user
 cat > ~/.config/systemd/user/open-webui.service <<EOF
 [Unit]
 Description=Open WebUI
@@ -252,6 +252,25 @@ WantedBy=default.target
 EOF
 systemctl --user daemon-reload
 systemctl --user enable open-webui
+docker pull ghcr.io/gchq/cyberchef:latest
+cat > ~/.config/systemd/user/cyberchef.service <<EOF
+[Unit]
+Description=CyberChef
+After=docker.service
+
+[Service]
+ExecStart=/usr/bin/docker run --rm --name cyberchef -p 8081:80 ghcr.io/gchq/cyberchef:latest
+ExecStop=/usr/bin/docker stop cyberchef
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target
+EOF
+systemctl --user daemon-reload
+systemctl --user enable cyberchef
 wget --tries=100 --retry-connrefused --waitretry=5 https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
 bash Miniforge3-Linux-x86_64.sh -b -p ${HOME}/conda
 rm Miniforge3-Linux-x86_64.sh

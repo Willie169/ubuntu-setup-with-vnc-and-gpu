@@ -446,6 +446,36 @@ cat > ~/.local/bin/arduino-ide <<'EOF'
 EOF
 chmod +x ~/.local/bin/arduino-ide
 echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
+sudo tee /etc/udev/rules.d/52-xilinx-usb.rules <<'EOF'
+SUBSYSTEM=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="0666", GROUP="plugdev"
+EOF
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+sudo usermod -aG plugdev $USER
+wget --tries=100 --retry-connrefused --waitretry=5 https://downloads.kicad.org/kicad/linux/explore/stable/download/kicad-10.0.0-x86_64.AppImage.tar
+tar -xf kicad-*-x86_64.AppImage.tar
+rm kicad-*-x86_64.AppImage.tar
+chmod +x kicad-*-x86_64.AppImage
+mkdir -p ~/.local/kicad
+mv kicad-*-x86_64.AppImage ~/.local/kicad
+cat > ~/.local/bin/kicad <<'EOF'
+#!/bin/bash
+~/.local/kicad/kicad-*-x86_64.AppImage "$@"
+EOF
+chmod +x ~/.local/bin/kicad
+cd ~/.local/kicad
+wget --tries=100 --retry-connrefused --waitretry=5 https://gitlab.com/kicad/code/kicad/-/raw/master/resources/bitmaps_png/icons/icon_kicad.ico
+cd ~
+cat > ~/.local/share/applications/kicad.desktop <<EOF
+[Desktop Entry]
+Type=Application
+Name=KiCad
+Comment=KiCad - Schematic Capture & PCB Design Software
+Exec=$HOME/.local/kicad/kicad-*-x86_64.AppImage
+Icon=$HOME/.local/kicad/icon_kicad.ico
+Terminal=false
+Categories=Development;
+EOF
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' kristoff-it/superhtml x86_64-linux-musl.tar.xz
 tar -xJf x86_64-linux-musl.tar.xz
 rm x86_64-linux-musl.tar.xz

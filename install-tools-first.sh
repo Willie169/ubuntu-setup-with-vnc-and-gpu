@@ -91,6 +91,7 @@ sudo add-apt-repository ppa:longsleep/golang-backports -y
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
 sudo add-apt-repository ppa:obsproject/obs-studio -y
 sudo add-apt-repository ppa:stefanberger/swtpm-noble -y
+sudo add-apt-repository ppa:xtradeb/apps -y
 sudo add-apt-repository ppa:zhangsongcui3371/fastfetch -y
 bash <<'EOF'
 set -e
@@ -129,6 +130,7 @@ if [ -d "$HOME/.bashrc.d"  ];  then
 fi
 sudo mkdir -p /usr/local/go
 sudo mkdir -p /usr/local/java
+sudo mkdir -p /etc/apt/keyrings
 mkdir -p ~/.local/bin
 mkdir -p ~/.local/share/applications
 mkdir -p ~/Desktop
@@ -168,11 +170,6 @@ sudo snap remove thunderbird 2>/dev/null || true
 sudo apt install thunderbird --allow-downgrades -y </dev/null
 sudo rm /var/lib/snapd/desktop/applications/thunderbird*.desktop 2>/dev/null || true
 echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
-fi
-if grep -q '^NAME="Linux Mint"' /etc/os-release; then
-sudo apt install chromium -y </dev/null
-else
-sudo add-apt-repository ppa:xtradeb/apps -y
 echo 'Package: chromium*
 Pin: release o=LP-PPA-xtradeb-apps
 Pin-Priority: 1001
@@ -180,8 +177,6 @@ Pin-Priority: 1001
 Package: chromium*
 Pin: release o=Ubuntu
 Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/chromium
-sudo apt update
-sudo apt install chromium chromium-driver chromium-l10n -y </dev/null
 fi
 echo y | sudo ubuntu-drivers install || true
 echo y | sudo ubuntu-drivers install || true
@@ -222,6 +217,10 @@ sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://b
 sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
 sudo apt update
 sudo apt install brave-browser -y </dev/null
+wget -qO - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo tee /etc/apt/keyrings/google.asc >/dev/null
+sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/google.asc] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list'
+sudo apt update
+sudo apt install google-chrome-stable -y </dev/null
 PROFILE=/dev/null bash -c 'curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash'
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

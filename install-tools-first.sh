@@ -188,7 +188,7 @@ echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
 sudo apt upgrade -y </dev/null
 sudo apt install abcde aisleriot alien alsa-utils apksigner apt-transport-https aptitude audacity autoconf automake bash bc bear bison bookletimposer build-essential bzip2 caneda ca-certificates clang clangd clang-format cmake command-not-found curl dbus debian-archive-keyring debian-keyring default-jdk dmg2img dnsutils dvisvgm fastfetch ffmpeg file flex g++ gcc gdb gfortran gh ghc ghostscript git glab gnupg golang-go gopls gperf gpg grep gtkwave gzip info imagemagick inkscape iproute2 iverilog jpegoptim jq libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libguestfs-tools libheif-examples libhwloc-dev libhwloc-plugins libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libtesseract-dev libuv1t64 libuv1-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm make maven mc nano ncompress neovim netcat-openbsd ngspice ninja-build nmap octave openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc pcregrep perl perl-doc perl-tk pipx plantuml poppler-utils procps pv python-is-python3 python3-all-dev python3-neovim python3-pip python3-venv qpdf qtbase5-dev qtbase5-dev-tools rust-all socat sqlite3 sudo tar tesseract-ocr-all tk-dev tmux tree unzip uuid-dev uuid-runtime valgrind verilator vim webp wget wget2 x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh zstd -y </dev/null
-sudo apt install apparmor-utils aria2 bridge-utils clang-uml clinfo codeblocks* fcitx5 fcitx5-* fdroidserver flatpak gnome-keyring libreoffice libvirt-daemon-system libvirt-clients msr-tools obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk ovmf podman qbittorrent qemu-kvm qemu-system qemu-user-static quickemu quickgui snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wl-clipboard -y </dev/null
+sudo apt install apparmor-utils aria2 bridge-utils clang-uml clinfo codeblocks* fcitx5 fcitx5-* fdroidserver flatpak gnome-keyring kate libreoffice libvirt-daemon-system libvirt-clients msr-tools obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk ovmf podman qbittorrent qemu-kvm qemu-system qemu-user-static quickemu quickgui snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wl-clipboard -y </dev/null
 sudo mkdir -p /usr/share/codeblocks/docs
 im-config -n fcitx5
 cat > ~/.xprofile <<'EOF'
@@ -386,8 +386,22 @@ gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' godot
 unzip Godot_*-stable_mono_linux_x86_64.zip
 rm Godot_*-stable_mono_linux_x86_64.zip
 mv Godot_*-stable_mono_linux_x86_64 godot
-ln -s ~/.local/godot/Godot_*-stable_mono_linux.x86_64 ~/.local/bin/godot
+ln -s ~/.local/godot/Godot_*-stable_mono_linux.x86_64 ~/.local/bin/godoit
+cd ~/.local/godot
+wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/icon.png
 cd ~
+cat > ~/.local/share/applications/godot.desktop <<EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Godot Engine
+Comment=Develop your 2D & 3D games, cross-platform projects, or even XR ideas
+Exec=$HOME/.local/bin/godot %f
+Icon=$HOME/.local/godot/icon.png
+Terminal=false
+Categories=Development;IDE;
+StartupNotify=true
+EOF
 wget --tries=100 --retry-connrefused --waitretry=5 https://edgedl.me.gvt1.com/android/studio/ide-zips/2025.3.1.8/android-studio-panda1-patch1-linux.tar.gz
 sudo tar -xzf android-studio-panda1-patch1-linux.tar.gz -C /opt/
 rm android-studio-panda1-patch1-linux.tar.gz

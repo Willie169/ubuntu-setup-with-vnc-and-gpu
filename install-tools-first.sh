@@ -30,10 +30,11 @@ if sudo test -f "$CONF"; then
 fi
 sed -i '/AutomaticLoginEnable/d' "$TMP"
 sed -i '/AutomaticLogin=/d' "$TMP"
+sed -i '/WaylandEnable=/d' "$TMP"
 if ! grep -q "^\[daemon\]" "$TMP"; then
   printf "\n[daemon]\n" >> "$TMP"
 fi
-sed -i "/^\[daemon\]/a AutomaticLoginEnable=True\nAutomaticLogin=$USER_NAME" "$TMP"
+sed -i "/^\[daemon\]/a AutomaticLoginEnable=True\nAutomaticLogin=$USER_NAME\nWaylandEnable=true" "$TMP"
 sudo tee "$CONF" < "$TMP" >/dev/null
 ;;
 sddm)
@@ -47,6 +48,8 @@ if ! grep -q "^\[Autologin\]" "$TMP"; then
   printf "\n[Autologin]\n" >> "$TMP"
 fi
 sed -i "/^\[Autologin\]/a User=$USER_NAME" "$TMP"
+sed -i '/DisplayServer=/d' "$TMP"
+printf "\bDisplayServer=wayland\n" >> "$TMP"
 sudo tee "$CONF" < "$TMP" >/dev/null
 ;;
 lightdm)

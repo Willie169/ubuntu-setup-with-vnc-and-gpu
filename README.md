@@ -129,10 +129,6 @@ See my [**dual-boot-windows-linux-and-recovery**](https://github.com/Willie169/d
 #### Prerequisites
 
 <ol>
-<li>Run:
-<pre><code>echo "$XDG_SESSION_TYPE"
-</code></pre>
-If it shows <code>wayland</code>, you are already on Wayland and can skip this instruction. If it shows <code>x11</code> and you want to switch to Wayland, follow this instruction.</li>
 <li>Determine your Desktop Environment and follow the corresponding section below:
 <ul>
 <li>GNOME 3, which Ubuntu usually uses, supports Wayland.</li>

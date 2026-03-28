@@ -49,7 +49,11 @@ if ! grep -q "^\[Autologin\]" "$TMP"; then
 fi
 sed -i "/^\[Autologin\]/a User=$USER_NAME" "$TMP"
 sed -i '/DisplayServer=/d' "$TMP"
-printf "DisplayServer=wayland\n[Wayland]\nCompositorCommand=kwin_wayland --drm --no-lockscreen --no-global-shortcuts --locale1 --inputmethod plasma-keyboard\n" >> "$TMP"
+printf "DisplayServer=wayland\n" >> "$TMP"
+if ! grep -q "^\[Wayland\]" "$TMP"; then
+  printf "\n[Wayland]\n" >> "$TMP"
+fi
+sed -i "/^\[Wayland\]/a CompositorCommand=kwin_wayland --drm --no-lockscreen --no-global-shortcuts --locale1 --inputmethod plasma-keyboard" "$TMP"
 sudo tee "$CONF" < "$TMP" >/dev/null
 ;;
 lightdm)

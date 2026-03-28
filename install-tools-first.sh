@@ -286,6 +286,8 @@ conda config --add channels pytorch
 conda config --add channels microsoft
 conda config --add channels defaults
 conda config --add channels conda-forge
+mkdir -p ~/.config/kitty
+wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/kitty/kitty.conf -O ~/.config/kitty/kitty.conf
 sudo git clone --depth=1 https://github.com/Willie169/vimrc.git /opt/vim_runtime && sudo sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all
 mkdir -p ~/.config/nvim/lua/config
 mkdir -p ~/.config/nvim/lua/plugins

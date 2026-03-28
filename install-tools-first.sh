@@ -194,6 +194,15 @@ sudo apt install abcde aisleriot alien alsa-utils apksigner apt-transport-https 
 sudo apt install apparmor-utils aria2 bridge-utils clang-uml clinfo codeblocks* fcitx5 fcitx5-* fdroidserver flatpak gnome-keyring kate kitty libreoffice libtesseract-dev libvirt-daemon-system libvirt-clients msr-tools obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk ovmf podman qbittorrent qemu-kvm qemu-system qemu-user-static quickemu quickgui snapd spice-vdagent swtpm swtpm-tools tesseract-ocr-all testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wl-clipboard -y </dev/null
 sudo mkdir -p /usr/share/codeblocks/docs
 im-config -n fcitx5
+mkdir -p ~/.config/environment.d
+cat > ~/.config/environment.d/fcitx5.conf <<'EOF'
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+export INPUT_METHOD=fcitx
+export SDL_IM_MODULE=fcitx
+export GLFW_IM_MODULE=ibus
+EOF
 cat > ~/.xprofile <<'EOF'
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
@@ -202,7 +211,6 @@ export INPUT_METHOD=fcitx
 export SDL_IM_MODULE=fcitx
 export GLFW_IM_MODULE=ibus
 EOF
-source ~/.xprofile
 if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || [ "$KDE_FULL_SESSION" = "true" ]; then
   sudo apt install plasma-discover-backend-flatpak -y </dev/null
 else

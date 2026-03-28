@@ -47,13 +47,7 @@ sed -i '/User=/d' "$TMP"
 if ! grep -q "^\[Autologin\]" "$TMP"; then
   printf "\n[Autologin]\n" >> "$TMP"
 fi
-sed -i "/^\[Autologin\]/a User=$USER_NAME" "$TMP"
-sed -i '/DisplayServer=/d' "$TMP"
-printf "DisplayServer=wayland\n" >> "$TMP"
-if ! grep -q "^\[Wayland\]" "$TMP"; then
-  printf "\n[Wayland]\n" >> "$TMP"
-fi
-sed -i "/^\[Wayland\]/a CompositorCommand=kwin_wayland --drm --no-lockscreen --no-global-shortcuts --locale1 --inputmethod plasma-keyboard" "$TMP"
+sed -i "/^\[Autologin\]/a User=$USER_NAME\nSession=plasmawayland" "$TMP"
 sudo tee "$CONF" < "$TMP" >/dev/null
 ;;
 lightdm)

@@ -49,7 +49,7 @@ if ! grep -q "^\[Autologin\]" "$TMP"; then
 fi
 sed -i "/^\[Autologin\]/a User=$USER_NAME" "$TMP"
 sed -i '/DisplayServer=/d' "$TMP"
-printf "\bDisplayServer=wayland\n" >> "$TMP"
+printf "DisplayServer=wayland\n" >> "$TMP"
 sudo tee "$CONF" < "$TMP" >/dev/null
 ;;
 lightdm)

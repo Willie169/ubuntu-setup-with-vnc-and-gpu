@@ -44,6 +44,7 @@ if sudo test -f "$CONF"; then
   sudo cat "$CONF" > "$TMP"
 fi
 sed -i '/User=/d' "$TMP"
+sed -i '/Session=/d' "$TMP"
 if ! grep -q "^\[Autologin\]" "$TMP"; then
   printf "\n[Autologin]\n" >> "$TMP"
 fi

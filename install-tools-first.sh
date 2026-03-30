@@ -78,6 +78,10 @@ if dpkg -s kwalletmanager &>/dev/null; then
   fi
   sed -i "/^\[Wallet\]/a Enabled=false" ~/.config/kwalletrc
 fi
+sudo tee /etc/resolv.conf >/dev/null <<'EOF'
+nameserver 1.1.1.1
+nameserver 1.0.0.1
+EOF
 sudo timedatectl set-local-rtc 1
 sudo timedatectl set-ntp true
 sudo apt update

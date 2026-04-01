@@ -415,7 +415,7 @@ sudo apt update
 sudo apt install element-desktop -y </dev/null
 wget --tries=100 --retry-connrefused --waitretry=5 https://edgedl.me.gvt1.com/android/studio/ide-zips/2025.3.2.6/android-studio-panda2-linux.tar.gz
 sudo tar -xzf android-studio-*-linux.tar.gz -C /opt/
-rm android-studio-panda1-patch1-linux.tar.gz
+rm android-studio-*-linux.tar.gz
 echo '[Desktop Entry]
 Version=1.0
 Type=Application

@@ -78,12 +78,21 @@ if dpkg -s kwalletmanager &>/dev/null; then
   fi
   sed -i "/^\[Wallet\]/a Enabled=false" ~/.config/kwalletrc
 fi
-sudo tee /etc/resolv.conf >/dev/null <<'EOF'
-nameserver 1.1.1.1
-nameserver 1.0.0.1
-EOF
 sudo timedatectl set-local-rtc 1
 sudo timedatectl set-ntp true
+sudo tee /etc/systemd/resolved.conf >/dev/null <<'EOF'
+[Resolve]
+DNS=1.1.1.1 1.0.0.1
+FallbackDNS=2606:4700:4700::1111 2606:4700:4700::1001 94.140.14.140 94.140.14.141 2a10:50c0::1:ff 2a10:50c0::2:ff
+Domains=~.
+DNSOverTLS=yes
+EOF
+sudo tee /etc/NetworkManager/conf.d/dns.conf >/dev/null <<'EOF'
+[main]
+dns=none
+systemd-resolved=false
+EOF
+sudo systemctl restart systemd-resolved
 sudo apt update
 sudo apt install software-properties-common -y </dev/null
 sudo add-apt-repository universe -y

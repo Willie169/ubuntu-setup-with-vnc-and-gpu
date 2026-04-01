@@ -231,6 +231,7 @@ sudo chown root:root /run/sshd
 sudo systemctl enable ssh
 yes | sudo ufw enable
 sudo ufw allow ssh
+sudo ufw reload
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
 sudo apt update

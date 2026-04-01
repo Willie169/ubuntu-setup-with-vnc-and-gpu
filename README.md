@@ -8,7 +8,7 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 
 * Sufficient storage: (calculated on Kubuntu 24.04.3)
   * Kubuntu 24.04.3 Full Installation: approximately 11.2 GB,
-  * Kubuntu 24.04.3 Full Installation plus [`install-tools-first.sh`](install-tools-first.sh): approximately 88.2 GB.
+  * Kubuntu 24.04.3 Full Installation plus [`install-tools-first.sh`](install-tools-first.sh): approximately 88.1 GB.
   * [`install-tools-second.sh`](install-tools-second.sh): approximately 13.1 GB.
 * Sufficient power supply.
 * Stable internet connection.

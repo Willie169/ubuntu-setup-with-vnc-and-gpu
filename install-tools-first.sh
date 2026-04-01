@@ -87,11 +87,6 @@ FallbackDNS=2606:4700:4700::1111 2606:4700:4700::1001 94.140.14.140 94.140.14.14
 Domains=~.
 DNSOverTLS=yes
 EOF
-sudo tee /etc/NetworkManager/conf.d/dns.conf >/dev/null <<'EOF'
-[main]
-dns=none
-systemd-resolved=false
-EOF
 sudo systemctl restart systemd-resolved
 sudo apt update
 sudo apt install software-properties-common -y </dev/null

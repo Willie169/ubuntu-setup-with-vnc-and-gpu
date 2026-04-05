@@ -395,7 +395,6 @@ sudo mkdir -p /var/log/postgresql
 sudo chown -R postgres:postgres /var/log/postgresql
 sudo chmod 755 /var/log/postgresql
 sudo chmod 640 /var/log/postgresql/* 2>/dev/null || true
-wget --tries=100 --retry-connrefused --waitretry=5 -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash
 wget --tries=100 --retry-connrefused --waitretry=5 https://cdn.fastly.steamstatic.com/client/installer/steam.deb
 sudo apt install ./steam.deb -y </dev/null
 rm steam.deb

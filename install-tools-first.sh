@@ -637,7 +637,6 @@ cd ~/.open-notebook
 docker compose up -d
 docker compose stop
 cd ~
-curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://opencode.ai/install | bash
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://claude.ai/install.sh | bash
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://raw.githubusercontent.com/AlexsJones/llmfit/main/install.sh | sh
 mkdir -p ~/dev/llm

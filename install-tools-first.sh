@@ -250,7 +250,7 @@ nvm install --lts
 corepack enable yarn
 corepack enable pnpm
 npm install jsdom markdown-toc marked marked-gfm-heading-id node-html-markdown showdown
-npm install -g bash-language-server dockerfile-language-server-nodejs http-server pyright tree-sitter-cli @google/gemini-cli @openai/codex
+npm install -g bash-language-server dockerfile-language-server-nodejs http-server opencode-ai pyright tree-sitter-cli @google/gemini-cli @openai/codex
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://bun.com/install | bash
 pipx install cmake-language-server libretranslate notebook jupyterlab jupytext meson poetry pylatexenc uv
 uv tool install --force --python python3.11 open-webui@latest

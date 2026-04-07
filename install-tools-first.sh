@@ -196,7 +196,7 @@ echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
 sudo apt upgrade -y </dev/null
 sudo apt install abcde aisleriot alien alsa-utils apksigner apt-transport-https aptitude audacity autoconf automake bash bc bear bison bookletimposer build-essential bzip2 caneda ca-certificates clang clangd clang-format cmake command-not-found curl dbus debian-archive-keyring debian-keyring default-jdk dmg2img dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fonts-liberation fonts-noto-cjk fonts-noto-cjk-extra g++ gcc gdb gfortran gh ghc ghostscript git glab gnupg golang-go gopls gperf gpg grep gtkwave gzip info imagemagick inkscape iproute2 iverilog jpegoptim jq libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libguestfs-tools libheif-examples libhwloc-dev libhwloc-plugins libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libuv1t64 libuv1-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm make maven mc nano ncompress neovim netcat-openbsd ngspice ninja-build nmap octave openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc perl-tk pipx plantuml poppler-utils procps pv python-is-python3 python3-all-dev python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv qpdf qtbase5-dev qtbase5-dev-tools rust-all socat sqlite3 sudo tar tk-dev tmux tree ttf-mscorefonts-installer unzip uuid-dev uuid-runtime valgrind verilator vim webp wget wget2 x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh zstd -y </dev/null
-sudo apt install apparmor-utils aria2 bridge-utils clang-uml clinfo codeblocks* fcitx5 fcitx5-* fdroidserver flatpak gnome-keyring kate libreoffice libspa-0.2-bluetooth libtesseract-dev libvirt-daemon-system libvirt-clients msr-tools obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk ovmf pipewire pipewire-audio-client-libraries podman qbittorrent qemu-kvm qemu-system qemu-user-static qtspeech5-speechd-plugin quickemu quickgui snapd spice-vdagent swtpm swtpm-tools tesseract-ocr-all testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wireplumber wl-clipboard -y </dev/null
+sudo apt install apparmor-utils aria2 bridge-utils clang-uml clinfo codeblocks* fcitx5 fcitx5-* fdroidserver flatpak gnome-keyring kate libreoffice libspa-0.2-bluetooth libtesseract-dev libvirt-daemon-system libvirt-clients libxtst-dev libx11-dev msr-tools obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk ovmf pipewire pipewire-audio-client-libraries podman qbittorrent qemu-kvm qemu-system qemu-user-static qtspeech5-speechd-plugin quickemu quickgui snapd spice-vdagent swtpm swtpm-tools tesseract-ocr-all testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wireplumber wl-clipboard xclip -y </dev/null
 systemctl --user restart pipewire pipewire-pulse wireplumber
 sudo mkdir -p /usr/share/codeblocks/docs
 im-config -n fcitx5
@@ -290,8 +290,9 @@ StandardError=journal
 [Install]
 WantedBy=default.target
 EOF
+systemctl --user daemon-reexec
 systemctl --user daemon-reload
-systemctl --user enable cyberchef
+systemctl --user enable --now cyberchef
 wget --tries=100 --retry-connrefused --waitretry=5 https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
 bash Miniforge3-Linux-x86_64.sh -b -p ${HOME}/conda
 rm Miniforge3-Linux-x86_64.sh
@@ -669,18 +670,47 @@ cmake .. -G Ninja \
   -DGGML_OPENCL=ON
 ninja
 cd ~
+git clone https://github.com/cdown/clipnotify
+cd clipnotify
+make
+sudo make install
+cd ~
+rm -rf clipnotify
+wget --tries=100 --retry-connrefused --waitretry=5 https://x.org/~jrayhawk/clipsync3.sh
+mv clipsync3.sh clipsync
+chmod +x clipsync
+sudo mv clipsync /usr/local/bin
+cat > ~/.config/systemd/user/clipsync.service <<EOF
+[Unit]
+Description=clipsync
+After=graphical-session.target
+
+[Service]
+ExecStart=/usr/local/bin/clipsync watch without-notifications
+Restart=always
+
+[Install]
+WantedBy=default.target
+EOF
+systemctl --user daemon-reexec
+systemctl --user daemon-reload
+systemctl --user enable --now clipsync.service
 gh_latest thevindu-w/clip_share_server clip_share_server-*-linux-x86_64.tar.gz
 tar -xzf clip_share_server-*-linux-x86_64.tar.gz
-mv clip_share_server-*-linux-x86_64/clip_share_GLIBC-2.39_libssl-3 ~/.local/bin/clip_share
+sudo mv clip_share_server-*-linux-x86_64/clip_share_GLIBC-2.39_libssl-3 /usr/local/bin/clip_share
 rm -r clip_share_server-*-linux-x86_64*
+sudo ufw allow 4337
+sudo ufw allow 4338/tcp
+sudo ufw allow 4339/tcp
+sudo ufw reload
 cat > ~/.config/systemd/user/clip_share.service <<EOF
 [Unit]
 Description=ClipShare Server
 After=network.target
 
 [Service]
-Type=simple
-ExecStart=$HOME/.local/bin/clip_share
+Type=forking
+ExecStart=/usr/local/bin/clip_share
 Restart=on-failure
 RestartSec=3
 

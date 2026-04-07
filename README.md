@@ -16,8 +16,20 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 ### Usage 
 
 <ol>
-<li>Run <a href="install-tools-first.sh"><code>install-tools-first.sh</code></a> and follow the prompts until it reboot automatically.</li>
-<li>Login and run <a href="install-tools-second.sh"><code>install-tools-second.sh</code></a> until it exits automatically.</li>
+<li>Run
+<pre><code>cd ~
+sudo apt update
+sudo apt install bash git -y
+git clone https://github.com/Willie169/ubuntu-setup-with-vnc-and-gpu
+cd ubuntu-setup-with-vnc-and-gpu
+./install-tools-first.sh
+</code></pre>
+and follow the prompts until the computer reboots automatically.</li>
+<li>Login after the reboot and run
+<pre><code>cd ~/ubuntu-setup-with-vnc-and-gpu
+./install-tools-second.sh
+</code></pre>
+until it exits automatically.</li>
 <li>You can list installed Snap packages with <code>snap list</code>. You may want to cleanup remaining Snap packages that you don&#39;t need or are already installed from other sources in previous scripts, e.g., 
 <pre><code>snap remove element-desktop ffmpeg-2204 firmware-updater krita gnome-42-2204 gnome-46-2404 gtk-common-themes kf5-core22 mesa-2404</code></pre>
 </li>
@@ -379,7 +391,7 @@ See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) rep
 <li>Cinnamon, which Linux Mint usually uses, uses LightDM.</li>
 </ul>
 See <a href="#desktop-environment">Desktop Environment</a> section for more information.</li>
-<li>You may need a SSH server on your PC and client otherwhere. See [OpenSSH](#openssh) and [Tailscale](#tailscale) for more information.
+<li>You may need a SSH server on your computer and client otherwhere. See [OpenSSH](#openssh) and [Tailscale](#tailscale) for more information.
 </ol>
 
 #### For GDM without NVIDIA GPU

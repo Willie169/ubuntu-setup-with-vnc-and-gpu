@@ -270,8 +270,9 @@ StandardError=journal
 [Install]
 WantedBy=default.target
 EOF
+systemctl --user daemon-reexec
 systemctl --user daemon-reload
-systemctl --user enable open-webui
+systemctl --user enable --now open-webui
 docker pull ghcr.io/gchq/cyberchef:latest
 cat > ~/.config/systemd/user/cyberchef.service <<EOF
 [Unit]
@@ -672,6 +673,23 @@ gh_latest thevindu-w/clip_share_server clip_share_server-*-linux-x86_64.tar.gz
 tar -xzf clip_share_server-*-linux-x86_64.tar.gz
 mv clip_share_server-*-linux-x86_64/clip_share_GLIBC-2.39_libssl-3 ~/.local/bin/clip_share
 rm -r clip_share_server-*-linux-x86_64*
+cat > ~/.config/systemd/user/clip_share.service <<EOF
+[Unit]
+Description=ClipShare Server
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=$HOME/.local/bin/clip_share
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target
+EOF
+systemctl --user daemon-reexec
+systemctl --user daemon-reload
+systemctl --user enable --now clip_share.service
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
 sudo chmod o+r /usr/share/keyrings/caddy-stable-archive-keyring.gpg

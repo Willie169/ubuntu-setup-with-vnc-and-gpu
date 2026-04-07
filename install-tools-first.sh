@@ -259,7 +259,7 @@ cat > ~/.config/systemd/user/libretranslate.service <<EOF
 Description=LibreTranslate
 
 [Service]
-ExecStart=libretranslate
+ExecStart=$HOME/.local/bin/libretranslate
 Restart=always
 RestartSec=5
 

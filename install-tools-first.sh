@@ -254,6 +254,21 @@ npm install jsdom markdown-toc marked marked-gfm-heading-id node-html-markdown s
 npm install -g bash-language-server dockerfile-language-server-nodejs http-server opencode-ai pyright tree-sitter-cli @google/gemini-cli @openai/codex
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://bun.com/install | bash
 pipx install cmake-language-server libretranslate notebook jupyterlab jupytext meson poetry pylatexenc uv
+cat > ~/.config/systemd/user/libretranslate.service <<EOF
+[Unit]
+Description=LibreTranslate
+
+[Service]
+ExecStart=libretranslate
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
+EOF
+systemctl --user daemon-reexec
+systemctl --user daemon-reload
+systemctl --user enable --now libretranslate
 uv tool install --force --python python3.11 open-webui@latest
 cat > ~/.config/systemd/user/open-webui.service <<EOF
 [Unit]

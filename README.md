@@ -21,6 +21,7 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 <li>You can list installed Snap packages with <code>snap list</code>. You may want to cleanup remaining Snap packages that you don&#39;t need or are already installed from other sources in previous scripts, e.g., 
 <pre><code>snap remove element-desktop ffmpeg-2204 firmware-updater krita gnome-42-2204 gnome-46-2404 gtk-common-themes kf5-core22 mesa-2404</code></pre>
 </li>
+<li>Go to <a href="http://localhost:8082">http://localhost:8082</a>, enter default user name <code>admin</code> and password <code>admin123</code>, change user name and password, and login in the pop-up window of ClipCascade client.</li>
 <li>Snap Firefox and Thunderbird are replaced with Deb Firefox and Thunderbird from Mozilla Team PPA, and thus you may want to re-configure launchers in your Desktop Environment.</li>
 <li>If any error occurs when opening Firefox, try running:
 <pre><code>sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
@@ -43,7 +44,7 @@ to login to GitHub.</li>
 <li>Run <code>studio</code> or click the <strong>Android Studio</strong> icon to setup Android Studio. <code>&quot;system-images;android-33;google_apis_playstore;x86_64&quot; &quot;system-images;android-36.1;google_apis_playstore;x86_64&quot;</code> installation in <a href="install-tools-first.sh"><code>install-tools-first.sh</code></a> may fail silently due to network issue, you can download it again via <code>sdkmanager &quot;system-images;android-33;google_apis_playstore;x86_64&quot; &quot;system-images;android-36.1;google_apis_playstore;x86_64&quot;</code> or Android Studio GUI.</li>
 <li>Run <code>torbrowser-launcher</code> or click the <strong>Tor Browser</strong> icon to finish installing Tor Browser.</li>
 <li>Run <code>steam</code> to finish installing Steam. Running twice may be required.</li>
-<li>Run <code>enteauth</code> to setup Ente Auth.</li>
+<li>Go to <a href="http://localhost:8082">http://localhost:8080</a> and setup Open WebUI.</li>
 <li>Go to <a href="#other-scripts">Other Scripts</a> section for other scripts in this repository.</li>
 <li>Go to <a href="#instructions">Instructions</a> section for instructions.</li>
 </ol>

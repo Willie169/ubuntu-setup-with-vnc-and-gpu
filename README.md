@@ -490,6 +490,18 @@ Done in [`waydroid.sh`](waydroid.sh).
 2. Choose options you want. In `Android Type`, `Vanilla` or `Minimal Android` refers to a pure AOSP (Android Open-Source Project) build without any Google services, while `Gapps` or `Android with Google Apps` refers to a build that provides access to Google services. If you don't know which to select, the `Gapps` or `Android with Google Apps` is recommended, which occupies approximately 1.4 GB.
 3. Press `Download`, wait until `Done` button is shown, and press it.
 
+#### Restart
+
+When you click Power off in Waydroid and then try to restart, or click Restart in Waydroid, if it doesn't start a new session after stopping the old one, run
+```
+waydroid session stop
+```
+and then you can start it with desktop entry or running
+```
+waydroid session start
+```
+normally.
+
 #### Storage
 
 Waydroid's home directory is:
@@ -497,6 +509,16 @@ Waydroid's home directory is:
 ~/.local/share/waydroid/data/media/0/
 ```
 This has been exported as `WAYDROID` in `.bashrc` in [`install-tools-first.sh`](install-tools-first.sh).
+
+#### Multi-Window Mode
+
+Run:
+```
+waydroid session start
+waydroid prop set persist.waydroid.multi_windows true
+waydroid session stop
+```
+Next time Waydroid will start in multi-window mode.
 
 #### Google Play Certificate
 
@@ -512,6 +534,8 @@ in it to get the Google Services Framework Android ID. Use the numbers printed t
 
 Run `exit` inside Waydroid's ADB shell to exit it.
 
+Give the Google services some minutes to reflect the change, then restart Waydroid.
+
 #### Remove
 
 Run:
@@ -521,7 +545,7 @@ sudo waydroid container stop
 sudo apt remove waydroid
 sudo reboot
 ```
-after rebooted, run:
+reboot your computer, and then run:
 ```
 sudo rm -rf /var/lib/waydroid /home/.waydroid ~/waydroid ~/.share/waydroid ~/.local/share/applications/*aydroid* ~/.local/share/waydroid
 ```

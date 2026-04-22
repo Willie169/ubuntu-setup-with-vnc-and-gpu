@@ -615,7 +615,8 @@ Remember to `chmod 770` when copying things to it to be accessible in Waydroid.
 
 Run:
 ```
-waydroid session start
+waydroid session stop
+waydroid session start & 2>/dev/null
 waydroid prop set persist.waydroid.multi_windows true
 waydroid session stop
 ```
@@ -623,7 +624,8 @@ Next time Waydroid will start in multi-window mode.
 
 Run:
 ```
-waydroid session start
+waydroid session stop
+waydroid session start & 2>/dev/null
 waydroid prop set persist.waydroid.multi_windows false
 waydroid session stop
 ```

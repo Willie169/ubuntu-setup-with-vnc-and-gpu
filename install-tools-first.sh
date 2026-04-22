@@ -87,7 +87,7 @@ FallbackDNS=2606:4700:4700::1111 2606:4700:4700::1001 94.140.14.140 94.140.14.14
 EOF
 sudo systemctl restart systemd-resolved
 sudo apt update
-sudo apt install software-properties-common -y </dev/null
+sudo apt install software-properties-common -y
 sudo add-apt-repository universe -y
 sudo add-apt-repository multiverse -y
 sudo add-apt-repository restricted -y
@@ -109,8 +109,8 @@ if [ -f "$f" ] && grep -q "^Types:.*deb" "$f"; then
 fi
 EOF
 sudo apt update
-sudo apt purge fcitx* texlive* -y </dev/null
-sudo apt install wget -y </dev/null
+sudo apt purge fcitx* texlive* -y
+sudo apt install wget -y
 rm -f .bashrc
 mkdir ~/.bashrc.d
 wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/00-env.sh -O ~/.bashrc.d/00-env.sh
@@ -158,7 +158,7 @@ sudo systemctl stop var-snap-firefox-common-*.mount 2>/dev/null || true
 sudo systemctl disable var-snap-firefox-common-*.mount 2>/dev/null || true
 sudo systemctl disable snap-firefox*.mount 2>/dev/null || true
 sudo snap remove firefox 2>/dev/null || true
-sudo apt install firefox --allow-downgrades -y </dev/null
+sudo apt install firefox --allow-downgrades -y
 sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
 sudo apparmor_parser -R /etc/apparmor.d/firefox
 sudo rm /var/lib/snapd/desktop/applications/firefox*.desktop 2>/dev/null || true
@@ -177,7 +177,7 @@ sudo systemctl stop var-snap-thunderbird-common-*.mount 2>/dev/null || true
 sudo systemctl disable var-snap-thunderbird-common-*.mount 2>/dev/null || true
 sudo systemctl disable snap-thunderbird*.mount 2>/dev/null || true
 sudo snap remove thunderbird 2>/dev/null || true
-sudo apt install thunderbird --allow-downgrades -y </dev/null
+sudo apt install thunderbird --allow-downgrades -y
 sudo rm /var/lib/snapd/desktop/applications/thunderbird*.desktop 2>/dev/null || true
 echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
 echo 'Package: chromium*
@@ -194,10 +194,10 @@ echo y | sudo ubuntu-drivers install || true
 echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
-sudo apt upgrade -y </dev/null
+sudo apt upgrade -y
 
-sudo apt install abcde aisleriot alien alsa-utils apksigner apt-transport-https aptitude audacity autoconf automake bash bc bear bison bookletimposer build-essential bzip2 caneda ca-certificates clang clangd clang-format cmake command-not-found curl dbus debian-archive-keyring debian-keyring default-jdk dmg2img dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fonts-liberation fonts-noto-cjk fonts-noto-cjk-extra g++ gcc gdb gfortran gh ghc ghostscript git glab gnupg golang-go gopls gperf gpg grep gtkwave gzip info imagemagick inkscape iproute2 iverilog jpegoptim jq libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libguestfs-tools libheif-examples libhwloc-dev libhwloc-plugins libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libreoffice libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libuv1t64 libuv1-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm make maven mc nano ncompress neovim netcat-openbsd ngspice ninja-build nmap octave openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc perl-tk pipx plantuml poppler-utils procps pv python-is-python3 python3-all-dev python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv qpdf qtbase5-dev qtbase5-dev-tools rust-all socat sqlite3 sudo tar tk-dev tmux tree ttf-mscorefonts-installer unzip uuid-dev uuid-runtime valgrind verilator vim webp wget wget2 x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh zstd -y </dev/null
-sudo apt install apparmor-utils aria2 bridge-utils clang-uml clinfo codeblocks* dunst fcitx5 fcitx5-* fdroidserver flatpak gir1.2-gdk-3.0 gir1.2-gtk-3.0 gnome-keyring gparted kate libspa-0.2-bluetooth libtesseract-dev libvirt-daemon-system libvirt-clients msr-tools obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk ovmf pipewire pipewire-audio-client-libraries podman python3-aiortc python3-gi python3-gi-cairo python3-plyer python3-pystray python3-websocket python3-xxhash qbittorrent qemu-kvm qemu-system qemu-user-static qtspeech5-speechd-plugin quickemu quickgui snapd spice-vdagent swtpm swtpm-tools tesseract-ocr-all testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wireplumber wl-clipboard xclip -y </dev/null
+sudo apt install abcde aisleriot alien alsa-utils apksigner apt-transport-https aptitude audacity autoconf automake bash bc bear bison bookletimposer build-essential bzip2 caneda ca-certificates clang clangd clang-format cmake command-not-found curl dbus debian-archive-keyring debian-keyring default-jdk dmg2img dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fonts-liberation fonts-noto-cjk fonts-noto-cjk-extra g++ gcc gdb gfortran gh ghc ghostscript git glab gnupg golang-go gopls gperf gpg grep gtkwave gzip info imagemagick inkscape iproute2 iverilog jpegoptim jq libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libguestfs-tools libheif-examples libhwloc-dev libhwloc-plugins libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libreoffice libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libuv1t64 libuv1-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm make maven mc nano ncompress neovim netcat-openbsd ngspice ninja-build nmap octave openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc perl-tk pipx plantuml poppler-utils procps pv python-is-python3 python3-all-dev python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv qpdf qtbase5-dev qtbase5-dev-tools rust-all socat sqlite3 sudo tar tk-dev tmux tree ttf-mscorefonts-installer unzip uuid-dev uuid-runtime valgrind verilator vim webp wget wget2 x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh zstd -y
+sudo apt install apparmor-utils aria2 bridge-utils clang-uml clinfo codeblocks* dunst fcitx5 fcitx5-* fdroidserver flatpak gir1.2-gdk-3.0 gir1.2-gtk-3.0 gnome-keyring gparted kate libspa-0.2-bluetooth libtesseract-dev libvirt-daemon-system libvirt-clients msr-tools obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk ovmf pipewire pipewire-audio-client-libraries podman python3-aiortc python3-gi python3-gi-cairo python3-plyer python3-pystray python3-websocket python3-xxhash qbittorrent qemu-kvm qemu-system qemu-user-static qtspeech5-speechd-plugin quickemu quickgui snapd spice-vdagent swtpm swtpm-tools tesseract-ocr-all testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wireplumber wl-clipboard xclip -y
 systemctl --user restart pipewire pipewire-pulse wireplumber
 sudo ln -s /usr/lib/python3/dist-packages/Cryptodome /usr/lib/python3/dist-packages/Crypto
 sudo mkdir -p /usr/share/codeblocks/docs
@@ -211,14 +211,14 @@ export SDL_IM_MODULE=fcitx
 export GLFW_IM_MODULE=ibus
 EOF
 if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || [ "$KDE_FULL_SESSION" = "true" ]; then
-  sudo apt install plasma-discover-backend-flatpak -y </dev/null
+  sudo apt install plasma-discover-backend-flatpak -y
 else
   mkdir -p ~/.config/autostart
   cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
   fcitx5 &
 fi
 wget --tries=100 --retry-connrefused --waitretry=5 -O sdl2_bgi_3.0.4-1_amd64.deb https://sourceforge.net/projects/sdl-bgi/files/sdl2_bgi_3.0.4-1_amd64.deb/download
-sudo apt install ./sdl2_bgi_3.0.4-1_amd64.deb -y </dev/null
+sudo apt install ./sdl2_bgi_3.0.4-1_amd64.deb -y
 rm sdl2_bgi_3.0.4-1_amd64.deb
 sudo sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
 sudo mkdir -p /run/sshd
@@ -231,11 +231,11 @@ sudo ufw reload
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
 sudo apt update
-sudo apt install brave-browser -y </dev/null
+sudo apt install brave-browser -y
 wget -qO - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo tee /etc/apt/keyrings/google.asc >/dev/null
 sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/google.asc] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list'
 sudo apt update
-sudo apt install google-chrome-stable -y </dev/null
+sudo apt install google-chrome-stable -y
 json="$(curl -fsSL https://api.github.com/repos/xlionjuan/xlion-repo-archive-keyring/releases/latest)" && asset="$(echo "$json" | jq -r '.assets[] | select(.name | endswith(".deb")) | "\(.browser_download_url) \(.digest)"' | head -n1)" && url="${asset%% *}" && digest="${asset##* }" && [ -n "$url" ] && [ "$url" != "null" ] && [ -n "$digest" ] && [ "$digest" != "null" ] || { echo "ERROR: cannot locate .deb asset or SHA256 digest" >&2; return 1 2>/dev/null || false; } && tmpfile="$(mktemp /tmp/xlion-keyring-XXXXXX.deb)" && curl -fL "$url" -o "$tmpfile" || { echo "ERROR: download failed" >&2; return 1 2>/dev/null || false; } && expected="${digest#*:}" && actual="$(sha256sum "$tmpfile" | awk '{print $1}')" && [ "$actual" = "$expected" ] || { echo "ERROR: SHA256 mismatch" >&2; rm -f "$tmpfile"; return 1 2>/dev/null || false; } && sudo dpkg -i "$tmpfile" && rm -f "$tmpfile"
 curl -fsSL https://xlionjuan.github.io/rustdesk-apt-repo-latest/latest.sources | sudo tee /etc/apt/sources.list.d/xlion-rustdesk-repo.source
 sudo apt install rustdesk rustdesk-server -y
@@ -381,46 +381,44 @@ sudo apt install gitcomet -y
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/trusted.gpg.d/docker.asc > /dev/null
 echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt update
-sudo apt install docker-ce docker-ce-rootless-extras -y </dev/null
+sudo apt install docker-ce docker-ce-rootless-extras -y
 dockerd-rootless-setuptool.sh install
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.noarmor.gpg" | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.tailscale-keyring.list" | sudo tee /etc/apt/sources.list.d/tailscale.list
 sudo apt update
-sudo apt install tailscale -y </dev/null
+sudo apt install tailscale -y
 sudo systemctl daemon-reload
 sudo systemctl enable tailscaled
-curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg
-echo "Types: deb
-URIs: https://packages.microsoft.com/repos/code
-Suites: stable
-Components: main
-Architectures: amd64
-Signed-By: /usr/share/keyrings/microsoft.gpg" | sudo tee /etc/apt/sources.list.d/vscode.sources > /dev/null
+wget -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg | gpg --dearmor | sudo dd of=/usr/share/keyrings/vscodium-archive-keyring.gpg
+echo -e 'Types: deb\nURIs: https://download.vscodium.com/debs\nSuites: vscodium\nComponents: main\nArchitectures: amd64 arm64\nSigned-by: /usr/share/keyrings/vscodium-archive-keyring.gpg' | sudo tee /etc/apt/sources.list.d/vscodium.sources
 sudo apt update
-sudo apt install code -y </dev/null
+sudo apt install codium -y
+sudo add-apt-repository ppa:remmina-ppa-team/remmina-next -y
+sudo apt update
+sudo apt install remmina remmina-plugin-rdp remmina-plugin-secret -y
 wget --tries=100 --retry-connrefused --waitretry=5 "https://packages.microsoft.com/config/ubuntu/$UBUNTU_VERSION_ID/packages-microsoft-prod.deb" -O packages-microsoft-prod.deb
-sudo apt install ./packages-microsoft-prod.deb -y </dev/null
+sudo apt install ./packages-microsoft-prod.deb -y
 rm packages-microsoft-prod.deb
 sudo apt update
-sudo apt install dotnet-sdk-10.0 aspnetcore-runtime-10.0 -y </dev/null
+sudo apt install dotnet-sdk-10.0 aspnetcore-runtime-10.0 -y
 wget --tries=100 --retry-connrefused --waitretry=5 -O- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | sudo tee /usr/share/keyrings/deb.torproject.org-keyring.gpg >/dev/null
 sudo tee /etc/apt/sources.list.d/tor.list > /dev/null <<EOF
 deb [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
 deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
 EOF
 sudo apt update
-sudo apt install tor deb.torproject.org-keyring -y </dev/null
+sudo apt install tor deb.torproject.org-keyring -y
 sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/local/java/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
 sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/local/java/plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
-sudo apt install postgresql-common -y </dev/null
+sudo apt install postgresql-common -y
 sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
-sudo apt install postgresql-17 -y </dev/null
+sudo apt install postgresql-17 -y
 sudo mkdir -p /var/log/postgresql
 sudo chown -R postgres:postgres /var/log/postgresql
 sudo chmod 755 /var/log/postgresql
 sudo chmod 640 /var/log/postgresql/* 2>/dev/null || true
 wget --tries=100 --retry-connrefused --waitretry=5 https://cdn.fastly.steamstatic.com/client/installer/steam.deb
-sudo apt install ./steam.deb -y </dev/null
+sudo apt install ./steam.deb -y
 rm steam.deb
 cd ~/.local
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' godotengine/godot Godot_*-stable_mono_linux_x86_64.zip
@@ -446,7 +444,7 @@ EOF
 sudo wget -O /usr/share/keyrings/element-io-archive-keyring.gpg https://packages.element.io/debian/element-io-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/element-io-archive-keyring.gpg] https://packages.element.io/debian/ default main" | sudo tee /etc/apt/sources.list.d/element-io.list
 sudo apt update
-sudo apt install element-desktop -y </dev/null
+sudo apt install element-desktop -y
 wget --tries=100 --retry-connrefused --waitretry=5 https://edgedl.me.gvt1.com/android/studio/ide-zips/2025.3.2.6/android-studio-panda2-linux.tar.gz
 sudo tar -xzf android-studio-*-linux.tar.gz -C /opt/
 rm android-studio-*-linux.tar.gz
@@ -485,19 +483,19 @@ wget --tries=100 --retry-connrefused --waitretry=5 -O discord.deb 'https://disco
 sudo apt install ./discord.deb </dev/null
 rm discord.deb
 wget --tries=100 --retry-connrefused --waitretry=5 https://proton.me/download/mail/linux/1.12.1/ProtonMail-desktop-beta.deb
-sudo apt install ./ProtonMail-desktop-beta.deb -y </dev/null
+sudo apt install ./ProtonMail-desktop-beta.deb -y
 rm ProtonMail-desktop-beta.deb
 wget --tries=100 --retry-connrefused --waitretry=5 https://proton.me/download/bridge/protonmail-bridge_3.21.2-1_amd64.deb
-sudo apt install ./protonmail-bridge_*_amd64.deb -y </dev/null
+sudo apt install ./protonmail-bridge_*_amd64.deb -y
 rm protonmail-bridge_*_amd64.deb
 wget --tries=100 --retry-connrefused --waitretry=5 http://archive.ubuntu.com/ubuntu/pool/universe/g/gdk-pixbuf-xlib/libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb
-sudo apt install ./libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb -y </dev/null
+sudo apt install ./libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb -y
 rm libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' balena-io/etcher balena-etcher_*_amd64.deb
-sudo apt install ./balena-etcher_*_amd64.deb -y </dev/null
+sudo apt install ./balena-etcher_*_amd64.deb -y
 rm balena-etcher_*_amd64.deb
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' arduino/arduino-cli arduino-cli_*_amd64.deb
-sudo apt install ./arduino-cli_*_amd64.deb -y </dev/null
+sudo apt install ./arduino-cli_*_amd64.deb -y
 rm arduino-cli_*_amd64.deb
 mkdir ~/.local/arduino-ide
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' arduino/arduino-ide arduino-ide_*_Linux_64bit.zip
@@ -740,7 +738,7 @@ curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo 
 sudo chmod o+r /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 sudo chmod o+r /etc/apt/sources.list.d/caddy-stable.list
 sudo apt update
-sudo apt install caddy -y </dev/null
+sudo apt install caddy -y
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' matrix-construct/tuwunel *-release-all-x86_64-$(cat /proc/cpuinfo | grep -Po '(avx|sse)[235]' | sort -u | sed 's/avx5/v4/;s/avx2/v3/;s/sse3/v2/;s/sse2/v1/' | sort | tail -1)-linux-gnu-tuwunel.deb
 sudo apt install -f ./*-release-all-x86_64-$(cat /proc/cpuinfo | grep -Po '(avx|sse)[235]' | sort -u | sed 's/avx5/v4/;s/avx2/v3/;s/sse3/v2/;s/sse2/v1/' | sort | tail -1)-linux-gnu-tuwunel.deb -y
 rm *-release-all-x86_64-$(cat /proc/cpuinfo | grep -Po '(avx|sse)[235]' | sort -u | sed 's/avx5/v4/;s/avx2/v3/;s/sse3/v2/;s/sse2/v1/' | sort | tail -1)-linux-gnu-tuwunel.deb*
@@ -800,9 +798,9 @@ cd physics-patch
 git checkout dev
 cd ~
 sudo apt update
-sudo apt install -f -y </dev/null
-sudo apt upgrade -y </dev/null
-sudo apt autoremove --purge -y </dev/null
+sudo apt install -f -y
+sudo apt upgrade -y
+sudo apt autoremove --purge -y
 sudo apt clean
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 kill "$SUDOPID"

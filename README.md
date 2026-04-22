@@ -537,14 +537,9 @@ python3 -m venv venv
 venv/bin/pip install -r requirements.txt
 sudo venv/bin/python3 main.py
 ```
-Select what you want in the interactive terminal interface. My choices are
-```
-? Select Android version Android 13
-? Please select an action Install
-? Select apps ['microg', 'libhoudini', 'magisk', 'smartdock', 'fdroidpriv', 'widevine']
-? Select MicroG variant Standard
-```
-which occupies approximately 0.2 GB.
+Select what you want in the interactive terminal interface.
+
+Due to optimizations in the translation layers, It is recommended to use libndk on AMD CPUs and libhoudini on Intel CPUs.
 
 See <https://github.com/casualsnek/waydroid_script> for more information.
 
@@ -601,11 +596,13 @@ where `bindfs` can be installed with
 ```
 sudo apt install bindfs
 ```
+This is defined as function `bind_waydroid` in [`install-tools-first.sh`](install-tools-first.sh).
+
 This can be made permanent by
 ```
 echo "$HOME/.local/share/waydroid/data/media/0 /mnt/waydroid fuse rw,nosuid,nodev,relatime,user_id=0,group_id=0,default_permissions,allow_other 0 0" | sudo tee -a /etc/fstab >/dev/null
 ```
-which has been done in [`waydroid.sh`](waydroid.sh).
+Note that you need to remove this line manually after removing Waydroid. Otherwise, you may boot into emergency mode next boot, and you can remove this line there.
 
 Remember to `chmod 770` when copying things to it to be accessible in Waydroid.
 

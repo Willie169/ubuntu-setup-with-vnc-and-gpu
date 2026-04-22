@@ -543,7 +543,6 @@ Run:
 waydroid session stop
 sudo waydroid container stop
 sudo apt remove waydroid
-sudo reboot
 ```
 reboot your computer, and then run:
 ```

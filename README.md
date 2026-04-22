@@ -75,7 +75,7 @@ You may want to use TigerVNC instead if your computer does not have a GPU. See [
 
 ### [`waydroid.sh`](waydroid.sh)
 
-Installs Waydroid on Debian derivatives on AMD 64. See [Waydroid](#waydroid) section for what to do after running this script and more information.
+Installs Waydroid on Debian derivatives on AMD 64. See [Waydroid](#waydroid) section for it does and what to do after running this script and more information.
 
 ### [`cuda.sh`](cuda.sh)
 
@@ -478,17 +478,86 @@ Its usage is the same as TurboVNC, refer to [VNC Server Usage](#vnc-server-usage
 
 ### Waydroid
 
-Waydroid only runs on Wayland, see [Wayland](#wayland) section for how to switch to Wayland.
+#### Wayland
 
-#### Install and Network
+Waydroid runs natively on Wayland, see [Wayland](#wayland) section for how to switch to Wayland.
 
+#### X11
+
+If you want to use it on X11, use Weston. First install it with
+```
+sudo apt install weston -y
+```
+Each time using Waydroid, run
+```
+weston --socket=mysocket
+```
+and run Waydroid in the Weston terminal.
+
+See <https://gist.github.com/1999AZZAR/5c881fdaeb841fc4476259bfcc69b98c> for more information.
+
+#### Install
+
+```
+sudo apt update
+sudo apt install curl ca-certificates wget liblxc1 liblxc-common lxc -y
+curl -s https://repo.waydro.id | sudo bash
+sudo apt update
+sudo apt install waydroid -y
+```
 Done in [`waydroid.sh`](waydroid.sh).
 
-#### Download Android
+#### Network
+
+For UFW,
+```
+sudo ufw allow 53
+sudo ufw allow 67
+sudo ufw default allow FORWARD
+```
+Done in [`waydroid.sh`](waydroid.sh).
+
+#### Install Android
 
 1. Open Waydroid by running `waydroid` or clicking the **Waydroid** icon.
-2. Choose options you want. In `Android Type`, `Vanilla` or `Minimal Android` refers to a pure AOSP (Android Open-Source Project) build without any Google services, while `Gapps` or `Android with Google Apps` refers to a build that provides access to Google services. If you don't know which to select, the `Gapps` or `Android with Google Apps` is recommended, which occupies approximately 1.4 GB.
+2. Choose options you want. In `Android Type`
+  - `Vanilla` or `Minimal Android` refers to a pure AOSP (Android Open-Source Project) build without any Google services, which occupies approximately 1.0 GB. If you install this option, use Waydroid Extras Script and skip Gapps Google Play Certificate.
+  - `Gapps` or `Android with Google Apps` refers to a build that provides access to Google services, which occupies approximately 1.4 GB. If you install this option, skip Waydroid Extras Script and use Gapps Google Play Certificate.
 3. Press `Download`, wait until `Done` button is shown, and press it.
+
+#### Waydroid Extras Script
+
+```
+sudo apt install python3 python3-venv lzip -y
+git clone https://github.com/casualsnek/waydroid_script
+cd waydroid_script
+python3 -m venv venv
+venv/bin/pip install -r requirements.txt
+sudo venv/bin/python3 main.py
+```
+Select what you want in the interactive terminal interface. My choices are
+```
+
+
+See <https://github.com/casualsnek/waydroid_script> for more information.
+
+#### Gapps Google Play Certificate
+
+Run:
+```
+sudo waydroid shell
+```
+to enter Waydroid's ADB shell, and then run:
+```
+ANDROID_RUNTIME_ROOT=/apex/com.android.runtime ANDROID_DATA=/data ANDROID_TZDATA_ROOT=/apex/com.android.tzdata ANDROID_I18N_ROOT=/apex/com.android.i18n sqlite3 /data/data/com.google.android.gsf/databases/gservices.db "select * from main where name = \"android_id\";"
+```
+in it to get the Google Services Framework Android ID. Use the numbers printed to register the device on your Google Account at <https://www.google.com/android/uncertified>.
+
+Run `exit` inside Waydroid's ADB shell to exit it.
+
+Give the Google services some minutes to reflect the change, then restart Waydroid.
+
+
 
 #### Restart
 
@@ -519,22 +588,6 @@ waydroid prop set persist.waydroid.multi_windows true
 waydroid session stop
 ```
 Next time Waydroid will start in multi-window mode.
-
-#### Google Play Certificate
-
-Run:
-```
-sudo waydroid shell
-```
-to enter Waydroid's ADB shell, and then run:
-```
-ANDROID_RUNTIME_ROOT=/apex/com.android.runtime ANDROID_DATA=/data ANDROID_TZDATA_ROOT=/apex/com.android.tzdata ANDROID_I18N_ROOT=/apex/com.android.i18n sqlite3 /data/data/com.google.android.gsf/databases/gservices.db "select * from main where name = \"android_id\";"
-```
-in it to get the Google Services Framework Android ID. Use the numbers printed to register the device on your Google Account at <https://www.google.com/android/uncertified>.
-
-Run `exit` inside Waydroid's ADB shell to exit it.
-
-Give the Google services some minutes to reflect the change, then restart Waydroid.
 
 #### Remove
 

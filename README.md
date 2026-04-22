@@ -535,9 +535,7 @@ python3 -m venv venv
 venv/bin/pip install -r requirements.txt
 sudo venv/bin/python3 main.py
 ```
-Select what you want in the interactive terminal interface.
-
-Due to optimizations in the translation layers, It is recommended to use libndk on AMD CPUs and libhoudini on Intel CPUs.
+Select what you want in the interactive terminal interface. microG is a FLOSS implementation of Google Play Services, which you don't need in Gapps build. libndk and libhoudini are ARM translation layers. Due to optimizations in the translation layers, It is recommended to use libndk on AMD CPUs and libhoudini on Intel CPUs.
 
 See <https://github.com/casualsnek/waydroid_script> for more information.
 
@@ -547,7 +545,7 @@ Run:
 ```
 sudo waydroid shell
 ```
-to enter Waydroid's ADB shell, and then run:
+and then run:
 ```
 ANDROID_RUNTIME_ROOT=/apex/com.android.runtime ANDROID_DATA=/data ANDROID_TZDATA_ROOT=/apex/com.android.tzdata ANDROID_I18N_ROOT=/apex/com.android.i18n sqlite3 /data/data/com.google.android.gsf/databases/gservices.db "select * from main where name = \"android_id\";"
 ```

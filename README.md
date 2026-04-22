@@ -632,7 +632,10 @@ Run:
 ```
 waydroid session stop
 sudo waydroid container stop
-sudo apt remove waydroid
+sudo apt remove waydroid -y
+```
+reboot, and them run
+```
 sudo rm -rf /var/lib/waydroid /home/.waydroid ~/waydroid ~/.share/waydroid ~/.local/share/applications/*aydroid* ~/.local/share/waydroid
 ```
 

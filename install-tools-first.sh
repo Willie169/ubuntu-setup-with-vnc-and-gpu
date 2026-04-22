@@ -401,6 +401,10 @@ sudo apt install ./packages-microsoft-prod.deb -y
 rm packages-microsoft-prod.deb
 sudo apt update
 sudo apt install dotnet-sdk-10.0 aspnetcore-runtime-10.0 -y
+curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
+echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list >/dev/null
+sudo apt update
+sudo apt install glow -y
 wget --tries=100 --retry-connrefused --waitretry=5 -O- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | sudo tee /usr/share/keyrings/deb.torproject.org-keyring.gpg >/dev/null
 sudo tee /etc/apt/sources.list.d/tor.list > /dev/null <<EOF
 deb [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main

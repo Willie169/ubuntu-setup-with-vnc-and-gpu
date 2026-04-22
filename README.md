@@ -537,7 +537,10 @@ sudo venv/bin/python3 main.py
 ```
 Select what you want in the interactive terminal interface. My choices are
 ```
-
+? Select apps ['microg', 'libhoudini', 'magisk', 'smartdock', 'fdroidpriv', 'widevine']
+? Select MicroG variant Standard
+```
+which occupies approximately 0.2 GB.
 
 See <https://github.com/casualsnek/waydroid_script> for more information.
 

@@ -522,9 +522,7 @@ Done in [`waydroid.sh`](waydroid.sh).
 #### Install Android
 
 1. Open Waydroid by running `waydroid` or clicking the **Waydroid** icon.
-2. Choose options you want. In `Android Type`
-  - `Vanilla` or `Minimal Android` refers to a pure AOSP (Android Open-Source Project) build without any Google services, which occupies approximately 1.0 GB. This option is recommended for privacy-aware users. And it is recommended to install microG using [Waydroid Extras Script](#waydroid-extras-script) to be able to use Google Play Services.
-  - `Gapps` or `Android with Google Apps` refers to a build that provides access to Google services, which occupies approximately 1.4 GB. This option is recommend for beginners. And it is recommended to use setup [Google Play Certificate](#google-play-certificate).
+2. Choose options you want. In `Android Type`, there are `Minimal Android` or `Vanilla`, which refers to a pure AOSP (Android Open-Source Project) build without any Google services and occupies approximately 1.0 GB, and `Android with Google Apps` or `Gapps`, which refers to a build that provides access to Google services and occupies approximately 1.4 GB. For beginners, `Android with Google Apps` is recommended.
 3. Press `Download`, wait until `Done` button is shown, and press it.
 
 #### Waydroid Extras Script
@@ -637,9 +635,6 @@ Run:
 waydroid session stop
 sudo waydroid container stop
 sudo apt remove waydroid
-```
-reboot your computer, and then run:
-```
 sudo rm -rf /var/lib/waydroid /home/.waydroid ~/waydroid ~/.share/waydroid ~/.local/share/applications/*aydroid* ~/.local/share/waydroid
 ```
 

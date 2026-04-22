@@ -478,6 +478,8 @@ Its usage is the same as TurboVNC, refer to [VNC Server Usage](#vnc-server-usage
 
 ### Waydroid
 
+See offficial site: <https://waydro.id> and documentation: <https://docs.waydro.id> for more information.
+
 #### Wayland
 
 Waydroid runs natively on Wayland, see [Wayland](#wayland) section for how to switch to Wayland.
@@ -521,8 +523,8 @@ Done in [`waydroid.sh`](waydroid.sh).
 
 1. Open Waydroid by running `waydroid` or clicking the **Waydroid** icon.
 2. Choose options you want. In `Android Type`
-  - `Vanilla` or `Minimal Android` refers to a pure AOSP (Android Open-Source Project) build without any Google services, which occupies approximately 1.0 GB. If you install this option, use Waydroid Extras Script and skip Gapps Google Play Certificate.
-  - `Gapps` or `Android with Google Apps` refers to a build that provides access to Google services, which occupies approximately 1.4 GB. If you install this option, skip Waydroid Extras Script and use Gapps Google Play Certificate.
+  - `Vanilla` or `Minimal Android` refers to a pure AOSP (Android Open-Source Project) build without any Google services, which occupies approximately 1.0 GB. If you install this option, use Waydroid Extras Script and skip Gapps Google Play Certificate after installing Android.
+  - `Gapps` or `Android with Google Apps` refers to a build that provides access to Google services, which occupies approximately 1.4 GB. If you install this option, skip Waydroid Extras Script and use Gapps Google Play Certificate after installing Android.
 3. Press `Download`, wait until `Done` button is shown, and press it.
 
 #### Waydroid Extras Script
@@ -537,6 +539,8 @@ sudo venv/bin/python3 main.py
 ```
 Select what you want in the interactive terminal interface. My choices are
 ```
+? Select Android version Android 13
+? Please select an action Install
 ? Select apps ['microg', 'libhoudini', 'magisk', 'smartdock', 'fdroidpriv', 'widevine']
 ? Select MicroG variant Standard
 ```
@@ -562,7 +566,7 @@ Give the Google services some minutes to reflect the change, then restart Waydro
 
 #### Restart
 
-When you click Power off in Waydroid and then try to restart, or click Restart in Waydroid, if it doesn't start a new session after stopping the old one, run
+If you click Power off in Waydroid GUI and then try to restart, or click Restart in Waydroid, but it doesn't start a new session, run
 ```
 waydroid session stop
 ```
@@ -570,7 +574,15 @@ and then you can start it with desktop entry or running
 ```
 waydroid session start
 ```
-normally.
+If you run
+```
+waydroid session stop
+```
+to stop Waydroid instead of from GUI, and restarting by running
+```
+waydroid session start
+```
+doesn't start a new session, start it with desktop entry.
 
 #### Storage
 
@@ -630,11 +642,6 @@ reboot your computer, and then run:
 ```
 sudo rm -rf /var/lib/waydroid /home/.waydroid ~/waydroid ~/.share/waydroid ~/.local/share/applications/*aydroid* ~/.local/share/waydroid
 ```
-
-#### Official Site
-
-Site: <https://waydro.id>
-Doc: <https://docs.waydro.id>
 
 ### Solution for Closing Lip Overrides Power Off
 

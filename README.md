@@ -621,6 +621,14 @@ waydroid session stop
 ```
 Next time Waydroid will start in multi-window mode.
 
+Run:
+```
+waydroid session start
+waydroid prop set persist.waydroid.multi_windows false
+waydroid session stop
+```
+to undo the change.
+
 #### Use ADB with Waydroid
 
 Grab waydroid IP address from `Android Settings > About`

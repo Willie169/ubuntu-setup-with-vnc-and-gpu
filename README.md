@@ -523,8 +523,8 @@ Done in [`waydroid.sh`](waydroid.sh).
 
 1. Open Waydroid by running `waydroid` or clicking the **Waydroid** icon.
 2. Choose options you want. In `Android Type`
-  - `Vanilla` or `Minimal Android` refers to a pure AOSP (Android Open-Source Project) build without any Google services, which occupies approximately 1.0 GB. If you install this option, use Waydroid Extras Script and skip Gapps Google Play Certificate after installing Android.
-  - `Gapps` or `Android with Google Apps` refers to a build that provides access to Google services, which occupies approximately 1.4 GB. If you install this option, skip Waydroid Extras Script and use Gapps Google Play Certificate after installing Android.
+  - `Vanilla` or `Minimal Android` refers to a pure AOSP (Android Open-Source Project) build without any Google services, which occupies approximately 1.0 GB. This option is recommended for privacy-aware users. And it is recommended to install microG using [Waydroid Extras Script](#waydroid-extras-script) to be able to use Google Play Services.
+  - `Gapps` or `Android with Google Apps` refers to a build that provides access to Google services, which occupies approximately 1.4 GB. This option is recommend for beginners. And 8t is recommended to use setup [Google Play Certificate](#google-play-certificate).
 3. Press `Download`, wait until `Done` button is shown, and press it.
 
 #### Waydroid Extras Script
@@ -549,6 +549,8 @@ which occupies approximately 0.2 GB.
 See <https://github.com/casualsnek/waydroid_script> for more information.
 
 #### Gapps Google Play Certificate
+
+This only works with Gapps installed.
 
 Run:
 ```

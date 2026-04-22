@@ -607,6 +607,8 @@ echo "$HOME/.local/share/waydroid/data/media/0 /mnt/waydroid fuse rw,nosuid,node
 ```
 which has been done in [`waydroid.sh`](waydroid.sh).
 
+Remember to `chmod 770` when copying things to it to be accessible in Waydroid.
+
 #### Multi-Window Mode
 
 Run:

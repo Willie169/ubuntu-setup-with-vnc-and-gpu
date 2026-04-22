@@ -616,7 +616,7 @@ Remember to `chmod 770` when copying things to it to be accessible in Waydroid.
 Run:
 ```
 waydroid session stop
-waydroid session start & 2>/dev/null
+waydroid session start & >/dev/null
 waydroid prop set persist.waydroid.multi_windows true
 waydroid session stop
 ```

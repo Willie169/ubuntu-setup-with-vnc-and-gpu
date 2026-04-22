@@ -560,8 +560,6 @@ Run `exit` inside Waydroid's ADB shell to exit it.
 
 Give the Google services some minutes to reflect the change, then restart Waydroid.
 
-
-
 #### Restart
 
 When you click Power off in Waydroid and then try to restart, or click Restart in Waydroid, if it doesn't start a new session after stopping the old one, run
@@ -582,6 +580,21 @@ Waydroid's home directory is:
 ```
 This has been exported as `WAYDROID` in `.bashrc` in [`install-tools-first.sh`](install-tools-first.sh).
 
+To mount it in host, run
+```
+sudo mkdir /mnt/waydroid
+sudo bindfs --mirror=$(id -u) ~/.local/share/waydroid/data/media/0 /mnt/waydroid
+```
+where `bindfs` can be installed with
+```
+sudo apt install bindfs
+```
+This can be made permanent by
+```
+echo "$HOME/.local/share/waydroid/data/media/0 /mnt/waydroid fuse rw,nosuid,nodev,relatime,user_id=0,group_id=0,default_permissions,allow_other 0 0" | sudo tee -a /etc/fstab >/dev/null
+```
+which has been done in [`waydroid.sh`](waydroid.sh).
+
 #### Multi-Window Mode
 
 Run:
@@ -591,6 +604,19 @@ waydroid prop set persist.waydroid.multi_windows true
 waydroid session stop
 ```
 Next time Waydroid will start in multi-window mode.
+
+#### Use ADB with Waydroid
+
+Grab waydroid IP address from `Android Settings > About`
+
+And start adb:
+```
+adb connect <IP>:5555
+```
+
+#### Disable On-Screen Keyboard
+
+Waydroid by default shows the Android virtual keyboard when selecting an input field. To disable that, and only use the physical keyboard, turn off the following setting: `Settings > System > Languages & input > Physical keyboard > Use on-screen keyboard`.
 
 #### Remove
 

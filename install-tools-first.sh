@@ -717,7 +717,8 @@ rm ClipCascade_Linux.tar.xz
 cat > ~/.config/systemd/user/clipcascade-client.service <<EOF
 [Unit]
 Description=ClipCascade Client
-After=network.target
+Requires=clipcascade-server.service
+After=clipcascade-server.service
 
 [Service]
 Type=simple

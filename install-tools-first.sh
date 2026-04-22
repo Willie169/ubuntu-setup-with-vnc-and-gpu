@@ -827,6 +827,25 @@ general_settings:
 EOF
 docker compose up -d
 cd ~
+cat > ~/.config/systemd/user/litellm.service <<EOF
+[Unit]
+Description=LiteLLM
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=$HOME/.litellm
+ExecStart=/usr/bin/docker compose up -d
+ExecStop=/usr/bin/docker compose down
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target
+EOF
+systemctl --user daemon-reexec
+systemctl --user daemon-reload
+systemctl --user enable --now litellm
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Sathvik-Rao/ClipCascade ClipCascade-Server-JRE_21.jar
 sudo mv ClipCascade-Server-JRE_21.jar /usr/local/java/
 cat > ~/.config/systemd/user/clipcascade-server.service <<EOF

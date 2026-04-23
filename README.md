@@ -541,12 +541,12 @@ sudo systemctl restart waydroid-container
 ```
 and then reboot your computer.
 
-If you have no working GPU, edit `/var/lib/waydroid/waydroid_base.prop` and add
+If you have no working GPU, edit `/var/lib/waydroid/waydroid.cfg` and add
 ```
 ro.hardware.gralloc=default
 ro.hardware.egl=swiftshader
 ```
-and then run:
+under `[properties]`, and then run:
 ```
 waydroid session stop
 sudo waydroid upgrade --offline
@@ -554,7 +554,7 @@ sudo systemctl restart waydroid-container
 ```
 to use software rendering.
 
-To undo it, edit `/var/lib/waydroid/waydroid_base.prop` and add
+To undo it, remove those lines in `/var/lib/waydroid/waydroid.cfg`, and edit `/var/lib/waydroid/waydroid_base.prop` and replace those lines with
 ```
 ro.hardware.gralloc=gbm
 ro.hardware.egl=mesa

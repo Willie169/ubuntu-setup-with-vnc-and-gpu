@@ -528,7 +528,7 @@ Done in [`waydroid.sh`](waydroid.sh).
 
 #### GPU
 
-NVIDIA GPU doesn't support Waydroid, if you have an integrated GPU alongside it, use
+Currently Waydroid needs to run on the same GPU the host compositor is running on. NVIDIA GPU doesn't support Waydroid. If you have other GPU alongside it, use
 ```
 wget https://github.com/Quackdoc/waydroid-scripts/raw/refs/heads/main/waydroid-choose-gpu.sh
 sudo bash waydroid-choose-gpu.sh
@@ -536,8 +536,20 @@ sudo bash waydroid-choose-gpu.sh
 to select it, and then run:
 ```
 sudo waydroid upgrade --offline
+sudo systemctl restart waydroid-container
 ```
 and then reboot your computer.
+
+If you have no working GPU, edit `/var/lib/waydroid/waydroid_base.prop` and add
+```
+ro.hardware.gralloc=default
+ro.hardware.egl=swiftshader
+```
+and then run:
+```
+sudo waydroid upgrade --offline
+sudo systemctl restart waydroid-container
+```
 
 See <https://github.com/Quackdoc/waydroid-scripts> for more information.
 

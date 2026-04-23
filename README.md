@@ -537,6 +537,7 @@ to select it, and then run:
 ```
 sudo waydroid upgrade --offline
 ```
+and then reboot your computer.
 
 See <https://github.com/Quackdoc/waydroid-scripts> for more information.
 
@@ -654,6 +655,7 @@ waydroid session stop
 waydroid session start & >/dev/null
 waydroid prop set persist.waydroid.multi_windows true
 waydroid session stop
+sudo systemctl restart waydroid-container
 ```
 Next time Waydroid will start in multi-window mode.
 

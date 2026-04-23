@@ -622,6 +622,8 @@ See <https://github.com/casualsnek/waydroid_script> for more information.
 
 #### Google Play Certificate
 
+This only work for Gapps build. Install Aurora Store: <https://gitlab.com/AuroraOSS/AuroraStore> from F-Droid: <https://f-droid.org/packages/com.aurora.store> for Vanilla build.
+
 Run:
 ```
 sudo waydroid shell
@@ -681,7 +683,7 @@ echo "$HOME/.local/share/waydroid/data/media/0 /mnt/waydroid fuse rw,nosuid,node
 ```
 Note that you need to remove this line manually after removing Waydroid. Otherwise, you may boot into emergency mode next boot, and you can remove this line there.
 
-Remember to `chmod 770` when copying things to it to be accessible in Waydroid.
+Remember to `chmod 770` folders and `chmod 660` files to be accessible in Waydroid.
 
 #### Multi-Window Mode
 

@@ -550,6 +550,18 @@ and then run:
 sudo waydroid upgrade --offline
 sudo systemctl restart waydroid-container
 ```
+to use software rendering.
+
+To undo it, edit `/var/lib/waydroid/waydroid_base.prop` and add
+```
+ro.hardware.gralloc=gbm
+ro.hardware.egl=mesa
+```
+and then run:
+```
+sudo waydroid upgrade --offline
+sudo systemctl restart waydroid-container
+```
 
 See <https://github.com/Quackdoc/waydroid-scripts> for more information.
 

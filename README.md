@@ -479,7 +479,7 @@ Its usage is the same as TurboVNC, refer to [VNC Server Usage](#vnc-server-usage
 
 ### Waydroid
 
-See offficial site: <https://waydro.id> and documentation: <https://docs.waydro.id> for more information.
+See offficial site: <https://waydro.id>, documentation: <https://docs.waydro.id>, and repo: <https://github.com/waydroid/waydroid> for more information.
 
 #### Wayland
 
@@ -522,9 +522,52 @@ Done in [`waydroid.sh`](waydroid.sh).
 
 #### Install Android
 
-1. Open Waydroid by running `waydroid` or clicking the **Waydroid** icon.
+1. Open Waydroid by running `waydroid` or with desktop entry.
 2. Choose options you want. In `Android Type`, there are `Minimal Android` or `Vanilla`, which refers to a pure AOSP (Android Open-Source Project) build without any Google services and occupies approximately 1.0 GB, and `Android with Google Apps` or `Gapps`, which refers to a build that provides access to Google services and occupies approximately 1.4 GB. For beginners, `Android with Google Apps` is recommended.
 3. Press `Download`, wait until `Done` button is shown, and press it.
+
+#### GPU
+
+NVIDIA GPU doesn't support Waydroid, if you have an integrated GPU alongside it, use
+```
+wget https://github.com/Quackdoc/waydroid-scripts/raw/refs/heads/main/waydroid-choose-gpu.sh
+sudo bash waydroid-choose-gpu.sh
+```
+to select it, and then run:
+```
+sudo waydroid upgrade --offline
+```
+
+See <https://github.com/Quackdoc/waydroid-scripts> for more information.
+
+#### Spoof device to bypass root detection:
+
+```
+sudo truncate -s -1 /var/lib/waydroid/waydroid.cfg
+sudo tee -a /var/lib/waydroid/waydroid.cfg <<'EOF'
+ro.product.brand=google
+ro.product.manufacturer=Google
+ro.system.build.product=redfin
+ro.product.name=redfin
+ro.product.device=redfin
+ro.product.model=Pixel 5
+ro.system.build.flavor=redfin-user
+ro.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
+ro.system.build.description=redfin-user 11 RQ3A.211001.001 eng.electr.20230318.111310 release-keys
+ro.bootimage.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
+ro.build.display.id=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
+ro.build.tags=release-keys
+ro.build.description=redfin-user 11 RQ3A.211001.001 eng.electr.20230318.111310 release-keys
+ro.vendor.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
+ro.vendor.build.id=RQ3A.211001.001
+ro.vendor.build.tags=release-keys
+ro.vendor.build.type=user
+ro.odm.build.tags=release-keys
+EOF
+sudo waydroid upgrade --offline
+```
+
+See <https://github.com/waydroid/waydroid/issues/1060> for more information.
 
 #### Waydroid Extras Script
 

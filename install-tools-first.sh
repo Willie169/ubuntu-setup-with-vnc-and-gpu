@@ -880,7 +880,7 @@ After=clipcascade-server.service
 [Service]
 Type=simple
 WorkingDirectory=$HOME/ClipCascade
-ExecStartPre=/bin/sleep 10
+ExecStartPre=/bin/sleep 30
 ExecStart=/usr/bin/python3 $HOME/ClipCascade/main.py
 Restart=on-failure
 RestartSec=5

@@ -530,6 +530,7 @@ Done in [`waydroid.sh`](waydroid.sh).
 
 Currently Waydroid needs to run on the same GPU the host compositor is running on. NVIDIA GPU doesn't support Waydroid. If you have other GPU alongside it, use
 ```
+waydroid session stop
 wget https://github.com/Quackdoc/waydroid-scripts/raw/refs/heads/main/waydroid-choose-gpu.sh
 sudo bash waydroid-choose-gpu.sh
 ```
@@ -547,6 +548,7 @@ ro.hardware.egl=swiftshader
 ```
 and then run:
 ```
+waydroid session stop
 sudo waydroid upgrade --offline
 sudo systemctl restart waydroid-container
 ```
@@ -559,6 +561,7 @@ ro.hardware.egl=mesa
 ```
 and then run:
 ```
+waydroid session stop
 sudo waydroid upgrade --offline
 sudo systemctl restart waydroid-container
 ```
@@ -589,7 +592,9 @@ ro.vendor.build.tags=release-keys
 ro.vendor.build.type=user
 ro.odm.build.tags=release-keys
 EOF
+waydroid session stop
 sudo waydroid upgrade --offline
+sudo systemctl restart waydroid-container
 ```
 
 See <https://github.com/waydroid/waydroid/issues/1060> for more information.
@@ -605,6 +610,13 @@ venv/bin/pip install -r requirements.txt
 sudo venv/bin/python3 main.py
 ```
 Select what you want in the interactive terminal interface. microG is a FLOSS implementation of Google Play Services, which you don't need in Gapps build. libndk and libhoudini are ARM translation layers. Due to optimizations in the translation layers, It is recommended to use libndk on AMD CPUs and libhoudini on Intel CPUs.
+
+Afterwards, run
+```
+waydroid session stop
+sudo waydroid upgrade --offline
+sudo systemctl restart waydroid-container
+```
 
 See <https://github.com/casualsnek/waydroid_script> for more information.
 

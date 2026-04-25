@@ -880,7 +880,7 @@ After=clipcascade-server.service
 [Service]
 Type=simple
 WorkingDirectory=$HOME/ClipCascade
-ExecStartPre=/bin/bash -c '(while ! nc -z -w1 localhost 443 2>/dev/null; do sleep 2; done); sleep 2'
+ExecStartPre=/bin/bash -c '(while ! nc -z -w1 localhost 8082 2>/dev/null; do sleep 2; done); sleep 2'
 ExecStart=/usr/bin/python3 $HOME/ClipCascade/main.py
 Restart=on-failure
 RestartSec=5

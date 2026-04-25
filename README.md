@@ -716,6 +716,11 @@ And start adb:
 ```
 adb connect <IP>:5555
 ```
+Or, run
+```
+sudo waydroid shell
+```
+to enter Waydroid ADB shell.
 
 #### Disable On-Screen Keyboard
 

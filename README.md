@@ -526,6 +526,38 @@ Done in [`waydroid.sh`](waydroid.sh).
 2. Choose options you want. In `Android Type`, there are `Minimal Android` or `Vanilla`, which refers to a pure AOSP (Android Open-Source Project) build without any Google services and occupies approximately 1.0 GB, and `Android with Google Apps` or `Gapps`, which refers to a build that provides access to Google services and occupies approximately 1.4 GB. For beginners, `Android with Google Apps` is recommended.
 3. Press `Download`, wait until `Done` button is shown, and press it.
 
+#### Spoof device to bypass root detection:
+
+Edit `/var/lib/waydroid/waydroid.cfg` and add
+```
+ro.product.brand=google
+ro.product.manufacturer=Google
+ro.system.build.product=redfin
+ro.product.name=redfin
+ro.product.device=redfin
+ro.product.model=Pixel 5
+ro.system.build.flavor=redfin-user
+ro.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
+ro.system.build.description=redfin-user 11 RQ3A.211001.001 eng.electr.20230318.111310 release-keys
+ro.bootimage.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
+ro.build.display.id=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
+ro.build.tags=release-keys
+ro.build.description=redfin-user 11 RQ3A.211001.001 eng.electr.20230318.111310 release-keys
+ro.vendor.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
+ro.vendor.build.id=RQ3A.211001.001
+ro.vendor.build.tags=release-keys
+ro.vendor.build.type=user
+ro.odm.build.tags=release-keys
+```
+under `[properties]`, and then run:
+```
+waydroid session stop
+sudo waydroid upgrade --offline
+sudo systemctl restart waydroid-container
+```
+
+See <https://github.com/waydroid/waydroid/issues/1060> for more information.
+
 #### GPU
 
 Currently Waydroid needs to run on the same GPU the host compositor is running on. NVIDIA GPU doesn't support Waydroid. If you have other GPU alongside it, use
@@ -541,9 +573,9 @@ sudo systemctl restart waydroid-container
 ```
 and then reboot your computer.
 
-To disable Vulkan, which often crashes, and use OpenGL, edit `/var/lib/waydroid/waydroid.cfg` and add
+To prevent Vulkan crash in Flutter apps, edit `/var/lib/waydroid/waydroid.cfg` and add
 ```
-debug.hwui.renderer=opengl
+ro.product.model=gphone_x64
 ```
 under `[properties]`, and then run:
 ```
@@ -577,37 +609,6 @@ sudo systemctl restart waydroid-container
 ```
 
 See <https://github.com/Quackdoc/waydroid-scripts> for more information.
-
-#### Spoof device to bypass root detection:
-
-```
-sudo truncate -s -1 /var/lib/waydroid/waydroid.cfg
-sudo tee -a /var/lib/waydroid/waydroid.cfg <<'EOF'
-ro.product.brand=google
-ro.product.manufacturer=Google
-ro.system.build.product=redfin
-ro.product.name=redfin
-ro.product.device=redfin
-ro.product.model=Pixel 5
-ro.system.build.flavor=redfin-user
-ro.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
-ro.system.build.description=redfin-user 11 RQ3A.211001.001 eng.electr.20230318.111310 release-keys
-ro.bootimage.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
-ro.build.display.id=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
-ro.build.tags=release-keys
-ro.build.description=redfin-user 11 RQ3A.211001.001 eng.electr.20230318.111310 release-keys
-ro.vendor.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
-ro.vendor.build.id=RQ3A.211001.001
-ro.vendor.build.tags=release-keys
-ro.vendor.build.type=user
-ro.odm.build.tags=release-keys
-EOF
-waydroid session stop
-sudo waydroid upgrade --offline
-sudo systemctl restart waydroid-container
-```
-
-See <https://github.com/waydroid/waydroid/issues/1060> for more information.
 
 #### Waydroid Extras Script
 

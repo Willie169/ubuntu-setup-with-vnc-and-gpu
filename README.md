@@ -624,7 +624,7 @@ Select what you want in the interactive terminal interface.
 
 - microG is a FLOSS implementation of Google Play Services, which you don't need in Gapps build.
 - libndk and libhoudini are ARM translation layers. Due to optimizations in the translation layers, It is recommended to use libndk on AMD CPUs and libhoudini on Intel CPUs.
-- If you install Smart Dock and Trebuchet keeps crahes, run `sudo waydroid shell pm disable com.android.launcher3` to disable it. However, recent apps page will not work after disabling.
+- If you install Smart Dock and Trebuchet keeps crahes, run `sudo waydroid shell pm disable com.android.launcher3` to disable it. However, recent apps page will not work after disabling. If you disabled it and then delete Smart Dock, run `sudo waydroid shell pm enable com.android.launcher3` to enable it. It should not crash when not used with Smart Dock.
 
 Afterwards, run
 ```

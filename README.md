@@ -540,38 +540,6 @@ Done in [`waydroid.sh`](waydroid.sh).
 2. Choose options you want. In `Android Type`, there are `Minimal Android` or `Vanilla`, which refers to a pure AOSP (Android Open-Source Project) build without any Google services and occupies approximately 1.0 GB, and `Android with Google Apps` or `Gapps`, which refers to a build that provides access to Google services and occupies approximately 1.4 GB. For beginners, `Android with Google Apps` is recommended.
 3. Press `Download`, wait until `Done` button is shown, and press it.
 
-#### Spoof Device to Bypass Root Detections
-
-Some root detections can be bypassed by editting `/var/lib/waydroid/waydroid.cfg` and adding
-```
-ro.product.brand=google
-ro.product.manufacturer=Google
-ro.system.build.product=redfin
-ro.product.name=redfin
-ro.product.device=redfin
-ro.product.model=Pixel 5
-ro.system.build.flavor=redfin-user
-ro.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
-ro.system.build.description=redfin-user 11 RQ3A.211001.001 eng.electr.20230318.111310 release-keys
-ro.bootimage.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
-ro.build.display.id=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
-ro.build.tags=release-keys
-ro.build.description=redfin-user 11 RQ3A.211001.001 eng.electr.20230318.111310 release-keys
-ro.vendor.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
-ro.vendor.build.id=RQ3A.211001.001
-ro.vendor.build.tags=release-keys
-ro.vendor.build.type=user
-ro.odm.build.tags=release-keys
-```
-under `[properties]`, and then running:
-```
-waydroid session stop
-sudo waydroid upgrade --offline
-sudo systemctl restart waydroid-container
-```
-
-See <https://github.com/waydroid/waydroid/issues/1060> for more information.
-
 #### GPU
 
 Currently Waydroid needs to run on the same GPU the host compositor is running on. NVIDIA GPU doesn't support Waydroid. If you have other GPU alongside it, use
@@ -587,7 +555,7 @@ sudo systemctl restart waydroid-container
 ```
 and then reboot your computer.
 
-To prevent Vulkan crash in Flutter apps, edit `/var/lib/waydroid/waydroid.cfg` and add
+To prevent Vulkan from crashing in Flutter apps, edit `/var/lib/waydroid/waydroid.cfg` and add
 ```
 ro.product.model=gphone_x64
 ```
@@ -624,6 +592,59 @@ sudo systemctl restart waydroid-container
 
 See <https://github.com/Quackdoc/waydroid-scripts> for more information.
 
+#### Spoof Device to Bypass Root Detections
+
+Some root detections can be bypassed by editting `/var/lib/waydroid/waydroid.cfg` and adding
+```
+ro.product.brand=google
+ro.product.manufacturer=Google
+ro.system.build.product=redfin
+ro.product.name=redfin
+ro.product.device=redfin
+ro.product.model=gphone_x64
+ro.system.build.flavor=redfin-user
+ro.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
+ro.system.build.description=redfin-user 11 RQ3A.211001.001 eng.electr.20230318.111310 release-keys
+ro.bootimage.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
+ro.build.display.id=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
+ro.build.tags=release-keys
+ro.build.description=redfin-user 11 RQ3A.211001.001 eng.electr.20230318.111310 release-keys
+ro.vendor.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
+ro.vendor.build.id=RQ3A.211001.001
+ro.vendor.build.tags=release-keys
+ro.vendor.build.type=user
+ro.odm.build.tags=release-keys
+```
+under `[properties]`, and then running:
+```
+waydroid session stop
+sudo waydroid upgrade --offline
+sudo systemctl restart waydroid-container
+```
+Another version that prevents Vulkan from crashing in Flutter apps:
+```
+ro.product.brand=google
+ro.product.manufacturer=Google
+ro.system.build.product=redfin
+ro.product.name=redfin
+ro.product.device=redfin
+ro.product.model=Pixel 5
+ro.system.build.flavor=redfin-user
+ro.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
+ro.system.build.description=redfin-user 11 RQ3A.211001.001 eng.electr.20230318.111310 release-keys
+ro.bootimage.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
+ro.build.display.id=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
+ro.build.tags=release-keys
+ro.build.description=redfin-user 11 RQ3A.211001.001 eng.electr.20230318.111310 release-keys
+ro.vendor.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
+ro.vendor.build.id=RQ3A.211001.001
+ro.vendor.build.tags=release-keys
+ro.vendor.build.type=user
+ro.odm.build.tags=release-keys
+```
+
+See <https://github.com/waydroid/waydroid/issues/1060> for more information.
+
 #### Waydroid Extras Script
 
 ```
@@ -652,13 +673,13 @@ See <https://github.com/casualsnek/waydroid_script> for more information.
 
 #### Google Play Certificate
 
-This only work for Gapps build. Install Aurora Store: <https://gitlab.com/AuroraOSS/AuroraStore> from F-Droid: <https://f-droid.org/packages/com.aurora.store> for Vanilla build.
+This only work with GAPPS installed. For Vanilla build, install Aurora Store: <https://gitlab.com/AuroraOSS/AuroraStore> from F-Droid: <https://f-droid.org/packages/com.aurora.store>.
 
 Run:
 ```
 sudo waydroid shell
 ```
-and then run:
+to enter Waydroid's ABD shell and then run:
 ```
 ANDROID_RUNTIME_ROOT=/apex/com.android.runtime ANDROID_DATA=/data ANDROID_TZDATA_ROOT=/apex/com.android.tzdata ANDROID_I18N_ROOT=/apex/com.android.i18n sqlite3 /data/data/com.google.android.gsf/databases/gservices.db "select * from main where name = \"android_id\";"
 ```
@@ -735,15 +756,19 @@ And start adb:
 ```
 adb connect <IP>:5555
 ```
-Or, run
+Alternatively, you can run
 ```
 sudo waydroid shell
 ```
-to enter Waydroid ADB shell.
+to access Waydroid's ADB shell.
 
 #### Disable On-Screen Keyboard
 
 Waydroid by default shows the Android virtual keyboard when selecting an input field. To disable that, and only use the physical keyboard, turn off the following setting: `Settings > System > Languages & input > Physical keyboard > Use on-screen keyboard`.
+
+#### Input Method
+
+There is no known way to use host's input method in Waydroid. However, you can install input methods that work with physical keyboard, such as Gboard, in Waydroid.
 
 #### Remove
 

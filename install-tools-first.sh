@@ -1346,9 +1346,6 @@ echo y | ./sdkmanager "system-images;android-33;google_apis_playstore;x86_64"
 echo y | ./sdkmanager "system-images;android-36.1;google_apis_playstore;x86_64"
 cd ~
 sudo rm /bin/sdkmanager 2>/dev/null || true
-wget --tries=100 --retry-connrefused --waitretry=5 -O discord.deb 'https://discord.com/api/download?platform=linux&format=deb'
-sudo apt install ./discord.deb </dev/null
-rm discord.deb
 wget --tries=100 --retry-connrefused --waitretry=5 https://proton.me/download/mail/linux/1.12.1/ProtonMail-desktop-beta.deb
 sudo apt install ./ProtonMail-desktop-beta.deb -y
 rm ProtonMail-desktop-beta.deb

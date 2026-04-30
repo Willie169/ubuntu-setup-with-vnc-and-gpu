@@ -1118,10 +1118,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 nvm install --lts
 corepack enable npm
-corepack enable yarn
-corepack enable pnpm
-npm install jsdom markdown-toc marked marked-gfm-heading-id node-html-markdown showdown
-npm install -g bash-language-server dockerfile-language-server-nodejs http-server pyright tree-sitter-cli
+npm i jsdom markdown-toc marked marked-gfm-heading-id node-html-markdown showdown
+npm i -g bash-language-server dockerfile-language-server-nodejs http-server opencode-ai pyright tree-sitter-cli @openai/codex
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://bun.com/install | bash
 pipx install cmake-language-server gh2md libretranslate notebook jupyterlab jupytext meson poetry pylatexenc uv
 cat > ~/.config/systemd/user/libretranslate.service <<EOF

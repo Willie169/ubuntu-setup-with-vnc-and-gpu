@@ -87,7 +87,7 @@ sudo add-apt-repository multiverse -y
 sudo add-apt-repository restricted -y
 sudo add-apt-repository ppa:bkryza/clang-uml -y
 sudo add-apt-repository ppa:fdroid/fdroidserver -y
-sudo apt-add-repository ppa:flexiondotorg/quickemu -y
+sudo add-apt-repository ppa:flexiondotorg/quickemu -y
 sudo add-apt-repository ppa:libreoffice/ppa -y
 sudo add-apt-repository ppa:longsleep/golang-backports -y
 sudo add-apt-repository ppa:neovim-ppa/unstable -y

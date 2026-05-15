@@ -118,10 +118,14 @@ nvcc --version
 
 ### [clamscan.sh](clamscan.sh)
 
-Scan the following directories recursively with ClamAV, which is installed in [`install-tools-first.sh`](install-tools-first.sh)
+Scans the following directories recursively with ClamAV, which is installed in [`install-tools-first.sh`](install-tools-first.sh)
 ```
 /home /etc /var /usr/share /usr/local/etc /usr/local/share
 ```
+
+### [`ruview.sh`](ruview.sh)
+
+Installs [RuView](https://github.com/ruvnet/RuView) from source (Rust), which requires approximately 13.8 GB storage. The binaries are at `~/RuView/v2/target/release`, which has been added to `$PATH` in [`install-tools-first.sh`](install-tools-first.sh). See <https://github.com/ruvnet/RuView/blob/main/docs/user-guide.md> for more information.
 
 ## Instructions
 

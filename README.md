@@ -115,6 +115,13 @@ nvcc --version
 - [`xmrig-xmr.sh`](xmrig-xmr.sh): Mines XMR to [the repository owner](https://github.com/Willie169)'s wallet, `48j6iQDeCSDeH46gw4dPJnMsa6TQzPa6WJaYbBS9JJucKqg9Mkt5EDe9nSkES3b8u7V6XJfL8neAPAtbEpmV2f4XC7bdbkv`, using my modified version of [XMRig](https://github.com/Willie169/xmrig) and through Tor. Change the wallet address and other configurations if you want.
 - [`xmrig-rvn.sh`](xmrig-rvn.sh): Mines RVN to [the repository owner](https://github.com/Willie169)'s wallet, `RCo4QqzEnEtEVv749TJfNz293p2xVVhXFx`, using my modified version of [XMRig](https://github.com/Willie169/xmrig) and through Tor. Change the wallet address and other configurations if you want.
 
+### [clamscan.sh](clamscan.sh)
+
+Scan the following directories recursively with ClamAV, which is installed in [`install-tools-first.sh`](install-tools-first.sh)
+```
+/home /etc /var /usr/share /usr/local/etc /usr/local/share
+```
+
 ## Instructions
 
 ### Table of Contents

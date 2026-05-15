@@ -30,7 +30,14 @@ and follow the prompts until the computer reboots automatically.</li>
 ./install-tools-second.sh
 </code></pre>
 until it exits automatically.</li>
-<li>You can list installed Snap packages with <code>snap list</code>. You may want to cleanup remaining Snap packages that you don&#39;t need or are already installed from other sources in previous scripts, e.g., 
+</ol>
+
+### Stuff You May Want to Do Afterwards
+
+After running `install-tools-first.sh` and `install-tools-second.sh`, you may want to:
+<ol>
+<li>Set JetBrainsMono Nerd Font for your terminal emulator for icons used by `yazi`.</li>
+<li>List installed Snap packages with <code>snap list</code>. You may want to cleanup remaining Snap packages that you don&#39;t need or are already installed from other sources in previous scripts, e.g., 
 <pre><code>snap remove element-desktop ffmpeg-2204 firmware-updater krita gnome-42-2204 gnome-46-2404 gtk-common-themes kf5-core22 mesa-2404</code></pre>
 </li>
 <li>Go to <a href="http://localhost:8082">http://localhost:8082</a>, enter default user name <code>admin</code> and password <code>admin123</code>, change user name and password, and login in the pop-up window of ClipCascade client.</li>
@@ -51,7 +58,7 @@ to login to Tailscale via the URL shown and click <strong>Connect</strong>. Goog
 </code></pre>
 to login to GitHub.</li>
 <li>Run `flatpak run com.mikeasoft.pied` to setup Pied.</li>
-<li>You may want to config git with <code>git config --global user.name [your_name] &amp;&amp; git config --global user.email [your_email]</code>, <code>git config --global pull.rebase true</code> etc.</li>
+<li>Config git with <code>git config --global user.name [your_name] &amp;&amp; git config --global user.email [your_email]</code>, <code>git config --global pull.rebase true</code> etc.</li>
 <li>Run <code>code</code> or click the <strong>VSCodium</strong> icon to setup VSCodium.</li>
 <li>Run <code>codeblocks</code> or click the <strong>Code::Blocks IDE</strong> icon to setup Code::Blocks.</li>
 <li>Run <code>studio</code> or click the <strong>Android Studio</strong> icon to setup Android Studio. <code>&quot;system-images;android-33;google_apis_playstore;x86_64&quot; &quot;system-images;android-36.1;google_apis_playstore;x86_64&quot;</code> installation in <a href="install-tools-first.sh"><code>install-tools-first.sh</code></a> may fail silently due to network issue, you can download it again via <code>sdkmanager &quot;system-images;android-33;google_apis_playstore;x86_64&quot; &quot;system-images;android-36.1;google_apis_playstore;x86_64&quot;</code> or Android Studio GUI.</li>
@@ -78,7 +85,7 @@ downloaded from <https://katagotraining.org/networks>), LizzieYzy (can be launch
 `~/cutechess/build/cutechess` and can be launched by running `cutechess` or with desktop entry `~/.local/share/applications/cutechess.desktop`, CLI at `~/cutechess/build/cutechess-cli` and can be run with `cutechess-cli`, Fairy-Stockfish configured as engine in `~/.config/cutechess/engines.json`, which can be updated by running `update_cutechess_config`), Sylvan (GUI at `~/Sylvan/projects/gui/sylvan` and can be launched by running `sylvan` or with desktop entry `~/.local/share/applications/sylvan.desktop`, 
 CLI at `~/Sylvan/projects/cli/sylvan-cli` and can be run with `sylvan-cli`, Fairy-Stockfish configured as engine in `~/.config/EterCyber/engines.json`, which can be updated by running `update_sylvan_config`), [my modified version](https://github.com/Willie169/vimrc) of [vimrc by Amir Salihefendic (amix)](https://github.com/amix/vimrc) for both Vim and Neovim (can be updated by running `update_vimrc`), my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch) 
 and checks out `dev` branch and my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit) (can be updated with `update_latex`), switches from Snap Firefox and Thunderbird to Deb Firefox and Thunderbird from Mozilla Team PPA and enables unattended upgrade, installs Deb Chromium from XtraDeb PPA and prevents Snap Chromium from being installed if on Ubuntu and not on Linux Mint, and installs Google Chrome, using scripts from my [switch-firefox-from-snap-to-deb](https://github.com/Willie169/switch-firefox-from-snap-to-deb), 
-and copies `~/.bashrc.d` and `~/.bashrc` from my [**bashrc**](https://github.com/Willie169/bashrc) repo (can be updated by running `update_bashrc`), and more.
+downloads JetBrainsMono Nerd Font into `~/.local/share/fonts`, and copies `~/.bashrc.d` and `~/.bashrc` from my [**bashrc**](https://github.com/Willie169/bashrc) repo (can be updated by running `update_bashrc`), and more.
 
 ## Other Scripts
 

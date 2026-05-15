@@ -134,6 +134,7 @@ sudo mkdir -p /usr/local/java
 sudo mkdir -p /etc/apt/keyrings
 mkdir -p ~/.local/bin
 mkdir -p ~/.local/share/applications
+mkdir -p ~/.local/share/fonts
 mkdir -p ~/Desktop
 mkdir -p ~/.config/systemd/user
 if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
@@ -1085,6 +1086,14 @@ else
   cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
   fcitx5 &
 fi
+mkdir ~/.JetBrainsMono
+cd ~/.JetBrainsMono
+wget --tries=100 --retry-connrefused --waitretry=5 https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip
+unzip JetBrainsMono.zip
+mv JetBrainsMonoNerdFontMono-Regular.ttf ~/.local/share/fonts/
+cd ~
+rm -rf .JetBrainsMono
+sudo fc-cache -fv
 wget --tries=100 --retry-connrefused --waitretry=5 -O sdl2_bgi_3.0.4-1_amd64.deb https://sourceforge.net/projects/sdl-bgi/files/sdl2_bgi_3.0.4-1_amd64.deb/download
 sudo apt install ./sdl2_bgi_3.0.4-1_amd64.deb -y
 rm sdl2_bgi_3.0.4-1_amd64.deb

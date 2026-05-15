@@ -120,7 +120,7 @@ nvcc --version
 
 Scans the following directories recursively with ClamAV, which is installed in [`install-tools-first.sh`](install-tools-first.sh)
 ```
-/home /etc /var /usr/share /usr/local/etc /usr/local/share
+/home /etc /var /usr/share /usr/local /opt /tmp
 ```
 
 ### [`ruview.sh`](ruview.sh)

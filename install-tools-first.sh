@@ -1109,10 +1109,6 @@ sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://b
 sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
 sudo apt update
 sudo apt install brave-browser -y
-wget -qO - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo tee /etc/apt/keyrings/google.asc >/dev/null
-sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/google.asc] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list'
-sudo apt update
-sudo apt install google-chrome-stable -y
 json="$(curl -fsSL https://api.github.com/repos/xlionjuan/xlion-repo-archive-keyring/releases/latest)" && asset="$(echo "$json" | jq -r '.assets[] | select(.name | endswith(".deb")) | "\(.browser_download_url) \(.digest)"' | head -n1)" && url="${asset%% *}" && digest="${asset##* }" && [ -n "$url" ] && [ "$url" != "null" ] && [ -n "$digest" ] && [ "$digest" != "null" ] || { echo "ERROR: cannot locate .deb asset or SHA256 digest" >&2; return 1 2>/dev/null || false; } && tmpfile="$(mktemp /tmp/xlion-keyring-XXXXXX.deb)" && curl -fL "$url" -o "$tmpfile" || { echo "ERROR: download failed" >&2; return 1 2>/dev/null || false; } && expected="${digest#*:}" && actual="$(sha256sum "$tmpfile" | awk '{print $1}')" && [ "$actual" = "$expected" ] || { echo "ERROR: SHA256 mismatch" >&2; rm -f "$tmpfile"; return 1 2>/dev/null || false; } && sudo dpkg -i "$tmpfile" && rm -f "$tmpfile"
 curl -fsSL https://xlionjuan.github.io/rustdesk-apt-repo-latest/latest.sources | sudo tee /etc/apt/sources.list.d/xlion-rustdesk-repo.sources >/dev/null
 sudo apt install rustdesk rustdesk-server -y
@@ -1124,7 +1120,7 @@ sudo ufw reload
 curl -sS https://debian.griffo.io/EA0F721D231FDD3A0A17B9AC7808B4DD62C41256.asc | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/debian.griffo.io.gpg
 echo "deb https://debian.griffo.io/apt $(lsb_release -sc 2>/dev/null) main" | sudo tee /etc/apt/sources.list.d/debian.griffo.io.list >/dev/null
 sudo apt update
-sudo apt install lazygit zed -y
+sudo apt install lazygit -y
 wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
 echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list >/dev/null
 sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
@@ -1138,7 +1134,6 @@ nvm install --lts
 corepack enable npm
 npm i jsdom markdown-toc marked marked-gfm-heading-id node-html-markdown showdown
 npm i -g bash-language-server dockerfile-language-server-nodejs http-server opencode-ai pyright tree-sitter-cli @openai/codex
-curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://bun.com/install | bash
 pipx install cmake-language-server gh2md libretranslate notebook jupyterlab jupytext meson poetry pylatexenc uv
 cat > ~/.config/systemd/user/libretranslate.service <<EOF
 [Unit]
@@ -1291,27 +1286,6 @@ sudo chmod 640 /var/log/postgresql/* 2>/dev/null || true
 wget --tries=100 --retry-connrefused --waitretry=5 https://cdn.fastly.steamstatic.com/client/installer/steam.deb
 sudo apt install ./steam.deb -y
 rm steam.deb
-cd ~/.local
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' godotengine/godot Godot_*-stable_mono_linux_x86_64.zip
-unzip Godot_*-stable_mono_linux_x86_64.zip
-rm Godot_*-stable_mono_linux_x86_64.zip
-mv Godot_*-stable_mono_linux_x86_64 godot
-ln -s ~/.local/godot/Godot_*-stable_mono_linux.x86_64 ~/.local/bin/godoit
-cd ~/.local/godot
-wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/icon.png
-cd ~
-cat > ~/.local/share/applications/godot.desktop <<EOF
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=Godot Engine
-Comment=Develop your 2D & 3D games, cross-platform projects, or even XR ideas
-Exec=$HOME/.local/bin/godot %f
-Icon=$HOME/.local/godot/icon.png
-Terminal=false
-Categories=Development;IDE;
-StartupNotify=true
-EOF
 sudo wget -O /usr/share/keyrings/element-io-archive-keyring.gpg https://packages.element.io/debian/element-io-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/element-io-archive-keyring.gpg] https://packages.element.io/debian/ default main" | sudo tee /etc/apt/sources.list.d/element-io.list >/dev/null
 sudo apt update
@@ -1369,32 +1343,12 @@ echo y | ./sdkmanager "system-images;android-33;google_apis_playstore;x86_64"
 echo y | ./sdkmanager "system-images;android-36.1;google_apis_playstore;x86_64"
 cd ~
 sudo rm /bin/sdkmanager 2>/dev/null || true
-wget --tries=100 --retry-connrefused --waitretry=5 https://proton.me/download/mail/linux/1.12.1/ProtonMail-desktop-beta.deb
-sudo apt install ./ProtonMail-desktop-beta.deb -y
-rm ProtonMail-desktop-beta.deb
-wget --tries=100 --retry-connrefused --waitretry=5 https://proton.me/download/bridge/protonmail-bridge_3.21.2-1_amd64.deb
-sudo apt install ./protonmail-bridge_*_amd64.deb -y
-rm protonmail-bridge_*_amd64.deb
 wget --tries=100 --retry-connrefused --waitretry=5 http://archive.ubuntu.com/ubuntu/pool/universe/g/gdk-pixbuf-xlib/libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb
 sudo apt install ./libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb -y
 rm libgdk-pixbuf2.0-0_2.40.2-3build2_amd64.deb
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' balena-io/etcher balena-etcher_*_amd64.deb
 sudo apt install ./balena-etcher_*_amd64.deb -y
 rm balena-etcher_*_amd64.deb
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' arduino/arduino-cli arduino-cli_*_amd64.deb
-sudo apt install ./arduino-cli_*_amd64.deb -y
-rm arduino-cli_*_amd64.deb
-mkdir ~/.local/arduino-ide
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' arduino/arduino-ide arduino-ide_*_Linux_64bit.zip
-unzip arduino-ide_*_Linux_64bit.zip
-rm arduino-ide_*_Linux_64bit.zip
-mv ~/arduino-ide_*_Linux_64bit ~/.local/arduino-ide/
-cat > ~/.local/bin/arduino-ide <<'EOF'
-#!/bin/bash
-~/.local/arduino-ide/arduino-ide_*_Linux_64bit/arduino-ide --no-sandbox "$@"
-EOF
-chmod +x ~/.local/bin/arduino-ide
-echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
 sudo tee /etc/udev/rules.d/52-xilinx-usb.rules >/dev/null <<'EOF'
 SUBSYSTEM=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="0666", GROUP="plugdev"
 EOF

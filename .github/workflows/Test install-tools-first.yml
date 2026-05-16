@@ -64,10 +64,10 @@ jobs:
           s/^[ \t]*fcitx5 &//;
           s/^echo y | sudo ubuntu-drivers [a-z]+ || true//;
           s/^sudo apt install (brave-browser|rustdesk rustdesk-server|lazygit|eza|gitcomet|element-desktop) -y/sudo apt install $1 -y --dry-run/;
-          s/\Qwget --tries=100 --retry-connrefused --waitretry=5 https://edgedl.me.gvt1.com/android/studio/ide-zips\E.*\Qsudo rm /bin/sdkmanager 2>/dev/null || true\E//s;
-          s/\Qwget --tries=100 --retry-connrefused --waitretry=5 https://gitlab.com/kicad/code/kicad/-/raw/master/resources/bitmaps_png/icons/icon_kicad.ico\E//;
           ' -- install-tools-first.sh
           perl -i -pe '
+          s/\Qwget --tries=100 --retry-connrefused --waitretry=5 https://edgedl.me.gvt1.com/android/studio/ide-zips\E.*\Qsudo rm /bin/sdkmanager 2>/dev/null || true\E//s;
+          s/\Qwget --tries=100 --retry-connrefused --waitretry=5 https://gitlab.com/kicad/code/kicad/-/raw/master/resources/bitmaps_png/icons/icon_kicad.ico\E//;
           BEGIN { $seen = 0; $count = 0 }
           if (!$seen && /sudo apt upgrade -y/) {
             $seen = 1;

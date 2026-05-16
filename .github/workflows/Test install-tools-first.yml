@@ -20,15 +20,48 @@ jobs:
 
       - name: Patch script
         run: |
-          decoded=$(printf '%s' "d2dldCAtLXRyaWVzPTEwMCAtLXJldHJ5LWNvbm5yZWZ1c2VkIC0td2FpdHJldHJ5PTUgaHR0cHM6Ly9taXJyb3IuY3Rhbi5vcmcvc3lzdGVtcy90ZXhsaXZlL3RsbmV0L2luc3RhbGwtdGwtdW54LnRhci5negp0YXIgLXh6ZiBpbnN0YWxsLXRsLXVueC50YXIuZ3oKcm0gaW5zdGFsbC10bC11bngudGFyLmd6CmNkIGluc3RhbGwtdGwtKgpzdWRvIHBlcmwgLi9pbnN0YWxsLXRsIC0tbm8taW50ZXJhY3Rpb24KY2QgfgpybSAtcmYgaW5zdGFsbC10bC0qCnN1ZG8gL3Vzci9sb2NhbC90ZXhsaXZlLzIwMjYvYmluL3g4Nl82NC1saW51eC90bG1nciB1cGRhdGUgLS1hbGwgLS1zZWxmIC0tcmVpbnN0YWxsLWZvcmNpYmx5LXJlbW92ZWQKbWtkaXIgLXAgfi8uY29uZmlnL2ZvbnRjb25maWcvY29uZi5kCmNhdCA+IH4vLmNvbmZpZy9mb250Y29uZmlnL2NvbmYuZC85OS10ZXhsaXZlLmNvbmYgPDwnRU9GJwo8P3htbCB2ZXJzaW9uPSIxLjAiPz4KPCFET0NUWVBFIGZvbnRjb25maWcgU1lTVEVNICJmb250cy5kdGQiPgo8Zm9udGNvbmZpZz4KICA8ZGlyPi91c3IvbG9jYWwvdGV4bGl2ZS8yMDI2L3RleG1mLWRpc3QvZm9udHM8L2Rpcj4KPC9mb250Y29uZmlnPgpFT0YKc3VkbyBmYy1jYWNoZSAtZnYK" | base64 -d)
+          export x="$(echo "$(cat << d23fac94-9e7a-47b0-92e9-ac5a8a7c7a41
+          wget --tries=100 --retry-connrefused --waitretry=5 https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+          tar -xzf install-tl-unx.tar.gz
+          rm install-tl-unx.tar.gz
+          cd install-tl-*
+          sudo perl ./install-tl --no-interaction
+          cd ~
+          rm -rf install-tl-*
+          sudo /usr/local/texlive/2026/bin/x86_64-linux/tlmgr update --all --self --reinstall-forcibly-removed
+          mkdir -p ~/.config/fontconfig/conf.d
+          cat > ~/.config/fontconfig/conf.d/99-texlive.conf <<'EOF'
+          <?xml version="1.0"?>
+          <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+          <fontconfig>
+            <dir>/usr/local/texlive/2026/texmf-dist/fonts</dir>
+          </fontconfig>
+          EOF
+          sudo fc-cache -fv
+          cd /usr/share
+          sudo git clone https://github.com/Willie169/LaTeX-ToolKit
+          cd ~
+          mkdir -p texmf
+          cd texmf
+          mkdir -p tex
+          cd tex
+          mkdir -p latex
+          cd latex
+          git clone https://github.com/Willie169/physics-patch
+          cd physics-patch
+          git checkout dev
+          cd ~
+
+          d23fac94-9e7a-47b0-92e9-ac5a8a7c7a41
+          )")"
           perl -0777 -i -pe '
-          BEGIN {
-            $s = $ENV{"decoded"};
-            $s = quotemeta($s);
-          }
-          s/$s//g;
-          ' -- "install-tools-first.sh"
-          perl -0777 -i -pe 's/sudo reboot//g;' -- "install-tools-first.sh"
+            my $pat = $ENV{x};
+            $pat =~ s/\r\n/\n/g;
+            my @lines = split /\n/, $pat;
+            my $re = join "\\R", map { quotemeta($_) } @lines;
+            s/$re//g;
+          ' -- install-tools-first.sh
+          perl -0777 -i -pe 's/sudo reboot//;' -- install-tools-first.sh
 
       - name: Run install-tools-first.sh
         run: |

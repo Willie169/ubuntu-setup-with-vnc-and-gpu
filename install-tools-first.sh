@@ -1722,7 +1722,7 @@ Environment=CC_PORT=8082
 WantedBy=default.target
 EOF
 systemctl --user daemon-reload
-systemctl --user enable --now clipcascade-client
+systemctl --user enable clipcascade-client
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list >/dev/null
 sudo chmod o+r /usr/share/keyrings/caddy-stable-archive-keyring.gpg

@@ -16,6 +16,19 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 ### Usage 
 
 <ol>
+<li>You may want to export the following credentials to <code>~/API_KEY.sh</code> in the format <code>export <VARIABLE>='<VALUE>'</code> per line for automatic setup of deb-get and LiteLLM:
+<ol>
+<li><code>DEBGET_TOKEN</code>: A <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">GitHub Personal Access Token (PAT)</a> with interaction limit permission.</li>
+<li><code>LITELLM_MASTER_KEY</code></li>
+<li><code>LITELLM_SALT_KEY</code></li>
+<li><code>OPENAI_API_KEY</code></li>
+<li><code>ANTHROPIC_API_KEY</code></li>
+<li><code>GEMINI_API_KEY</code></li>
+<li><code>DEEPSEEK_API_KEY</code></li>
+<li><code>OPENROUTER_API_KEY</code></li>
+<li><code>MISTRAL_API_KEY</code></li>
+</ol>
+</li>
 <li>Run
 <pre><code>cd ~
 sudo apt update
@@ -59,7 +72,6 @@ to login to Tailscale via the URL shown and click <strong>Connect</strong>. Goog
 to login to GitHub.</li>
 <li>Run `flatpak run com.mikeasoft.pied` to setup Pied.</li>
 <li>Config git with <code>git config --global user.name [your_name] &amp;&amp; git config --global user.email [your_email]</code>, <code>git config --global pull.rebase true</code> etc.</li>
-<li>Export a [GitHub Personal Access Token (PAT)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) as `DEBGET_TOKEN` in `~/API_KEY.sh` with `export DEBGET_TOKEN=github-personal-access-token` and run `deb-get update`.</li>
 <li>Run <code>code</code> or click the <strong>VSCodium</strong> icon to setup VSCodium.</li>
 <li>Run <code>codeblocks</code> or click the <strong>Code::Blocks IDE</strong> icon to setup Code::Blocks.</li>
 <li>Run <code>studio</code> or click the <strong>Android Studio</strong> icon to setup Android Studio. <code>&quot;system-images;android-33;google_apis_playstore;x86_64&quot; &quot;system-images;android-36.1;google_apis_playstore;x86_64&quot;</code> installation in <a href=".install-tools-first.sh"><code>install-tools-first.sh</code></a> may fail silently due to network issue, you can download it again via <code>sdkmanager &quot;system-images;android-33;google_apis_playstore;x86_64&quot; &quot;system-images;android-36.1;google_apis_playstore;x86_64&quot;</code> or Android Studio GUI.</li>

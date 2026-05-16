@@ -48,11 +48,13 @@ jobs:
           d23fac94-9e7a-47b0-92e9-ac5a8a7c7a41
           )")"
           perl -0777 -i -pe '
-            my $pat = $ENV{x};
-            $pat =~ s/\r\n/\n/g;
-            my @lines = split /\n/, $pat;
-            my $re = join "\\R", map { quotemeta($_) } @lines;
-            s/$re//g;
+          my $pat = $ENV{x};
+          $pat =~ s/\r\n/\n/g;
+          my @lines = split /\n/, $pat;
+          my $re = join "\\R", map { quotemeta($_) } @lines;
+          s/$re//g;
+          s/wget --tries=100 --retry-connrefused --waitretry=5 https:\/\/edgedl\.me\.gvt1\.com\/android\/studio\/ide-zips.*sudo rm \/bin\/sdkmanager 2>\/dev\/null \|\| true//s;
+          s/export KICAD_VERSION.*Icon=\$HOME\/\.local\/kicad\/icon_kicad\.ico\nTerminal=false\nCategories=Development;\nEOF//s;
           ' -- install-tools-first.sh
           perl -i -pe '
           s/^npm i\b(.*)/npm i$1 --dry-run/;
@@ -64,17 +66,15 @@ jobs:
           s/^[ \t]*fcitx5 &//;
           s/^echo y | sudo ubuntu-drivers [a-z]+ || true//;
           s/^sudo apt install (brave-browser|rustdesk rustdesk-server|lazygit|eza|gitcomet|element-desktop) -y/sudo apt install $1 -y --dry-run/;
-          ' -- install-tools-first.sh
-          perl -i -pe '
-          s/wget --tries=100 --retry-connrefused --waitretry=5 https:\/\/edgedl\.me\.gvt1\.com\/android\/studio\/ide-zips.*sudo rm \/bin\/sdkmanager 2>\/dev\/null \|\| true//s;
-          s/export KICAD_VERSION.*Icon=\$HOME\/\.local\/kicad\/icon_kicad\.ico\nTerminal=false\nCategories=Development;\nEOF//;
           BEGIN { $seen = 0; $count = 0 }
           if (!$seen && /sudo apt upgrade -y/) {
             $seen = 1;
-            $count = 2;
+            $count = 3;
           }
           if ($seen && $count > 0) {
-            s/$/ --dry-run/;
+            if ($count < 3) {
+              s/$/ --dry-run/;
+            }
             $count--;
             if ($count == 0) {
                 $_ .= "sudo apt install apparmor-utils apt-transport-https build-essential ca-certificates clamav clamav-daemon cmake curl dbus debian-archive-keyring debian-keyring default-jdk dnscrypt-proxy gcc git gpg g++ make maven ninja-build perl python-is-python3 python3 python3-pip python3-venv wget -y\n";

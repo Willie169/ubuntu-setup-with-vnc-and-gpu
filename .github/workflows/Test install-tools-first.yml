@@ -64,7 +64,7 @@ jobs:
           s/^sudo fc-cache -fv//;
           s/^sudo reboot//;
           s/^[ \t]*fcitx5 &//;
-          s/^echo y | sudo ubuntu-drivers [a-z]+ || true//;
+          s/^echo y \| sudo ubuntu-drivers [a-z]+ \|\| true//;
           s/^sudo apt install (brave-browser|rustdesk rustdesk-server|lazygit|eza|gitcomet|element-desktop) -y/sudo apt install $1 -y --dry-run/;
           BEGIN { $seen = 0; $count = 0 }
           if (!$seen && /sudo apt upgrade -y/) {

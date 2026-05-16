@@ -1351,15 +1351,16 @@ EOF
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 sudo usermod -aG plugdev $USER
-wget --tries=100 --retry-connrefused --waitretry=5 https://downloads.kicad.org/kicad/linux/explore/stable/download/kicad-10.0.0-x86_64.AppImage.tar
-tar -xf kicad-*-x86_64.AppImage.tar
-rm kicad-*-x86_64.AppImage.tar
-chmod +x kicad-*-x86_64.AppImage
+export KICAD_VERSION='10.0.3'
+wget --tries=100 --retry-connrefused --waitretry=5 https://downloads.kicad.org/kicad/linux/explore/stable/download/kicad-$KICAD_VERSION-x86_64.AppImage.tar
+tar -xf kicad-$KICAD_VERSION-x86_64.AppImage.tar
+rm kicad-$KICAD_VERSION-x86_64.AppImage.tar
+chmod +x kicad-$KICAD_VERSION-x86_64.AppImage
 mkdir -p ~/.local/kicad
-mv kicad-*-x86_64.AppImage ~/.local/kicad
-cat > ~/.local/bin/kicad <<'EOF'
+mv kicad-$KICAD_VERSION-x86_64.AppImage ~/.local/kicad
+cat > ~/.local/bin/kicad <<EOF
 #!/bin/bash
-~/.local/kicad/kicad-*-x86_64.AppImage "$@"
+~/.local/kicad/kicad-$KICAD_VERSION-x86_64.AppImage
 EOF
 chmod +x ~/.local/bin/kicad
 cd ~/.local/kicad
@@ -1367,10 +1368,11 @@ wget --tries=100 --retry-connrefused --waitretry=5 https://gitlab.com/kicad/code
 cd ~
 cat > ~/.local/share/applications/kicad.desktop <<EOF
 [Desktop Entry]
+Version=$KICAD_VERSION
 Type=Application
 Name=KiCad
 Comment=KiCad - Schematic Capture & PCB Design Software
-Exec=$HOME/.local/kicad/kicad-*-x86_64.AppImage
+Exec=$HOME/.local/kicad/kicad-$KICAD_VERSION-x86_64.AppImage
 Icon=$HOME/.local/kicad/icon_kicad.ico
 Terminal=false
 Categories=Development;

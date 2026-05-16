@@ -66,8 +66,8 @@ jobs:
           s/^sudo apt install (brave-browser|rustdesk rustdesk-server|lazygit|eza|gitcomet|element-desktop) -y/sudo apt install $1 -y --dry-run/;
           ' -- install-tools-first.sh
           perl -i -pe '
-          s/\Qwget --tries=100 --retry-connrefused --waitretry=5 https://edgedl.me.gvt1.com/android/studio/ide-zips\E.*\Qsudo rm /bin/sdkmanager 2>/dev/null || true\E//s;
-          s/\Qwget --tries=100 --retry-connrefused --waitretry=5 https://gitlab.com/kicad/code/kicad/-/raw/master/resources/bitmaps_png/icons/icon_kicad.ico\E//;
+          s/wget --tries=100 --retry-connrefused --waitretry=5 https:\/\/edgedl\.me\.gvt1\.com\/android\/studio\/ide-zips.*sudo rm \/bin\/sdkmanager 2>\/dev\/null \|\| true//s;
+          s/export KICAD_VERSION.*Icon=\$HOME\/\.local\/kicad\/icon_kicad\.ico\nTerminal=false\nCategories=Development;\nEOF//;
           BEGIN { $seen = 0; $count = 0 }
           if (!$seen && /sudo apt upgrade -y/) {
             $seen = 1;

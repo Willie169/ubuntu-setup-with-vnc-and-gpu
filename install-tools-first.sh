@@ -1314,7 +1314,7 @@ wget --tries=100 --retry-connrefused --waitretry=5 https://edgedl.me.gvt1.com/an
 sudo tar -xzf android-studio-*-linux.tar.gz -C /opt/
 rm android-studio-*-linux.tar.gz
 echo '[Desktop Entry]
-Version=1.0
+Version=2025.3.2.6
 Type=Application
 Name=Android Studio
 Comment=Android IDE

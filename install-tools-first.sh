@@ -1314,7 +1314,7 @@ WantedBy=default.target
 EOF
 systemctl --user daemon-reload
 systemctl --user enable --now cyberchef
-curl -fsSL https://dl.google.com/android/cli/latest/linux_x86_64/install.sh | bash 
+curl -fsSL https://dl.google.com/android/cli/latest/linux_x86_64/install.sh | bash
 android sdk install cmdline-tools/latest
 cd ~/Android/Sdk/cmdline-tools/latest/bin || exit
 echo y | ./sdkmanager "emulator" "platform-tools"
@@ -1325,7 +1325,17 @@ EOF
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 sudo usermod -aG plugdev "$USER"
-export KICAD_VERSION='10.0.3'
+curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://downloads.kicad.org/kicad/linux/explore/stable -o kicad.html
+export KICAD_VERSION="$(awk '
+found {
+  sub(/^[ \t]+/, "", $0)
+  sub(/[ \t]+$/, "", $0)
+  print
+  exit
+}
+$0 ~ /href="#date-1"/ { found=1 }
+' kicad.html)"
+rm kicad.hml
 wget --tries=100 --retry-connrefused --waitretry=5 https://downloads.kicad.org/kicad/linux/explore/stable/download/kicad-$KICAD_VERSION-x86_64.AppImage.tar
 tar -xf kicad-$KICAD_VERSION-x86_64.AppImage.tar
 rm kicad-$KICAD_VERSION-x86_64.AppImage.tar
@@ -1531,7 +1541,7 @@ cat ~/API_KEY.sh | grep DEEPSEEK_API_KEY >> .env || true
 cat ~/API_KEY.sh | grep OPENROUTER_API_KEY >> .env || true
 cat ~/API_KEY.sh | grep MISTRAL_API_KEY >> .env || true
 source .env
-curl -O https://raw.githubusercontent.com/BerriAI/litellm/refs/heads/main/prometheus.yml
+curl --retry 100 --retry-connrefused --retry-delay 5 -fsSLO https://raw.githubusercontent.com/BerriAI/litellm/refs/heads/main/prometheus.yml
 cat > docker-compose.yml <<'EOF'
 services:
   litellm:

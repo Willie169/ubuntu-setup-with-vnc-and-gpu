@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Patch script
+      - name: Setup environment and patch script
         run: |
           sudo apt update
           sudo apt install ubuntu-gnome-desktop openssl perl -y

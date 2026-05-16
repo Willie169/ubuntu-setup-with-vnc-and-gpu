@@ -15,8 +15,6 @@ jobs:
 
       - name: Patch script
         run: |
-          sudo apt update
-          sudo apt install perl -y
           export x="$(echo "$(cat << d23fac94-9e7a-47b0-92e9-ac5a8a7c7a41
           wget --tries=100 --retry-connrefused --waitretry=5 https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
           tar -xzf install-tl-unx.tar.gz

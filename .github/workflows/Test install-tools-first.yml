@@ -13,13 +13,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup environment
-        run: |
-          sudo apt update
-          sudo apt install ubuntu-gnome-desktop openssl perl -y
-
       - name: Patch script
         run: |
+          sudo apt update
+          sudo apt install perl -y
           export x="$(echo "$(cat << d23fac94-9e7a-47b0-92e9-ac5a8a7c7a41
           wget --tries=100 --retry-connrefused --waitretry=5 https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
           tar -xzf install-tl-unx.tar.gz
@@ -62,6 +59,11 @@ jobs:
             s/$re//g;
           ' -- install-tools-first.sh
           perl -0777 -i -pe 's/sudo reboot//;' -- install-tools-first.sh
+
+      - name: Setup environment
+        run: |
+          sudo apt update
+          sudo apt install ubuntu-desktop-minimal -y
 
       - name: Run install-tools-first.sh
         run: |

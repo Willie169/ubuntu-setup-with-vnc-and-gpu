@@ -1245,8 +1245,10 @@ curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://download.dock
 echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 sudo apt update
 sudo apt install docker-ce docker-ce-rootless-extras -y
-sudo systemctl disable --now docker.socket
-sudo systemctl disable --now docker.service
+sudo systemctl stop docker.socket
+sudo systemctl disable docker.socket
+sudo systemctl stop docker.service
+sudo systemctl disable docker.service
 dockerd-rootless-setuptool.sh install
 export DOCKER_HOST='unix:///run/user/1000/docker.sock'
 systemctl --user enable --now docker.service

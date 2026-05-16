@@ -1315,7 +1315,6 @@ sudo tar -xzf android-studio-*-linux.tar.gz -C /opt/
 rm android-studio-*-linux.tar.gz
 echo '[Desktop Entry]
 Version=1.0
-brew install bat fd fzf git-delta gurgeous/tap/tennis resvg ripgrep sevenzip starship yazi zoxide
 Type=Application
 Name=Android Studio
 Comment=Android IDE

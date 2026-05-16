@@ -77,7 +77,7 @@ jobs:
             }
             $count--;
             if ($count == 0) {
-                $_ .= "sudo apt install apparmor-utils apt-transport-https build-essential ca-certificates clamav clamav-daemon cmake curl dbus debian-archive-keyring debian-keyring default-jdk dnscrypt-proxy gcc git gpg g++ make maven ninja-build perl python-is-python3 python3 python3-pip python3-venv wget -y\n";
+                $_ .= "sudo apt install apparmor-utils apt-transport-https build-essential ca-certificates clamav clamav-daemon cmake curl dbus debian-archive-keyring debian-keyring default-jdk dnscrypt-proxy gcc git gpg g++ jq make maven ninja-build perl python-is-python3 python3 python3-pip python3-venv wget -y\n";
             }
           }
           ' -- install-tools-first.sh

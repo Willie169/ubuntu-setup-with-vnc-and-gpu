@@ -54,7 +54,33 @@ jobs:
             my $re = join "\\R", map { quotemeta($_) } @lines;
             s/$re//g;
           ' -- install-tools-first.sh
-          perl -0777 -i -pe 's/sudo reboot//;' -- install-tools-first.sh
+          perl -i -pe '
+          s/^npm i\b(.*)/npm i$1 --dry-run/;
+          s/^brew install\b(.*)/brew install$1 --dry-run/;
+          s/^deb-get install.*//;
+          s/^sudo flatpak.*//;
+          s/^sudo fc-cache -fv//;
+          s/^sudo reboot//;
+          s/^[ \t]*fcitx5 &//;
+          s/^echo y | sudo ubuntu-drivers [a-z]+ || true//;
+          s/^sudo apt install (brave-browser|rustdesk rustdesk-server|lazygit|eza|gitcomet|element-desktop) -y/sudo apt install $1 -y --dry-run/;
+          s/\Qwget --tries=100 --retry-connrefused --waitretry=5 https://edgedl.me.gvt1.com/android/studio/ide-zips\E.*\Qsudo rm /bin/sdkmanager 2>/dev/null || true\E//s;
+          s/\Qwget --tries=100 --retry-connrefused --waitretry=5 https://gitlab.com/kicad/code/kicad/-/raw/master/resources/bitmaps_png/icons/icon_kicad.ico\E//;
+          ' -- install-tools-first.sh
+          perl -i -pe '
+          BEGIN { $seen = 0; $count = 0 }
+          if (!$seen && /sudo apt upgrade -y/) {
+            $seen = 1;
+            $count = 2;
+          }
+          if ($seen && $count > 0) {
+            s/$/ --dry-run/;
+            $count--;
+            if ($count == 0) {
+                $_ .= "sudo apt install apparmor-utils apt-transport-https build-essential ca-certificates clamav clamav-daemon cmake curl dbus debian-archive-keyring debian-keyring default-jdk dnscrypt-proxy gcc git gpg g++ make maven ninja-build perl python-is-python3 python3 python3-pip python3-venv wget -y\n";
+            }
+          }
+          ' -- install-tools-first.sh
 
       - name: Setup environment
         run: |

@@ -14,8 +14,7 @@ jobs:
       - name: Patch script
         run: |
           perl -0777 -i -pe '
-          s/wget --tries=100 --retry-connrefused --waitretry=5 https:\/\/mirror\.ctan\.org.*cd physics-patch \|\| exit\ngit checkout dev\ncd ~ \|\| exit//s;
-          s/export KICAD_VERSION.*Icon=\$HOME\/\.local\/kicad\/icon_kicad\.ico\nTerminal=false\nCategories=Development;\nEOF//s;
+          s/wget --tries=100 --retry-connrefused --waitretry=5 https:\/\/mirror\.ctan\.org.*<\/fontconfig>\nEOF\nsudo fc-cache -fv//s;
           ' install-tools-first.sh
           perl -i -pe '
           s/^npm i\b(.*)/npm i$1 --dry-run/;

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 shopt -s expand_aliases
-cd ~
+cd ~ || exit
 sudo -v
 while true; do sudo -v; sleep 60; done & SUDOPID=$!
 sudo sed -i -e 's/^[# ]*HandleLidSwitch=.*/HandleLidSwitch=ignore/' -e 's/^[# ]*HandleLidSwitchDocked=.*/HandleLidSwitchDocked=ignore/' -e 's/^[# ]*HandleLidSwitchExternalPower=.*/HandleLidSwitchExternalPower=ignore/' "/etc/systemd/logind.conf"
@@ -90,6 +90,7 @@ sudo add-apt-repository ppa:fdroid/fdroidserver -y
 sudo add-apt-repository ppa:flexiondotorg/quickemu -y
 sudo add-apt-repository ppa:libreoffice/ppa -y
 sudo add-apt-repository ppa:longsleep/golang-backports -y
+sudo add-apt-repository ppa:maarten-fonville/android-studio -y
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
 sudo add-apt-repository ppa:obsproject/obs-studio -y
 sudo add-apt-repository ppa:stefanberger/swtpm-noble -y
@@ -130,6 +131,7 @@ if [ -d "$HOME/.bashrc.d"  ];  then
   done
 fi
 [ -r ~/API_KEY.sh   ] && source ~/API_KEY.sh
+sudo loginctl enable-linger "$USER"
 sudo mkdir -p /usr/local/go
 sudo mkdir -p /usr/local/java
 sudo mkdir -p /etc/apt/keyrings
@@ -193,10 +195,10 @@ echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
 sudo apt upgrade -y
 sudo apt install abcde alien alsa-utils apksigner apt-transport-https aptitude audacity autoconf automake bash bc bear bindfs bison bookletimposer build-essential bzip2 caneda ca-certificates clang clangd clang-format cmake command-not-found curl dbus debian-archive-keyring debian-keyring default-jdk dmg2img dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fonts-liberation fonts-noto-cjk fonts-noto-cjk-extra g++ gcc gdb gfortran gh ghc ghostscript git glab gnupg golang-go gopls gperf gpg grep gtkwave gzip info imagemagick inkscape iproute2 iverilog jpegoptim jq lftp libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libguestfs-tools libheif-examples libhwloc-dev libhwloc-plugins libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libreoffice libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libuv1t64 libuv1-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm lsb-release lzip make maven mc nano ncompress neovim netcat-openbsd ngspice ninja-build nmap octave openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc perl-tk pipx pkg-config plantuml poppler-utils procps pv python-is-python3 python3-all-dev python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv p7zip-full qpdf qtbase5-dev qtbase5-dev-tools rustup shellcheck socat sqlite3 sudo tar tk-dev tmux tree ttf-mscorefonts-installer unzip uuid-dev uuid-runtime valgrind verilator vim webp wget wget2 x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh zstd -y
-sudo apt install apparmor-utils aria2 bridge-utils clamav clamav-daemon clang-uml clinfo codeblocks* dnscrypt-proxy dunst fcitx5 fcitx5-* fdroidserver filelight flatpak gir1.2-gdk-3.0 gir1.2-gtk-3.0 gnome-keyring gparted kate libclamunrar libspa-0.2-bluetooth libtesseract-dev libvirt-daemon-system libvirt-clients msr-tools ntfs-3g obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk ovmf pipewire pipewire-audio-client-libraries podman python3-aiortc python3-gi python3-gi-cairo python3-plyer python3-pystray python3-websocket python3-xxhash qbittorrent qemu-kvm qemu-system qemu-user-static qtspeech5-speechd-plugin quickemu quickgui snapd spice-vdagent swtpm swtpm-tools tesseract-ocr-all testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wireplumber wl-clipboard xclip -y
+sudo apt install android-studio apparmor-utils aria2 bridge-utils clamav clamav-daemon clang-uml clinfo codeblocks* dnscrypt-proxy dunst fcitx5 fcitx5-* fdroidserver filelight flatpak gir1.2-gdk-3.0 gir1.2-gtk-3.0 gnome-keyring gparted kate libclamunrar libspa-0.2-bluetooth libtesseract-dev libvirt-daemon-system libvirt-clients msr-tools ntfs-3g obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk ovmf pipewire pipewire-audio-client-libraries podman python3-aiortc python3-gi python3-gi-cairo python3-plyer python3-pystray python3-websocket python3-xxhash qbittorrent qemu-kvm qemu-system qemu-user-static qtspeech5-speechd-plugin quickemu quickgui snapd spice-vdagent swtpm swtpm-tools tesseract-ocr-all testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wireplumber wl-clipboard xclip -y
 sudo cp /usr/share/doc/dnscrypt-proxy/examples/* /etc/dnscrypt-proxy/
 sudo mkdir -p /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist
-cd /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist
+cd /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist || exit
 sudo rm -f generate-domains-blocklist.py || true
 sudo wget https://raw.githubusercontent.com/DNSCrypt/dnscrypt-proxy/refs/heads/master/utils/generate-domains-blocklist/generate-domains-blocklist.py
 sudo tee /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/domains-blocklist.conf >/dev/null <<'EOF'
@@ -229,7 +231,7 @@ EOF
 sudo systemctl daemon-reload
 sudo systemctl enable --now dnscrypt-filterlist-update.service
 sudo systemctl enable dnscrypt-filterlist-update.timer
-cd /etc/dnscrypt-proxy
+cd /etc/dnscrypt-proxy || exit
 sudo tee /etc/dnscrypt-proxy/dnscrypt-proxy.toml >/dev/null <<'EOF'
 
 ##############################################
@@ -1061,7 +1063,7 @@ skip_incompatible = false
 EOF
 sudo dnscrypt-proxy -service install
 sudo dnscrypt-proxy -service start
-cd ~
+cd ~ || exit
 sudo tee /etc/systemd/resolved.conf >/dev/null <<'EOF'
 [Resolve]
 DNS=127.0.0.1
@@ -1087,11 +1089,11 @@ else
   fcitx5 &
 fi
 mkdir ~/.JetBrainsMono
-cd ~/.JetBrainsMono
+cd ~/.JetBrainsMono || exit
 wget --tries=100 --retry-connrefused --waitretry=5 https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip
 unzip JetBrainsMono.zip
 mv JetBrainsMonoNerdFontMono-Regular.ttf ~/.local/share/fonts/
-cd ~
+cd ~ || exit
 rm -rf .JetBrainsMono
 sudo fc-cache -fv
 rustup update stable
@@ -1245,14 +1247,9 @@ curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://download.dock
 echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 sudo apt update
 sudo apt install docker-ce docker-ce-rootless-extras -y
-sudo systemctl stop docker.socket
-sudo systemctl disable docker.socket
-sudo systemctl stop docker.service
-sudo systemctl disable docker.service
+sudo systemctl disable --now docker.service docker.socket
+sudo rm /var/run/docker.sock
 dockerd-rootless-setuptool.sh install
-export DOCKER_HOST='unix:///run/user/1000/docker.sock'
-systemctl --user enable --now docker.service
-sudo loginctl enable-linger "$USER"
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.noarmor.gpg" | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.tailscale-keyring.list" | sudo tee /etc/apt/sources.list.d/tailscale.list >/dev/null
 sudo apt update
@@ -1317,40 +1314,11 @@ WantedBy=default.target
 EOF
 systemctl --user daemon-reload
 systemctl --user enable --now cyberchef
-wget --tries=100 --retry-connrefused --waitretry=5 https://edgedl.me.gvt1.com/android/studio/ide-zips/2025.3.2.6/android-studio-panda2-linux.tar.gz
-sudo tar -xzf android-studio-*-linux.tar.gz -C /opt/
-rm android-studio-*-linux.tar.gz
-echo '[Desktop Entry]
-Version=2025.3.2.6
-Type=Application
-Name=Android Studio
-Comment=Android IDE
-Exec=/opt/android-studio/bin/studio %f
-Icon=/opt/android-studio/bin/studio.png
-Terminal=false
-Categories=Development;IDE;
-StartupNotify=true
-StartupWMClass=android-studio' | sudo tee /usr/share/applications/android-studio.desktop >/dev/null
-sudo chmod 644 /usr/share/applications/android-studio.desktop
-wget --tries=100 --retry-connrefused --waitretry=5 https://dl.google.com/android/repository/commandlinetools-linux-14742923_latest.zip
-unzip commandlinetools-linux-14742923_latest.zip
-rm commandlinetools-linux-14742923_latest.zip
-mkdir Android
-cd Android
-mkdir Sdk
-cd Sdk
-mkdir cmdline-tools
-cd cmdline-tools
-mkdir latest
-cd latest
-mv $HOME/cmdline-tools/* .
-rm -r $HOME/cmdline-tools
-cd bin
-echo y | ./sdkmanager "build-tools;30.0.3" "build-tools;36.1.0" "emulator" "ndk;29.0.14206865" "platform-tools" "platforms;android-33" "platforms;android-36" "sources;android-33" "sources;android-36.1"
-echo y | ./sdkmanager "system-images;android-33;google_apis_playstore;x86_64"
-echo y | ./sdkmanager "system-images;android-36.1;google_apis_playstore;x86_64"
-cd ~
-sudo rm /bin/sdkmanager 2>/dev/null || true
+curl -fsSL https://dl.google.com/android/cli/latest/linux_x86_64/install.sh | bash 
+android sdk install cmdline-tools/latest
+cd ~/Android/Sdk/cmdline-tools/latest/bin || exit
+echo y | ./sdkmanager "emulator" "platform-tools"
+cd ~ || exit
 sudo tee /etc/udev/rules.d/52-xilinx-usb.rules >/dev/null <<'EOF'
 SUBSYSTEM=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="0666", GROUP="plugdev"
 EOF
@@ -1369,9 +1337,9 @@ cat > ~/.local/bin/kicad <<EOF
 ~/.local/kicad/kicad-$KICAD_VERSION-x86_64.AppImage
 EOF
 chmod +x ~/.local/bin/kicad
-cd ~/.local/kicad
+cd ~/.local/kicad || exit
 wget --tries=100 --retry-connrefused --waitretry=5 https://gitlab.com/kicad/code/kicad/-/raw/master/resources/bitmaps_png/icons/icon_kicad.ico
-cd ~
+cd ~ || exit
 cat > ~/.local/share/applications/kicad.desktop <<EOF
 [Desktop Entry]
 Version=$KICAD_VERSION
@@ -1388,31 +1356,31 @@ tar -xJf x86_64-linux-musl.tar.xz
 rm x86_64-linux-musl.tar.xz
 mv superhtml ~/.local/bin
 mkdir eclipse.jdt.ls
-cd eclipse.jdt.ls
+cd eclipse.jdt.ls || exit
 wget --tries=100 --retry-connrefused --waitretry=5 'https://www.eclipse.org/downloads/download.php?file=/jdtls/milestones/1.57.0/jdt-language-server-1.57.0-202602261110.tar.gz'
 tar -xzf 'download.php?file=%2Fjdtls%2Fmilestones%2F1.57.0%2Fjdt-language-server-1.57.0-202602261110.tar.gz'
 rm 'download.php?file=%2Fjdtls%2Fmilestones%2F1.57.0%2Fjdt-language-server-1.57.0-202602261110.tar.gz'
-cd ~
+cd ~ || exit
 wget https://www.win-rar.com/fileadmin/winrar-versions/rarlinux-x64-720.tar.gz
 tar -xzf rarlinux-x64-720.tar.gz
 rm rarlinux-x64-720.tar.gz
 git clone https://github.com/lightvector/KataGo.git
-cd KataGo/cpp
+cd KataGo/cpp || exit
 if [ -n "$(clinfo -l | grep '#0')" ]; then
 cmake . -G Ninja -DUSE_BACKEND=OPENCL
 else
 cmake . -G Ninja -DUSE_BACKEND=EIGEN
 fi
 ninja
-cd ../..
+cd ../.. || exit
 mkdir katago-networks
-cd katago-networks
+cd katago-networks || exit
 wget --tries=100 --retry-connrefused --waitretry=5 https://media.katagotraining.org/uploaded/networks/models/kata1/kata1-b6c96-s175395328-d26788732.txt.gz
-cd ~
+cd ~ || exit
 git clone https://github.com/yzyray/lizzieyzy.git
-cd lizzieyzy
+cd lizzieyzy || exit
 mvn clean package
-cd ~
+cd ~ || exit
 cat > ~/.local/share/applications/lizzieyzy.desktop <<EOF
 [Desktop Entry]
 Type=Application
@@ -1426,16 +1394,16 @@ StartupWMClass=featurecat-lizzie-Lizzie
 EOF
 update_lizzieyzy_config
 git clone https://github.com/fairy-stockfish/Fairy-Stockfish.git
-cd Fairy-Stockfish/src
+cd Fairy-Stockfish/src || exit
 make -j ARCH=x86-64 profile-build largeboards=yes nnue=yes
-cd ~
+cd ~ || exit
 git clone https://github.com/cutechess/cutechess.git
-cd cutechess
+cd cutechess || exit
 mkdir build
-cd build
+cd build || exit
 cmake -G Ninja ..
 ninja
-cd ~
+cd ~ || exit
 cat > ~/.local/share/applications/cutechess.desktop <<EOF
 [Desktop Entry]
 Type=Application
@@ -1448,10 +1416,10 @@ Categories=Game;
 EOF
 update_cutechess_config
 git clone https://github.com/hotfics/Sylvan.git
-cd Sylvan
+cd Sylvan || exit
 qmake
 make
-cd ~
+cd ~ || exit
 cat > ~/.local/share/applications/sylvan.desktop <<EOF
 [Desktop Entry]
 Type=Application
@@ -1499,40 +1467,40 @@ services:
       - surrealdb
     restart: always
 EOF
-cd ~/.open-notebook
+cd ~/.open-notebook || exit
 docker compose up -d
-cd ~
+cd ~ || exit
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://raw.githubusercontent.com/AlexsJones/llmfit/main/install.sh | sh
 mkdir -p ~/dev/llm
-cd ~/dev/llm
-git clone https://github.com/KhronosGroup/OpenCL-Headers && cd OpenCL-Headers
-mkdir build && cd build
+cd ~/dev/llm || exit
+git clone https://github.com/KhronosGroup/OpenCL-Headers && cd OpenCL-Headers || exit
+mkdir build && cd build || exit
 cmake .. -G Ninja \
   -DBUILD_TESTING=OFF \
   -DOPENCL_HEADERS_BUILD_TESTING=OFF \
   -DOPENCL_HEADERS_BUILD_CXX_TESTS=OFF \
   -DCMAKE_INSTALL_PREFIX="$HOME/dev/llm/opencl"
 cmake --build . --target install
-cd ~/dev/llm
-git clone https://github.com/KhronosGroup/OpenCL-ICD-Loader && cd OpenCL-ICD-Loader
-mkdir build && cd build
+cd ~/dev/llm || exit
+git clone https://github.com/KhronosGroup/OpenCL-ICD-Loader && cd OpenCL-ICD-Loader || exit
+mkdir build && cd build || exit
 cmake .. -G Ninja \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_PREFIX_PATH="$HOME/dev/llm/opencl" \
   -DCMAKE_INSTALL_PREFIX="$HOME/dev/llm/opencl"
 cmake --build . --target install
-cd ~/dev/llm
-git clone https://github.com/ggml-org/llama.cpp && cd llama.cpp
-mkdir build && cd build
+cd ~/dev/llm || exit
+git clone https://github.com/ggml-org/llama.cpp && cd llama.cpp || exit
+mkdir build && cd build || exit
 cmake .. -G Ninja \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_PREFIX_PATH="$HOME/dev/llm/opencl" \
   -DBUILD_SHARED_LIBS=OFF \
   -DGGML_OPENCL=ON
 ninja
-cd ~
+cd ~ || exit
 mkdir ~/stirlingpdf
-cd ~/stirlingpdf
+cd ~/stirlingpdf || exit
 cat > docker-compose.yml <<'EOF'
 services:
   stirling-pdf:
@@ -1551,9 +1519,9 @@ services:
     restart: unless-stopped
 EOF
 docker compose up -d
-cd ~
+cd ~ || exit
 mkdir ~/.litellm
-cd ~/.litellm
+cd ~/.litellm || exit
 cat ~/API_KEY.sh | grep LITELLM_MASTER_KEY >> .env || true
 cat ~/API_KEY.sh | grep LITELLM_SALT_KEY >> .env || true
 cat ~/API_KEY.sh | grep OPENAI_API_KEY >> .env || true
@@ -1668,7 +1636,7 @@ general_settings:
     master_key: os.environ/LITELLM_MASTER_KEY
 EOF
 docker compose up -d
-cd ~
+cd ~ || exit
 cat > ~/.config/systemd/user/litellm.service <<EOF
 [Unit]
 Description=LiteLLM
@@ -1738,9 +1706,9 @@ sudo chmod o+r /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 sudo chmod o+r /etc/apt/sources.list.d/caddy-stable.list
 sudo apt update
 sudo apt install caddy -y
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' matrix-construct/tuwunel -- *-release-all-x86_64-$(cat /proc/cpuinfo | grep -Po '(avx|sse)[235]' | sort -u | sed 's/avx5/v4/;s/avx2/v3/;s/sse3/v2/;s/sse2/v1/' | sort | tail -1)-linux-gnu-tuwunel.deb
-sudo apt install -f ./*-release-all-x86_64-$(cat /proc/cpuinfo | grep -Po '(avx|sse)[235]' | sort -u | sed 's/avx5/v4/;s/avx2/v3/;s/sse3/v2/;s/sse2/v1/' | sort | tail -1)-linux-gnu-tuwunel.deb -y
-rm -- *-release-all-x86_64-$(cat /proc/cpuinfo | grep -Po '(avx|sse)[235]' | sort -u | sed 's/avx5/v4/;s/avx2/v3/;s/sse3/v2/;s/sse2/v1/' | sort | tail -1)-linux-gnu-tuwunel.deb*
+gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' matrix-construct/tuwunel "*-release-all-x86_64-$(cat /proc/cpuinfo | grep -Po '(avx|sse)[235]' | sort -u | sed 's/avx5/v4/;s/avx2/v3/;s/sse3/v2/;s/sse2/v1/' | sort | tail -1)-linux-gnu-tuwunel.deb"
+sudo apt install -f ./*-release-all-x86_64-*-linux-gnu-tuwunel.deb -y
+rm -- *-release-all-x86_64-*-linux-gnu-tuwunel.deb*
 sudo chown -R root:root /etc/tuwunel
 sudo chmod -R 755 /etc/tuwunel
 sudo mkdir -p /var/lib/tuwunel/
@@ -1869,9 +1837,9 @@ sudo systemctl restart clamav-daemon
 wget --tries=100 --retry-connrefused --waitretry=5 https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xzf install-tl-unx.tar.gz
 rm install-tl-unx.tar.gz
-cd install-tl-*
+cd install-tl-* || exit
 sudo perl ./install-tl --no-interaction
-cd ~
+cd ~ || exit
 rm -rf install-tl-*
 sudo /usr/local/texlive/2026/bin/x86_64-linux/tlmgr update --all --self --reinstall-forcibly-removed
 mkdir -p ~/.config/fontconfig/conf.d
@@ -1883,19 +1851,19 @@ cat > ~/.config/fontconfig/conf.d/99-texlive.conf <<'EOF'
 </fontconfig>
 EOF
 sudo fc-cache -fv
-cd /usr/share
+cd /usr/share || exit
 sudo git clone https://github.com/Willie169/LaTeX-ToolKit
-cd ~
+cd ~ || exit
 mkdir -p texmf
-cd texmf
+cd texmf || exit
 mkdir -p tex
-cd tex
+cd tex || exit
 mkdir -p latex
-cd latex
+cd latex || exit
 git clone https://github.com/Willie169/physics-patch
-cd physics-patch
+cd physics-patch || exit
 git checkout dev
-cd ~
+cd ~ || exit
 sudo apt update
 sudo apt install -f -y
 sudo apt upgrade -y

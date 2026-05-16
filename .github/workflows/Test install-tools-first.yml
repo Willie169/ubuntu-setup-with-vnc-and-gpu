@@ -13,49 +13,10 @@ jobs:
 
       - name: Patch script
         run: |
-          export x="$(echo "$(cat << d23fac94-9e7a-47b0-92e9-ac5a8a7c7a41
-          wget --tries=100 --retry-connrefused --waitretry=5 https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-          tar -xzf install-tl-unx.tar.gz
-          rm install-tl-unx.tar.gz
-          cd install-tl-*
-          sudo perl ./install-tl --no-interaction
-          cd ~
-          rm -rf install-tl-*
-          sudo /usr/local/texlive/2026/bin/x86_64-linux/tlmgr update --all --self --reinstall-forcibly-removed
-          mkdir -p ~/.config/fontconfig/conf.d
-          cat > ~/.config/fontconfig/conf.d/99-texlive.conf <<'EOF'
-          <?xml version="1.0"?>
-          <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
-          <fontconfig>
-            <dir>/usr/local/texlive/2026/texmf-dist/fonts</dir>
-          </fontconfig>
-          EOF
-          sudo fc-cache -fv
-          cd /usr/share
-          sudo git clone https://github.com/Willie169/LaTeX-ToolKit
-          cd ~
-          mkdir -p texmf
-          cd texmf
-          mkdir -p tex
-          cd tex
-          mkdir -p latex
-          cd latex
-          git clone https://github.com/Willie169/physics-patch
-          cd physics-patch
-          git checkout dev
-          cd ~
-
-          d23fac94-9e7a-47b0-92e9-ac5a8a7c7a41
-          )")"
           perl -0777 -i -pe '
-          my $pat = $ENV{x};
-          $pat =~ s/\r\n/\n/g;
-          my @lines = split /\n/, $pat;
-          my $re = join "\\R", map { quotemeta($_) } @lines;
-          s/$re//g;
-          s/wget --tries=100 --retry-connrefused --waitretry=5 https:\/\/edgedl\.me\.gvt1\.com\/android\/studio\/ide-zips.*sudo rm \/bin\/sdkmanager 2>\/dev\/null \|\| true//s;
+          s/wget --tries=100 --retry-connrefused --waitretry=5 https:\/\/mirror\.ctan\.org.*cd physics-patch \|\| exit\ngit checkout dev\ncd ~ \|\| exit//s;
           s/export KICAD_VERSION.*Icon=\$HOME\/\.local\/kicad\/icon_kicad\.ico\nTerminal=false\nCategories=Development;\nEOF//s;
-          ' -- install-tools-first.sh
+          ' install-tools-first.sh
           perl -i -pe '
           s/^npm i\b(.*)/npm i$1 --dry-run/;
           s/^brew install\b(.*)/brew install$1 --dry-run/;
@@ -80,7 +41,7 @@ jobs:
                 $_ .= "sudo apt install apparmor-utils apt-transport-https build-essential ca-certificates clamav clamav-daemon clinfo cmake curl dbus debian-archive-keyring debian-keyring default-jdk dnscrypt-proxy g++ gcc git gpg jq libeigen3-dev libqt5svg5-dev make maven ninja-build ocl-icd-opencl-dev perl python-is-python3 python3 qtbase5-dev qtbase5-dev-tools wget -y\n";
             }
           }
-          ' -- install-tools-first.sh
+          ' install-tools-first.sh
 
       - name: Setup environment
         run: |

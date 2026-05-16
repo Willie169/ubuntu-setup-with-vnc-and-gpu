@@ -174,7 +174,7 @@ sudo systemctl disable snap-thunderbird*.mount 2>/dev/null || true
 sudo snap remove thunderbird 2>/dev/null || true
 sudo apt install thunderbird --allow-downgrades -y
 sudo rm /var/lib/snapd/desktop/applications/thunderbird*.desktop 2>/dev/null || true
-echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:$(lsb_release -cs)";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla >/dev/null
+echo "Unattended-Upgrade::Allowed-Origins:: \"LP-PPA-mozillateam:$(lsb_release -cs)\";" | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla >/dev/null
 sudo add-apt-repository ppa:xtradeb/apps -y
 echo 'Package: chromium*
 Pin: release o=LP-PPA-xtradeb-apps
@@ -1170,7 +1170,7 @@ EOF
 systemctl --user daemon-reload
 systemctl --user enable --now open-webui
 wget --tries=100 --retry-connrefused --waitretry=5 https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
-bash Miniforge3-Linux-x86_64.sh -b -p ${HOME}/conda
+bash Miniforge3-Linux-x86_64.sh -b -p "${HOME}/conda"
 rm Miniforge3-Linux-x86_64.sh
 export MAMBA_ROOT_PREFIX="${HOME}/conda"
 source "${HOME}/conda/etc/profile.d/conda.sh" 2>/dev/null || true
@@ -1350,7 +1350,7 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="0666"
 EOF
 sudo udevadm control --reload-rules
 sudo udevadm trigger
-sudo usermod -aG plugdev $USER
+sudo usermod -aG plugdev "$USER"
 export KICAD_VERSION='10.0.3'
 wget --tries=100 --retry-connrefused --waitretry=5 https://downloads.kicad.org/kicad/linux/explore/stable/download/kicad-$KICAD_VERSION-x86_64.AppImage.tar
 tar -xf kicad-$KICAD_VERSION-x86_64.AppImage.tar

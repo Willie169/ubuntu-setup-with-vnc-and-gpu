@@ -1335,7 +1335,7 @@ found {
 }
 $0 ~ /href="#date-1"/ { found=1 }
 ' kicad.html)"
-rm kicad.hml
+rm kicad.html
 wget --tries=100 --retry-connrefused --waitretry=5 https://downloads.kicad.org/kicad/linux/explore/stable/download/kicad-$KICAD_VERSION-x86_64.AppImage.tar
 tar -xf kicad-$KICAD_VERSION-x86_64.AppImage.tar
 rm kicad-$KICAD_VERSION-x86_64.AppImage.tar

@@ -90,8 +90,8 @@ sudo add-apt-repository ppa:fdroid/fdroidserver -y
 sudo add-apt-repository ppa:flexiondotorg/quickemu -y
 sudo add-apt-repository ppa:libreoffice/ppa -y
 sudo add-apt-repository ppa:longsleep/golang-backports -y
-sudo add-apt-repository ppa:maarten-fonville/android-studio -y
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
+sudo add-apt-repository ppa:remmina-ppa-team/remmina-next -y
 sudo add-apt-repository ppa:obsproject/obs-studio -y
 sudo add-apt-repository ppa:stefanberger/swtpm-noble -y
 sudo add-apt-repository ppa:zhangsongcui3371/fastfetch -y
@@ -194,8 +194,8 @@ echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
 sudo apt upgrade -y
-sudo apt install abcde alien alsa-utils apksigner apt-transport-https aptitude audacity autoconf automake bash bc bear bindfs bison bookletimposer build-essential bzip2 caneda ca-certificates clang clangd clang-format cmake command-not-found curl dbus debian-archive-keyring debian-keyring default-jdk dmg2img dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra g++ gcc gdb gfortran gh ghc ghostscript git glab gnupg golang-go gopls gperf gpg grep gtkwave gzip info imagemagick inkscape iproute2 iverilog jpegoptim jq lftp libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libguestfs-tools libheif-examples libhwloc-dev libhwloc-plugins libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libreoffice libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libuv1t64 libuv1-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm lsb-release lzip make maven mc nano ncompress neovim netcat-openbsd ngspice ninja-build nmap octave openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc perl-tk pipx pkg-config plantuml poppler-utils procps pv python-is-python3 python3-all-dev python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv p7zip-full qpdf qtbase5-dev qtbase5-dev-tools rustup shellcheck socat sqlite3 sudo tar tk-dev tmux tree ttf-mscorefonts-installer unzip uuid-dev uuid-runtime valgrind verilator vim webp wget wget2 x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh zstd -y
-sudo apt install android-studio apparmor-utils aria2 bridge-utils clamav clamav-daemon clang-uml clinfo codeblocks* dnscrypt-proxy dunst fcitx5 fcitx5-* fdroidserver filelight flatpak gir1.2-gdk-3.0 gir1.2-gtk-3.0 gnome-keyring gparted kate libclamunrar libspa-0.2-bluetooth libtesseract-dev libvirt-daemon-system libvirt-clients msr-tools ntfs-3g obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk ovmf pipewire pipewire-audio-client-libraries podman python3-aiortc python3-gi python3-gi-cairo python3-plyer python3-pystray python3-websocket python3-xxhash qbittorrent qemu-kvm qemu-system qemu-user-static qtspeech5-speechd-plugin quickemu quickgui snapd spice-vdagent swtpm swtpm-tools tesseract-ocr-all testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wireplumber wl-clipboard xclip -y
+sudo apt install abcde alien alsa-utils apksigner apt-transport-https aptitude audacity autoconf automake bash bc bear bindfs bison bookletimposer build-essential bzip2 caneda ca-certificates clang clangd clang-format cmake command-not-found curl dbus debian-archive-keyring debian-keyring default-jdk dmg2img dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra g++ gcc gdb gfortran gh ghc ghostscript git glab gnupg golang-go gopls gperf gpg grep gtkwave gzip info imagemagick inkscape iproute2 iverilog jpegoptim jq lftp libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libguestfs-tools libheif-examples libhwloc-dev libhwloc-plugins libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libreoffice libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libsqlite3-dev libssl-dev libuv1t64 libuv1-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm lsb-release lzip make maven mc nano ncompress neovim netcat-openbsd ngspice ninja-build nmap octave openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc perl-tk pipx pkg-config plantuml poppler-utils procps pv python-is-python3 python3-all-dev python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv p7zip-full qpdf qtbase5-dev qtbase5-dev-tools rustup shellcheck socat sqlite3 sudo tar tk-dev tmux tree ttf-mscorefonts-installer unrar unzip uuid-dev uuid-runtime valgrind verilator vim webp wget wget2 x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh zstd -y
+sudo apt install apparmor-utils aria2 bridge-utils clamav clamav-daemon clang-uml clinfo codeblocks* dnscrypt-proxy dunst fcitx5 fcitx5-* fdroidserver filelight flatpak gir1.2-gdk-3.0 gir1.2-gtk-3.0 gnome-keyring gparted kate libclamunrar libspa-0.2-bluetooth libtesseract-dev libvirt-daemon-system libvirt-clients msr-tools ntfs-3g obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk ovmf pipewire pipewire-audio-client-libraries podman python3-aiortc python3-gi python3-gi-cairo python3-plyer python3-pystray python3-websocket python3-xxhash remmina remmina-plugin-rdp remmina-plugin-secret qbittorrent qemu-kvm qemu-system qemu-user-static qtspeech5-speechd-plugin quickemu quickgui snapd spice-vdagent swtpm swtpm-tools tesseract-ocr-all testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wireplumber wl-clipboard xclip -y
 sudo cp /usr/share/doc/dnscrypt-proxy/examples/* /etc/dnscrypt-proxy/
 sudo mkdir -p /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist
 cd /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist || exit
@@ -1260,9 +1260,6 @@ wget -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.g
 echo -e 'Types: deb\nURIs: https://download.vscodium.com/debs\nSuites: vscodium\nComponents: main\nArchitectures: amd64 arm64\nSigned-by: /usr/share/keyrings/vscodium-archive-keyring.gpg' | sudo tee /etc/apt/sources.list.d/vscodium.sources >/dev/null
 sudo apt update
 sudo apt install codium -y
-sudo add-apt-repository ppa:remmina-ppa-team/remmina-next -y
-sudo apt update
-sudo apt install remmina remmina-plugin-rdp remmina-plugin-secret -y
 wget --tries=100 --retry-connrefused --waitretry=5 "https://packages.microsoft.com/config/ubuntu/$UBUNTU_VERSION_ID/packages-microsoft-prod.deb" -O packages-microsoft-prod.deb
 sudo apt install ./packages-microsoft-prod.deb -y
 rm packages-microsoft-prod.deb
@@ -1288,9 +1285,6 @@ sudo mkdir -p /var/log/postgresql
 sudo chown -R postgres:postgres /var/log/postgresql
 sudo chmod 755 /var/log/postgresql
 sudo chmod 640 /var/log/postgresql/* 2>/dev/null || true
-wget --tries=100 --retry-connrefused --waitretry=5 https://cdn.fastly.steamstatic.com/client/installer/steam.deb
-sudo apt install ./steam.deb -y
-rm steam.deb
 sudo wget -O /usr/share/keyrings/element-io-archive-keyring.gpg https://packages.element.io/debian/element-io-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/element-io-archive-keyring.gpg] https://packages.element.io/debian/ default main" | sudo tee /etc/apt/sources.list.d/element-io.list >/dev/null
 sudo apt update
@@ -1314,8 +1308,20 @@ WantedBy=default.target
 EOF
 systemctl --user daemon-reload
 systemctl --user enable --now cyberchef
-curl -fsSL https://dl.google.com/android/cli/latest/linux_x86_64/install.sh | bash
-android sdk install cmdline-tools/latest
+wget --tries=100 --retry-connrefused --waitretry=5 -O studio.html https://developer.android.com/studio
+export CMDLINETOOLS="$(awk '/<table class="download">/ { count++ }
+count >= 2 {
+  if (match($0, /commandlinetools-linux-.*zip/)) {
+    print substr($0, RSTART, RLENGTH)
+    exit
+  }
+}' studio.html)"
+rm studio.html
+wget --tries=100 --retry-connrefused --waitretry=5 "https://dl.google.com/android/repository/${CMDLINETOOLS}"
+unzip "$CMDLINETOOLS"
+mkdir -p ~/Android/Sdk/cmdline-tools/latest
+mv cmdline-tools/* ~/Android/Sdk/cmdline-tools/latest
+rm -r cmdline-tools
 cd ~/Android/Sdk/cmdline-tools/latest/bin || exit
 echo y | ./sdkmanager "emulator" "platform-tools"
 cd ~ || exit
@@ -1371,9 +1377,6 @@ wget --tries=100 --retry-connrefused --waitretry=5 'https://www.eclipse.org/down
 tar -xzf 'download.php?file=%2Fjdtls%2Fmilestones%2F1.57.0%2Fjdt-language-server-1.57.0-202602261110.tar.gz'
 rm 'download.php?file=%2Fjdtls%2Fmilestones%2F1.57.0%2Fjdt-language-server-1.57.0-202602261110.tar.gz'
 cd ~ || exit
-wget https://www.win-rar.com/fileadmin/winrar-versions/rarlinux-x64-720.tar.gz
-tar -xzf rarlinux-x64-720.tar.gz
-rm rarlinux-x64-720.tar.gz
 git clone https://github.com/lightvector/KataGo.git
 cd KataGo/cpp || exit
 if [ -n "$(clinfo -l | grep '#0')" ]; then

@@ -15,7 +15,7 @@ jobs:
         run: |
           perl -0777 -i -pe '
           s/wget --tries=100 --retry-connrefused --waitretry=5 https:\/\/mirror\.ctan\.org.*<\/fontconfig>\nEOF\nsudo fc-cache -fv//s;
-          ' install-tools.sh
+          ' install-tools-first.sh
           perl -i -pe '
           s/^npm i\b(.*)/npm i$1 --dry-run/;
           s/^brew install\b(.*)/brew install$1 --dry-run/;
@@ -40,16 +40,16 @@ jobs:
                 $_ .= "sudo apt install apparmor-utils apt-transport-https build-essential ca-certificates clamav clamav-daemon clinfo cmake curl dbus debian-archive-keyring debian-keyring default-jdk dnscrypt-proxy g++ gcc git gpg jq libeigen3-dev libqt5svg5-dev make maven ninja-build ocl-icd-opencl-dev perl python-is-python3 python3 qtbase5-dev qtbase5-dev-tools wget -y\n";
             }
           }
-          ' install-tools.sh
+          ' install-tools-first.sh
 
       - name: Setup environment
         run: |
           sudo apt update
           sudo apt install ubuntu-desktop-minimal -y
 
-      - name: Run install-tools.sh
+      - name: Run install-tools-first.sh
         run: |
-          ./install-tools.sh 2>&1 | tee install-tools-first.log
+          ./install-tools-first.sh 2>&1 | tee install-tools-first.log
 
       - name: Upload log file
         uses: actions/upload-artifact@v4

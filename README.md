@@ -8,7 +8,7 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 
 * Sufficient storage: (calculated on Kubuntu 24.04.3)
   * Kubuntu 24.04.3 Full Installation: approximately 11.2 GB,
-  * Kubuntu 24.04.3 Full Installation plus [`install-tools.sh`](install-tools.sh): approximately 103.3 GB.
+  * Kubuntu 24.04.3 Full Installation plus [`install-tools.sh`](install-tools-first.sh): approximately 103.3 GB.
 * Sufficient power supply.
 * Stable internet connection.
 
@@ -122,7 +122,7 @@ nvcc --version
 
 ### [clamscan.sh](clamscan.sh)
 
-Scans the following directories recursively with ClamAV, which is installed in [`install-tools.sh`](install-tools.sh)
+Scans the following directories recursively with ClamAV, which is installed in [`install-tools.sh`](install-tools-first.sh)
 ```
 /home /etc /var /usr/share /usr/local /opt /tmp
 ```
@@ -137,7 +137,7 @@ Installs [Steam](https://store.steampowered.com).
 
 ### [`ruview.sh`](ruview.sh) (not actively maintained)
 
-Installs [RuView](https://github.com/ruvnet/RuView) from source (Rust), which requires approximately 13.8 GB storage. The binaries are at `~/RuView/v2/target/release`, which has been added to `$PATH` in [`install-tools.sh`](install-tools.sh). See <https://github.com/ruvnet/RuView/blob/main/docs/user-guide.md> for more information.
+Installs [RuView](https://github.com/ruvnet/RuView) from source (Rust), which requires approximately 13.8 GB storage. The binaries are at `~/RuView/v2/target/release`, which has been added to `$PATH` in [`install-tools.sh`](install-tools-first.sh). See <https://github.com/ruvnet/RuView/blob/main/docs/user-guide.md> for more information.
 
 ## Instructions
 
@@ -268,7 +268,7 @@ fi
 </code></pre>
 before it and replace it with <code>$UBUNTU_VERSION_ID</code>.</li>
 </ol>
-These have been added to <code>~/.bashrc</code> in <a href="install-tools.sh"><code>install-tools.sh</code></a>.
+These have been added to <code>~/.bashrc</code> in <a href="install-tools.sh"><code>install-tools-first.sh</code></a>.
 
 ### Desktop App Launchers
 
@@ -299,7 +299,7 @@ You can configure Fcitx5 input methods in `Fcitx Configuration`.
 
 #### KDE Plasma
 
-1. It usually will automatically detect and setup Fcitx5 after running [`install-tools.sh`](install-tools.sh). If not, go to `System Settings` > `Input & Output` or `Keyboard` > `Virtual Keyboard`, then select `Fcitx5`.
+1. It usually will automatically detect and setup Fcitx5 after running [`install-tools.sh`](install-tools-first.sh). If not, go to `System Settings` > `Input & Output` or `Keyboard` > `Virtual Keyboard`, then select `Fcitx5`.
 2. You can configure Fcitx5 input methods in `Input Method`, which can be launched by either right-clicking the keyboard icon at the bottom right corner of the `Task Manager` and clicking `Configure` or going to `System Settings` and searching `Input Method`.
 
 ### OpenSSH Server
@@ -312,7 +312,7 @@ You can configure Fcitx5 input methods in `Fcitx Configuration`.
 
 #### Install
 
-This has been done in [`install-tools.sh`](install-tools.sh).
+This has been done in [`install-tools.sh`](install-tools-first.sh).
 
 ```
 sudo apt install openssh-server
@@ -320,7 +320,7 @@ sudo apt install openssh-server
 
 #### Systemd Start and Enable
 
-This has been done in [`install-tools.sh`](install-tools.sh).
+This has been done in [`install-tools.sh`](install-tools-first.sh).
 ```
 sudo systemctl start ssh
 sudo systemctl enable ssh
@@ -335,7 +335,7 @@ sudo systemctl disable ssh
 
 #### Ubuntu Firewall
 
-This has been done in [`install-tools.sh`](install-tools.sh).
+This has been done in [`install-tools.sh`](install-tools-first.sh).
 ```
 sudo ufw enable
 sudo ufw allow ssh
@@ -364,7 +364,7 @@ and change lines in it.
 
 #### PasswordAuthentication
 
-This has been done in [`install-tools.sh`](install-tools.sh).
+This has been done in [`install-tools.sh`](install-tools-first.sh).
 
 Change the `PasswordAuthentication` line to
 
@@ -382,7 +382,7 @@ SSH on [**Termux**](https://f-droid.org/packages/com.termux) is suggested if you
 
 #### Install
 
-The script below has been included in [`install-tools.sh`](install-tools.sh).
+The script below has been included in [`install-tools.sh`](install-tools-first.sh).
 ```
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
@@ -429,7 +429,7 @@ See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) rep
 
 <ol>
 <li>Run <a href="virtualgl-turbovnc.sh"><code>virtualgl-turbovnc.sh</code></a> first if you have not. This requires about 0.1 GB storage.</li>
-<li>Add <code>export PATH="/opt/TurboVNC/bin:$PATH</code> in <code>~/.bashrc</code>. This has been done in <a href="install-tools.sh"><code>install-tools.sh</code></a>.</li>
+<li>Add <code>export PATH="/opt/TurboVNC/bin:$PATH</code> in <code>~/.bashrc</code>. This has been done in <a href="install-tools.sh"><code>install-tools-first.sh</code></a>.</li>
 <li>Determine your Desktop Manager and GPU and follow the corresponding section below:
 <ul>
 <li>GNOME 3, which Ubuntu usually uses, uses GDM.</li>
@@ -746,7 +746,7 @@ Waydroid's home directory is:
 ```
 ~/.local/share/waydroid/data/media/0/
 ```
-This has been exported as `WAYDROID` in `.bashrc` in [`install-tools.sh`](install-tools.sh).
+This has been exported as `WAYDROID` in `.bashrc` in [`install-tools.sh`](install-tools-first.sh).
 
 To mount it in host, run
 ```
@@ -757,7 +757,7 @@ where `bindfs` can be installed with
 ```
 sudo apt install bindfs
 ```
-This is defined as function `bind_waydroid` in [`install-tools.sh`](install-tools.sh).
+This is defined as function `bind_waydroid` in [`install-tools.sh`](install-tools-first.sh).
 
 This can be made permanent by
 ```
@@ -822,7 +822,7 @@ After clicked shut down and then closed the lip, the laptop didn't shut down.
 
 #### Solution
 
-The operation below has been included in [`install-tools.sh`](install-tools.sh).
+The operation below has been included in [`install-tools.sh`](install-tools-first.sh).
 
 Run:
 ```
@@ -847,7 +847,7 @@ See <https://usebottles.com> for more information.
 
 #### Install 
 
-Bottles has been installed in [`install-tools.sh`](install-tools.sh).
+Bottles has been installed in [`install-tools.sh`](install-tools-first.sh).
 
 Flatpak is required. Run:
 ```
@@ -868,7 +868,7 @@ and follow the screen prompts.
 flatpak run com.usebottles.bottles
 ```
 
-You can add the variable and aliases below in your `.bashrc`, which has been done in [`install-tools.sh`](install-tools.sh):
+You can add the variable and aliases below in your `.bashrc`, which has been done in [`install-tools.sh`](install-tools-first.sh):
 
 ```
 export BOTTLES="$HOME/.var/app/com.usebottles.bottles/data/bottles"

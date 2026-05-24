@@ -1,4 +1,4 @@
-name: Test install-tools-first
+name: Test install-tools
 
 on:
   workflow_dispatch:
@@ -49,10 +49,10 @@ jobs:
 
       - name: Run install-tools.sh
         run: |
-          ./install-tools.sh 2>&1 | tee install-tools-first.log
+          ./install-tools.sh 2>&1 | tee install-tools.log
 
       - name: Upload log file
         uses: actions/upload-artifact@v4
         with:
-          name: install-tools-first.log
-          path: install-tools-first.log
+          name: install-tools.log
+          path: install-tools.log

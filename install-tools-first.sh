@@ -1277,7 +1277,7 @@ sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/local/java/antlr
 sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/local/java/plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
 sudo apt install postgresql-common -y
 sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
-sudo apt install postgresql-17 -y
+sudo apt install postgresql -y
 sudo mkdir -p /var/log/postgresql
 sudo chown -R postgres:postgres /var/log/postgresql
 sudo chmod 755 /var/log/postgresql

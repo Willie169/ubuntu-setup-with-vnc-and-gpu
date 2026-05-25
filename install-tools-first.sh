@@ -1744,7 +1744,10 @@ matrix.lan, matrix.lan:8448 {
 EOF
 sudo systemctl enable --now caddy
 sudo systemctl enable --now tuwunel
-curl -fsSL https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get | sudo -E bash -s install deb-get
+git clone https://github.com/wimpysworld/deb-get.git
+cd deb-get/docs/
+make install
+cd ~
 deb-get install balena-etcher bat fd git-delta ripgrep
 sudo systemctl enable --now clamav-freshclam
 sudo tee /etc/clamav/clamd.conf >/dev/null <<EOF

@@ -1,16 +1,12 @@
 name: install-tools-first
-
 on:
   workflow_dispatch:
-
 jobs:
   install:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Patch script
         run: |
           perl -0777 -i -pe '
@@ -41,12 +37,10 @@ jobs:
             }
           }
           ' install-tools-first.sh
-
       - name: Setup environment
         run: |
           sudo apt update
           sudo apt install ubuntu-desktop-minimal -y
-
       - name: Run install-tools-first.sh
         run: |
           ./install-tools-first.sh

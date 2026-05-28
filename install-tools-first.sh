@@ -88,6 +88,7 @@ sudo add-apt-repository restricted -y
 sudo add-apt-repository ppa:bkryza/clang-uml -y
 sudo add-apt-repository ppa:fdroid/fdroidserver -y
 sudo add-apt-repository ppa:flexiondotorg/quickemu -y
+sudo add-apt-repository ppa:git-core/ppa -y
 sudo add-apt-repository ppa:libreoffice/ppa -y
 sudo add-apt-repository ppa:longsleep/golang-backports -y
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
@@ -194,7 +195,7 @@ echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
 sudo apt upgrade -y
-sudo apt install abcde alien alsa-utils apksigner apt-transport-https aptitude audacity autoconf automake bash bc bear bindfs bison bookletimposer build-essential bzip2 calcurse ca-certificates clang clangd clang-format cmake command-not-found curl dbus debian-archive-keyring debian-keyring default-jdk dmg2img dnsutils dvisvgm fastfetch ffmpeg file flex fontconfig fonts-cns11643-kai fonts-cns11643-sung fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra g++ gcc gdb gfortran gh ghc ghostscript git glab gnupg golang-go gopls gperf gpg grep gtkwave gzip info imagemagick inkscape iproute2 iverilog jpegoptim jq lftp libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libguestfs-tools libheif-examples libhwloc-dev libhwloc-plugins libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libreoffice libsqlite3-dev libssl-dev libuv1t64 libuv1-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm lsb-release lzip make maven mc nano ncompress neovim netcat-openbsd ngspice ninja-build nmap octave openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc perl-tk pipx pkg-config plantuml poppler-utils procps pv pwgen python-is-python3 python3-all-dev python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv p7zip-full qpdf qtbase5-dev qtbase5-dev-tools rustup shellcheck shfmt socat sqlite3 sudo tar tk-dev tmux tree tree-sitter-cli ttf-mscorefonts-installer unrar unzip uuid-dev uuid-runtime valgrind verilator vim webp wget wget2 x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils yamllint zip zlib1g zlib1g-dev zsh zstd -y
+sudo apt install abcde alien alsa-utils apksigner apt-transport-https aptitude audacity autoconf automake bash bc bear bindfs bison bookletimposer build-essential bzip2 calcurse ca-certificates clang clangd clang-format cmake command-not-found curl dbus debian-archive-keyring debian-keyring default-jdk dmg2img dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fontconfig fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra g++ gcc gdb gfortran gh ghc ghostscript git git-lfs glab gnupg gnupg2 golang-go gopls gperf gpg grep gtkwave gzip info imagemagick inkscape iproute2 iverilog jpegoptim jq lftp libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libguestfs-tools libheif-examples libhwloc-dev libhwloc-plugins libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libreoffice libsqlite3-dev libssl-dev libuv1t64 libuv1-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm lsb-release lzip make maven mc nano ncompress neovim netcat-openbsd ngspice ninja-build nmap octave openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc perl-tk pipx pkg-config plantuml poppler-utils procps pv pwgen python-is-python3 python3-all-dev python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv p7zip-full qpdf qtbase5-dev qtbase5-dev-tools rustup shellcheck shfmt socat sqlite3 sudo tar tk-dev tmux tree tree-sitter-cli ttf-mscorefonts-installer unrar unzip uuid-dev uuid-runtime valgrind verilator vim webp wget wget2 x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils yamllint zip zlib1g zlib1g-dev zsh zstd -y
 sudo apt install apparmor-utils aria2 bridge-utils caneda clamav clamav-daemon clang-uml clinfo codeblocks* dnscrypt-proxy dunst fcitx5 fcitx5-* fdroidserver filelight flatpak gir1.2-gdk-3.0 gir1.2-gtk-3.0 gnome-keyring gparted kate libclamunrar libspa-0.2-bluetooth libtesseract-dev libvirt-daemon-system libvirt-clients msr-tools ntfs-3g obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk ovmf pipewire pipewire-audio-client-libraries podman python3-aiortc python3-gi python3-gi-cairo python3-plyer python3-pystray python3-websocket python3-xxhash remmina remmina-plugin-rdp remmina-plugin-secret qbittorrent qemu-kvm qemu-system qemu-user-static qtspeech5-speechd-plugin quickemu quickgui snapd spice-vdagent swtpm swtpm-tools tesseract-ocr-all testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wireplumber wl-clipboard xclip -y
 sudo cp /usr/share/doc/dnscrypt-proxy/examples/* /etc/dnscrypt-proxy/
 sudo mkdir -p /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist
@@ -1096,7 +1097,6 @@ mv JetBrainsMonoNerdFontMono-Regular.ttf ~/.local/share/fonts/
 cd ~ || exit
 rm -rf .JetBrainsMono
 sudo fc-cache -fv
-rustup update stable
 sudo sed -Ei 's/^#?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
 sudo mkdir -p /run/sshd
 sudo chmod 0755 /run/sshd
@@ -1105,10 +1105,12 @@ sudo systemctl enable ssh
 yes | sudo ufw enable
 sudo ufw allow ssh
 sudo ufw reload
+rustup update stable
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
 sudo apt update
 sudo apt install brave-browser -y
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
 json="$(curl -fsSL https://api.github.com/repos/xlionjuan/xlion-repo-archive-keyring/releases/latest)" && asset="$(echo "$json" | jq -r '.assets[] | select(.name | endswith(".deb")) | "\(.browser_download_url) \(.digest)"' | head -n1)" && url="${asset%% *}" && digest="${asset##* }" && [ -n "$url" ] && [ "$url" != "null" ] && [ -n "$digest" ] && [ "$digest" != "null" ] || { echo "ERROR: cannot locate .deb asset or SHA256 digest" >&2; return 1 2>/dev/null || false; } && tmpfile="$(mktemp /tmp/xlion-keyring-XXXXXX.deb)" && curl -fL "$url" -o "$tmpfile" || { echo "ERROR: download failed" >&2; return 1 2>/dev/null || false; } && expected="${digest#*:}" && actual="$(sha256sum "$tmpfile" | awk '{print $1}')" && [ "$actual" = "$expected" ] || { echo "ERROR: SHA256 mismatch" >&2; rm -f "$tmpfile"; return 1 2>/dev/null || false; } && sudo dpkg -i "$tmpfile" && rm -f "$tmpfile"
 curl -fsSL https://xlionjuan.github.io/rustdesk-apt-repo-latest/latest.sources | sudo tee /etc/apt/sources.list.d/xlion-rustdesk-repo.sources >/dev/null
 sudo apt install rustdesk rustdesk-server -y

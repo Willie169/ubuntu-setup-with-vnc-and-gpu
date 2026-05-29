@@ -9,9 +9,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Patch script
         run: |
-          perl -0777 -i -pe '
-          s/wget --tries=100 --retry-connrefused --waitretry=5 https:\/\/mirror\.ctan\.org.*<\/fontconfig>\nEOF\nsudo fc-cache -fv//s;
-          ' install-tools-first.sh
+          perl -0777 -i -pe 's/wget --tries=100 --retry-connrefused --waitretry=5 https:\/\/mirror\.ctan\.org.*<\/fontconfig>\nEOF\nsudo fc-cache -fv//s' install-tools-first.sh
           perl -i -pe '
           s/^npm i\b(.*)/npm i$1 --dry-run/;
           s/^brew install\b(.*)/brew install$1 --dry-run/;

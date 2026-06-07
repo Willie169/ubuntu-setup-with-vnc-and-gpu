@@ -1135,8 +1135,8 @@ nvm install --lts
 corepack enable npm
 npm i jsdom markdown-toc marked marked-gfm-heading-id node-html-markdown showdown
 npm i -g bash-language-server dockerfile-language-server-nodejs http-server opencode-ai pyright @linthtml/linthtml @openai/codex
-pipx install cmake-language-server fdroidserver gh2md libretranslate notebook jupyterlab jupytext meson poetry pylatexenc tldr uv yamllint
-pipx install yt-dlp
+pipx install cmake-language-server gh2md libretranslate notebook jupyterlab jupytext meson poetry pylatexenc tldr uv yamllint
+pipx install fdroidserver gallery-dl yt-dlp
 pipx runpip yt-dlp install yt-dlp-ejs
 cat > ~/.config/systemd/user/libretranslate.service <<EOF
 [Unit]

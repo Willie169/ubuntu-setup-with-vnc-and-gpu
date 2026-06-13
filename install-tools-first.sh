@@ -142,6 +142,9 @@ mkdir -p ~/.local/share/applications
 mkdir -p ~/.local/share/fonts
 mkdir -p ~/Desktop
 mkdir -p ~/.config/systemd/user
+sudo sed -E -i 's/# (.*UTF-8)/\1/' /etc/locale.gen
+sudo locale-gen
+sudo update-locale LANG=en_US.UTF-8
 if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
 sudo add-apt-repository ppa:mozillateam/ppa -y
 echo 'Package: firefox*

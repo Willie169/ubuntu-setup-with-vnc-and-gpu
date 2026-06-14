@@ -1139,6 +1139,14 @@ sudo mv apktool /usr/local/bin/
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' iBotPeaches/Apktool apktool_*.jar
 chmod +x apktool_*.jar
 sudo mv apktool_*.jar /usr/local/bin/
+mkdir jadx
+cd jadx || exit
+gh_latest_r -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' skylot/jadx 'jadx-[0-9\.]*\.zip'
+unzip jadx*.zip
+rm jadx*.zip
+chmod +x bin/jadx
+chmod +x bin/jadx-gui
+cd ~ || exit
 PROFILE=/dev/null bash -c 'curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash'
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

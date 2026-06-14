@@ -1191,7 +1191,7 @@ conda config --remove channels defaults || true
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
 brew trust gurgeous/tap
-brew install apktool broot dust fzf gurgeous/tap/tennis procs resvg sevenzip starship xplr yazi yq zoxide
+echo y | brew install apktool broot dust fzf gurgeous/tap/tennis procs resvg sevenzip starship xplr yazi yq zoxide
 git config --global core.pager delta
 git config --global interactive.diffFilter 'delta --color-only'
 git config --global delta.navigate true

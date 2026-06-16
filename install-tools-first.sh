@@ -8,7 +8,7 @@ sudo sed -i -e 's/^[# ]*HandleLidSwitch=.*/HandleLidSwitch=ignore/' -e 's/^[# ]*
 sudo grep -q '^HandleLidSwitch=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitch=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
 sudo grep -q '^HandleLidSwitchDocked=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchDocked=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
 sudo grep -q '^HandleLidSwitchExternalPower=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchExternalPower=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
-for file in "/etc/grub.d/30_os-prober" "/etc/default/grub.d/30_os-prober"; do
+for file in "/etc/grub.d/*" "/etc/default/grub.d/*"; do
   if [[ -f "$file" ]]; then
     if grep -q '^quick_boot=' "$file"; then
       sudo sed -i 's/^quick_boot=.*/quick_boot="0"/' "$file"

@@ -1155,7 +1155,7 @@ nvm install --lts
 corepack enable npm
 npm i jsdom markdown-toc marked marked-gfm-heading-id node-html-markdown showdown
 npm i -g bash-language-server dockerfile-language-server-nodejs http-server opencode-ai pyright @linthtml/linthtml @openai/codex
-pipx install cmake-language-server gh2md libretranslate notebook jupyterlab jupytext meson poetry pylatexenc tldr uv yamllint
+pipx install cmake-language-server gh2md jupyterlab jupytext libretranslate meson notebook poetry pylatexenc tldr uv yamllint
 pipx install fdroidserver gallery-dl yt-dlp
 pipx runpip yt-dlp install yt-dlp-ejs
 cat > ~/.config/systemd/user/libretranslate.service <<EOF
@@ -1206,11 +1206,11 @@ NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Ho
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
 brew trust gurgeous/tap
 echo y | brew install broot dust fzf gurgeous/tap/tennis procs resvg sevenzip starship xplr yazi yq zoxide
+brew vendor-gems
 git config --global core.pager delta
 git config --global interactive.diffFilter 'delta --color-only'
 git config --global delta.navigate true
 git config --global merge.conflictStyle zdiff3
-brew vendor-gems
 sudo git clone --depth=1 https://github.com/Willie169/vimrc.git /opt/vim_runtime && sudo sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all
 mkdir -p ~/.config/nvim/lua/config
 mkdir -p ~/.config/nvim/lua/plugins

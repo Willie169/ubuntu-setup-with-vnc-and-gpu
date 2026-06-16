@@ -1209,6 +1209,8 @@ gh_latest marcosnils/bin 'bin_*_linux_amd64'
 chmod +x bin_*_linux_amd64
 echo ~/.local/bin | ./bin_*_linux_amd64 install github.com/marcosnils/bin
 rm bin_*_linux_amd64*
+bin install github.com/ventoy/Ventoy --name ventoy-*/Ventoy2Disk.sh
+bin install github.com/ventoy/Ventoy --name ventoy-*/VentoyGUI.x86_64
 sudo git clone --depth=1 https://github.com/Willie169/vimrc.git /opt/vim_runtime && sudo sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all
 mkdir -p ~/.config/nvim/lua/config
 mkdir -p ~/.config/nvim/lua/plugins

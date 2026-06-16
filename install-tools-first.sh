@@ -134,7 +134,6 @@ if [ -d "$HOME/.bashrc.d"  ];  then
 fi
 [ -r ~/API_KEY.sh   ] && source ~/API_KEY.sh
 sudo loginctl enable-linger "$USER"
-sudo mkdir -p /usr/local/go
 sudo mkdir -p /usr/local/java
 sudo mkdir -p /etc/apt/keyrings
 mkdir -p ~/.local/bin
@@ -1204,13 +1203,8 @@ conda config --add channels conda-forge
 conda config --remove channels defaults || true
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
-brew trust gurgeous/tap
-echo y | brew install broot dust fzf gurgeous/tap/tennis procs resvg sevenzip starship xplr yazi yq zoxide
-brew vendor-gems
-git config --global core.pager delta
-git config --global interactive.diffFilter 'delta --color-only'
-git config --global delta.navigate true
-git config --global merge.conflictStyle zdiff3
+brew trust gurgeous/tap || true
+echo y | brew install broot dust fzf gurgeous/tap/tennis procs resvg ripgrep sevenzip starship xplr yazi yq zoxide
 sudo git clone --depth=1 https://github.com/Willie169/vimrc.git /opt/vim_runtime && sudo sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all
 mkdir -p ~/.config/nvim/lua/config
 mkdir -p ~/.config/nvim/lua/plugins
@@ -1770,8 +1764,11 @@ git clone https://github.com/wimpysworld/deb-get.git
 cd deb-get/docs/
 make install
 cd ~
-deb-get install bat bottom fd git-delta
-deb-get install balena-etcher ripgrep
+deb-get install bat bottom du-dust fd git-delta
+git config --global core.pager delta
+git config --global interactive.diffFilter 'delta --color-only'
+git config --global delta.navigate true
+git config --global merge.conflictStyle zdiff3
 git clone https://codeberg.org/c4ffe14e/phice.git
 cd phice || exit
 uv sync

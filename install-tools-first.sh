@@ -8,14 +8,8 @@ sudo sed -i -e 's/^[# ]*HandleLidSwitch=.*/HandleLidSwitch=ignore/' -e 's/^[# ]*
 sudo grep -q '^HandleLidSwitch=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitch=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
 sudo grep -q '^HandleLidSwitchDocked=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchDocked=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
 sudo grep -q '^HandleLidSwitchExternalPower=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchExternalPower=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
-for file in "/etc/grub.d/*" "/etc/default/grub.d/*"; do
-  if [[ -f "$file" ]]; then
-    if grep -q '^quick_boot=' "$file"; then
-      sudo sed -i 's/^quick_boot=.*/quick_boot="0"/' "$file"
-    else
-      echo 'quick_boot="0"' | sudo tee -a "$file" >/dev/null
-    fi
-  fi
+for file in /etc/grub.d/* /etc/default/grub.d/*; do
+  [[ -f "$file" ]] && sudo sed -i 's/^quick_boot=.*/quick_boot="0"/' "$file"
 done
 sudo update-grub
 DM=$(basename "$(basename "$(readlink -f /etc/systemd/system/display-manager.service)" || true)" ".service" || true)

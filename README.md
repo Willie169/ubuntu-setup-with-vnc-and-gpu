@@ -194,15 +194,15 @@ See my [**dual-boot-windows-linux-and-recovery**](https://github.com/Willie169/d
 
 #### Prerequisites
 
-<ol>
-<li>Determine your Desktop Environment and follow the corresponding section below:
+Run `echo $XDG_SESSION_TYPE`. If it prints wayland, you're already using Wayland.
+
+Determine your Desktop Environment and follow the corresponding section below:
 <ul>
 <li>GNOME 3, which Ubuntu usually uses, supports Wayland.</li>
 <li>KDE Plasma, which Kubuntu uses, supports Wayland.</li>
 <li>Cinnamon, which Linux Mint usually uses, doesn't fully support Wayland currently. This instruction does not cover how to switch to Wayland on Cinnamon. Sorry.</li>
 </ul>
-See <a href="#desktop-environment">Desktop Environment</a> section for more information.</li>
-</ol>
+See <a href="#desktop-environment">Desktop Environment</a> section for more information.
 
 #### Enable Wayland for GNOME3 without NVIDIA GPU
 

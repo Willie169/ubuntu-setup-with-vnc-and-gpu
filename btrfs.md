@@ -19,9 +19,17 @@ sudo apt install grub-btrfs -y
 sudo systemctl enable --now snapper-timeline.timer
 sudo systemctl enable --now snapper-cleanup.timer
 ```
+## Mount
+Run
+```
+findmnt -no SOURCE /
+```
+You will get an output such as `/dev/nvme0n1p4[/@]`. Run
+```
+blkid /dev/nvme0n1p4
+```
+There will be `UUID="<uuid>"` in the input, such as `UUID="d5488b10-d932-462d-8cde-3ec4d8ac9102"`
 
-sudo cat /etc/snapper/configs/root
-snapper -c root list-configs
-systemctl status snapper-timeline.timer
-systemctl status snapper-cleanup.timer
-sudo systemctl status grub-btrfsd
+```
+UUID=<uuid>  /.snapshots  btrfs  subvol=.snapshots  0 0
+```

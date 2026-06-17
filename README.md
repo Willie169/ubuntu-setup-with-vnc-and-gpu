@@ -13,22 +13,17 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 * Sufficient power supply.
 * Stable internet connection.
 
-### Usage 
+### SSH
+
+It's often helpful to run script from a SSH client or send and receive files from a SFTP client. To install and enable SSH server, run:
+```
+sudo apt update
+sudo apt install openssh-server -y
+```
+
+### Usage
 
 <ol>
-<li>You may want to export the following credentials to <code>~/API_KEY.sh</code> in the format <code>export <VARIABLE>='<VALUE>'</code> per line for automatic setup of deb-get and LiteLLM:
-<ol>
-<li><code>DEBGET_TOKEN</code>: A <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">GitHub Personal Access Token (PAT)</a> with interaction limit permission.</li>
-<li><code>LITELLM_MASTER_KEY</code></li>
-<li><code>LITELLM_SALT_KEY</code></li>
-<li><code>OPENAI_API_KEY</code></li>
-<li><code>ANTHROPIC_API_KEY</code></li>
-<li><code>GEMINI_API_KEY</code></li>
-<li><code>DEEPSEEK_API_KEY</code></li>
-<li><code>OPENROUTER_API_KEY</code></li>
-<li><code>MISTRAL_API_KEY</code></li>
-</ol>
-</li>
 <li>Run
 <pre><code>cd ~
 sudo apt update

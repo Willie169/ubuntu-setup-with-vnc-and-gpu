@@ -1095,10 +1095,6 @@ mv JetBrainsMonoNerdFontMono-Regular.ttf ~/.local/share/fonts/
 cd ~ || exit
 rm -rf .JetBrainsMono
 sudo fc-cache -fv
-sudo sed -Ei 's/^#?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
-sudo mkdir -p /run/sshd
-sudo chmod 0755 /run/sshd
-sudo chown root:root /run/sshd
 sudo systemctl enable ssh
 yes | sudo ufw enable
 sudo ufw allow ssh

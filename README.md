@@ -15,11 +15,42 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 
 ### SSH
 
-It's often helpful to run script from a SSH client or send and receive files from a SFTP client. To install and enable SSH server, run:
+It's often useful to access your computer from a SSH client. To install and enable SSH server on your computer, run:
 ```
 sudo apt update
 sudo apt install openssh-server -y
 ```
+Password authentication is typically allowed by default. If not and you haven't setup public key authentication, run
+```
+sudo sed -Ei 's/^#?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+sudo systemctl restart sshd
+```
+For better security, using public key authentication is recommended. First generate a key pair in client and optionally set a passphrase. Press Enter to accept default path `~/.ssh/id_ed25519`. `~/.ssh/id_ed25519` is your private key. Keep it secure. Skip if you already has one.
+```
+ssh-keygen -t ed25519 -a 100
+```
+And then, copy the public key to the server. Replace `user@server` with your actual server.
+```
+ssh-copy-id -i ~/.ssh/id_ed25519.pub user@server
+```
+Test whether it works.
+```
+ssh -i ~/.ssh/id_ed25519 user@server
+```
+If it works, you can disable password authentication on server by running
+```
+sudo sed -Ei 's/^#?PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
+sudo systemctl restart sshd
+```
+If your SSH connection is unstable. You may try adding keepalive packets sending on client by running:
+```
+cat >> ~/.ssh/config <<EOF
+Host *
+    ServerAliveInterval 15
+    ServerAliveCountMax 3
+EOF
+```
+and reconnect.
 
 ### Usage
 

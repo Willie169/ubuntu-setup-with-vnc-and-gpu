@@ -52,6 +52,18 @@ EOF
 ```
 and reconnect.
 
+### Btrfs
+
+If you are using Btrfs, you may want to set it up first. Refer to my [btrfs-debian-ubuntu](https://github.com/Willie169/btrfs-debian-ubuntu) repo.
+
+### Dual Boot with Windows
+
+Refer to my [**dual-boot-windows-linux-and-recovery**](https://github.com/Willie169/dual-boot-windows-linux-and-recovery) repo.
+
+### WPA PEAP TLS Network
+
+If you fail to connect to a WPA PEAP Network that you are supposed to be able to connect to, it may be due to deprecated TLS protocols and can be fixed by according to my [**WPA-PEAP-TLS-network-Linux**](https://github.com/Willie169/WPA-PEAP-TLS-network-Linux) repo.
+
 ### Usage
 
 <ol>
@@ -174,7 +186,6 @@ Installs [RuView](https://github.com/ruvnet/RuView) from source (Rust), which re
 
 ### Table of Contents
 
-+ [Dual Boot with Windows](#dual-boot-with-windows)
 + [Desktop Environment](#desktop-environment)
 + [Wayland](#wayland)
 + [Linux Mint Ubuntu Version Tweak](#linux-mint-ubuntu-version-tweak)
@@ -187,10 +198,6 @@ Installs [RuView](https://github.com/ruvnet/RuView) from source (Rust), which re
 + [Solution for Closing Lip Overrides Power Off](#solution-for-closing-lip-overrides-power-off)
 + [Bottles](#bottles)
 + [My Related Repositories](#my-related-repositories)
-
-### Dual Boot with Windows
-
-See my [**dual-boot-windows-linux-and-recovery**](https://github.com/Willie169/dual-boot-windows-linux-and-recovery) repo.
 
 ### Desktop Environment
 

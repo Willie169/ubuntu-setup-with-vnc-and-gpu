@@ -1,4 +1,0 @@
-Error: Unable to locate package gh
-Error: Package 'libfuse2' has no installation candidate
-Error: Unable to locate package libosmesa6
-Error: Package 'ntopng' has no installation candidate

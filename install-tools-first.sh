@@ -100,7 +100,10 @@ fi
 EOF
 sudo apt update
 sudo apt purge fcitx* texlive* yq -y
-sudo apt install python3-argcomplete wget -y
+sudo apt install locales python3-argcomplete wget -y
+sudo sed -E -i 's/# (.*UTF-8)/\1/' /etc/locale.gen
+sudo locale-gen
+sudo update-locale LANG=en_US.UTF-8
 rm -f .bashrc
 mkdir ~/.bashrc.d
 wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/00-env.sh -O ~/.bashrc.d/00-env.sh
@@ -134,9 +137,6 @@ mkdir -p ~/.local/share/applications
 mkdir -p ~/.local/share/fonts
 mkdir -p ~/Desktop
 mkdir -p ~/.config/systemd/user
-sudo sed -E -i 's/# (.*UTF-8)/\1/' /etc/locale.gen
-sudo locale-gen
-sudo update-locale LANG=en_US.UTF-8
 if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
 sudo add-apt-repository ppa:mozillateam/ppa -y
 echo 'Package: firefox*

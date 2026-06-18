@@ -126,7 +126,6 @@ if [ -d "$HOME/.bashrc.d"  ];  then
     [ -r "$f"  ] && . "$f"
   done
 fi
-[ -r ~/API_KEY.sh   ] && source ~/API_KEY.sh
 sudo loginctl enable-linger "$USER"
 sudo mkdir -p /usr/local/java
 sudo mkdir -p /etc/apt/keyrings

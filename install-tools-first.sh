@@ -100,7 +100,7 @@ fi
 EOF
 sudo apt update
 sudo apt purge fcitx* texlive* yq -y
-sudo apt install wget -y
+sudo apt install python3-argcomplete wget -y
 rm -f .bashrc
 mkdir ~/.bashrc.d
 wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/00-env.sh -O ~/.bashrc.d/00-env.sh

@@ -1874,6 +1874,7 @@ OnAccessIncludePath /usr/local/etc
 OnAccessIncludePath /usr/local/share
 EOF
 sudo systemctl restart clamav-daemon
+wget --tries=100 --retry-connrefused --waitretry=5 https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt -O ~/.eff_large_wordlist.txt
 wget --tries=100 --retry-connrefused --waitretry=5 https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xzf install-tl-unx.tar.gz
 rm install-tl-unx.tar.gz

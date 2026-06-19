@@ -141,7 +141,7 @@ if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
 sudo add-apt-repository ppa:mozillateam/ppa -y
 echo 'Package: firefox*
 Pin: release o=LP-PPA-mozillateam
-Pin-Priority: 1001
+Pin-Priority: 990
 
 Package: firefox*
 Pin: release o=Ubuntu
@@ -160,7 +160,7 @@ sudo rm /var/lib/snapd/inhibit/firefox.lock 2>/dev/null || true
 rm -r snap/firefox 2>/dev/null || true
 echo 'Package: thunderbird*
 Pin: release o=LP-PPA-mozillateam
-Pin-Priority: 500
+Pin-Priority: 990
 
 Package: thunderbird*
 Pin: release o=Ubuntu
@@ -176,7 +176,7 @@ sudo rm /var/lib/snapd/desktop/applications/thunderbird*.desktop 2>/dev/null || 
 sudo add-apt-repository ppa:xtradeb/apps -y
 echo 'Package: chromium*
 Pin: release o=LP-PPA-xtradeb-apps
-Pin-Priority: 500
+Pin-Priority: 990
 
 Package: chromium*
 Pin: release o=Ubuntu

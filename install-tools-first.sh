@@ -160,7 +160,7 @@ sudo rm /var/lib/snapd/inhibit/firefox.lock 2>/dev/null || true
 rm -r snap/firefox 2>/dev/null || true
 echo 'Package: thunderbird*
 Pin: release o=LP-PPA-mozillateam
-Pin-Priority: 1001
+Pin-Priority: 500
 
 Package: thunderbird*
 Pin: release o=Ubuntu
@@ -173,11 +173,10 @@ sudo systemctl disable snap-thunderbird*.mount 2>/dev/null || true
 sudo snap remove thunderbird 2>/dev/null || true
 sudo apt install thunderbird --allow-downgrades -y
 sudo rm /var/lib/snapd/desktop/applications/thunderbird*.desktop 2>/dev/null || true
-echo "Unattended-Upgrade::Allowed-Origins:: \"LP-PPA-mozillateam:$(lsb_release -cs)\";" | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla >/dev/null
 sudo add-apt-repository ppa:xtradeb/apps -y
 echo 'Package: chromium*
 Pin: release o=LP-PPA-xtradeb-apps
-Pin-Priority: 1001
+Pin-Priority: 500
 
 Package: chromium*
 Pin: release o=Ubuntu
@@ -191,6 +190,16 @@ echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
 sudo apt upgrade -y
+echo 'APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";
+APT::Periodic::AutocleanInterval "1";' | sudo tee /etc/apt/apt.conf.d/20auto-upgrades
+sudo mv /etc/apt/apt.conf.d/50unattended-upgrades /etc/apt/apt.conf.d/50unattended-upgrades.bak
+echo 'Unattended-Upgrade::Origins-Pattern {
+    "origin=*";
+};
+Unattended-Upgrade::Remove-Unused-Dependencies "true";
+Unattended-Upgrade::Skip-Updates-On-Metered-Connections "false";
+Unattended-Upgrade::Allow-downgrade "true";' | sudo tee /etc/apt/apt.conf.d/50unattended-upgrades
 sudo apt install abcde alien alsa-utils apksigner apt-transport-https aptitude audacity autoconf automake bash bc bear bindfs bison bookletimposer build-essential bzip2 calcurse ca-certificates clang clangd clang-format cmake command-not-found curl dbus debian-archive-keyring debian-keyring default-jdk distro-info dmg2img dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fontconfig fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gdb gfortran gh ghc ghostscript git git-lfs glab gnupg gnupg2 golang-go gopls gperf gpg grep gtkwave gzip hyperfine info imagemagick inkscape iotop-c iproute2 iverilog jpegoptim jq lftp libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libguestfs-tools libheif-examples libhwloc-dev libhwloc-plugins libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libreoffice libsqlite3-dev libssl-dev libuv1t64 libuv1-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm lsb-release lsd lzip make maven mc mpv nano ncdu ncompress neovim netcat-openbsd ngspice ninja-build nmap nnn octave openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc perl-tk pipx pkg-config plantuml poppler-utils procps pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv p7zip-full qpdf qtbase5-dev qtbase5-dev-tools rustup shellcheck shfmt socat sqlite3 stress-ng sudo tar tk-dev tmux tree tree-sitter-cli tsocks ttf-mscorefonts-installer unrar unzip uuid-dev uuid-runtime valgrind verilator vim webp wget wget2 w3m x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh zstd -y
 sudo apt install apparmor-utils aria2 bridge-utils caneda clamav clamav-daemon clang-uml clinfo codeblocks* dnscrypt-proxy dunst fcitx5 fcitx5-* filelight flatpak gir1.2-gdk-3.0 gir1.2-gtk-3.0 gnome-keyring gparted kate libclamunrar libspa-0.2-bluetooth libtesseract-dev libvirt-daemon-system libvirt-clients msr-tools ntfs-3g obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk ovmf pipewire pipewire-audio-client-libraries podman python3-aiortc python3-gi python3-gi-cairo python3-plyer python3-pystray python3-websocket python3-xxhash remmina remmina-plugin-rdp remmina-plugin-secret retroarch qbittorrent qemu-kvm qemu-system qemu-user-static qtspeech5-speechd-plugin quickemu quickgui snapd spice-vdagent swtpm swtpm-tools tesseract-ocr-all testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wireplumber wl-clipboard xclip -y
 sudo snap set system refresh.retain=2

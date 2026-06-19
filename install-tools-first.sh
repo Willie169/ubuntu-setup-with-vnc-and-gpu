@@ -100,7 +100,7 @@ fi
 EOF
 sudo apt update
 sudo apt purge fcitx* texlive* yq -y
-sudo apt install locales wget -y
+sudo apt install locales unattended-upgrades wget -y
 sudo sed -E -i 's/# (.*UTF-8)/\1/' /etc/locale.gen
 sudo locale-gen
 sudo update-locale LANG=en_US.UTF-8

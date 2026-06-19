@@ -191,8 +191,11 @@ echo y | sudo ubuntu-drivers autoinstall || true
 echo y | sudo ubuntu-drivers autoinstall || true
 sudo apt upgrade -y
 echo 'APT::Periodic::Update-Package-Lists "1";
-APT::Periodic::Unattended-Upgrade "1";
-APT::Periodic::AutocleanInterval "1";' | sudo tee /etc/apt/apt.conf.d/20auto-upgrades >/dev/null
+APT::Periodic::Download-Upgradeable-Packages "0";
+APT::Periodic::AutocleanInterval "1";' | sudo tee /etc/apt/apt.conf.d/10periodic >/dev/null
+echo 'APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";' | sudo tee /etc/apt/apt.conf.d/20auto-upgrades >/dev/null
+sudo rm /etc/apt/apt.conf.d/20apt-esm-hook.conf >/dev/null || true
 echo '// Automatically upgrade packages from these (origin:archive) pairs
 //
 // Note that in Ubuntu security updates may pull in new dependencies
@@ -327,7 +330,7 @@ Unattended-Upgrade::Skip-Updates-On-Metered-Connections "false";
 // Unattended-Upgrade::Debug "false";
 
 // Allow package downgrade if Pin-Priority exceeds 1000
-Unattended-Upgrade::Allow-downgrade "true";
+// Unattended-Upgrade::Allow-downgrade "false";
 
 // When APT fails to mark a package to be upgraded or installed try adjusting
 // candidates of related packages to help APT'"'"'s resolver in finding a solution

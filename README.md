@@ -20,6 +20,11 @@ It's often useful to access your computer from a SSH client. To install and enab
 sudo apt update
 sudo apt install openssh-server -y
 ```
+Check IP:
+```
+sudo apt install net-tools -y
+ifconfig
+```
 Password authentication is typically allowed by default. If not and you haven't setup public key authentication, run
 ```
 sudo sed -Ei 's/^#?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config

@@ -127,7 +127,6 @@ until it exits automatically.</li>
 
 ### Stuff You May Want to Do Afterwards
 
-After running `install-tools-first.sh` and `install-tools-second.sh`, you may want to:
 <ol>
 <li>Set JetBrainsMono Nerd Font for your terminal emulator for icons used by `yazi`.</li>
 <li>List installed Snap packages with <code>snap list</code>. You may want to cleanup remaining Snap packages that you don&#39;t need or are already installed from other sources in previous scripts, e.g., 

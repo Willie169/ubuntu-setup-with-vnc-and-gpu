@@ -1,3 +1,4 @@
+sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT='"'"'(.*)'"'"'/GRUB_CMDLINE_LINUX_DEFAULT='"'"'\1 nvidia_drm.modeset=1'"'"' /etc/default/grub'
 sudo apt install wget -y
 sudo apt remove --purge ^.*nvidia.* ^cuda.* -y
 sudo apt autoremove -y

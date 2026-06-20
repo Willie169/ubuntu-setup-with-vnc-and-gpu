@@ -88,7 +88,6 @@ sudo add-apt-repository ppa:colin-king/stress-ng -y
 sudo add-apt-repository ppa:flexiondotorg/quickemu -y
 sudo add-apt-repository ppa:git-core/ppa -y
 sudo add-apt-repository ppa:libreoffice/ppa -y
-sudo add-apt-repository ppa:libretro/stable -y
 sudo add-apt-repository ppa:longsleep/golang-backports -y
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
 sudo add-apt-repository ppa:obsproject/obs-studio -y
@@ -366,9 +365,17 @@ Unattended-Upgrade::Skip-Updates-On-Metered-Connections "false";
 ' | sudo tee /etc/apt/apt.conf.d/50unattended-upgrades >/dev/null
 sudo apt install apparmor-utils apt-transport-https build-essential ca-certificates clinfo cmake curl dbus default-jdk dnscrypt-proxy g++ gcc git gpg jq libeigen3-dev libqt5svg5-dev make maven ninja-build ocl-icd-opencl-dev perl python-is-python3 python3 qtbase5-dev qtbase5-dev-tools wget -y
 PKG='alsa-utils apksigner apt-transport-https aptitude audacity autoconf automake bash bc bear bindfs bison bookletimposer build-essential bzip2 calcurse ca-certificates clang clangd clang-format cmake command-not-found curl dbus debian-archive-keyring debian-keyring default-jdk distro-info dmg2img dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fontconfig fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gdb gh ghc ghostscript git git-lfs glab gnupg gnupg2 golang-go gopls gperf gpg grep gtkwave gzip hyperfine info imagemagick inkscape iotop-c iproute2 iverilog jpegoptim jq lftp libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libguestfs-tools libheif-examples libhwloc-dev libhwloc-plugins libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libreoffice libsqlite3-dev libssl-dev libuv1t64 libuv1-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm lsb-release lsd lzip make maven mc mpv nano ncdu ncompress neovim netcat-openbsd ngspice ninja-build nmap nnn octave openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc perl-tk pipx pkg-config plantuml poppler-utils procps pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv p7zip-full qpdf qtbase5-dev qtbase5-dev-tools rustup shellcheck shfmt socat sqlite3 stress-ng sudo tar tk-dev tmux tree tree-sitter-cli tsocks ttf-mscorefonts-installer unrar unzip uuid-dev uuid-runtime valgrind verilator vim webp wget wget2 w3m x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh zstd'
-[ "$TEST" -eq 0 ] && sudo apt install $PKG -y -s || sudo apt install $PKG -y
-PKG='apparmor-utils aria2 bridge-utils caneda clang-uml clinfo codeblocks* dnscrypt-proxy dunst fcitx5 fcitx5-* filelight flatpak gir1.2-gdk-3.0 gir1.2-gtk-3.0 gnome-keyring gparted kate krita libclamunrar libspa-0.2-bluetooth libtesseract-dev libvirt-daemon-system libvirt-clients msr-tools ntfs-3g obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk ovmf pipewire pipewire-audio-client-libraries podman python3-aiortc python3-gi python3-gi-cairo python3-plyer python3-pystray python3-websocket python3-xxhash remmina remmina-plugin-rdp remmina-plugin-secret retroarch qbittorrent qemu-kvm qemu-system qemu-user-static qtspeech5-speechd-plugin quickemu quickgui snapd spice-vdagent swtpm swtpm-tools tesseract-ocr-all testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wireplumber wl-clipboard xclip'
-[ "$TEST" -eq 0 ] && sudo apt install $PKG -y -s || sudo apt install $PKG -y
+if [ "$TEST" -eq 1 ]; then
+sudo apt install $PKG -y
+else
+sudo apt install $PKG -y -s
+fi
+PKG='apparmor-utils aria2 bridge-utils caneda clang-uml clinfo codeblocks* dnscrypt-proxy dunst fcitx5 fcitx5-* filelight flatpak gir1.2-gdk-3.0 gir1.2-gtk-3.0 gnome-keyring gparted kate krita libclamunrar libspa-0.2-bluetooth libtesseract-dev libvirt-daemon-system libvirt-clients msr-tools ntfs-3g obs-studio ocl-icd-opencl-dev openjdk-8-jdk openjdk-17-jdk ovmf pipewire pipewire-audio-client-libraries podman python3-aiortc python3-gi python3-gi-cairo python3-plyer python3-pystray python3-websocket python3-xxhash remmina remmina-plugin-rdp remmina-plugin-secret qbittorrent qemu-kvm qemu-system qemu-user-static qtspeech5-speechd-plugin quickemu quickgui snapd spice-vdagent swtpm swtpm-tools tesseract-ocr-all testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wireplumber wl-clipboard xclip'
+if [ "$TEST" -eq 1 ]; then
+sudo apt install $PKG -y
+else
+sudo apt install $PKG -y -s
+fi
 sudo snap set system refresh.retain=2
 sudo cp /usr/share/doc/dnscrypt-proxy/examples/* /etc/dnscrypt-proxy/
 sudo mkdir -p /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist
@@ -1344,25 +1351,6 @@ WantedBy=default.target
 EOF
 systemctl --user daemon-reload
 systemctl --user enable --now libretranslate
-uv tool install --force --python python3.11 open-webui@latest
-cat > ~/.config/systemd/user/open-webui.service <<EOF
-[Unit]
-Description=Open WebUI
-
-[Service]
-ExecStart=$HOME/.local/bin/open-webui serve
-Environment=DATA_DIR=$HOME/.open-webui
-Environment=OLLAMA_BASE_URL=http://127.0.0.1:11434
-Restart=always
-RestartSec=5
-StandardOutput=journal
-StandardError=journal
-
-[Install]
-WantedBy=default.target
-EOF
-systemctl --user daemon-reload
-systemctl --user enable --now open-webui
 wget --tries=100 --retry-connrefused --waitretry=5 https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
 bash Miniforge3-Linux-x86_64.sh -b -p "${HOME}/conda"
 rm Miniforge3-Linux-x86_64.sh
@@ -1575,297 +1563,6 @@ wget --tries=100 --retry-connrefused --waitretry=5 'https://www.eclipse.org/down
 tar -xzf 'download.php?file=%2Fjdtls%2Fmilestones%2F1.57.0%2Fjdt-language-server-1.57.0-202602261110.tar.gz'
 rm 'download.php?file=%2Fjdtls%2Fmilestones%2F1.57.0%2Fjdt-language-server-1.57.0-202602261110.tar.gz'
 cd ~ || exit
-git clone https://github.com/lightvector/KataGo.git
-cd KataGo/cpp || exit
-if [ -n "$(clinfo -l | grep '#0')" ]; then
-cmake . -G Ninja -DUSE_BACKEND=OPENCL
-else
-cmake . -G Ninja -DUSE_BACKEND=EIGEN
-fi
-ninja
-cd ../.. || exit
-mkdir katago-networks
-cd katago-networks || exit
-wget --tries=100 --retry-connrefused --waitretry=5 https://media.katagotraining.org/uploaded/networks/models/kata1/kata1-b6c96-s175395328-d26788732.txt.gz
-cd ~ || exit
-git clone https://github.com/yzyray/lizzieyzy.git
-cd lizzieyzy || exit
-mvn clean package
-cd ~ || exit
-cat > ~/.local/share/applications/lizzieyzy.desktop <<EOF
-[Desktop Entry]
-Type=Application
-Name=LizzieYzy
-Comment=LizzieYzy - GUI for Game of Go
-Exec=sh -c 'cd $HOME/.lizzieyzy && java -jar "$HOME/lizzieyzy/target/lizzie-yzy2.5.3-shaded.jar"'
-Icon=$HOME/lizzieyzy/src/main/resources/assets/logo.png
-Terminal=false
-Categories=Game;
-StartupWMClass=featurecat-lizzie-Lizzie
-EOF
-update_lizzieyzy_config
-git clone https://github.com/fairy-stockfish/Fairy-Stockfish.git
-cd Fairy-Stockfish/src || exit
-make -j ARCH=x86-64 profile-build largeboards=yes nnue=yes
-cd ~ || exit
-git clone https://github.com/cutechess/cutechess.git
-cd cutechess || exit
-mkdir build
-cd build || exit
-cmake -G Ninja ..
-ninja
-cd ~ || exit
-cat > ~/.local/share/applications/cutechess.desktop <<EOF
-[Desktop Entry]
-Type=Application
-Name=Cute Chess
-Comment=Cute Chess - GUI for Playing Chess
-Exec=$HOME/cutechess/build/cutechess
-Icon=$HOME/cutechess/projects/gui/res/icons/cutechess_128x128.png
-Terminal=false
-Categories=Game;
-EOF
-update_cutechess_config
-git clone https://github.com/hotfics/Sylvan.git
-cd Sylvan || exit
-qmake
-make
-cd ~ || exit
-cat > ~/.local/share/applications/sylvan.desktop <<EOF
-[Desktop Entry]
-Type=Application
-Name=Sylvan
-Comment=Sylvan - GUI for Playing Xiangqi
-Exec=$HOME/Sylvan/projects/gui/sylvan
-Icon=$HOME/Sylvan/projects/gui/res/icons/app.ico
-Terminal=false
-Categories=Game;
-EOF
-update_sylvan_config
-curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://ollama.com/install.sh | sh
-sudo env SYSTEMD_EDITOR=tee systemctl edit ollama <<EOF
-[Service]
-Environment="OLLAMA_HOST=0.0.0.0"
-EOF
-sudo systemctl daemon-reload
-sudo systemctl restart ollama
-mkdir ~/.open-notebook
-cat > ~/.open-notebook/docker-compose.yml<<EOF
-services:
-  surrealdb:
-    image: surrealdb/surrealdb:v2
-    command: start --log info --user root --pass root rocksdb:/mydata/mydatabase.db
-    user: root
-    network_mode: host
-    volumes:
-      - ./surreal_data:/mydata
-    restart: always
-
-  open_notebook:
-    image: lfnovo/open_notebook:v1-latest
-    network_mode: host
-    environment:
-      - OPEN_NOTEBOOK_ENCRYPTION_KEY=change-me-to-a-secret-string
-      - SURREAL_URL=ws://localhost:8000/rpc
-      - SURREAL_USER=root
-      - SURREAL_PASSWORD=root
-      - SURREAL_NAMESPACE=open_notebook
-      - SURREAL_DATABASE=open_notebook
-      - OLLAMA_API_BASE=http://localhost:11434
-    volumes:
-      - ./notebook_data:/app/data
-    depends_on:
-      - surrealdb
-    restart: always
-EOF
-cd ~/.open-notebook || exit
-docker compose up -d
-cd ~ || exit
-curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://raw.githubusercontent.com/AlexsJones/llmfit/main/install.sh | sh
-mkdir -p ~/dev/llm
-cd ~/dev/llm || exit
-git clone https://github.com/KhronosGroup/OpenCL-Headers && cd OpenCL-Headers || exit
-mkdir build && cd build || exit
-cmake .. -G Ninja \
-  -DBUILD_TESTING=OFF \
-  -DOPENCL_HEADERS_BUILD_TESTING=OFF \
-  -DOPENCL_HEADERS_BUILD_CXX_TESTS=OFF \
-  -DCMAKE_INSTALL_PREFIX="$HOME/dev/llm/opencl"
-cmake --build . --target install
-cd ~/dev/llm || exit
-git clone https://github.com/KhronosGroup/OpenCL-ICD-Loader && cd OpenCL-ICD-Loader || exit
-mkdir build && cd build || exit
-cmake .. -G Ninja \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_PREFIX_PATH="$HOME/dev/llm/opencl" \
-  -DCMAKE_INSTALL_PREFIX="$HOME/dev/llm/opencl"
-cmake --build . --target install
-cd ~/dev/llm || exit
-git clone https://github.com/ggml-org/llama.cpp && cd llama.cpp || exit
-mkdir build && cd build || exit
-cmake .. -G Ninja \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_PREFIX_PATH="$HOME/dev/llm/opencl" \
-  -DBUILD_SHARED_LIBS=OFF \
-  -DGGML_OPENCL=ON
-ninja
-cd ~ || exit
-mkdir ~/stirlingpdf
-cd ~/stirlingpdf || exit
-cat > docker-compose.yml <<'EOF'
-services:
-  stirling-pdf:
-    image: stirlingtools/stirling-pdf:latest
-    ports:
-      - '8083:8080'
-    volumes:
-      - ./stirling-data/tessdata:/usr/share/tessdata
-      - ./stirling-data/configs:/configs
-      - ./stirling-data/logs:/logs
-      - ./stirling-data/pipeline:/pipeline
-    environment:
-      - DOCKER_ENABLE_SECURITY=false
-      - INSTALL_BOOK_AND_ADVANCED_HTML_OPS=true
-      - LANGS=en_GB
-    restart: unless-stopped
-EOF
-docker compose up -d
-cd ~ || exit
-mkdir ~/.litellm
-cd ~/.litellm || exit
-cat ~/API_KEY.sh | grep LITELLM_MASTER_KEY >> .env || true
-cat ~/API_KEY.sh | grep LITELLM_SALT_KEY >> .env || true
-cat ~/API_KEY.sh | grep OPENAI_API_KEY >> .env || true
-cat ~/API_KEY.sh | grep ANTHROPIC_API_KEY >> .env || true
-cat ~/API_KEY.sh | grep GEMINI_API_KEY >> .env || true
-cat ~/API_KEY.sh | grep DEEPSEEK_API_KEY >> .env || true
-cat ~/API_KEY.sh | grep OPENROUTER_API_KEY >> .env || true
-cat ~/API_KEY.sh | grep MISTRAL_API_KEY >> .env || true
-source .env
-curl --retry 100 --retry-connrefused --retry-delay 5 -fsSLO https://raw.githubusercontent.com/BerriAI/litellm/refs/heads/main/prometheus.yml
-cat > docker-compose.yml <<'EOF'
-services:
-  litellm:
-    build:
-      context: .
-      args:
-        target: runtime
-    image: docker.litellm.ai/berriai/litellm:main-stable
-    volumes:
-      - ./config.yaml:/app/config.yaml
-    command:
-      - "--config=/app/config.yaml"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    ports:
-      - "4000:4000" # Map the container port to the host, change the host port if necessary
-    environment:
-      DATABASE_URL: "postgresql://llmproxy:dbpassword9090@db:5432/litellm"
-      STORE_MODEL_IN_DB: "True" # allows adding models to proxy via UI
-    env_file:
-      - .env # Load local .env file
-    depends_on:
-      - db  # Indicates that this service depends on the 'db' service, ensuring 'db' starts first
-    healthcheck:  # Defines the health check configuration for the container
-      test:
-        - CMD-SHELL
-        - python3 -c "import urllib.request; urllib.request.urlopen('http://localhost:4000/health/liveliness')"  # Command to execute for health check
-      interval: 30s  # Perform health check every 30 seconds
-      timeout: 10s   # Health check command times out after 10 seconds
-      retries: 3     # Retry up to 3 times if health check fails
-      start_period: 40s  # Wait 40 seconds after container start before beginning health checks
-
-  db:
-    image: postgres:16
-    restart: always
-    container_name: litellm_db
-    environment:
-      POSTGRES_DB: litellm
-      POSTGRES_USER: llmproxy
-      POSTGRES_PASSWORD: dbpassword9090
-    volumes:
-      - postgres_data:/var/lib/postgresql/data # Persists Postgres data across container restarts
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d litellm -U llmproxy"]
-      interval: 1s
-      timeout: 5s
-      retries: 10
-
-  prometheus:
-    image: prom/prometheus
-    volumes:
-      - prometheus_data:/prometheus
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
-    command:
-      - "--config.file=/etc/prometheus/prometheus.yml"
-      - "--storage.tsdb.path=/prometheus"
-      - "--storage.tsdb.retention.time=15d"
-    restart: always
-
-volumes:
-  prometheus_data:
-    driver: local
-  postgres_data:
-    name: litellm_postgres_data # Named volume for Postgres data persistence
-EOF
-cat > ~/.litellm/config.yaml <<'EOF'
-environment_variables:
-    LITELLM_SALT_KEY: os.environ/LITELLM_SALT_KEY
-
-model_list:
-    - model_name: openai/*
-      litellm_params:
-        model: openai/*
-        api_key: os.environ/OPENAI_API_KEY
-    - model_name: anthropic/*
-      litellm_params:
-        model: anthropic/*
-        api_key: os.environ/ANTHROPIC_API_KEY
-    - model_name: gemini/*
-      litellm_params:
-        model: gemini/*
-        api_key: os.environ/GEMINI_API_KEY
-    - model_name: deepseek/*
-      litellm_params:
-        model: deepseek/*
-        api_key: os.environ/DEEPSEEK_API_KEY
-    - model_name: openrouter/*
-      litellm_params:
-        model: openrouter/*
-        api_key: os.environ/OPENROUTER_API_KEY
-    - model_name: mistral/*
-      litellm_params:
-        model: mistral/*
-        api_key: os.environ/MISTRAL_API_KEY
-
-litellm_settings:
-    check_provider_endpoint: true
-
-general_settings:
-    master_key: os.environ/LITELLM_MASTER_KEY
-EOF
-docker compose up -d
-cd ~ || exit
-cat > ~/.config/systemd/user/litellm.service <<EOF
-[Unit]
-Description=LiteLLM
-Requires=docker.service
-After=docker.service
-
-[Service]
-Type=oneshot
-WorkingDirectory=$HOME/.litellm
-ExecStart=/usr/bin/docker compose up -d
-ExecStop=/usr/bin/docker compose down
-RemainAfterExit=yes
-
-[Install]
-WantedBy=default.target
-EOF
-systemctl --user daemon-reload
-systemctl --user enable --now litellm
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Sathvik-Rao/ClipCascade ClipCascade-Server-JRE_21.jar
 sudo mv ClipCascade-Server-JRE_21.jar /usr/local/java/
 cat > ~/.config/systemd/user/clipcascade-server.service <<EOF
@@ -1911,42 +1608,8 @@ WantedBy=default.target
 EOF
 systemctl --user daemon-reload
 systemctl --user enable clipcascade-client
-curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
-curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list >/dev/null
-sudo chmod o+r /usr/share/keyrings/caddy-stable-archive-keyring.gpg
-sudo chmod o+r /etc/apt/sources.list.d/caddy-stable.list
-sudo apt update
-sudo apt install caddy -y
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' matrix-construct/tuwunel "*-release-all-x86_64-$(cat /proc/cpuinfo | grep -Po '(avx|sse)[235]' | sort -u | sed 's/avx5/v4/;s/avx2/v3/;s/sse3/v2/;s/sse2/v1/' | sort | tail -1)-linux-gnu-tuwunel.deb"
-sudo apt install -f ./*-release-all-x86_64-*-linux-gnu-tuwunel.deb -y
-rm -- *-release-all-x86_64-*-linux-gnu-tuwunel.deb*
-sudo chown -R root:root /etc/tuwunel
-sudo chmod -R 755 /etc/tuwunel
-sudo mkdir -p /var/lib/tuwunel/
-sudo chown -R tuwunel:tuwunel /var/lib/tuwunel/
-sudo chmod 700 /var/lib/tuwunel/
-sudo tee /etc/tuwunel/tuwunel.toml >/dev/null <<'EOF'
-[global]
-server_name = 'matrix.lan'
-database_path = "/var/lib/tuwunel"
-port = 8008
-max_request_size = 1073741824
-allow_registration = false
-allow_federation = false
-EOF
-sudo mkdir -p /etc/caddy/conf.d
-sudo tee /etc/caddy/conf.d/tuwunel_caddyfile >/dev/null <<'EOF'
-matrix.lan, matrix.lan:8448 {
-    # TCP reverse_proxy
-    reverse_proxy localhost:8008
-    # UNIX socket (alternative - comment out the line above and uncomment this)
-    #reverse_proxy unix//run/tuwunel/tuwunel.sock
-}
-EOF
-sudo systemctl enable --now caddy
-sudo systemctl enable --now tuwunel
 git clone https://github.com/wimpysworld/deb-get.git
-cd deb-get/docs/
+cd deb-get/docs || exit
 make install
 cd ~ || exit
 if [ "$TEST" -eq 1 ]; then
@@ -1961,7 +1624,7 @@ cd phice || exit
 uv sync
 cp config.example.toml config.toml
 cd ~ || exit
-sudo gpg --keyserver hkps://keys.openpgp.org --no-default-keyring --no-permission-warning --homedir $(mktemp -d) --keyring gnupg-ring:/etc/apt/keyrings/fpf-apt-tools-archive-keyring.gpg --recv-keys DE28AB241FA48260FAC9B8BAA7C9B38522604281
+sudo gpg --keyserver hkps://keys.openpgp.org --no-default-keyring --no-permission-warning --homedir "$(mktemp -d)" --keyring gnupg-ring:/etc/apt/keyrings/fpf-apt-tools-archive-keyring.gpg --recv-keys DE28AB241FA48260FAC9B8BAA7C9B38522604281
 sudo chmod +r /etc/apt/keyrings/fpf-apt-tools-archive-keyring.gpg
 echo "deb [signed-by=/etc/apt/keyrings/fpf-apt-tools-archive-keyring.gpg] https://packages.freedom.press/apt-tools-prod ${VERSION_CODENAME} main" | sudo tee /etc/apt/sources.list.d/fpf-apt-tools.list >/dev/null
 sudo apt update

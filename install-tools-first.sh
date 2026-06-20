@@ -1555,7 +1555,7 @@ systemctl --user daemon-reload
 systemctl --user enable clipcascade-client
 git clone https://github.com/wimpysworld/deb-get.git
 cd deb-get/docs || exit
-make install
+sudo make install
 cd ~ || exit
 deb-get install bat bottom fd git-delta
 git config --global core.pager delta

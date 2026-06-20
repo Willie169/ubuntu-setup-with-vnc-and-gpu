@@ -1355,7 +1355,6 @@ conda config --set auto_activate_base false
 conda config --add channels pypi
 conda config --add channels pytorch
 conda config --add channels conda-forge
-conda config --remove channels defaults || true
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
 brew trust gurgeous/tap || true
@@ -1499,42 +1498,6 @@ EOF
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 sudo usermod -aG plugdev "$USER"
-curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://downloads.kicad.org/kicad/linux/explore/stable -o kicad.html
-export KICAD_VERSION="$(awk '
-found {
-  sub(/^[ \t]+/, "", $0)
-  sub(/[ \t]+$/, "", $0)
-  print
-  exit
-}
-$0 ~ /href="#date-1"/ { found=1 }
-' kicad.html)"
-rm kicad.html
-wget --tries=100 --retry-connrefused --waitretry=5 https://downloads.kicad.org/kicad/linux/explore/stable/download/kicad-$KICAD_VERSION-x86_64.AppImage.tar
-tar -xf kicad-$KICAD_VERSION-x86_64.AppImage.tar
-rm kicad-$KICAD_VERSION-x86_64.AppImage.tar
-chmod +x kicad-$KICAD_VERSION-x86_64.AppImage
-mkdir -p ~/.local/kicad
-mv kicad-$KICAD_VERSION-x86_64.AppImage ~/.local/kicad
-cat > ~/.local/bin/kicad <<EOF
-#!/bin/bash
-~/.local/kicad/kicad-$KICAD_VERSION-x86_64.AppImage
-EOF
-chmod +x ~/.local/bin/kicad
-cd ~/.local/kicad || exit
-wget --tries=100 --retry-connrefused --waitretry=5 https://gitlab.com/kicad/code/kicad/-/raw/master/resources/bitmaps_png/icons/icon_kicad.ico
-cd ~ || exit
-cat > ~/.local/share/applications/kicad.desktop <<EOF
-[Desktop Entry]
-Version=$KICAD_VERSION
-Type=Application
-Name=KiCad
-Comment=KiCad - Schematic Capture & PCB Design Software
-Exec=$HOME/.local/kicad/kicad-$KICAD_VERSION-x86_64.AppImage
-Icon=$HOME/.local/kicad/icon_kicad.ico
-Terminal=false
-Categories=Development;
-EOF
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' kristoff-it/superhtml x86_64-linux-musl.tar.xz
 tar -xJf x86_64-linux-musl.tar.xz
 rm x86_64-linux-musl.tar.xz

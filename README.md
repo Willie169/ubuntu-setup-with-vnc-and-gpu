@@ -167,7 +167,7 @@ Snap, Flatpak (all Flatpak apps are defined with CLI aliases to be able to be ru
 locally in `~`, http-server, LintHTML, OpenCode, Codex, Lazygit, DNSCrypt-Proxy, Homebrew, Filelight, Glow, bat, fd, dust, fzf, Delta, Tennis, ripgrep (rg), starship, Yazi, zoxide, eza, Miniforge, pipx, uv, yt-dlp with yt-dlp-ejs, Poetry, MarkItDown, procs, tldr, JADX, Apktool, bin, Ventoy (in `~/ventoy`), broot, bottom (btm), hyperfine, nnn, xplr, lsd, Dangerzone, 
 lftp, LibreTranslate, gh2md, Jupyter Notebook, JupyterLab, Jupytext, Meson, Tree-sitter CLI, pylatexenc, lazy.nvim and Neovim plugins from my [**bashrc**](https://github.com/Willie169/bashrc) repo (can be updated by running `update_nvim`), LSP servers, RARLAB UnRAR, Verilator, Ngspice, jpegoptim, optipng, libheif, LibWebP, ImageMagick, Inkscape, 
 Poppler, qpdf, PDFtk, Ghostscript, Bookletimposer, Tesseract, Audacity, GitComet, w3m, XMLStarlet, GTKWave, Docker Rootless mode, Podman, CyberChef (server enabled with `systemctl --user enable --now cyberchef` on `http://localhost:8081`), Element Desktop (start it with `element-desktop --password-store="gnome-libsecret"` at the first time, and then you can use `element-desktop` or desktop entry to launch it), Tokodon, Newsflash, Document Scanner, Octave, VSCodium, Code::Blocks, qBittorrent, Remmina, Balena Etcher, Arduino CLI, Arduino IDE (inside `~/.local/arduino-ide` and can be launched with `~/.local/bin/arduino-ide`, which has been added in `PATH` in `.bashrc`), ANTLR 4 (JAR in `/usr/local/java`), Tor, Tor Browser, PlantUML (JAR in `/usr/local/java`), clang-uml, SQLite 3, mpv, iotop-c, Metasploit Framework, LocalSend, RustDesk (check Enable direct IP access under Security to use it with Tailscale), RustDesk server (in client, in ID/Relay server, paste the IP of the machine in ID server and Relay server and the public key in `/var/lib/rustdesk-server/id_ed25519.pub` in Key), 
-Android SDK Command-line tools, emulator, and platform-tools, fdroidserver, gallery-dl, Brave Browser, Bottles, Ente Auth, OBS Studio, HandBrake, FreeTube, GIMP, Luanti, vokoscreenNG, Telegram, Pied (run `flatpak run com.mikeasoft.pied` to setup it), FreeCAD, Kdenlive, KiCad (can be launched with desktop entry `~/.local/share/applications/kicad.desktop`), ClipCascade (server enabled with `systemctl --user enable --now clipcascade-server` on 
+Android SDK Command-line tools, emulator, and platform-tools, fdroidserver, gallery-dl, Brave Browser, Bottles, Ente Auth, OBS Studio, HandBrake, FreeTube, GIMP, Luanti, vokoscreenNG, Telegram, Pied (run `flatpak run com.mikeasoft.pied` to setup it), FreeCAD, Kdenlive, ClipCascade (server enabled with `systemctl --user enable --now clipcascade-server` on 
 `http://localhost:8082`, client enabled with `systemctl --user enable --now clipcascade-client`), Phice (can be started by running `cd ~/phice && uv run gunicorn -b 127.0.0.1:<port> -w 4 "app:app"`, or `phice [port]`, where if port is not specified, `5000` is used, and accessed on `localhost:<port>`), Krita, MuseScore, OnlyOffice, VLC, 
 KataGo (`~/KataGo/cpp/katago` and can be run with `katago`) and KataGo network `kata1-b6c96-s175395328-d26788732` (in `~/katago-networks`, other networks can be downloaded from <https://katagotraining.org/networks>), LizzieYzy (can be launched by running `lizzieyzy` or with desktop entry `~/.local/share/applications/lizzieyzy.desktop`, runtime directory `~/.lizzieyzy`, KataGo network `kata1-b6c96-s175395328-d26788732` configured as default engine and estimate engine in `~/.lizzieyzy/config.txt`, which can be updated by running `update_lizzieyzy_config`), 
 Fairy-Stockfish (`~/Fairy-Stockfish/src/stockfish` and can be run with `stockfish`), Cute Chess (GUI at `~/cutechess/build/cutechess` and can be launched by running `cutechess` or with desktop entry `~/.local/share/applications/cutechess.desktop`, CLI at `~/cutechess/build/cutechess-cli` and can be run with `cutechess-cli`, Fairy-Stockfish configured as engine in `~/.config/cutechess/engines.json`, which can be updated by running `update_cutechess_config`), 
@@ -177,15 +177,14 @@ switches from Snap Firefox and Thunderbird to Deb Firefox and Thunderbird from M
 
 ## Other Scripts
 
-### [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh)
+### [`clamav-install.sh`](clamav-install.sh) and [`clamscan.sh`](clamscan.sh)
 
-Installs VirtualGL and TurboVNC on Debian derivatives on AMD 64, compatible with most GPU. Requires about 0.1 GB storage. See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for the necessary steps to do after running this script and more information.
+[`clamav-install.sh`](clamav-install.sh) installs ClamAV on Debian derivatives.
 
-You may want to use TigerVNC instead if your computer does not have a GPU. See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for more information.
-
-### [`waydroid.sh`](waydroid.sh)
-
-Installs Waydroid on Debian derivatives on AMD 64. See [Waydroid](#waydroid) section for it does and what to do after running this script and more information.
+[`clamscan.sh`](clamscan.sh) scans the following directories recursively with ClamAV:
+```
+/home /etc /var /usr/share /usr/local /opt /tmp
+```
 
 ### [`cuda.sh`](cuda.sh)
 
@@ -197,24 +196,9 @@ nvidia-smi
 nvcc --version
 ```
 
-### [`xmrig-install.sh`](xmrig-install.sh) and [`xmrig.sh`](xmrig.sh)
+### [`kicad.sh`](kicad.sh)
 
-- [`xmrig-install.sh`](xmrig-install.sh): Builds my modified version of [XMRig](https://github.com/Willie169/xmrig), an open source, cross-platform RandomX, KawPow, CryptoNight and GhostRider CPU/GPU miner, RandomX benchmark, and stratum proxy.
-- [`xmrig-xmr.sh`](xmrig-xmr.sh): Mines XMR to [the repository owner](https://github.com/Willie169)'s wallet, `48j6iQDeCSDeH46gw4dPJnMsa6TQzPa6WJaYbBS9JJucKqg9Mkt5EDe9nSkES3b8u7V6XJfL8neAPAtbEpmV2f4XC7bdbkv`, using my modified version of [XMRig](https://github.com/Willie169/xmrig) and through Tor. Change the wallet address and other configurations if you want.
-- [`xmrig-rvn.sh`](xmrig-rvn.sh): Mines RVN to [the repository owner](https://github.com/Willie169)'s wallet, `RCo4QqzEnEtEVv749TJfNz293p2xVVhXFx`, using my modified version of [XMRig](https://github.com/Willie169/xmrig) and through Tor. Change the wallet address and other configurations if you want.
-
-### [`clamav-install.sh`](clamav-install.sh) and [`clamscan.sh`](clamscan.sh)
-
-[`clamav-install.sh`](clamav-install.sh) installs ClamAV on Debian derivatives.
-
-[`clamscan.sh`](clamscan.sh) scans the following directories recursively with ClamAV:
-```
-/home /etc /var /usr/share /usr/local /opt /tmp
-```
-
-### [`winrar.sh`](winrar.sh)
-
-Installs [WinRAR](https://www.win-rar.com).
+Installs KiCad and creates desktop entry `~/.local/share/applications/kicad.desktop` for it.
 
 ### [`steam.sh`](steam.sh)
 
@@ -223,6 +207,26 @@ Installs [Steam](https://store.steampowered.com).
 ### [`stirlingpdf.sh`](stirlingpdf.sh)
 
 Installs Stirling PDF using Docker compose in `~/stirlingpdf` on `http://localhost:8083`, can be started by running `stirlingpdf-up`, stopped by running `stirlingpdf-stop`, and downed by running `stirlingpdf-down` if you've already run [`install-tools-first.sh`](install-tools-first.sh).
+
+### [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh)
+
+Installs VirtualGL and TurboVNC on Debian derivatives on AMD 64, compatible with most GPU. Requires about 0.1 GB storage. See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for the necessary steps to do after running this script and more information.
+
+You may want to use TigerVNC instead if your computer does not have a GPU. See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for more information.
+
+### [`waydroid.sh`](waydroid.sh)
+
+Installs Waydroid on Debian derivatives on AMD 64. See [Waydroid](#waydroid) section for it does and what to do after running this script and more information.
+
+### [`winrar.sh`](winrar.sh)
+
+Installs [WinRAR](https://www.win-rar.com).
+
+### [`xmrig-install.sh`](xmrig-install.sh), [`xmrig-xmr.sh`](xmrig-xmr.sh), and [`xmrig-rvn.sh`](xmrig-rvn.sh)
+
+- [`xmrig-install.sh`](xmrig-install.sh): Builds my modified version of [XMRig](https://github.com/Willie169/xmrig), an open source, cross-platform RandomX, KawPow, CryptoNight and GhostRider CPU/GPU miner, RandomX benchmark, and stratum proxy.
+- [`xmrig-xmr.sh`](xmrig-xmr.sh): Mines XMR to [the repository owner](https://github.com/Willie169)'s wallet, `48j6iQDeCSDeH46gw4dPJnMsa6TQzPa6WJaYbBS9JJucKqg9Mkt5EDe9nSkES3b8u7V6XJfL8neAPAtbEpmV2f4XC7bdbkv`, using my modified version of [XMRig](https://github.com/Willie169/xmrig) and through Tor. Change the wallet address and other configurations if you want.
+- [`xmrig-rvn.sh`](xmrig-rvn.sh): Mines RVN to [the repository owner](https://github.com/Willie169)'s wallet, `RCo4QqzEnEtEVv749TJfNz293p2xVVhXFx`, using my modified version of [XMRig](https://github.com/Willie169/xmrig) and through Tor. Change the wallet address and other configurations if you want.
 
 ### [`ruview.sh`](ruview.sh) (not actively maintained)
 

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[ "$1" = '--test' ] && TEST=1 || TEST=0
+
 shopt -s expand_aliases
 cd ~ || exit
 sudo -v
@@ -79,6 +81,9 @@ sudo apt install software-properties-common -y
 sudo add-apt-repository universe -y
 sudo add-apt-repository multiverse -y
 sudo add-apt-repository restricted -y
+sudo add-apt-repository ppa:bkryza/clang-uml -y
+sudo mv /etc/apt/sources.list.d/bkryza-ubuntu-clang-uml-resolute.sources /etc/apt/sources.list.d/bkryza-ubuntu-clang-uml-noble.sources
+sudo sed -i 's/resolute/noble/' /etc/apt/sources.list.d/bkryza-ubuntu-clang-uml-noble.sources
 sudo add-apt-repository ppa:colin-king/stress-ng -y
 sudo add-apt-repository ppa:flexiondotorg/quickemu -y
 sudo add-apt-repository ppa:git-core/ppa -y
@@ -86,9 +91,13 @@ sudo add-apt-repository ppa:libreoffice/ppa -y
 sudo add-apt-repository ppa:libretro/stable -y
 sudo add-apt-repository ppa:longsleep/golang-backports -y
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
-sudo add-apt-repository ppa:remmina-ppa-team/remmina-next -y
 sudo add-apt-repository ppa:obsproject/obs-studio -y
+sudo apt-add-repository ppa:remmina-ppa-team/remmina-next -y
+sudo mv /etc/apt/sources.list.d/remmina-ppa-team-ubuntu-remmina-next-resolute.sources /etc/apt/sources.list.d/remmina-ppa-team-ubuntu-remmina-next-noble.sources
+sudo sed -i 's/resolute/noble/' /etc/apt/sources.list.d/remmina-ppa-team-ubuntu-remmina-next-noble.sources
 sudo add-apt-repository ppa:stefanberger/swtpm-noble -y
+sudo mv /etc/apt/sources.list.d/stefanberger-ubuntu-swtpm-noble-resolute.sources /etc/apt/sources.list.d/stefanberger-ubuntu-swtpm-noble-noble.sources
+sudo sed -i 's/resolute/noble/' /etc/apt/sources.list.d/stefanberger-ubuntu-swtpm-noble-noble.sources
 sudo add-apt-repository ppa:zhangsongcui3371/fastfetch -y
 bash <<'EOF'
 set -e
@@ -353,8 +362,11 @@ Unattended-Upgrade::Skip-Updates-On-Metered-Connections "false";
 // as unattended-upgrade will not be waiting.
 // Unattended-Upgrade::Postpone-Wait-Time "300";
 ' | sudo tee /etc/apt/apt.conf.d/50unattended-upgrades >/dev/null
-sudo apt install abcde alien alsa-utils apksigner apt-transport-https aptitude audacity autoconf automake bash bc bear bindfs bison bookletimposer build-essential bzip2 calcurse ca-certificates clang clangd clang-format cmake command-not-found curl dbus debian-archive-keyring debian-keyring default-jdk distro-info dmg2img dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fontconfig fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gdb gfortran gh ghc ghostscript git git-lfs glab gnupg gnupg2 golang-go gopls gperf gpg grep gtkwave gzip hyperfine info imagemagick inkscape iotop-c iproute2 iverilog jpegoptim jq lftp libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libguestfs-tools libheif-examples libhwloc-dev libhwloc-plugins libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libreoffice libsqlite3-dev libssl-dev libuv1t64 libuv1-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm lsb-release lsd lzip make maven mc mpv nano ncdu ncompress neovim netcat-openbsd ngspice ninja-build nmap nnn octave openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc perl-tk pipx pkg-config plantuml poppler-utils procps pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv p7zip-full qpdf qtbase5-dev qtbase5-dev-tools rustup shellcheck shfmt socat sqlite3 stress-ng sudo tar tk-dev tmux tree tree-sitter-cli tsocks ttf-mscorefonts-installer unrar unzip uuid-dev uuid-runtime valgrind verilator vim webp wget wget2 w3m x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh zstd -y
-sudo apt install apparmor-utils aria2 bridge-utils caneda clamav clamav-daemon clinfo codeblocks* dnscrypt-proxy dunst fcitx5 fcitx5-* filelight flatpak gir1.2-gdk-3.0 gir1.2-gtk-3.0 gnome-keyring gparted kate krita libclamunrar libspa-0.2-bluetooth libtesseract-dev libvirt-daemon-system libvirt-clients msr-tools ntfs-3g obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk ovmf pipewire pipewire-audio-client-libraries podman python3-aiortc python3-gi python3-gi-cairo python3-plyer python3-pystray python3-websocket python3-xxhash remmina remmina-plugin-rdp remmina-plugin-secret retroarch qbittorrent qemu-kvm qemu-system qemu-user-static qtspeech5-speechd-plugin quickemu quickgui snapd spice-vdagent swtpm swtpm-tools tesseract-ocr-all testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wireplumber wl-clipboard xclip -y
+sudo apt install apparmor-utils apt-transport-https build-essential ca-certificates clinfo cmake curl dbus default-jdk dnscrypt-proxy g++ gcc git gpg jq libeigen3-dev libqt5svg5-dev make maven ninja-build ocl-icd-opencl-dev perl python-is-python3 python3 qtbase5-dev qtbase5-dev-tools wget -y
+PKG='alsa-utils apksigner apt-transport-https aptitude audacity autoconf automake bash bc bear bindfs bison bookletimposer build-essential bzip2 calcurse ca-certificates clang clangd clang-format cmake command-not-found curl dbus debian-archive-keyring debian-keyring default-jdk distro-info dmg2img dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fontconfig fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gdb gh ghc ghostscript git git-lfs glab gnupg gnupg2 golang-go gopls gperf gpg grep gtkwave gzip hyperfine info imagemagick inkscape iotop-c iproute2 iverilog jpegoptim jq lftp libboost-all-dev libbz2-dev libconfig-dev libeigen3-dev libffi-dev libfuse2 libgdbm-compat-dev libgdbm-dev libgsl-dev libguestfs-tools libheif-examples libhwloc-dev libhwloc-plugins libllvm19 liblzma-dev libncursesw5-dev libopenblas-dev libosmesa6 libportaudio2 libqt5svg5-dev libreadline-dev libreoffice libsqlite3-dev libssl-dev libuv1t64 libuv1-dev libxml2-dev libxmlsec1-dev libzip-dev libzstd-dev llvm lsb-release lsd lzip make maven mc mpv nano ncdu ncompress neovim netcat-openbsd ngspice ninja-build nmap nnn octave openjdk-21-jdk openssh-client openssh-server openssl optipng pandoc perl perl-doc perl-tk pipx pkg-config plantuml poppler-utils procps pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv p7zip-full qpdf qtbase5-dev qtbase5-dev-tools rustup shellcheck shfmt socat sqlite3 stress-ng sudo tar tk-dev tmux tree tree-sitter-cli tsocks ttf-mscorefonts-installer unrar unzip uuid-dev uuid-runtime valgrind verilator vim webp wget wget2 w3m x11-utils x11-xserver-utils xdotool xmlstarlet xz-utils zip zlib1g zlib1g-dev zsh zstd'
+[ "$TEST" -eq 0 ] && sudo apt install $PKG -y -s || sudo apt install $PKG -y
+$PKG='apparmor-utils aria2 bridge-utils caneda clang-uml clinfo codeblocks* dnscrypt-proxy dunst fcitx5 fcitx5-* filelight flatpak gir1.2-gdk-3.0 gir1.2-gtk-3.0 gnome-keyring gparted kate krita libclamunrar libspa-0.2-bluetooth libtesseract-dev libvirt-daemon-system libvirt-clients msr-tools ntfs-3g obs-studio ocl-icd-opencl-dev opencl-headers openjdk-8-jdk openjdk-17-jdk ovmf pipewire pipewire-audio-client-libraries podman python3-aiortc python3-gi python3-gi-cairo python3-plyer python3-pystray python3-websocket python3-xxhash remmina remmina-plugin-rdp remmina-plugin-secret retroarch qbittorrent qemu-kvm qemu-system qemu-user-static qtspeech5-speechd-plugin quickemu quickgui snapd spice-vdagent swtpm swtpm-tools tesseract-ocr-all testdisk torbrowser-launcher uidmap update-manager-core vim-gtk3 virt-manager virt-viewer wireplumber wl-clipboard xclip'
+[ "$TEST" -eq 0 ] && sudo apt install $PKG -y -s || sudo apt install $PKG -y
 sudo snap set system refresh.retain=2
 sudo cp /usr/share/doc/dnscrypt-proxy/examples/* /etc/dnscrypt-proxy/
 sudo mkdir -p /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist
@@ -1256,7 +1268,7 @@ mv JetBrainsMonoNerdFontMono-Regular.ttf ~/.local/share/fonts/
 cd ~ || exit
 rm -rf .JetBrainsMono
 sudo fc-cache -fv
-sudo systemctl enable ssh
+sudo systemctl enable sshd
 yes | sudo ufw enable
 sudo ufw allow ssh
 sudo ufw reload
@@ -1946,104 +1958,6 @@ sudo chmod +r /etc/apt/keyrings/fpf-apt-tools-archive-keyring.gpg
 echo "deb [signed-by=/etc/apt/keyrings/fpf-apt-tools-archive-keyring.gpg] https://packages.freedom.press/apt-tools-prod ${VERSION_CODENAME} main" | sudo tee /etc/apt/sources.list.d/fpf-apt-tools.list >/dev/null
 sudo apt update
 sudo apt install dangerzone -y
-sudo systemctl enable --now clamav-freshclam
-sudo tee /etc/clamav/clamd.conf >/dev/null <<EOF
-#Automatically Generated by clamav-daemon postinst
-#To reconfigure clamd run #dpkg-reconfigure clamav-daemon
-#Please read /usr/share/doc/clamav-daemon/README.Debian.gz for details
-LocalSocket /var/run/clamav/clamd.ctl
-FixStaleSocket true
-LocalSocketGroup clamav
-LocalSocketMode 666
-# TemporaryDirectory is not set to its default /tmp here to make overriding
-# the default with environment variables TMPDIR/TMP/TEMP possible
-User clamav
-ScanMail true
-ScanArchive true
-ArchiveBlockEncrypted false
-MaxDirectoryRecursion 1000
-FollowDirectorySymlinks false
-FollowFileSymlinks false
-ReadTimeout 180
-MaxThreads $(nproc)
-MaxConnectionQueueLength 15
-LogSyslog false
-LogRotate true
-LogFacility LOG_LOCAL6
-LogClean false
-LogVerbose false
-PreludeEnable no
-PreludeAnalyzerName ClamAV
-DatabaseDirectory /var/lib/clamav
-OfficialDatabaseOnly false
-SelfCheck 3600
-Foreground false
-Debug false
-ScanPE true
-MaxEmbeddedPE 10M
-ScanOLE2 true
-ScanPDF true
-ScanHTML true
-MaxHTMLNormalize 10M
-MaxHTMLNoTags 2M
-MaxScriptNormalize 5M
-MaxZipTypeRcg 1M
-ScanSWF true
-ExitOnOOM false
-LeaveTemporaryFiles false
-AlgorithmicDetection true
-ScanELF true
-IdleTimeout 30
-CrossFilesystems true
-PhishingSignatures true
-PhishingScanURLs true
-PhishingAlwaysBlockSSLMismatch false
-PhishingAlwaysBlockCloak false
-PartitionIntersection false
-DetectPUA false
-ScanPartialMessages false
-HeuristicScanPrecedence false
-StructuredDataDetection false
-CommandReadTimeout 30
-SendBufTimeout 200
-MaxQueue 100
-ExtendedDetectionInfo true
-OLE2BlockMacros false
-AllowAllMatchScan true
-ForceToDisk false
-DisableCertCheck false
-DisableCache false
-MaxScanTime 1200000
-MaxScanSize 1000G
-MaxFileSize 100G
-MaxRecursion 100
-MaxFiles 100000
-MaxPartitions 50
-MaxIconsPE 100
-PCREMatchLimit 10000
-PCRERecMatchLimit 5000
-PCREMaxFileSize 25M
-ScanXMLDOCS true
-ScanHWP3 true
-MaxRecHWP3 16
-StreamMaxLength 25M
-LogFile /var/log/clamav/clamav.log
-LogTime true
-LogFileUnlock false
-LogFileMaxSize 0
-Bytecode true
-BytecodeSecurity TrustSigned
-BytecodeTimeout 60000
-OnAccessMaxFileSize 5M
-ScanOnAccess yes
-OnAccessIncludePath /home
-OnAccessIncludePath /etc
-OnAccessIncludePath /var
-OnAccessIncludePath /usr/share
-OnAccessIncludePath /usr/local/etc
-OnAccessIncludePath /usr/local/share
-EOF
-sudo systemctl restart clamav-daemon
 wget --tries=100 --retry-connrefused --waitretry=5 https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt -O ~/.eff_large_wordlist.txt
 wget --tries=100 --retry-connrefused --waitretry=5 https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xzf install-tl-unx.tar.gz

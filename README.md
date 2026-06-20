@@ -13,14 +13,32 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 * Sufficient power supply.
 * Stable internet connection.
 
+### USB Flashing and Dual Boot
+
+Refer to my [**dual-boot-windows-linux-and-recovery**](https://github.com/Willie169/dual-boot-windows-linux-and-recovery) repo.
+
+### WPA PEAP TLS Network
+
+If you fail to connect to a WPA PEAP Network that you are supposed to be able to connect to, it may be due to deprecated TLS protocols and can be fixed by according to my [**WPA-PEAP-TLS-network-Linux**](https://github.com/Willie169/WPA-PEAP-TLS-network-Linux) repo.
+
+### Btrfs
+
+If you are using Btrfs, you may want to set it up first. Refer to my [btrfs-debian-ubuntu](https://github.com/Willie169/btrfs-debian-ubuntu) repo.
+
 ### SSH
 
-It's often useful to access your computer from a SSH client. To install and enable SSH server on your computer, run:
+SSH provides a secure way for accessing remote hosts and replaces tools such as telnet, rlogin, rsh, ftp. OpenSSH, also known as OpenBSD Secure Shell, is a suite of secure networking utilities based on the Secure Shell (SSH) protocol, which provides a secure channel over an unsecured network in a client–server architecture.
+
+To install and enable SSH server on your computer, run:
 ```
 sudo apt update
 sudo apt install openssh-server -y
 ```
-Check IP:
+If UFW is enabled, allow SSH:
+```
+sudo ufw allow ssh
+```
+Check IP by running:
 ```
 sudo apt install net-tools -y
 ifconfig
@@ -52,22 +70,31 @@ If your SSH connection is unstable. You may try adding keepalive packets sending
 cat >> ~/.ssh/config <<EOF
 Host *
     ServerAliveInterval 15
-    ServerAliveCountMax 3
+    ServerAliveCountMax 8
 EOF
 ```
 and reconnect.
 
-### Btrfs
+You can use Android as SSH client. [**Termux**](https://f-droid.org/packages/com.termux) is suggested if you do not have a client of your choice. See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) and [**termux-ssh**](https://github.com/Willie169/termux-sh) repos for more information.
 
-If you are using Btrfs, you may want to set it up first. Refer to my [btrfs-debian-ubuntu](https://github.com/Willie169/btrfs-debian-ubuntu) repo.
+You can adjust more SSH server config by editing `/etc/ssh/sshd_config`:
+```
+sudo vim /etc/ssh/sshd_config
+```
+Some configs include:
 
-### Dual Boot with Windows
-
-Refer to my [**dual-boot-windows-linux-and-recovery**](https://github.com/Willie169/dual-boot-windows-linux-and-recovery) repo.
-
-### WPA PEAP TLS Network
-
-If you fail to connect to a WPA PEAP Network that you are supposed to be able to connect to, it may be due to deprecated TLS protocols and can be fixed by according to my [**WPA-PEAP-TLS-network-Linux**](https://github.com/Willie169/WPA-PEAP-TLS-network-Linux) repo.
+<ul>
+<li>SSH Port:<pre><code>#Port 22
+</code></pre>default to port <code>22</code>.</li>
+<li>Ports Listening to<pre><code>#AddressFamily any
+#ListenAddress 0.0.0.0
+#ListenAddress ::
+</code></pre></li>
+<li>Password authentication:<pre><code>#PasswordAuthentication yes
+</code></pre></li>
+<li>Public key authentication:<pre><code>#PubkeyAuthentication yes
+</code></pre></li>
+</ul>
 
 ### Usage
 
@@ -126,14 +153,14 @@ to login to GitHub.</li>
 
 ### Content of Main Installation Scripts
 
-Configures dual-boot friendly configurations, enables automatic login if on GDM, SDDM, or LightDM, enables Wayland if on GDM or SDDM, disables KDE Wallet if installed, installs recommended drivers and tools for C, C++, Python3, Java8, Java17, Java21, Node.js LTS (via NVM), Rust, Go, Ruby, Perl, Fortran, Qt5, .NET SDK 10, ASP.NET Core Runtime 10, Aptitude, GitHub CLI, GitLab CLI, Kate, GVim, OpenSSL, OpenSSH, Tailscale, GNOME Keyring, jq, mikefarah's yq, DMG2IMG, libguestfs, GHC Filesystem, FFMPEG, Fcitx5, OpenCL, 
+Configures dual-boot friendly configurations, enables automatic login if on GDM, SDDM, or LightDM, enables Wayland if on GDM or SDDM, disables KDE Wallet if installed, installs recommended drivers and tools for C, C++, Python3, Java8, Java17, Java21, Node.js LTS (via NVM), Rust, Go, Ruby, Perl, .NET SDK 10, ASP.NET Core Runtime 10, Aptitude, GitHub CLI, GitLab CLI, Kate, GVim, OpenSSL, OpenSSH, Tailscale, GNOME Keyring, jq, mikefarah's yq, DMG2IMG, libguestfs, GHC Filesystem, FFMPEG, Fcitx5, OpenCL, 
 Snap, Flatpak (all Flatpak apps are defined with CLI aliases to be able to be run like native apps), deb-get, QEMU, Quickemu, TeX Live (via regular installation instead of APT for unrestricted `tlmgr` and updates, can be updated with `update_texlive`), Pandoc, NTFS-3G, Maven, Zsh, iproute2, net-tools, Nmap, Alien, aria2, nvm, pnpm, Yarn, NPM packages `jsdom markdown-toc marked marked-gfm-heading-id node-html-markdown showdown` 
 locally in `~`, http-server, LintHTML, OpenCodex, Codex, Lazygit, DNSCrypt-Proxy, Homebrew, Filelight, Glow, bat, fd, dust, fzf, Delta, Tennis, ripgrep (rg), starship, Yazi, zoxide, eza, Miniforge, pipx, uv, yt-dlp with yt-dlp-ejs, Poetry, MarkItDown, procs, tldr, JADX, Apktool, bin, Ventoy (in `~/ventoy`), broot, bottom (btm), hyperfine, nnn, xplr, lsd, Dangerzone, 
 LibreTranslate, gh2md, Jupyter Notebook, JupyterLab, Jupytext, Meson, Tree-sitter CLI, pylatexenc, lazy.nvim and Neovim plugins from my [**bashrc**](https://github.com/Willie169/bashrc) repo (can be updated by running `update_nvim`), LSP servers, RARLAB UnRAR, Icarus Verilog, Verilator, Ngspice, Caneda, jpegoptim, optipng, libheif, LibWebP, ImageMagick, Inkscape, 
-Poppler, qpdf, PDFtk, Ghostscript, Bookletimposer, Tesseract, Audacity, abcde, GitComet, w3m, XMLStarlet, Git LFS, GTKWave, Docker Rootless mode, Podman, Ollama, Llama.cpp (in `~/dev/llm/llama.cpp/build/bin` and added to `$PATH`), Open WebUI (enabled with `systemctl --user enable --now open-webui` on `http://localhost:8080`), llmfit, Open NoteBook (using Docker compose in `~/.open-notebook` on `http://localhost:8502`, can be started by running `open-notebook-up`, stopped by running `open-notebook-stop`, 
+Poppler, qpdf, PDFtk, Ghostscript, Bookletimposer, Tesseract, Audacity, GitComet, w3m, XMLStarlet, Git LFS, GTKWave, Docker Rootless mode, Podman, Ollama, Llama.cpp (in `~/dev/llm/llama.cpp/build/bin` and added to `$PATH`), Open WebUI (enabled with `systemctl --user enable --now open-webui` on `http://localhost:8080`), llmfit, Open NoteBook (using Docker compose in `~/.open-notebook` on `http://localhost:8502`, can be started by running `open-notebook-up`, stopped by running `open-notebook-stop`, 
 and downed by running `open-notebook-down`), LiteLLM (using Docker compose in `~/.litellm` enabled with `systemctl --user enable --now litellm` on `http://localhost:4000`, keys can be added to `~/.litellm/.env`, where those in `~/API_KEY.sh` are imported automatically, can be started by running `litellm-up`, stopped by running `litellm-stop`, and downed by running `litellm-down`), CyberChef (server enabled with `systemctl --user enable --now cyberchef` on `http://localhost:8081`), Caddy, Tuwunel (setup 
 with a server with name `matrix.lan` at port `8008` with reverse proxy Caddy), Element Desktop (start it with `element-desktop --password-store="gnome-libsecret"` at the first time, and then you can use `element-desktop` or desktop entry to launch it), Tokodon, Newsflash, Document Scanner, Octave, VSCodium, Code::Blocks, qBittorrent, Remmina, Balena Etcher, Arduino CLI, Arduino IDE (inside `~/.local/arduino-ide` and can be launched with `~/.local/bin/arduino-ide`, which has been added in `PATH` 
-in `.bashrc`), ANTLR 4 (JAR in `/usr/local/java`), Tor, Tor Browser, PlantUML (JAR in `/usr/local/java`), SQLite 3, mpv, stress-ng, iotop-c, PostgreSQL, LocalSend, RustDesk (check Enable direct IP access under Security to use it with Tailscale), RustDesk server (in client, in ID/Relay server, paste the IP of the machine in ID server and Relay server and the public key in `/var/lib/rustdesk-server/id_ed25519.pub` in Key), 
+in `.bashrc`), ANTLR 4 (JAR in `/usr/local/java`), Tor, Tor Browser, PlantUML (JAR in `/usr/local/java`), clang-uml, SQLite 3, mpv, stress-ng, iotop-c, PostgreSQL, LocalSend, RustDesk (check Enable direct IP access under Security to use it with Tailscale), RustDesk server (in client, in ID/Relay server, paste the IP of the machine in ID server and Relay server and the public key in `/var/lib/rustdesk-server/id_ed25519.pub` in Key), 
 Android SDK Command-line tools, emulator, and platform-tools, fdroidserver, gallery-dl, Brave Browser, Bottles, Ente Auth, OBS Studio, HandBrake, FreeTube, GIMP, Luanti, vokoscreenNG, Telegram, Pied (run `flatpak run com.mikeasoft.pied` to setup it), FreeCAD, Kdenlive, KiCad (can be launched with desktop entry `~/.local/share/applications/kicad.desktop`), ClipCascade (server enabled with `systemctl --user enable --now clipcascade-server` on 
 `http://localhost:8082`, client enabled with `systemctl --user enable --now clipcascade-client`), Phice (can be started by running `cd ~/phice && uv run gunicorn -b 127.0.0.1:<port> -w 4 "app:app"`, or `phice [port]`, where if port is not specified, `5000` is used, and accessed on `localhost:<port>`), Krita, MuseScore, OnlyOffice, VLC, Stirling PDF (using Docker compose in `~/stirlingpdf` on `http://localhost:8083`, can be started by running `stirlingpdf-up`, stopped by running `stirlingpdf-stop`, and downed by running `stirlingpdf-down`), ClamAV, RetroArch stable, KataGo (`~/KataGo/cpp/katago` and can be run with `katago`) and KataGo network `kata1-b6c96-s175395328-d26788732` (in `~/katago-networks`, other networks can be 
 downloaded from <https://katagotraining.org/networks>), LizzieYzy (can be launched by running `lizzieyzy` or with desktop entry `~/.local/share/applications/lizzieyzy.desktop`, runtime directory `~/.lizzieyzy`, KataGo network `kata1-b6c96-s175395328-d26788732` configured as default engine and estimate engine in `~/.lizzieyzy/config.txt`, which can be updated by running `update_lizzieyzy_config`), Fairy-Stockfish (`~/Fairy-Stockfish/src/stockfish` and can be run with `stockfish`), Cute Chess (GUI at 
@@ -168,9 +195,11 @@ nvcc --version
 - [`xmrig-xmr.sh`](xmrig-xmr.sh): Mines XMR to [the repository owner](https://github.com/Willie169)'s wallet, `48j6iQDeCSDeH46gw4dPJnMsa6TQzPa6WJaYbBS9JJucKqg9Mkt5EDe9nSkES3b8u7V6XJfL8neAPAtbEpmV2f4XC7bdbkv`, using my modified version of [XMRig](https://github.com/Willie169/xmrig) and through Tor. Change the wallet address and other configurations if you want.
 - [`xmrig-rvn.sh`](xmrig-rvn.sh): Mines RVN to [the repository owner](https://github.com/Willie169)'s wallet, `RCo4QqzEnEtEVv749TJfNz293p2xVVhXFx`, using my modified version of [XMRig](https://github.com/Willie169/xmrig) and through Tor. Change the wallet address and other configurations if you want.
 
-### [clamscan.sh](clamscan.sh)
+### [`clamav-install.sh`](clamav-install.sh) and [`clamscan.sh`](clamscan.sh)
 
-Scans the following directories recursively with ClamAV, which is installed in [`install-tools-first.sh`](install-tools-first.sh)
+[`clamav-install.sh`](clamav-install.sh) installs ClamAV on Debian derivatives.
+
+[`clamscan.sh`](clamscan.sh) scans the following directories recursively with ClamAV:
 ```
 /home /etc /var /usr/share /usr/local /opt /tmp
 ```
@@ -196,7 +225,6 @@ Installs [RuView](https://github.com/ruvnet/RuView) from source (Rust), which re
 + [Linux Mint Ubuntu Version Tweak](#linux-mint-ubuntu-version-tweak)
 + [Desktop App Launchers](#desktop-app-launchers)
 + [Fcitx5](#fcitx5)
-+ [OpenSSH](#openssh)
 + [Tailscale](#tailscale)
 + [VirtualGL and TurboVNC](#virtualgl-and-turbovnc)
 + [Waydroid](#waydroid)
@@ -344,82 +372,6 @@ You can configure Fcitx5 input methods in `Fcitx Configuration`.
 
 1. It usually will automatically detect and setup Fcitx5 after running [`install-tools-first.sh`](install-tools-first.sh). If not, go to `System Settings` > `Input & Output` or `Keyboard` > `Virtual Keyboard`, then select `Fcitx5`.
 2. You can configure Fcitx5 input methods in `Input Method`, which can be launched by either right-clicking the keyboard icon at the bottom right corner of the `Task Manager` and clicking `Configure` or going to `System Settings` and searching `Input Method`.
-
-### OpenSSH Server
-
-#### Introduction
-
-* SSH provides a secure way for accessing remote hosts and replaces tools such as telnet, rlogin, rsh, ftp.
-* OpenSSH, also known as OpenBSD Secure Shell, is a suite of secure networking utilities based on the Secure Shell (SSH) protocol, which provides a secure channel over an unsecured network in a client–server architecture.
-* Default SSH port is `22`.
-
-#### Install
-
-This has been done in [`install-tools-first.sh`](install-tools-first.sh).
-
-```
-sudo apt install openssh-server
-```
-
-#### Systemd Start and Enable
-
-This has been done in [`install-tools-first.sh`](install-tools-first.sh).
-```
-sudo systemctl start ssh
-sudo systemctl enable ssh
-```
-
-#### Systemd Stop and Disable
-
-```
-sudo systemctl stop ssh
-sudo systemctl disable ssh
-```
-
-#### Ubuntu Firewall
-
-This has been done in [`install-tools-first.sh`](install-tools-first.sh).
-```
-sudo ufw enable
-sudo ufw allow ssh
-```
-
-#### Edit Configuration
-
-```
-sudo nano /etc/ssh/sshd_config
-```
-and change lines in it.
-
-##### SSH Port
-
-```
-#Port 22
-```
-
-##### Ports Listening to
-
-```
-#AddressFamily any
-#ListenAddress 0.0.0.0
-#ListenAddress ::
-```
-
-#### PasswordAuthentication
-
-This has been done in [`install-tools-first.sh`](install-tools-first.sh).
-
-Change the `PasswordAuthentication` line to
-
-```
-PasswordAuthentication yes
-```
-
-to permit password authentication. Password can be set by running `passwd`.
-
-#### Android as SSH Client
-
-SSH on [**Termux**](https://f-droid.org/packages/com.termux) is suggested if you do not have a client of your choice. See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) repo for more information.
 
 ### Tailscale
 

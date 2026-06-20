@@ -1567,7 +1567,6 @@ cd phice || exit
 uv sync
 cp config.example.toml config.toml
 cd ~ || exit
-curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && chmod 755 msfinstall && ./msfinstall
 sudo gpg --keyserver hkps://keys.openpgp.org --no-default-keyring --no-permission-warning --homedir "$(mktemp -d)" --keyring gnupg-ring:/etc/apt/keyrings/fpf-apt-tools-archive-keyring.gpg --recv-keys DE28AB241FA48260FAC9B8BAA7C9B38522604281
 sudo chmod +r /etc/apt/keyrings/fpf-apt-tools-archive-keyring.gpg
 echo "deb [signed-by=/etc/apt/keyrings/fpf-apt-tools-archive-keyring.gpg] https://packages.freedom.press/apt-tools-prod ${VERSION_CODENAME} main" | sudo tee /etc/apt/sources.list.d/fpf-apt-tools.list >/dev/null

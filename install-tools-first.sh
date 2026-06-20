@@ -359,13 +359,13 @@ Unattended-Upgrade::Skip-Updates-On-Metered-Connections "false";
 ' | sudo tee /etc/apt/apt.conf.d/50unattended-upgrades >/dev/null
 sudo apt install apparmor-utils apt-transport-https build-essential ca-certificates clinfo cmake curl dbus default-jdk dnscrypt-proxy g++ gcc git gnupg jq libeigen3-dev libqt5svg5-dev make maven ninja-build ocl-icd-opencl-dev perl perl-tk python-is-python3 python3 qtbase5-dev qtbase5-dev-tools ufw wget -y
 PKG='alsa-utils apksigner apt-transport-https aptitude audacity autoconf automake bash bc bear bindfs bison bookletimposer build-essential bzip2 calcurse ca-certificates clang clangd clang-format cmake command-not-found curl dbus dbus-x11 debian-archive-keyring debian-keyring default-jdk distro-info dmg2img dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fontconfig fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gdb gh ghostscript git glab gnupg gnupg2 golang-go gopls gperf grep gtkwave gzip hyperfine info imagemagick inkscape iotop-c iproute2 jpegoptim jq lftp libeigen3-dev libguestfs-tools libheif-examples libqt5svg5-dev libreoffice lsb-release lsd lzip make maven mpv nano neovim netcat-openbsd ngspice ninja-build nmap nnn octave openssh-client openssh-server openssl optipng pandoc perl perl-tk pipx pkg-config poppler-utils procps pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv p7zip-full qpdf qtbase5-dev qtbase5-dev-tools rustup shellcheck shfmt socat sqlite3 sudo tar tk-dev tmux tree tree-sitter-cli tsocks ttf-mscorefonts-installer unrar unzip uuid-runtime verilator vim vim-gtk3 webp wget wget2 w3m xdotool xmlstarlet zip zsh zstd'
-if [ "$TEST" -eq 1 ]; then
+if [ "$TEST" -eq 0 ]; then
 sudo apt install $PKG -y
 else
 sudo apt install $PKG -y -s
 fi
 PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo codeblocks* dnscrypt-proxy dunst fcitx5 fcitx5-* filelight flatpak gnome-keyring gparted kate krita libvirt-daemon-system libvirt-clients ntfs-3g obs-studio ocl-icd-opencl-dev openjdk-17-jdk openjdk-21-jdk ovmf pipewire pipewire-audio-client-libraries remmina remmina-plugin-rdp remmina-plugin-secret qbittorrent qemu-kvm qemu-system qemu-user-static qtspeech5-speechd-plugin quickemu snapd spice-vdagent swtpm swtpm-tools tesseract-ocr-all testdisk torbrowser-launcher ufw uidmap virt-manager virt-viewer wireplumber wl-clipboard xclip'
-if [ "$TEST" -eq 1 ]; then
+if [ "$TEST" -eq 0 ]; then
 sudo apt install $PKG -y
 else
 sudo apt install $PKG -y -s
@@ -1261,7 +1261,7 @@ if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || [ 
 else
   mkdir -p ~/.config/autostart
   cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
-  [ "$TEST" -eq 1 ] && fcitx5 &
+  [ "$TEST" -eq 0 ] && fcitx5 &
 fi
 mkdir ~/.JetBrainsMono
 cd ~/.JetBrainsMono || exit
@@ -1270,7 +1270,7 @@ unzip JetBrainsMono.zip
 mv JetBrainsMonoNerdFontMono-Regular.ttf ~/.local/share/fonts/
 cd ~ || exit
 rm -rf .JetBrainsMono
-[ "$TEST" -eq 1 ] && sudo fc-cache -fv
+[ "$TEST" -eq 0 ] && sudo fc-cache -fv
 sudo systemctl enable sshd
 yes | sudo ufw enable
 sudo ufw allow ssh
@@ -1326,8 +1326,8 @@ export NVM_DIR="$HOME/.nvm"
 nvm install --lts
 corepack enable npm
 corepack enable yarn
-[ "$TEST" -eq 1 ] && npm i jsdom markdown-toc marked marked-gfm-heading-id node-html-markdown showdown
-[ "$TEST" -eq 1 ] && npm i -g bash-language-server dockerfile-language-server-nodejs http-server opencode-ai pyright @linthtml/linthtml @openai/codex
+npm i jsdom markdown-toc marked marked-gfm-heading-id node-html-markdown showdown
+npm i -g bash-language-server dockerfile-language-server-nodejs http-server opencode-ai pyright @linthtml/linthtml @openai/codex
 pipx install cmake-language-server gh2md jupyterlab jupytext libretranslate meson notebook poetry pylatexenc tldr uv yamllint
 pipx install fdroidserver gallery-dl yt-dlp
 pipx runpip yt-dlp install yt-dlp-ejs
@@ -1359,7 +1359,7 @@ conda config --remove channels defaults || true
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
 brew trust gurgeous/tap || true
-if [ "$TEST" -eq 1 ]; then
+if [ "$TEST" -eq 0 ]; then
 echo y | brew install broot dust fzf gurgeous/tap/tennis procs resvg ripgrep sevenzip starship xplr yazi yq zoxide
 else
 echo y | brew install broot dust fzf gurgeous/tap/tennis procs resvg ripgrep sevenzip starship xplr yazi yq zoxide --dry-run
@@ -1678,7 +1678,7 @@ Terminal=false
 Categories=Game;
 EOF
 update_sylvan_config
-if [ "$TEST" -eq 1 ]; then
+if [ "$TEST" -eq 0 ]; then
 wget --tries=100 --retry-connrefused --waitretry=5 https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xzf install-tl-unx.tar.gz
 rm install-tl-unx.tar.gz
@@ -1790,7 +1790,7 @@ cat > ~/.config/fontconfig/conf.d/99-texlive.conf <<'EOF'
   <dir>/usr/local/texlive/2026/texmf-dist/fonts</dir>
 </fontconfig>
 EOF
-[ "$TEST" -eq 1 ] && sudo fc-cache -fv
+[ "$TEST" -eq 0 ] && sudo fc-cache -fv
 cd /usr/share || exit
 sudo git clone https://github.com/Willie169/LaTeX-ToolKit
 cd ~ || exit
@@ -1811,4 +1811,4 @@ sudo apt autoremove --purge -y
 sudo apt clean
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 kill "$SUDOPID"
-[ "$TEST" -eq 1 ] && sudo reboot
+[ "$TEST" -eq 0 ] && sudo reboot

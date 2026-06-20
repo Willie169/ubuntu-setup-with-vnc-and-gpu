@@ -190,14 +190,6 @@ Pin: release o=Ubuntu
 Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/chromium >/dev/null
 sudo apt update
 fi
-if [ "$TEST" -eq 1 ]; then
-echo y | sudo ubuntu-drivers install || true
-echo y | sudo ubuntu-drivers install || true
-echo y | sudo ubuntu-drivers install || true
-echo y | sudo ubuntu-drivers autoinstall || true
-echo y | sudo ubuntu-drivers autoinstall || true
-echo y | sudo ubuntu-drivers autoinstall || true
-fi
 sudo apt upgrade -y
 echo 'APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Download-Upgradeable-Packages "0";
@@ -1612,13 +1604,11 @@ git clone https://github.com/wimpysworld/deb-get.git
 cd deb-get/docs || exit
 make install
 cd ~ || exit
-if [ "$TEST" -eq 1 ]; then
 deb-get install bat bottom fd git-delta
 git config --global core.pager delta
 git config --global interactive.diffFilter 'delta --color-only'
 git config --global delta.navigate true
 git config --global merge.conflictStyle zdiff3
-fi
 git clone https://codeberg.org/c4ffe14e/phice.git
 cd phice || exit
 uv sync
@@ -1630,6 +1620,73 @@ echo "deb [signed-by=/etc/apt/keyrings/fpf-apt-tools-archive-keyring.gpg] https:
 sudo apt update
 sudo apt install dangerzone -y
 wget --tries=100 --retry-connrefused --waitretry=5 https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt -O ~/.eff_large_wordlist.txt
+git clone https://github.com/lightvector/KataGo.git
+cd KataGo/cpp || exit
+if clinfo -l | grep -q 'Platform'; then
+cmake . -G Ninja -DUSE_BACKEND=OPENCL
+else
+cmake . -G Ninja -DUSE_BACKEND=EIGEN
+fi
+ninja
+cd ../.. || exit
+mkdir katago-networks
+cd katago-networks || exit
+wget --tries=100 --retry-connrefused --waitretry=5 https://media.katagotraining.org/uploaded/networks/models/kata1/kata1-b6c96-s175395328-d26788732.txt.gz
+cd ~ || exit
+git clone https://github.com/yzyray/lizzieyzy.git
+cd lizzieyzy || exit
+mvn clean package
+cd ~ || exit
+cat > ~/.local/share/applications/lizzieyzy.desktop <<EOF
+[Desktop Entry]
+Type=Application
+Name=LizzieYzy
+Comment=LizzieYzy - GUI for Game of Go
+Exec=sh -c 'cd $HOME/.lizzieyzy && java -jar "$HOME/lizzieyzy/target/lizzie-yzy2.5.3-shaded.jar"'
+Icon=$HOME/lizzieyzy/src/main/resources/assets/logo.png
+Terminal=false
+Categories=Game;
+StartupWMClass=featurecat-lizzie-Lizzie
+EOF
+update_lizzieyzy_config
+git clone https://github.com/fairy-stockfish/Fairy-Stockfish.git
+cd Fairy-Stockfish/src || exit
+make -j ARCH=x86-64 profile-build largeboards=yes nnue=yes
+cd ~ || exit
+git clone https://github.com/cutechess/cutechess.git
+cd cutechess || exit
+mkdir build
+cd build || exit
+cmake -G Ninja ..
+ninja
+cd ~ || exit
+cat > ~/.local/share/applications/cutechess.desktop <<EOF
+[Desktop Entry]
+Type=Application
+Name=Cute Chess
+Comment=Cute Chess - GUI for Playing Chess
+Exec=$HOME/cutechess/build/cutechess
+Icon=$HOME/cutechess/projects/gui/res/icons/cutechess_128x128.png
+Terminal=false
+Categories=Game;
+EOF
+update_cutechess_config
+git clone https://github.com/hotfics/Sylvan.git
+cd Sylvan || exit
+qmake
+make
+cd ~ || exit
+cat > ~/.local/share/applications/sylvan.desktop <<EOF
+[Desktop Entry]
+Type=Application
+Name=Sylvan
+Comment=Sylvan - GUI for Playing Xiangqi
+Exec=$HOME/Sylvan/projects/gui/sylvan
+Icon=$HOME/Sylvan/projects/gui/res/icons/app.ico
+Terminal=false
+Categories=Game;
+EOF
+update_sylvan_config
 if [ "$TEST" -eq 1 ]; then
 wget --tries=100 --retry-connrefused --waitretry=5 https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xzf install-tl-unx.tar.gz

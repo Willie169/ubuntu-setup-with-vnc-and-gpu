@@ -98,13 +98,23 @@ Some configs include:
 
 ### Usage
 
+Note that the computer will reboot multiple times duing the process, so do not do other things on it while running these scripts.
+
 <ol>
+<li>If you are using an NVIDIA GPU, run
+<pre><code>cat /etc/default/grub | grep GRUB_CMDLINE_LINUX_DEFAULT | grep -q 'nvidia_drm.modeset=1' && sudo sed -Ei "s/^GRUB_CMDLINE_LINUX_DEFAULT='(.*)'[ \t]*/GRUB_CMDLINE_LINUX_DEFAULT='\1 nvidia_drm.modeset=1'/" /etc/default/grub
+sudo reboot
+</code></pre></li>
 <li>Run
 <pre><code>cd ~
 sudo apt update
 sudo apt install bash git -y
 git clone https://github.com/Willie169/ubuntu-setup-with-vnc-and-gpu
 cd ubuntu-setup-with-vnc-and-gpu
+./install-drivers.sh
+</code></pre></li>
+<li>Run
+<pre><code>cd ~/ubuntu-setup-with-vnc-and-gpu
 ./install-tools-first.sh
 </code></pre>
 and follow the prompts until the computer reboots automatically.</li>
@@ -160,6 +170,9 @@ LibreTranslate, gh2md, Jupyter Notebook, JupyterLab, Jupytext, Meson, Tree-sitte
 Poppler, qpdf, PDFtk, Ghostscript, Bookletimposer, Tesseract, Audacity, GitComet, w3m, XMLStarlet, Git LFS, GTKWave, Docker Rootless mode, Podman, CyberChef (server enabled with `systemctl --user enable --now cyberchef` on `http://localhost:8081`), Element Desktop (start it with `element-desktop --password-store="gnome-libsecret"` at the first time, and then you can use `element-desktop` or desktop entry to launch it), Tokodon, Newsflash, Document Scanner, Octave, VSCodium, Code::Blocks, qBittorrent, Remmina, Balena Etcher, Arduino CLI, Arduino IDE (inside `~/.local/arduino-ide` and can be launched with `~/.local/bin/arduino-ide`, which has been added in `PATH` in `.bashrc`), ANTLR 4 (JAR in `/usr/local/java`), Tor, Tor Browser, PlantUML (JAR in `/usr/local/java`), clang-uml, SQLite 3, mpv, stress-ng, iotop-c, PostgreSQL, LocalSend, RustDesk (check Enable direct IP access under Security to use it with Tailscale), RustDesk server (in client, in ID/Relay server, paste the IP of the machine in ID server and Relay server and the public key in `/var/lib/rustdesk-server/id_ed25519.pub` in Key), 
 Android SDK Command-line tools, emulator, and platform-tools, fdroidserver, gallery-dl, Brave Browser, Bottles, Ente Auth, OBS Studio, HandBrake, FreeTube, GIMP, Luanti, vokoscreenNG, Telegram, Pied (run `flatpak run com.mikeasoft.pied` to setup it), FreeCAD, Kdenlive, KiCad (can be launched with desktop entry `~/.local/share/applications/kicad.desktop`), ClipCascade (server enabled with `systemctl --user enable --now clipcascade-server` on 
 `http://localhost:8082`, client enabled with `systemctl --user enable --now clipcascade-client`), Phice (can be started by running `cd ~/phice && uv run gunicorn -b 127.0.0.1:<port> -w 4 "app:app"`, or `phice [port]`, where if port is not specified, `5000` is used, and accessed on `localhost:<port>`), Krita, MuseScore, OnlyOffice, VLC, 
+KataGo (`~/KataGo/cpp/katago` and can be run with `katago`) and KataGo network `kata1-b6c96-s175395328-d26788732` (in `~/katago-networks`, other networks can be downloaded from <https://katagotraining.org/networks>), LizzieYzy (can be launched by running `lizzieyzy` or with desktop entry `~/.local/share/applications/lizzieyzy.desktop`, runtime directory `~/.lizzieyzy`, KataGo network `kata1-b6c96-s175395328-d26788732` configured as default engine and estimate engine in `~/.lizzieyzy/config.txt`, which can be updated by running `update_lizzieyzy_config`), 
+Fairy-Stockfish (`~/Fairy-Stockfish/src/stockfish` and can be run with `stockfish`), Cute Chess (GUI at `~/cutechess/build/cutechess` and can be launched by running `cutechess` or with desktop entry `~/.local/share/applications/cutechess.desktop`, CLI at `~/cutechess/build/cutechess-cli` and can be run with `cutechess-cli`, Fairy-Stockfish configured as engine in `~/.config/cutechess/engines.json`, which can be updated by running `update_cutechess_config`), 
+Sylvan (GUI at `~/Sylvan/projects/gui/sylvan` and can be launched by running `sylvan` or with desktop entry `~/.local/share/applications/sylvan.desktop`, CLI at `~/Sylvan/projects/cli/sylvan-cli` and can be run with `sylvan-cli`, Fairy-Stockfish configured as engine in `~/.config/EterCyber/engines.json`, which can be updated by running `update_sylvan_config`), 
 Microsoft True Type Core Fonts, Noto Fonts (set as default font for system ui), Noto CJK Fonts (set as fallback font for system ui), Noto Color Emoji (set as fallback font for system ui), 全字庫正楷體 TW-Kai (set as fallback font for 標楷體 DFKai-SB), 全字庫正宋體 TW-Sung (set as fallback font for 細明體 MingLiu and 新細明體 PMingLiu), 文泉驛正黑 WenQuanYi Zen Hei (set as fallback font for 微軟正黑體 Microsoft JhengHei), JetBrainsMono Nerd Font (downloaded in `~/.local/share/fonts`), [my modified version](https://github.com/Willie169/vimrc) of [vimrc by Amir Salihefendic (amix)](https://github.com/amix/vimrc) for both Vim and Neovim (can be updated by running `update_vimrc`), my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch) (in `~/texmf/tex/latex/physics-patch`, checked out `dev` branch, and can be updated with `update_latex`), my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit) (in `/usr/share/LaTeX-ToolKit/template.tex` and can be updated with `update_latex`), 
 switches from Snap Firefox and Thunderbird to Deb Firefox and Thunderbird from Mozilla Team PPA, adds XtraDeb PPA, where you can install Deb Chromium from by running `sudo apt install chromium -y`, and prevents Snap Chromium from being installed if on Ubuntu and not on Linux Mint, using scripts from my [switch-firefox-from-snap-to-deb](https://github.com/Willie169/switch-firefox-from-snap-to-deb), enables unattended upgrades for all origins, downloads EFF Large Wordlist for Passphrases in `~/.eff_large_wordlist.txt`, copies `~/.bashrc.d` and `~/.bashrc` from my [**bashrc**](https://github.com/Willie169/bashrc) repo (can be updated by running `update_bashrc`, tools installed by this script that is not managed by a package manager can be updated by running `update_tools`, tools installed by this script and package managers can be updated by running `update_all`), and more.
 
@@ -260,9 +273,7 @@ Installs [RuView](https://github.com/ruvnet/RuView) from source (Rust), which re
 
 #### Prerequisites
 
-Run `echo $XDG_SESSION_TYPE`. If it prints wayland, you're already using Wayland.
-
-Determine your Desktop Environment and follow the corresponding section below:
+Run `echo $XDG_SESSION_TYPE`. If it prints `wayland`, you're already using Wayland. Otherwise, determine your Desktop Environment and follow the corresponding section below:
 <ul>
 <li>GNOME 3, which Ubuntu usually uses, supports Wayland.</li>
 <li>KDE Plasma, which Kubuntu uses, supports Wayland.</li>
@@ -270,54 +281,20 @@ Determine your Desktop Environment and follow the corresponding section below:
 </ul>
 See <a href="#desktop-environment">Desktop Environment</a> section for more information.
 
-#### Enable Wayland for GNOME3 without NVIDIA GPU
+#### Enable Wayland for GNOME3
 
 <ol>
 <li>Log out.</li>
 <li>In the down right corner of the login page, choose <code>Ubuntu on Wayland</code>.</li>
 </ol>
 
-#### Enable Wayland for KDE Plasma without NVIDIA GPU
+#### Enable Wayland for KDE Plasma
 
 <ol>
 <li>Run:
 <pre><code>sudo apt install plasma-workspace-wayland -y
 </code></pre></li>
 <li>Log out.</li>
-<li>In the down left corner of the login page, choose <code>Plasma (Wayland)</code>.</li>
-</ol>
-
-#### Enable Wayland for GNOME3 with NVIDIA GPU
-
-<ol>
-<li>Run:
-<pre><code>sudo apt install libnvidia-egl-wayland1 -y
-</code></pre></li>
-<li>Run:
-<pre><code>sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT='"'"'(.*)'"'"'/GRUB_CMDLINE_LINUX_DEFAULT='"'"'\1 nvidia_drm.modeset=1'"'"' /etc/default/grub
-</code></pre></li>
-<li>Run:
-<pre><code>sudo update-grub
-sudo update-initramfs -u
-</code></pre></li>
-<li>Reboot the computer.</li>
-<li>In the down right corner of the login page, choose <code>Ubuntu on Wayland</code>.</li>
-</ol>
-
-#### Enable Wayland for KDE Plasma with NVIDIA GPU
-
-<ol>
-<li>Run:
-<pre><code>sudo apt install libnvidia-egl-wayland1 plasma-workspace-wayland -y
-</code></pre></li>
-<li>Run:
-<pre><code>sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT='"'"'(.*)'"'"'/GRUB_CMDLINE_LINUX_DEFAULT='"'"'\1 nvidia_drm.modeset=1'"'"' /etc/default/grub
-</code></pre></li>
-<li>Run:
-<pre><code>sudo update-grub
-sudo update-initramfs -u
-</code></pre></li>
-<li>Reboot the computer.</li>
 <li>In the down left corner of the login page, choose <code>Plasma (Wayland)</code>.</li>
 </ol>
 
@@ -519,7 +496,7 @@ Its usage is the same as TurboVNC, refer to [VNC Server Usage](#vnc-server-usage
 
 ### Waydroid
 
-See offficial site: <https://waydro.id>, documentation: <https://docs.waydro.id>, and repo: <https://github.com/waydroid/waydroid> for more information.
+See [offficial site](https://waydro.id), [documentation](https://docs.waydro.id), and [repo](https://github.com/waydroid/waydroid) for more information.
 
 #### Wayland
 
@@ -566,9 +543,11 @@ Done in [`waydroid.sh`](waydroid.sh).
 2. Choose options you want. In `Android Type`, there are `Minimal Android` or `Vanilla`, which refers to a pure AOSP (Android Open-Source Project) build without any Google services and occupies approximately 1.0 GB, and `Android with Google Apps` or `Gapps`, which refers to a build that provides access to Google services and occupies approximately 1.4 GB. For beginners, `Android with Google Apps` is recommended.
 3. Press `Download`, wait until `Done` button is shown, and press it.
 
-#### GPU
+#### NVIDIA GPU
 
-Currently Waydroid needs to run on the same GPU the host compositor is running on. NVIDIA GPU doesn't support Waydroid. If you have other GPU alongside it, use
+Currently Waydroid needs to run on the same GPU the host compositor is running on. NVIDIA GPUs don't support Waydroid.
+
+If you have integrated GPU alongside it, you may switch to the integrated GPU for the whole desktop session or use
 ```
 waydroid session stop
 wget https://github.com/Quackdoc/waydroid-scripts/raw/refs/heads/main/waydroid-choose-gpu.sh
@@ -581,23 +560,12 @@ sudo systemctl restart waydroid-container
 ```
 and then reboot your computer.
 
-To prevent Vulkan from crashing in Flutter apps, edit `/var/lib/waydroid/waydroid.cfg` and add
-```
-ro.product.model=gphone_x64
-```
-under `[properties]`, and then run:
-```
-waydroid session stop
-sudo waydroid upgrade --offline
-sudo systemctl restart waydroid-container
-```
-
-To use software rendering, edit `/var/lib/waydroid/waydroid.cfg` and add
+Alternatively, switch software rendering by editing `/var/lib/waydroid/waydroid.cfg` and adding
 ```
 ro.hardware.gralloc=default
 ro.hardware.egl=swiftshader
 ```
-under `[properties]`, and then run:
+under `[properties]`, and then running:
 ```
 waydroid session stop
 sudo waydroid upgrade --offline
@@ -617,6 +585,19 @@ sudo systemctl restart waydroid-container
 ```
 
 See <https://github.com/Quackdoc/waydroid-scripts> for more information.
+
+#### Prevent Flutter Apps Crashes
+
+To prevent Vulkan from crashing in Flutter apps, edit `/var/lib/waydroid/waydroid.cfg` and add
+```
+ro.product.model=gphone_x64
+```
+under `[properties]`, and then run:
+```
+waydroid session stop
+sudo waydroid upgrade --offline
+sudo systemctl restart waydroid-container
+```
 
 #### Spoof Device to Bypass Root Detections
 
@@ -646,27 +627,6 @@ under `[properties]`, and then running:
 waydroid session stop
 sudo waydroid upgrade --offline
 sudo systemctl restart waydroid-container
-```
-Another version that prevents Vulkan from crashing in Flutter apps:
-```
-ro.product.brand=google
-ro.product.manufacturer=Google
-ro.system.build.product=redfin
-ro.product.name=redfin
-ro.product.device=redfin
-ro.product.model=Pixel 5
-ro.system.build.flavor=redfin-user
-ro.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
-ro.system.build.description=redfin-user 11 RQ3A.211001.001 eng.electr.20230318.111310 release-keys
-ro.bootimage.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
-ro.build.display.id=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
-ro.build.tags=release-keys
-ro.build.description=redfin-user 11 RQ3A.211001.001 eng.electr.20230318.111310 release-keys
-ro.vendor.build.fingerprint=google/redfin/redfin:11/RQ3A.211001.001/eng.electr.20230318.111310:user/release-keys
-ro.vendor.build.id=RQ3A.211001.001
-ro.vendor.build.tags=release-keys
-ro.vendor.build.type=user
-ro.odm.build.tags=release-keys
 ```
 
 See <https://github.com/waydroid/waydroid/issues/1060> for more information.

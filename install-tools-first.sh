@@ -14,9 +14,8 @@ for file in /etc/grub.d/* /etc/default/grub.d/*; do
   [[ -f "$file" ]] && sudo sed -i 's/^quick_boot=.*/quick_boot="0"/' "$file"
 done
 sudo update-grub
-USER_NAME=${SUDO_USER:-$USER}
 DM=$(basename "$(basename "$(readlink -f /etc/systemd/system/display-manager.service)" || true)" ".service" || true)
-if [[ -n "$DM" ]] && [[ -n "$USER_NAME" ]]; then
+if [[ -n "$DM" ]] && [[ -n "$USER" ]]; then
 case "$DM" in
 gdm|gdm3)
 CONF="/etc/gdm/custom.conf"
@@ -26,7 +25,7 @@ sudo sed -i '/WaylandEnable=/d' "$CONF"
 if ! sudo grep -q "^\[daemon\]" "$CONF"; then
 printf "\n[daemon]\n" | sudo tee -a "$CONF" >/dev/null
 fi
-sudo sed -i "/^\[daemon\]/a AutomaticLoginEnable=True\nAutomaticLogin=$USER_NAME\nWaylandEnable=true" "$CONF"
+sudo sed -i "/^\[daemon\]/a AutomaticLoginEnable=True\nAutomaticLogin=$USER\nWaylandEnable=true" "$CONF"
 ;;
 lightdm)
 CONF="/etc/lightdm/lightdm.conf"
@@ -35,7 +34,7 @@ sudo sed -i '/autologin-user-timeout=/d' "$CONF"
 if ! sudo grep -q "^\[Seat:\*\]" "$CONF"; then
 printf "\n[Seat:*]\n" | sudo tee -a "$CONF" >/dev/null
 fi
-sudo sed -i "/^\[Seat:\*\]/a autologin-user=$USER_NAME\nautologin-user-timeout=0" "$CONF"
+sudo sed -i "/^\[Seat:\*\]/a autologin-user=$USER\nautologin-user-timeout=0" "$CONF"
 ;;
 sddm)
 COUNT=0
@@ -50,12 +49,12 @@ sudo test -f "$CONF" || continue
 sudo sed -i '/User=/d' "$CONF"
 sudo sed -i '/Session=/d' "$CONF"
 if sudo grep -q "^\[Autologin\]" "$CONF"; then
-sudo sed -i "/^\[Autologin\]/a User=$USER_NAME\nSession=$PLASMA_SESSION" "$CONF"
+sudo sed -i "/^\[Autologin\]/a User=$USER\nSession=$PLASMA_SESSION" "$CONF"
 COUNT=1
 break
 fi
 done
-[ "$COUNT" -eq 0 ] && printf "\n[Autologin]\nUser=$USER_NAME\nSession=$PLASMA_SESSION\n" | sudo tee -a "/etc/sddm.conf" >/dev/null
+[ "$COUNT" -eq 0 ] && printf "\n[Autologin]\nUser=$USER\nSession=$PLASMA_SESSION\n" | sudo tee -a "/etc/sddm.conf" >/dev/null
 ;;
 esac
 fi
@@ -132,7 +131,7 @@ if [ -d "$HOME/.bashrc.d"  ];  then
     [ -r "$f"  ] && . "$f"
   done
 fi
-[[ -n "$USER_NAME" ]] && sudo loginctl enable-linger "$USER_NAME"
+sudo loginctl enable-linger "$USER"
 sudo mkdir -p /usr/local/java
 sudo mkdir -p /etc/apt/keyrings
 mkdir -p ~/.local/bin
@@ -351,14 +350,14 @@ Unattended-Upgrade::Skip-Updates-On-Metered-Connections "false";
 // as unattended-upgrade will not be waiting.
 // Unattended-Upgrade::Postpone-Wait-Time "300";
 ' | sudo tee /etc/apt/apt.conf.d/50unattended-upgrades >/dev/null
-sudo apt install apparmor-utils apt-transport-https build-essential ca-certificates clinfo cmake curl dbus default-jdk dnscrypt-proxy g++ gcc git gnupg jq libeigen3-dev make maven ninja-build ocl-icd-opencl-dev perl perl-tk python-is-python3 python3 qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev ufw wget -y
-PKG='alsa-utils apksigner apt-transport-https aptitude audacity autoconf automake bash bc bear bindfs bison bookletimposer build-essential bzip2 calcurse ca-certificates clang clangd clang-format cmake command-not-found curl dbus dbus-x11 debian-archive-keyring debian-keyring default-jdk distro-info dmg2img dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fontconfig fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei fwupd g++ gcc gdb gh ghostscript git glab gnupg gnupg2 golang-go gopls gperf grep gtkwave gzip hyperfine info imagemagick inkscape iotop-c iproute2 jpegoptim jq lftp libeigen3-dev libguestfs-tools libheif-examples libreoffice lsb-release lsd lzip make maven mpv nano neovim netcat-openbsd ngspice ninja-build nmap nnn ocrmypdf octave openssh-client openssh-server openssl optipng pandoc perl perl-tk pipx pkg-config poppler-utils procps pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv p7zip-full qpdf qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev rustup shellcheck shfmt socat sqlite3 sudo tar tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert tesseract-ocr-eng tesseract-ocr-jpn tesseract-ocr-jpn-vert tk-dev tmux tree tree-sitter-cli tsocks ttf-mscorefonts-installer unrar unzip uuid-runtime verilator vim vim-gtk3 webp wget wget2 w3m xdotool xmlstarlet zip zsh zstd'
+sudo apt install apparmor-utils apt-transport-https build-essential ca-certificates clinfo cmake curl dbus openjdk-21-jdk dnscrypt-proxy g++ gcc git gnupg jq libeigen3-dev make maven ninja-build ocl-icd-opencl-dev perl perl-tk python-is-python3 python3 qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev ufw wget -y
+PKG='alsa-utils apksigner apt-transport-https aptitude audacity automake bash bc bear bindfs bison bookletimposer build-essential bzip2 calcurse ca-certificates clang clangd clang-format cmake command-not-found curl dbus dbus-x11 openjdk-21-jdk distro-info dmg2img dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fontconfig fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gdb gh ghostscript git glab gnupg gnupg2 golang-go gopls gperf grep gzip hyperfine info imagemagick inkscape iotop-c iproute2 jpegoptim jq lftp libeigen3-dev libguestfs-tools libheif-examples libreoffice lsb-release lsd lzip make maven mpv nano neovim netcat-openbsd ngspice ninja-build nmap ocrmypdf octave openssh-client openssh-server openssl optipng pandoc perl perl-tk pipx pkg-config poppler-utils procps procs pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv p7zip-full qpdf qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev rustup shellcheck shfmt socat sqlite3 sudo tar tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert tesseract-ocr-eng tesseract-ocr-jpn tesseract-ocr-jpn-vert tmux tree tree-sitter-cli tsocks unrar unzip uuid-runtime verilator vim vim-gtk3 webp wget wget2 w3m xdotool xmlstarlet zip zsh zstd'
 if [ "$TEST" -eq 0 ]; then
 sudo apt install $PKG -y
 else
 sudo apt install $PKG -y -s
 fi
-PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo codeblocks* dnscrypt-proxy dunst fcitx5 fcitx5-* filelight flatpak gnome-keyring gparted kate krita libvirt-daemon-system libvirt-clients ntfs-3g obs-studio ocl-icd-opencl-dev openjdk-17-jdk openjdk-21-jdk ovmf pipewire pipewire-audio-client-libraries proot remmina remmina-plugin-rdp remmina-plugin-secret qbittorrent qemu-kvm qemu-system qemu-user-static qtspeech5-speechd-plugin quickemu snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap virt-manager virt-viewer wireplumber wl-clipboard xclip'
+PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo codeblocks* dnscrypt-proxy fcitx5 fcitx5-* filelight flatpak gnome-keyring gtkwave kate krita libvirt-daemon-system libvirt-clients ntfs-3g obs-studio ocl-icd-opencl-dev ovmf pipewire pipewire-audio-client-libraries proot remmina remmina-plugin-rdp remmina-plugin-secret qbittorrent qemu-system-gui qemu-system-x86 qemu-user-binfmt qemu-user qemu-utils qtspeech5-speechd-plugin quickemu snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw virt-manager virt-viewer wireplumber wl-clipboard xclip'
 if [ "$TEST" -eq 0 ]; then
 sudo apt install $PKG -y
 else
@@ -1491,7 +1490,7 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="0666"
 EOF
 sudo udevadm control --reload-rules
 sudo udevadm trigger
-[[ -n "$USER_NAME" ]] && sudo usermod -aG plugdev "$USER_NAME"
+sudo usermod -aG plugdev "$USER"
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' kristoff-it/superhtml x86_64-linux-musl.tar.xz
 tar -xJf x86_64-linux-musl.tar.xz
 rm x86_64-linux-musl.tar.xz

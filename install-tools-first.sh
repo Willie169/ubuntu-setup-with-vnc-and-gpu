@@ -360,7 +360,7 @@ sudo apt install $PKG -y
 else
 sudo apt install $PKG -y -s
 fi
-PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo codeblocks* dnscrypt-proxy dunst fcitx5 fcitx5-* filelight flatpak gnome-keyring gparted kate krita libvirt-daemon-system libvirt-clients ntfs-3g obs-studio ocl-icd-opencl-dev openjdk-17-jdk openjdk-21-jdk ovmf pipewire pipewire-audio-client-libraries remmina remmina-plugin-rdp remmina-plugin-secret qbittorrent qemu-kvm qemu-system qemu-user-static qtspeech5-speechd-plugin quickemu snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap virt-manager virt-viewer wireplumber wl-clipboard xclip'
+PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo codeblocks* dnscrypt-proxy dunst fcitx5 fcitx5-* filelight flatpak gnome-keyring gparted kate krita libvirt-daemon-system libvirt-clients ntfs-3g obs-studio ocl-icd-opencl-dev openjdk-17-jdk openjdk-21-jdk ovmf pipewire pipewire-audio-client-libraries proot remmina remmina-plugin-rdp remmina-plugin-secret qbittorrent qemu-kvm qemu-system qemu-user-static qtspeech5-speechd-plugin quickemu snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap virt-manager virt-viewer wireplumber wl-clipboard xclip'
 if [ "$TEST" -eq 0 ]; then
 sudo apt install $PKG -y
 else
@@ -1325,7 +1325,7 @@ corepack enable yarn
 npm i jsdom markdown-toc marked marked-gfm-heading-id node-html-markdown showdown
 npm i -g --allow-scripts=opencode-ai bash-language-server dockerfile-language-server-nodejs http-server opencode-ai pyright @linthtml/linthtml @openai/codex
 pipx install cmake-language-server gh2md jupyterlab jupytext libretranslate meson notebook poetry pylatexenc tldr uv yamllint
-pipx install fdroidserver gallery-dl yt-dlp
+pipx install fdroidserver gallery-dl proot-distro yt-dlp
 pipx runpip yt-dlp install yt-dlp-ejs
 cat > ~/.config/systemd/user/libretranslate.service <<EOF
 [Unit]

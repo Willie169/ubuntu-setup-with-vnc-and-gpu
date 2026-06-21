@@ -14,52 +14,48 @@ for file in /etc/grub.d/* /etc/default/grub.d/*; do
   [[ -f "$file" ]] && sudo sed -i 's/^quick_boot=.*/quick_boot="0"/' "$file"
 done
 sudo update-grub
+USER_NAME=${SUDO_USER:-$USER}
 DM=$(basename "$(basename "$(readlink -f /etc/systemd/system/display-manager.service)" || true)" ".service" || true)
-USER_NAME=${SUDO_USER:-$(logname 2>/dev/null || true)}
 if [[ -n "$DM" ]] && [[ -n "$USER_NAME" ]]; then
 case "$DM" in
 gdm|gdm3)
 CONF="/etc/gdm/custom.conf"
-TMP=$(mktemp)
-if sudo test -f "$CONF"; then
-    sudo cat "$CONF" > "$TMP"
+sudo sed -i '/AutomaticLoginEnable/d' "$CONF"
+sudo sed -i '/AutomaticLogin=/d' "$CONF"
+sudo sed -i '/WaylandEnable=/d' "$CONF"
+if ! sudo grep -q "^\[daemon\]" "$CONF"; then
+printf "\n[daemon]\n" | sudo tee -a "$CONF" >/dev/null
 fi
-sed -i '/AutomaticLoginEnable/d' "$TMP"
-sed -i '/AutomaticLogin=/d' "$TMP"
-sed -i '/WaylandEnable=/d' "$TMP"
-if ! grep -q "^\[daemon\]" "$TMP"; then
-  printf "\n[daemon]\n" >> "$TMP"
-fi
-sed -i "/^\[daemon\]/a AutomaticLoginEnable=True\nAutomaticLogin=$USER_NAME\nWaylandEnable=true" "$TMP"
-sudo tee "$CONF" < "$TMP" >/dev/null
-;;
-sddm)
-CONF="/etc/sddm.conf"
-TMP=$(mktemp)
-if sudo test -f "$CONF"; then
-  sudo cat "$CONF" > "$TMP"
-fi
-sed -i '/User=/d' "$TMP"
-sed -i '/Session=/d' "$TMP"
-if ! grep -q "^\[Autologin\]" "$TMP"; then
-  printf "\n[Autologin]\n" >> "$TMP"
-fi
-sed -i "/^\[Autologin\]/a User=$USER_NAME\nSession=plasmawayland" "$TMP"
-sudo tee "$CONF" < "$TMP" >/dev/null
+sudo sed -i "/^\[daemon\]/a AutomaticLoginEnable=True\nAutomaticLogin=$USER_NAME\nWaylandEnable=true" "$CONF"
 ;;
 lightdm)
 CONF="/etc/lightdm/lightdm.conf"
-TMP=$(mktemp)
-if sudo test -f "$CONF"; then
-  sudo cat "$CONF" > "$TMP"
+sudo sed -i '/autologin-user=/d' "$CONF"
+sudo sed -i '/autologin-user-timeout=/d' "$CONF"
+if ! sudo grep -q "^\[Seat:\*\]" "$CONF"; then
+printf "\n[Seat:*]\n" | sudo tee -a "$CONF" >/dev/null
 fi
-sed -i '/autologin-user=/d' "$TMP"
-sed -i '/autologin-user-timeout=/d' "$TMP"
-if ! grep -q "^\[Seat:\*\]" "$TMP"; then
-  printf "\n[Seat:*]\n" >> "$TMP"
+sudo sed -i "/^\[Seat:\*\]/a autologin-user=$USER_NAME\nautologin-user-timeout=0" "$CONF"
+;;
+sddm)
+COUNT=0
+PLASMA_VERSION=$(/usr/bin/plasmashell --version 2>/dev/null | head -n1 | sed 's/ *plasmashell *//' | sed 's/[a-zA-Z \t]*//' | cut -d. -f1)
+if [ "$PLASMA_VERSION" -ge 6 ]; then
+PLASMA_SESSION=plasma
+elif [ "$PLASMA_VERSION" -le 5 ]; then
+PLASMA_SESSION=plasmawayland
 fi
-sed -i "/^\[Seat:\*\]/a autologin-user=$USER_NAME\nautologin-user-timeout=0" "$TMP"
-sudo tee "$CONF" < "$TMP" >/dev/null
+for CONF in "/etc/sddm.conf" "/etc/sddm.conf.d/"*; do
+sudo test -f "$CONF" || continue
+sudo sed -i '/User=/d' "$CONF"
+sudo sed -i '/Session=/d' "$CONF"
+if sudo grep -q "^\[Autologin\]" "$CONF"; then
+sudo sed -i "/^\[Autologin\]/a User=$USER_NAME\nSession=$PLASMA_SESSION" "$CONF"
+COUNT=1
+break
+fi
+done
+[ "$COUNT" -eq 0 ] && printf "\n[Autologin]\nUser=$USER_NAME\nSession=$PLASMA_SESSION\n" | sudo tee -a "/etc/sddm.conf" >/dev/null
 ;;
 esac
 fi
@@ -138,7 +134,7 @@ if [ -d "$HOME/.bashrc.d"  ];  then
     [ -r "$f"  ] && . "$f"
   done
 fi
-sudo loginctl enable-linger "$USER"
+[[ -n "$USER_NAME" ]] && sudo loginctl enable-linger "$USER_NAME"
 sudo mkdir -p /usr/local/java
 sudo mkdir -p /etc/apt/keyrings
 mkdir -p ~/.local/bin
@@ -1256,7 +1252,7 @@ export INPUT_METHOD=fcitx
 export SDL_IM_MODULE=fcitx
 export GLFW_IM_MODULE=ibus
 EOF
-if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || [ "$KDE_FULL_SESSION" = "true" ]; then
+if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "${DESKTOP_SESSION#*plasma}" != "$DESKTOP_SESSION" ] || [ "$KDE_FULL_SESSION" = "true" ]; then
   sudo apt install plasma-discover-backend-flatpak -y
 else
   mkdir -p ~/.config/autostart
@@ -1497,7 +1493,7 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="0666"
 EOF
 sudo udevadm control --reload-rules
 sudo udevadm trigger
-sudo usermod -aG plugdev "$USER"
+[[ -n "$USER_NAME" ]] && sudo usermod -aG plugdev "$USER_NAME"
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' kristoff-it/superhtml x86_64-linux-musl.tar.xz
 tar -xJf x86_64-linux-musl.tar.xz
 rm x86_64-linux-musl.tar.xz

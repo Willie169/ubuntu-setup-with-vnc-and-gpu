@@ -106,9 +106,7 @@ EOF
 sudo apt update
 sudo apt purge fcitx* texlive* yq -y
 sudo apt install locales unattended-upgrades wget -y
-sudo sed -E -i 's/# (.*UTF-8)/\1/' /etc/locale.gen
-sudo locale-gen
-sudo update-locale LANG=en_US.UTF-8
+sudo locale-gen en_US.UTF-8
 rm -f .bashrc
 mkdir ~/.bashrc.d
 wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/00-env.sh -O ~/.bashrc.d/00-env.sh

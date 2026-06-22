@@ -102,7 +102,8 @@ Note that the computer will reboot multiple times duing the process, so do not d
 
 <ol>
 <li>If you are using an NVIDIA GPU, run
-<pre><code>cat /etc/default/grub | grep GRUB_CMDLINE_LINUX_DEFAULT | grep -q 'nvidia_drm.modeset=1' && sudo sed -Ei "s/^GRUB_CMDLINE_LINUX_DEFAULT='(.*)'[ \t]*/GRUB_CMDLINE_LINUX_DEFAULT='\1 nvidia_drm.modeset=1'/" /etc/default/grub
+<pre><code>cat /etc/default/grub | grep GRUB_CMDLINE_LINUX_DEFAULT | grep -q 'nvidia_drm.modeset=1' || sudo sed -Ei "s/^GRUB_CMDLINE_LINUX_DEFAULT='(.*)'[ \t]*/GRUB_CMDLINE_LINUX_DEFAULT='\1 nvidia_drm.modeset=1'/" /etc/default/grub
+sudo update-grub
 sudo reboot
 </code></pre></li>
 <li>Run

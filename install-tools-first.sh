@@ -362,7 +362,7 @@ sudo apt install $PKG -y
 else
 sudo apt install $PKG -y -s
 fi
-PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo codeblocks* distrobox dnscrypt-proxy fcitx5 fcitx5-* filelight flatpak fwupd gnome-keyring gtkwave kate krita libvirt-daemon-system libvirt-clients ntfs-3g obs-studio ocl-icd-opencl-dev ovmf pipewire pipewire-audio-client-libraries podman proot remmina remmina-plugin-rdp remmina-plugin-secret qbittorrent qemu-system-gui qemu-system-x86 qemu-user-binfmt qemu-user qemu-utils qtspeech5-speechd-plugin quickemu snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap virt-manager virt-viewer wireplumber wl-clipboard xclip'
+PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo codeblocks* distrobox dnscrypt-proxy fcitx5 fcitx5-* filelight flatpak fwupd gnome-keyring gtkwave kate krita libvirt-daemon-system libvirt-clients ntfs-3g obs-studio ocl-icd-opencl-dev ovmf pipewire pipewire-audio-client-libraries podman remmina remmina-plugin-rdp remmina-plugin-secret qbittorrent qemu-system-gui qemu-system-x86 qemu-user-binfmt qemu-user qemu-utils qtspeech5-speechd-plugin quickemu snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap virt-manager virt-viewer wireplumber wl-clipboard xclip'
 if [ "$TEST" -eq 0 ]; then
 sudo apt install $PKG -y
 else
@@ -1327,7 +1327,7 @@ corepack enable yarn
 npm i jsdom markdown-toc marked marked-gfm-heading-id node-html-markdown showdown
 npm i -g --allow-scripts=opencode-ai bash-language-server dockerfile-language-server-nodejs http-server opencode-ai pyright @linthtml/linthtml @openai/codex
 pipx install cmake-language-server gh2md img2pdf jupyterlab jupytext libretranslate meson notebook pylatexenc tldr uv xmljson yamllint
-pipx install fdroidserver gallery-dl proot-distro yt-dlp
+pipx install fdroidserver gallery-dl yt-dlp
 pipx runpip yt-dlp install yt-dlp-ejs
 cat > ~/.config/systemd/user/libretranslate.service <<EOF
 [Unit]

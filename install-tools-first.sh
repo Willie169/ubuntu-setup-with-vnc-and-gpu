@@ -1489,7 +1489,7 @@ mkdir -p ~/Android/Sdk/cmdline-tools/latest
 mv cmdline-tools/* ~/Android/Sdk/cmdline-tools/latest
 rm -r cmdline-tools
 cd ~/Android/Sdk/cmdline-tools/latest/bin || exit
-echo y | ./sdkmanager "emulator" "platform-tools"
+echo y | ./sdkmanager "platform-tools"
 cd ~ || exit
 sudo tee /etc/udev/rules.d/52-xilinx-usb.rules >/dev/null <<'EOF'
 SUBSYSTEM=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="0666", GROUP="plugdev"

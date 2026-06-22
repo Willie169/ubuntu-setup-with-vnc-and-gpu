@@ -1355,10 +1355,15 @@ conda config --add channels conda-forge
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
 brew trust gurgeous/tap || true
+BREW='bat bottom broot dust fd fzf git-delta gurgeous/tap/tennis procs resvg ripgrep sevenzip starship xplr yazi yq zoxide'
 if [ "$TEST" -eq 0 ]; then
-echo y | brew install broot dust fzf gurgeous/tap/tennis procs resvg ripgrep sevenzip starship xplr yazi yq zoxide
+echo y | brew install $BREW
+git config --global core.pager delta
+git config --global interactive.diffFilter 'delta --color-only'
+git config --global delta.navigate true
+git config --global merge.conflictStyle zdiff3
 else
-echo y | brew install broot dust fzf gurgeous/tap/tennis procs resvg ripgrep sevenzip starship xplr yazi yq zoxide --dry-run
+echo y | brew install $BREW --dry-run
 fi
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' ventoy/ventoy ventoy-*-linux.tar.gz
 tar -xzf ventoy-*-linux.tar.gz
@@ -1546,15 +1551,6 @@ WantedBy=default.target
 EOF
 systemctl --user daemon-reload
 systemctl --user enable clipcascade-client
-git clone https://github.com/wimpysworld/deb-get.git
-cd deb-get/docs || exit
-sudo make install
-cd ~ || exit
-deb-get install bat bottom fd git-delta
-git config --global core.pager delta
-git config --global interactive.diffFilter 'delta --color-only'
-git config --global delta.navigate true
-git config --global merge.conflictStyle zdiff3
 git clone https://codeberg.org/c4ffe14e/phice.git
 cd phice || exit
 uv sync

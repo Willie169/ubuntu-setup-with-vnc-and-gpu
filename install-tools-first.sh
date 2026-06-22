@@ -1313,7 +1313,7 @@ mkdir jadx
 cd jadx || exit
 gh_latest_r -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' skylot/jadx 'jadx-[0-9\.]*\.zip'
 unzip jadx*.zip
-rm jadx*.zip
+rm jadx*.zip*
 chmod +x bin/jadx
 chmod +x bin/jadx-gui
 cd ~ || exit
@@ -1345,7 +1345,7 @@ systemctl --user daemon-reload
 systemctl --user enable --now libretranslate
 wget --tries=100 --retry-connrefused --waitretry=5 https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
 bash Miniforge3-Linux-x86_64.sh -b -p "${HOME}/conda"
-rm Miniforge3-Linux-x86_64.sh
+rm Miniforge3-Linux-x86_64.sh*
 export MAMBA_ROOT_PREFIX="${HOME}/conda"
 source "${HOME}/conda/etc/profile.d/conda.sh" 2>/dev/null || true
 source "${HOME}/conda/etc/profile.d/mamba.sh" 2>/dev/null || true
@@ -1368,7 +1368,7 @@ echo y | brew install $BREW --dry-run
 fi
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' ventoy/ventoy ventoy-*-linux.tar.gz
 tar -xzf ventoy-*-linux.tar.gz
-rm ventoy-*-linux.tar.gz
+rm ventoy-*-linux.tar.gz*
 mv ventoy-* ventoy
 sudo git clone --depth=1 https://github.com/Willie169/vimrc.git /opt/vim_runtime && sudo sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all
 mkdir -p ~/.config/nvim/lua/config
@@ -1562,6 +1562,10 @@ sudo chmod +r /etc/apt/keyrings/fpf-apt-tools-archive-keyring.gpg
 echo "deb [signed-by=/etc/apt/keyrings/fpf-apt-tools-archive-keyring.gpg] https://packages.freedom.press/apt-tools-prod ${VERSION_CODENAME} main" | sudo tee /etc/apt/sources.list.d/fpf-apt-tools.list >/dev/null
 sudo apt update
 sudo apt install dangerzone -y
+gh_latest gulp79/rclone-extra rclone-linux-amd64.zip
+unzip rclone-linux-amd64.zip
+rm rclone-linux-amd64.zip*
+mv rclone ~/.local/bin/
 wget --tries=100 --retry-connrefused --waitretry=5 https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt -O ~/.eff_large_wordlist.txt
 git clone https://github.com/lightvector/KataGo.git
 cd KataGo/cpp || exit
@@ -1633,7 +1637,7 @@ update_sylvan_config
 if [ "$TEST" -eq 0 ]; then
 wget --tries=100 --retry-connrefused --waitretry=5 https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xzf install-tl-unx.tar.gz
-rm install-tl-unx.tar.gz
+rm install-tl-unx.tar.gz*
 cd install-tl-* || exit
 sudo perl ./install-tl --no-interaction
 cd ~ || exit

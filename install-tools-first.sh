@@ -191,7 +191,11 @@ APT::Periodic::Download-Upgradeable-Packages "0";
 APT::Periodic::AutocleanInterval "1";' | sudo tee /etc/apt/apt.conf.d/10periodic >/dev/null
 echo 'APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Unattended-Upgrade "1";' | sudo tee /etc/apt/apt.conf.d/20auto-upgrades >/dev/null
-sudo rm /etc/apt/apt.conf.d/20apt-esm-hook.conf >/dev/null || true
+sudo mv /etc/apt/apt.conf.d/20apt-esm-hook.conf /etc/apt/apt.conf.d/20apt-esm-hook.conf.bak || true
+sudo touch /etc/apt/apt.conf.d/20apt-esm-hook.conf
+sudo touch /var/lib/update-notifier/hide-esm-in-motd
+sudo rm /etc/update-motd.d/88-esm-announce || true
+sudo rm /etc/update-motd.d/91-contract-ua-esm-status || true
 echo '// Automatically upgrade packages from these (origin:archive) pairs
 //
 // Note that in Ubuntu security updates may pull in new dependencies
@@ -351,7 +355,7 @@ Unattended-Upgrade::Skip-Updates-On-Metered-Connections "false";
 // Unattended-Upgrade::Postpone-Wait-Time "300";
 ' | sudo tee /etc/apt/apt.conf.d/50unattended-upgrades >/dev/null
 sudo apt install apparmor-utils apt-transport-https build-essential ca-certificates clinfo cmake curl dbus openjdk-21-jdk dnscrypt-proxy g++ gcc git gnupg jq libeigen3-dev make maven ninja-build ocl-icd-opencl-dev perl perl-tk python-is-python3 python3 qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev ufw wget -y
-PKG='alsa-utils apksigner apt-transport-https aptitude audacity automake bash bc bear bindfs bison bookletimposer build-essential bzip2 calcurse ca-certificates clang clangd clang-format cmake command-not-found curl cronie dbus dbus-x11 openjdk-21-jdk distro-info dmg2img dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fontconfig fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gdb gh ghostscript git glab gnupg gnupg2 golang-go gopls gperf grep gzip hyperfine info imagemagick inkscape iotop-c iproute2 jpegoptim jq lftp libeigen3-dev libguestfs-tools libheif-examples libreoffice lsb-release lsd lzip make maven mpv nano neovim netcat-openbsd ngspice ninja-build nmap ocrmypdf octave openssh-client openssh-server openssl optipng pandoc perl perl-tk pipx pkg-config poppler-utils procps procs pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv p7zip-full qpdf qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev rustup shellcheck shfmt socat sqlite3 sudo tar tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert tesseract-ocr-eng tesseract-ocr-jpn tesseract-ocr-jpn-vert tmux tree tree-sitter-cli tsocks unrar unzip uuid-runtime verilator vim vim-gtk3 webp wget wget2 w3m xdotool xmlstarlet zip zsh zstd'
+PKG='alsa-utils apksigner apt-transport-https aptitude audacity automake bash bc bear bindfs bison bookletimposer build-essential bzip2 calcurse ca-certificates clang clangd clang-format cmake command-not-found curl cronie dbus dbus-x11 openjdk-21-jdk distro-info dmg2img dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fontconfig fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gdb gh ghostscript git glab gnupg gnupg2 golang-go gopls gperf grep gzip hyperfine info imagemagick inkscape iotop-c iproute2 jpegoptim jq lftp libeigen3-dev libguestfs-tools libheif-examples libreoffice lsb-release lsd lzip make maven mpv nano neovim netcat-openbsd ngspice ninja-build nmap ocrmypdf octave openssh-client openssh-server openssl optipng pandoc perl perl-tk pipx pkg-config poppler-utils procps procs pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv p7zip-full qpdf qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev rustup shellcheck shfmt socat sqlite3 sudo tar tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert tesseract-ocr-eng tesseract-ocr-jpn tesseract-ocr-jpn-vert tmux tree tree-sitter-cli tsocks unrar unzip uuid-runtime verilator vim vim-gtk3 webp wget wget2 w3m xdotool xmlstarlet xz-utils zip zsh zstd'
 if [ "$TEST" -eq 0 ]; then
 sudo apt install $PKG -y
 else
@@ -1356,10 +1360,6 @@ echo y | brew install broot dust fzf gurgeous/tap/tennis procs resvg ripgrep sev
 else
 echo y | brew install broot dust fzf gurgeous/tap/tennis procs resvg ripgrep sevenzip starship xplr yazi yq zoxide --dry-run
 fi
-gh_latest marcosnils/bin 'bin_*_linux_amd64'
-chmod +x bin_*_linux_amd64
-echo ~/.local/bin | ./bin_*_linux_amd64 install github.com/marcosnils/bin
-rm bin_*_linux_amd64*
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' ventoy/ventoy ventoy-*-linux.tar.gz
 tar -xzf ventoy-*-linux.tar.gz
 rm ventoy-*-linux.tar.gz

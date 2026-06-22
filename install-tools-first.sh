@@ -54,7 +54,7 @@ COUNT=1
 break
 fi
 done
-[ "$COUNT" -eq 0 ] && printf "\n[Autologin]\nUser=$USER\nSession=$PLASMA_SESSION\n" | sudo tee -a "/etc/sddm.conf" >/dev/null
+[ "$COUNT" -eq 0 ] && printf '\n[Autologin]\nUser=%s\nSession=%s\n' "$USER" "$PLASMA_SESSION" | sudo tee -a "/etc/sddm.conf" >/dev/null
 ;;
 esac
 fi

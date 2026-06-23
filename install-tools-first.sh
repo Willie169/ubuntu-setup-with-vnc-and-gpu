@@ -1453,10 +1453,8 @@ Description=CyberChef
 After=docker.service
 
 [Service]
-ExecStart=/usr/bin/docker run --rm --name cyberchef -p 8081:80 ghcr.io/gchq/cyberchef:latest
+ExecStart=/usr/bin/docker run -it --name cyberchef -p 8081:8080 ghcr.io/gchq/cyberchef:latest
 ExecStop=/usr/bin/docker stop cyberchef
-Restart=always
-RestartSec=5
 StandardOutput=journal
 StandardError=journal
 
@@ -1465,6 +1463,40 @@ WantedBy=default.target
 EOF
 systemctl --user daemon-reload
 systemctl --user enable --now cyberchef
+mkdir -p ~/stirlingpdf/stirling-data/configs
+cd ~/stirlingpdf || exit
+cat > docker-compose.yml <<'EOF'
+services:
+  stirling-pdf:
+    image: stirlingtools/stirling-pdf:latest
+    ports:
+      - '9000:8080'
+    volumes:
+      - /usr/share/tesseract-ocr/5/tessdata:/usr/share/tessdata
+      - ./stirling-data/configs:/configs
+    environment:
+      - SECURITY_ENABLELOGIN=false
+      - LANGS=en_GB
+    restart: unless-stopped
+EOF
+cd ~ || exit
+cat > ~/.config/systemd/user/stirlingpdf.service <<EOF
+[Unit]
+Description=Stirling PDF
+After=docker.service
+
+[Service]
+WorkingDirectory=${HOME}/stirlingpdf
+ExecStart=/usr/bin/docker compose up
+ExecStop=/usr/bin/docker compose stop
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target
+EOF
+systemctl --user daemon-reload
+systemctl --user enable --now stirlingpdf
 wget --tries=100 --retry-connrefused --waitretry=5 -O studio.html https://developer.android.com/studio
 export CMDLINETOOLS="$(awk '/<table class="download">/ { count++ }
 count >= 2 {

@@ -110,7 +110,7 @@ git clone https://github.com/Willie169/ubuntu-setup-with-vnc-and-gpu.git
 <li>If you are using an NVIDIA GPU, run:
 <pre><code>cd ~/ubuntu-setup-with-vnc-and-gpu
 ./nvidia.sh
-</code></pre>and wait for the computer to reboot automatically.</li>
+</code></pre></li>
 <li>Run:
 <pre><code>cd ~/ubuntu-setup-with-vnc-and-gpu
 ./install-drivers.sh

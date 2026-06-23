@@ -1281,6 +1281,17 @@ sudo mv /tmp/onlyoffice.gpg /usr/share/keyrings/onlyoffice.gpg
 echo 'deb [signed-by=/usr/share/keyrings/onlyoffice.gpg] https://download.onlyoffice.com/repo/debian squeeze main' | sudo tee /etc/apt/sources.list.d/onlyoffice.list >/dev/null
 sudo apt update
 sudo apt install onlyoffice-desktopeditors -y
+gh_latest rustdesk/rustdesk rustdesk-*-x86_64.deb
+sudo apt install ./rustdesk-*-x86_64.deb -y
+rm rustdesk-*-x86_64.deb*
+gh_latest rustdesk/rustdesk-server rustdesk-server-hbbr_*_amd64.deb
+sudo apt install ./rustdesk-server-hbbr_*_amd64.deb -y
+rm rustdesk-server-hbbr_*_amd64.deb*
+sudo ufw allow 21118/udp
+sudo ufw allow 21118/tcp
+sudo ufw allow 21115:21119/tcp
+sudo ufw allow 21116/udp
+sudo ufw reload
 curl -sS https://debian.griffo.io/EA0F721D231FDD3A0A17B9AC7808B4DD62C41256.asc | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/debian.griffo.io.gpg
 echo "deb https://debian.griffo.io/apt $(lsb_release -sc 2>/dev/null) main" | sudo tee /etc/apt/sources.list.d/debian.griffo.io.list >/dev/null
 sudo apt update

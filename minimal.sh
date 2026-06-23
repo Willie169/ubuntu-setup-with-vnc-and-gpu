@@ -76,6 +76,9 @@ sudo add-apt-repository multiverse -y
 sudo add-apt-repository restricted -y
 sudo add-apt-repository ppa:git-core/ppa -y
 sudo add-apt-repository ppa:libreoffice/ppa -y
+sudo apt-add-repository ppa:remmina-ppa-team/remmina-next -y
+sudo mv /etc/apt/sources.list.d/remmina-ppa-team-ubuntu-remmina-next-*.sources /etc/apt/sources.list.d/remmina-ppa-team-ubuntu-remmina-next-noble.sources
+sudo sed -i 's/^Suites: .*$/Suites: noble/' /etc/apt/sources.list.d/remmina-ppa-team-ubuntu-remmina-next-noble.sources
 sudo add-apt-repository ppa:zhangsongcui3371/fastfetch -y
 bash <<'EOF'
 set -e
@@ -86,8 +89,8 @@ fi
 EOF
 sudo apt update
 sudo apt purge fcitx* texlive* yq -y
-sudo apt install alsa-utils apt-transport-https aptitude automake bash bc bindfs bookletimposer build-essential bzip2 calcurse ca-certificates clang clang-format cmake command-not-found curl dbus distro-info dnsutils dvisvgm fastfetch ffmpeg file fonts-cns11643-kai fonts-cns11643-sung fontconfig fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gh ghostscript git gnupg grep gzip hyperfine info imagemagick inkscape iproute2 jpegoptim jq lftp libheif-examples libreoffice lsb-release lsd lzip make mpv nano neovim netcat-openbsd ninja-build nmap ocrmypdf openssh-client openssh-server openssl optipng pandoc perl perl-tk pipx poppler-utils procps procs pv python-is-python3 python3-all-dev python3-argcomplete python3-neovim p7zip-full qpdf shellcheck shfmt socat sudo tar tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert tesseract-ocr-eng tesseract-ocr-jpn tesseract-ocr-jpn-vert tmux tree tree-sitter-cli tsocks unrar unzip uuid-runtime vim vim-gtk3 webp wget w3m xmlstarlet xz-utils zip zstd -y
-sudo apt install apparmor-utils aria2 dnscrypt-proxy fcitx5 fcitx5-* filelight fwupd gnome-keyring kate ntfs-3g pipewire pipewire-audio-client-libraries ufw unattended-upgrades wireplumber wl-clipboard -y
+sudo apt install alsa-utils apt-transport-https aptitude automake bash bc bindfs bookletimposer build-essential bzip2 calcurse ca-certificates clang clang-format cmake command-not-found curl dbus distro-info dnsutils dvisvgm fastfetch ffmpeg file fonts-cns11643-kai fonts-cns11643-sung fontconfig fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gh ghostscript git gnupg grep gzip hyperfine info imagemagick inkscape iproute2 jpegoptim jq lftp libheif-examples libreoffice lsb-release lsd lzip make mpv nano neovim netcat-openbsd ninja-build nmap ocrmypdf openssh-client openssh-server openssl optipng pandoc partitionmanager perl perl-tk pipx poppler-utils procps procs pv python-is-python3 python3-all-dev python3-argcomplete python3-neovim p7zip-full qpdf shellcheck shfmt socat sudo tar tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert tesseract-ocr-eng tesseract-ocr-jpn tesseract-ocr-jpn-vert tmux tree tree-sitter-cli tsocks unrar unzip uuid-runtime vim vim-gtk3 webp wget w3m xmlstarlet xz-utils zip zstd -y
+sudo apt install apparmor-utils aria2 dnscrypt-proxy fcitx5 fcitx5-* filelight fwupd gnome-keyring kate ntfs-3g pipewire pipewire-audio-client-libraries qbittorent remmina remmina-plugin-rdp remmina-plugin-secret ufw unattended-upgrades wireplumber wl-clipboard -y
 sudo locale-gen en_US.UTF-8
 rm -f .bashrc
 mkdir ~/.bashrc.d

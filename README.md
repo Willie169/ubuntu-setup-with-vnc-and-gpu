@@ -231,7 +231,7 @@ Installs [WinRAR](https://www.win-rar.com).
 
 ### [`minimal.sh`](minimal.sh)
 
-Minimal version of [`install-tools-first.sh`](install-tools-first.sh)
+Minimal version of [`install-tools-first.sh`](install-tools-first.sh) and [`install-tools-second.sh`](install-tools-second.sh).
 
 ### [`ruview.sh`](ruview.sh) (not actively maintained)
 

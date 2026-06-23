@@ -149,7 +149,9 @@ to login to Tailscale via the URL shown and click <strong>Connect</strong>. Goog
 <li>Run
 <pre><code>gh auth login --scopes repo,read:org,admin:org,workflow,gist,notifications,delete_repo,write:packages,read:packages
 </code></pre>
-to login to GitHub.</li>
+to login to GitHub and optionally run
+<pre><code>gh config set git_protocol ssh
+</code></pre> if you want to use ssh instead of https.</li>
 <li>Run `flatpak run com.mikeasoft.pied` to setup Pied.</li>
 <li>Config git with <code>git config --global user.name [your_name] &amp;&amp; git config --global user.email [your_email]</code>, <code>git config --global pull.rebase true</code> etc.</li>
 <li>Run <code>code</code> or click the <strong>VSCodium</strong> icon to setup VSCodium.</li>

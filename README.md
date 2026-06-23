@@ -154,6 +154,7 @@ to login to Tailscale via the URL shown and click <strong>Connect</strong>. Goog
 </code></pre>
 to login to GitHub and optionally run
 <pre><code>gh config set git_protocol ssh
+git config --global url."git@github.com:".insteadOf "https://github.com/"
 </code></pre> if you want to use ssh instead of https.</li>
 <li>Run `flatpak run com.mikeasoft.pied` to setup Pied.</li>
 <li>Config git with <code>git config --global user.name [your_name] &amp;&amp; git config --global user.email [your_email]</code>, <code>git config --global pull.rebase true</code> etc.</li>

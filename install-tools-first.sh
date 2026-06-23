@@ -1241,7 +1241,6 @@ DNS=127.0.0.1
 EOF
 sudo systemctl restart systemd-resolved
 systemctl --user restart pipewire pipewire-pulse wireplumber
-sudo ln -s /usr/lib/python3/dist-packages/Cryptodome /usr/lib/python3/dist-packages/Crypto
 sudo mkdir -p /usr/share/codeblocks/docs
 im-config -n fcitx5
 cat > ~/.xprofile <<'EOF'

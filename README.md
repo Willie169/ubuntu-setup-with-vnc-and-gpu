@@ -101,29 +101,29 @@ Some configs include:
 Note that the computer will reboot multiple times duing the process, so do not do other things on it while running these scripts.
 
 <ol>
-<li>If you are using an NVIDIA GPU, run
-<pre><code>cat /etc/default/grub | grep GRUB_CMDLINE_LINUX_DEFAULT | grep -q 'nvidia_drm.modeset=1' || sudo sed -Ei "s/^GRUB_CMDLINE_LINUX_DEFAULT='(.*)'[ \t]*/GRUB_CMDLINE_LINUX_DEFAULT='\1 nvidia_drm.modeset=1'/" /etc/default/grub
-sudo update-grub
-sudo reboot
-</code></pre></li>
-<li>Run
+<li>Clone the repository:
 <pre><code>cd ~
 sudo apt update
-sudo apt install bash git -y
-git clone https://github.com/Willie169/ubuntu-setup-with-vnc-and-gpu
-cd ubuntu-setup-with-vnc-and-gpu
-./install-drivers.sh
+sudo apt install git -y
+git clone https://github.com/Willie169/ubuntu-setup-with-vnc-and-gpu.git
 </code></pre></li>
-<li>Run
+<li>If you are using an NVIDIA GPU, run:
+<pre><code>cd ~/ubuntu-setup-with-vnc-and-gpu
+./nvidia.sh
+</code></pre>and wait for the computer to reboot automatically.</li>
+<li>Run:
+<pre><code>cd ~/ubuntu-setup-with-vnc-and-gpu
+./install-drivers.sh
+</code></pre>and wait for the computer to reboot automatically.</li>
+<li>Run:
 <pre><code>cd ~/ubuntu-setup-with-vnc-and-gpu
 ./install-tools-first.sh
 </code></pre>
 and follow the prompts until the computer reboots automatically.</li>
-<li>Login after the reboot and run
+<li>Run:
 <pre><code>cd ~/ubuntu-setup-with-vnc-and-gpu
 ./install-tools-second.sh
-</code></pre>
-until it exits automatically.</li>
+</code></pre>and wait for the shell to exit automatically.</li>
 </ol>
 
 ### Stuff You May Want to Do Afterwards

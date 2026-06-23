@@ -1469,3 +1469,4 @@ sudo apt upgrade -y
 sudo apt autoremove --purge -y
 sudo apt clean
 kill "$SUDOPID"
+sudo reboot

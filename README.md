@@ -23,7 +23,7 @@ If you fail to connect to a WPA PEAP Network that you are supposed to be able to
 
 ### Btrfs
 
-If you are using Btrfs, you may want to set it up first. Refer to my [btrfs-debian-ubuntu](https://github.com/Willie169/btrfs-debian-ubuntu) repo.
+If you are using Btrfs, you may want to set it up first. Refer to my [**btrfs-debian-ubuntu**](https://github.com/Willie169/btrfs-debian-ubuntu) repo.
 
 ### SSH
 

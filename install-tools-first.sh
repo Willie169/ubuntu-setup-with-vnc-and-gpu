@@ -1249,7 +1249,6 @@ export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 export INPUT_METHOD=fcitx
 export SDL_IM_MODULE=fcitx
-export GLFW_IM_MODULE=ibus
 EOF
 if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "${DESKTOP_SESSION#*plasma}" != "$DESKTOP_SESSION" ] || [ "$KDE_FULL_SESSION" = "true" ]; then
   sudo apt install plasma-discover-backend-flatpak -y

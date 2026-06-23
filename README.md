@@ -126,7 +126,7 @@ and follow the prompts until the computer reboots automatically.</li>
 </code></pre>and wait for the shell to exit automatically.</li>
 <li>Remove the repository:
 <pre><code>rm -r ~/ubuntu-setup-with-vnc-and-gpu
-</code></pre>.</li>
+</code></pre></li>
 </ol>
 
 ### Stuff You May Want to Do Afterwards

@@ -105,7 +105,7 @@ sudo apt update
 sudo apt purge fcitx* texlive* yq -y
 sudo apt install apt-transport-https bash build-essential ca-certificates coreutils cmake curl dbus openjdk-21-jdk g++ gcc git gnupg grep gzip jq locales make maven ninja-build openssh-server perl perl-tk pipx python-is-python3 python3 wget xz-utils -y
 sudo apt install libeigen3-dev qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev wget -y
-sudo apt install apparmor-utils clinfo dnscrypt-proxy ocl-icd-opencl-dev pipewire pipewire-audio-client-libraries podman uidmap wireplumber ufw unattended-upgrades -y
+sudo apt install apparmor-utils clinfo dnscrypt-proxy ocl-icd-opencl-dev pipewire pipewire-audio-client-libraries podman ufw uidmap unattended-upgrades wireplumber -y
 rm -f .bashrc
 mkdir ~/.bashrc.d
 wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/00-env.sh -O ~/.bashrc.d/00-env.sh
@@ -360,7 +360,7 @@ sudo apt install $PKG -y
 else
 sudo apt install $PKG -y -s
 fi
-PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo codeblocks* distrobox dnscrypt-proxy fcitx5 fcitx5-* filelight flatpak fwupd gnome-keyring gtkwave kate krita libvirt-daemon-system libvirt-clients ntfs-3g obs-studio ocl-icd-opencl-dev ovmf pipewire pipewire-audio-client-libraries podman remmina remmina-plugin-rdp remmina-plugin-secret qbittorrent qemu-system-gui qemu-system-x86 qemu-user-binfmt qemu-user qemu-utils qtspeech5-speechd-plugin quickemu snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap virt-manager virt-viewer wireplumber wl-clipboard xclip'
+PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo codeblocks* distrobox dnscrypt-proxy fcitx5 fcitx5-* filelight flatpak fwupd gnome-keyring gtkwave kate krita libvirt-daemon-system libvirt-clients ntfs-3g obs-studio ocl-icd-opencl-dev ovmf pipewire pipewire-audio-client-libraries podman remmina remmina-plugin-rdp remmina-plugin-secret qbittorrent qemu-system-gui qemu-system-x86 qemu-user-binfmt qemu-user qemu-utils qtspeech5-speechd-plugin quickemu snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap unattended-upgrades virt-manager virt-viewer wireplumber wl-clipboard xclip'
 if [ "$TEST" -eq 0 ]; then
 sudo apt install $PKG -y
 else

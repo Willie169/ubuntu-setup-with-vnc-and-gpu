@@ -1,11 +1,3 @@
-curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://ollama.com/install.sh | sh
-sudo env SYSTEMD_EDITOR=tee systemctl edit ollama <<EOF
-[Service]
-Environment="OLLAMA_HOST=0.0.0.0"
-EOF
-sudo systemctl daemon-reload
-sudo systemctl restart ollama
-
 uv tool install --force --python python3.11 open-webui@latest
 cat > ~/.config/systemd/user/open-webui.service <<EOF
 [Unit]
@@ -62,7 +54,6 @@ docker compose up -d
 cd ~ || exit
 
 
-curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://raw.githubusercontent.com/AlexsJones/llmfit/main/install.sh | sh
 
 
 mkdir -p ~/dev/llm

@@ -409,10 +409,10 @@ See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) rep
 <li>Cinnamon, which Linux Mint usually uses, uses LightDM.</li>
 </ul>
 See <a href="#desktop-environment">Desktop Environment</a> section for more information.</li>
-<li>You may need a SSH server on your computer and client otherwhere. See [OpenSSH](#openssh) and [Tailscale](#tailscale) for more information.
+<li>You may need a SSH server on your computer and client otherwhere. See [SSH](#ssh) and [Tailscale](#tailscale) for more information.
 </ol>
 
-#### For GDM without NVIDIA GPU
+#### For GDM
 
 <ol>
 <li>In tty or from SSH client, run:
@@ -422,7 +422,7 @@ sudo systemctl start gdm
 <li>Login into your computer.</li>
 </ol>
 
-#### For SDDM without NVIDIA GPU
+#### For SDDM
 
 <ol>
 <li>In tty or from SSH client, run:
@@ -432,7 +432,7 @@ sudo systemctl start sddm
 <li>Login into your computer.</li>
 </ol>
 
-#### For LightDM without NVIDIA GPU
+#### For LightDM
 
 <ol>
 <li>In tty or from SSH client, run:
@@ -441,47 +441,6 @@ sudo systemctl start lightdm
 </code></pre></li>
 <li>Login into your computer.</li>
 </ol>
-
-#### For GDM with NVIDIA GPU
-
-<ol>
-<li>In tty or from SSH client, run:
-<pre><code>sudo systemctl stop gdm
-sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia || true
-sudo systemctl start gdm
-</code></pre></li>
-<li>Login into your computer.</li>
-</ol>
-
-#### For SDDM with NVIDIA GPU
-
-<ol>
-<li>In tty or from SSH client, run:
-<pre><code>sudo systemctl stop sddm
-sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia || true
-sudo systemctl start sddm
-</code></pre></li>
-<li>Login into your computer.</li>
-</ol>
-
-#### For LightDM with NVIDIA GPU
-
-<ol>
-<li>In tty or from SSH client, run:
-<pre><code>sudo systemctl stop lightdm
-sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia || true
-sudo systemctl start lightdm
-</code></pre></li>
-<li>Login into your computer.</li>
-</ol>
-
-#### TigerVNC
-
-You may want to use TigerVNC instead if your computer does not have a GPU or don't want to use GPU acceleration. It can be installed via:
-```
-sudo apt install tigervnc-standalone-server -y
-```
-Its usage is the same as TurboVNC, refer to [VNC Server Usage](#vnc-server-usage) section for it.
 
 #### VNC Server Usage
 
@@ -489,6 +448,14 @@ Its usage is the same as TurboVNC, refer to [VNC Server Usage](#vnc-server-usage
 * Start VNC server: `vncserver`.
 * List VNC servers: `vncserver -list`.
 * Kill VNC server: `vncserver -kill :1`. Replace `:1` with your actual display number.
+
+#### TigerVNC
+
+You may want to use TigerVNC instead if your computer does not have a GPU or don't want to use GPU acceleration. It can be installed via:
+```
+sudo apt install tigervnc-standalone-server -y
+```
+Its usage is the same as TurboVNC.
 
 #### Android as SSH and VNC/X Client
 

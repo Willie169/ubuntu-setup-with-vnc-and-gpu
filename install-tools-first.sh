@@ -6,7 +6,6 @@ shopt -s expand_aliases
 cd ~ || exit
 sudo -v
 while true; do sudo -v; sleep 30; done & SUDOPID=$!
-sudo dpkg-reconfigure debconf --frontend=noninteractive
 sudo sed -i -e 's/^[# ]*HandleLidSwitch=.*/HandleLidSwitch=ignore/' -e 's/^[# ]*HandleLidSwitchDocked=.*/HandleLidSwitchDocked=ignore/' -e 's/^[# ]*HandleLidSwitchExternalPower=.*/HandleLidSwitchExternalPower=ignore/' "/etc/systemd/logind.conf"
 sudo grep -q '^HandleLidSwitch=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitch=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
 sudo grep -q '^HandleLidSwitchDocked=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchDocked=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
@@ -73,7 +72,7 @@ fi
 sudo timedatectl set-local-rtc 1
 sudo timedatectl set-ntp true
 sudo apt update
-sudo apt install software-properties-common -y
+sudo DEBIAN_FRONTEND=noninteractive apt install software-properties-common -y
 sudo add-apt-repository universe -y
 sudo add-apt-repository multiverse -y
 sudo add-apt-repository restricted -y
@@ -104,8 +103,8 @@ fi
 EOF
 sudo apt update
 sudo apt purge fcitx* texlive* yq -y
-sudo apt install apt-transport-https bash build-essential ca-certificates coreutils cmake curl dbus openjdk-21-jdk g++ gcc git gnupg grep gzip jq locales make ninja-build openssh-server perl perl-tk pipx python-is-python3 python3 vim-gtk3 wget xz-utils -y
-sudo apt install apparmor-utils clinfo dnscrypt-proxy pipewire pipewire-audio-client-libraries podman ufw uidmap unattended-upgrades wireplumber -y
+sudo DEBIAN_FRONTEND=noninteractive apt install apt-transport-https bash build-essential ca-certificates coreutils cmake curl dbus openjdk-21-jdk g++ gcc git gnupg grep gzip jq locales make ninja-build openssh-server perl perl-tk pipx python-is-python3 python3 vim-gtk3 wget xz-utils -y
+sudo DEBIAN_FRONTEND=noninteractive apt install apparmor-utils clinfo dnscrypt-proxy pipewire pipewire-audio-client-libraries podman ufw uidmap unattended-upgrades wireplumber -y
 rm -f .bashrc
 mkdir ~/.bashrc.d
 wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/00-env.sh -O ~/.bashrc.d/00-env.sh
@@ -154,7 +153,7 @@ sudo systemctl stop var-snap-firefox-common-*.mount 2>/dev/null || true
 sudo systemctl disable var-snap-firefox-common-*.mount 2>/dev/null || true
 sudo systemctl disable snap-firefox*.mount 2>/dev/null || true
 sudo snap remove firefox 2>/dev/null || true
-sudo apt install firefox --allow-downgrades -y
+sudo DEBIAN_FRONTEND=noninteractive apt install firefox --allow-downgrades -y
 sudo tee /etc/systemd/system/firefox-apparmor.service >/dev/null <<'EOF'
 [Unit]
 Description=Firefox Apparmor Disable
@@ -188,7 +187,7 @@ sudo systemctl stop var-snap-thunderbird-common-*.mount 2>/dev/null || true
 sudo systemctl disable var-snap-thunderbird-common-*.mount 2>/dev/null || true
 sudo systemctl disable snap-thunderbird*.mount 2>/dev/null || true
 sudo snap remove thunderbird 2>/dev/null || true
-sudo apt install thunderbird --allow-downgrades -y
+sudo DEBIAN_FRONTEND=noninteractive apt install thunderbird --allow-downgrades -y
 sudo rm /var/lib/snapd/desktop/applications/thunderbird*.desktop 2>/dev/null || true
 sudo add-apt-repository ppa:xtradeb/apps -y
 echo 'Package: chromium*
@@ -200,7 +199,7 @@ Pin: release o=Ubuntu
 Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/chromium >/dev/null
 sudo apt update
 fi
-sudo apt upgrade -y
+sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
 echo 'APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Download-Upgradeable-Packages "0";
 APT::Periodic::AutocleanInterval "1";' | sudo tee /etc/apt/apt.conf.d/10periodic >/dev/null
@@ -371,15 +370,15 @@ Unattended-Upgrade::Skip-Updates-On-Metered-Connections "false";
 ' | sudo tee /etc/apt/apt.conf.d/50unattended-upgrades >/dev/null
 PKG='alsa-utils apksigner apt-transport-https aptitude audacity automake bash bc bear bindfs bison bookletimposer build-essential bzip2 ca-certificates calcurse clang clang-format clangd cmake command-not-found cronie curl dbus dbus-x11 debconf-utils distro-info dnsutils dvisvgm fastfetch ffmpeg file flex fontconfig fonts-cns11643-kai fonts-cns11643-sung fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gdb gh ghostscript git glab gnupg gnupg2 golang-go gopls gperf grep gzip hyperfine iftop imagemagick info inkscape iotop-c iproute2 jpegoptim jq lftp libheif-examples libreoffice lsb-release lsd lzip make maven mpv nano neovim netcat-openbsd nethogs ngspice ninja-build nmap ocrmypdf octave openjdk-21-jdk openssh-client openssh-server openssl optipng p7zip-full pandoc perl perl-tk pipx pkg-config poppler-utils procps procs pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-neovim python3-pip python3-requests python3-venv qpdf qt6-5compat-dev qt6-base-dev qt6-base-dev-tools qt6-svg-dev rustup shellcheck shfmt socat sqlite3 sudo tar tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert tesseract-ocr-eng tesseract-ocr-jpn tesseract-ocr-jpn-vert tmux tree tree-sitter-cli tsocks unrar unzip uuid-runtime verilator vim-gtk3 w3m webp wget wget2 xdotool xmlstarlet xz-utils zip zsh zstd'
 if [ "$TEST" -eq 0 ]; then
-sudo apt install $PKG -y
+sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y
 else
-sudo apt install $PKG -y -s
+sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s
 fi
 PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo distrobox dnscrypt-proxy fcitx5 fcitx5-configtool fcitx5-chinese-addons fcitx5-frontend-all filelight flatpak fwupd gnome-keyring gtkwave kate krita libvirt-daemon-system libvirt-clients ntfs-3g obs-studio ovmf partitionmanager pipewire pipewire-audio-client-libraries podman qbittorrent qemu-system-gui qemu-system-x86 qemu-user-binfmt qemu-user qemu-utils qtspeech5-speechd-plugin quickemu remmina remmina-plugin-rdp remmina-plugin-secret snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap unattended-upgrades virt-manager virt-viewer wireplumber wl-clipboard xclip'
 if [ "$TEST" -eq 0 ]; then
-sudo apt install $PKG -y
+sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y
 else
-sudo apt install $PKG -y -s
+sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s
 fi
 sudo snap set system refresh.retain=2
 sudo cp /usr/share/doc/dnscrypt-proxy/examples/* /etc/dnscrypt-proxy/
@@ -1265,7 +1264,7 @@ export INPUT_METHOD=fcitx
 export SDL_IM_MODULE=fcitx
 EOF
 if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "${DESKTOP_SESSION#*plasma}" != "$DESKTOP_SESSION" ] || [ "$KDE_FULL_SESSION" = "true" ]; then
-  sudo apt install plasma-discover-backend-flatpak -y
+  sudo DEBIAN_FRONTEND=noninteractive apt install plasma-discover-backend-flatpak -y
 else
   mkdir -p ~/.config/autostart
   cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
@@ -1287,22 +1286,22 @@ rustup update stable
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
 sudo apt update
-sudo apt install brave-browser -y
+sudo DEBIAN_FRONTEND=noninteractive apt install brave-browser -y
 gpg --no-default-keyring --keyring gnupg-ring:/tmp/onlyoffice.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
 chmod 644 /tmp/onlyoffice.gpg
 sudo chown root:root /tmp/onlyoffice.gpg
 sudo mv /tmp/onlyoffice.gpg /usr/share/keyrings/onlyoffice.gpg
 echo 'deb [signed-by=/usr/share/keyrings/onlyoffice.gpg] https://download.onlyoffice.com/repo/debian squeeze main' | sudo tee /etc/apt/sources.list.d/onlyoffice.list >/dev/null
 sudo apt update
-sudo apt install onlyoffice-desktopeditors -y
+sudo DEBIAN_FRONTEND=noninteractive apt install onlyoffice-desktopeditors -y
 gh_latest rustdesk/rustdesk 'rustdesk-*-x86_64.deb'
-sudo apt install ./rustdesk-*-x86_64.deb -y
+sudo DEBIAN_FRONTEND=noninteractive apt install ./rustdesk-*-x86_64.deb -y
 rm rustdesk-*-x86_64.deb*
 gh_latest rustdesk/rustdesk-server 'rustdesk-server-hbbs_*_amd64.deb'
-sudo apt install ./rustdesk-server-hbbs_*_amd64.deb -y
+sudo DEBIAN_FRONTEND=noninteractive apt install ./rustdesk-server-hbbs_*_amd64.deb -y
 rm rustdesk-server-hbbs_*_amd64.deb*
 gh_latest rustdesk/rustdesk-server 'rustdesk-server-hbbr_*_amd64.deb'
-sudo apt install ./rustdesk-server-hbbr_*_amd64.deb -y
+sudo DEBIAN_FRONTEND=noninteractive apt install ./rustdesk-server-hbbr_*_amd64.deb -y
 rm rustdesk-server-hbbr_*_amd64.deb*
 sudo systemctl enable --now rustdesk-hbbs.service
 sudo systemctl enable --now rustdesk-hbbr.service
@@ -1315,7 +1314,7 @@ sudo ufw reload
 curl -sS https://debian.griffo.io/EA0F721D231FDD3A0A17B9AC7808B4DD62C41256.asc | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/debian.griffo.io.gpg
 echo "deb https://debian.griffo.io/apt $(lsb_release -sc 2>/dev/null) main" | sudo tee /etc/apt/sources.list.d/debian.griffo.io.list >/dev/null
 sudo apt update
-sudo apt install lazygit -y
+sudo DEBIAN_FRONTEND=noninteractive apt install lazygit -y
 wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool
 chmod +x apktool
 sudo mv apktool /usr/local/bin/
@@ -1435,37 +1434,37 @@ curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://raw.githubuse
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/trusted.gpg.d/docker.asc >/dev/null
 echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 sudo apt update
-sudo apt install docker-ce docker-ce-rootless-extras -y
+sudo DEBIAN_FRONTEND=noninteractive apt install docker-ce docker-ce-rootless-extras -y
 sudo systemctl disable --now docker.service docker.socket
 sudo rm /var/run/docker.sock
 dockerd-rootless-setuptool.sh install
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.noarmor.gpg" | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.tailscale-keyring.list" | sudo tee /etc/apt/sources.list.d/tailscale.list >/dev/null
 sudo apt update
-sudo apt install tailscale -y
+sudo DEBIAN_FRONTEND=noninteractive apt install tailscale -y
 sudo systemctl daemon-reload
 sudo systemctl enable tailscaled
 wget -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg | gpg --dearmor | sudo dd of=/usr/share/keyrings/vscodium-archive-keyring.gpg
 echo -e 'Types: deb\nURIs: https://download.vscodium.com/debs\nSuites: vscodium\nComponents: main\nArchitectures: amd64 arm64\nSigned-by: /usr/share/keyrings/vscodium-archive-keyring.gpg' | sudo tee /etc/apt/sources.list.d/vscodium.sources >/dev/null
 sudo apt update
-sudo apt install codium -y
+sudo DEBIAN_FRONTEND=noninteractive apt install codium -y
 curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
 echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list >/dev/null
 sudo apt update
-sudo apt install glow -y
+sudo DEBIAN_FRONTEND=noninteractive apt install glow -y
 wget --tries=100 --retry-connrefused --waitretry=5 -O- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | sudo tee /usr/share/keyrings/deb.torproject.org-keyring.gpg >/dev/null
 sudo tee /etc/apt/sources.list.d/tor.list > /dev/null <<EOF
 deb [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
 deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
 EOF
 sudo apt update
-sudo apt install tor torsocks deb.torproject.org-keyring -y
+sudo DEBIAN_FRONTEND=noninteractive apt install tor torsocks deb.torproject.org-keyring -y
 sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/local/java/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
 sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/local/java/plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
 sudo wget -O /usr/share/keyrings/element-io-archive-keyring.gpg https://packages.element.io/debian/element-io-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/element-io-archive-keyring.gpg] https://packages.element.io/debian/ default main" | sudo tee /etc/apt/sources.list.d/element-io.list >/dev/null
 sudo apt update
-sudo apt install element-desktop -y
+sudo DEBIAN_FRONTEND=noninteractive apt install element-desktop -y
 docker pull ghcr.io/gchq/cyberchef:latest
 cat > ~/.config/systemd/user/cyberchef.service <<EOF
 [Unit]
@@ -1608,8 +1607,8 @@ unzip rclone-linux-amd64.zip
 rm rclone-linux-amd64.zip*
 mv rclone ~/.local/bin/
 wget --tries=100 --retry-connrefused --waitretry=5 https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt -O ~/.eff_large_wordlist.txt
-sudo apt install libeigen3-dev libzip-dev zlib1g-dev -y
-sudo apt install clinfo ocl-icd-opencl-dev -y
+sudo DEBIAN_FRONTEND=noninteractive apt install libeigen3-dev libzip-dev zlib1g-dev -y
+sudo DEBIAN_FRONTEND=noninteractive apt install clinfo ocl-icd-opencl-dev -y
 git clone --depth=1 https://github.com/lightvector/KataGo.git
 cd KataGo/cpp || exit
 if clinfo -l | grep -q 'Platform'; then
@@ -1623,7 +1622,7 @@ mkdir katago-networks
 cd katago-networks || exit
 wget --tries=100 --retry-connrefused --waitretry=5 https://media.katagotraining.org/uploaded/networks/models/kata1/kata1-b6c96-s175395328-d26788732.txt.gz
 cd ~ || exit
-sudo apt install maven -y
+sudo DEBIAN_FRONTEND=noninteractive apt install maven -y
 git clone --depth=1 https://github.com/yzyray/lizzieyzy.git
 cd lizzieyzy || exit
 mvn clean packaged
@@ -1645,7 +1644,7 @@ git clone --depth=1 https://github.com/fairy-stockfish/Fairy-Stockfish.git
 cd Fairy-Stockfish/src || exit
 make -j ARCH=x86-64 profile-build largeboards=yes nnue=yes
 cd ~ || exit
-sudo apt install qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev -y
+sudo DEBIAN_FRONTEND=noninteractive apt install qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev -y
 git clone --depth=1 https://github.com/cutechess/cutechess.git
 cd cutechess || exit
 mkdir build
@@ -1664,7 +1663,7 @@ Terminal=false
 Categories=Game;
 EOF
 update_cutechess_config
-sudo apt install libqt5svg5-dev qt5-qmake qtbase5-dev qtbase5-dev-tools -y
+sudo DEBIAN_FRONTEND=noninteractive apt install libqt5svg5-dev qt5-qmake qtbase5-dev qtbase5-dev-tools -y
 git clone --depth=1 https://github.com/hotfics/Sylvan.git
 cd Sylvan || exit
 qmake
@@ -1808,11 +1807,10 @@ cd physics-patch || exit
 git checkout dev
 cd ~ || exit
 sudo apt update
-sudo apt install -f -y
-sudo apt upgrade -y
+sudo DEBIAN_FRONTEND=noninteractive apt install -f -y
+sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
 sudo apt autoremove --purge -y
 sudo apt clean
-sudo dpkg-reconfigure debconf --frontend=dialog
 [ "$TEST" -eq 0 ] && sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 kill "$SUDOPID"
 [ "$TEST" -eq 0 ] && sudo reboot

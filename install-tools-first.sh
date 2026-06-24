@@ -155,8 +155,23 @@ sudo systemctl disable var-snap-firefox-common-*.mount 2>/dev/null || true
 sudo systemctl disable snap-firefox*.mount 2>/dev/null || true
 sudo snap remove firefox 2>/dev/null || true
 sudo apt install firefox --allow-downgrades -y
-sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
-sudo apparmor_parser -R /etc/apparmor.d/firefox
+sudo tee /etc/systemd/system/firefox-apparmor.service >/dev/null <<'EOF'
+[Unit]
+Description=Firefox Apparmor Disable
+PartOf=apparmor.service
+After=apparmor.service
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=bash -c 'ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/ || true; sudo apparmor_parser -R /etc/apparmor.d/firefox || true'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOF
+sudo systemctl daemon-reload
+sudo systemctl enable --now firefox-apparmor.service
 sudo rm /var/lib/snapd/desktop/applications/firefox*.desktop 2>/dev/null || true
 sudo rm /var/lib/snapd/inhibit/firefox.lock 2>/dev/null || true
 rm -r snap/firefox 2>/dev/null || true
@@ -1344,7 +1359,7 @@ RestartSec=5
 WantedBy=default.target
 EOF
 systemctl --user daemon-reload
-systemctl --user enable --now libretranslate
+systemctl --user enable --now libretranslate.service
 wget --tries=100 --retry-connrefused --waitretry=5 https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
 bash Miniforge3-Linux-x86_64.sh -b -p "${HOME}/conda"
 rm Miniforge3-Linux-x86_64.sh*
@@ -1469,7 +1484,7 @@ StandardError=journal
 WantedBy=default.target
 EOF
 systemctl --user daemon-reload
-systemctl --user enable --now cyberchef
+systemctl --user enable --now cyberchef.service
 mkdir -p ~/stirlingpdf/stirling-data/configs
 cd ~/stirlingpdf || exit
 cat > docker-compose.yml <<'EOF'
@@ -1503,7 +1518,7 @@ StandardError=journal
 WantedBy=default.target
 EOF
 systemctl --user daemon-reload
-systemctl --user enable --now stirlingpdf
+systemctl --user enable --now stirlingpdf.service
 wget --tries=100 --retry-connrefused --waitretry=5 -O studio.html https://developer.android.com/studio
 export CMDLINETOOLS="$(awk '/<table class="download">/ { count++ }
 count >= 2 {
@@ -1556,7 +1571,7 @@ Environment=CC_PORT=8082
 WantedBy=default.target
 EOF
 systemctl --user daemon-reload
-systemctl --user enable --now clipcascade-server
+systemctl --user enable --now clipcascade-server.service
 sudo ufw allow 8082/tcp
 sudo ufw reload
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Sathvik-Rao/ClipCascade ClipCascade_Linux.tar.xz
@@ -1582,7 +1597,7 @@ Environment=CC_PORT=8082
 WantedBy=default.target
 EOF
 systemctl --user daemon-reload
-systemctl --user enable clipcascade-client
+systemctl --user enable clipcascade-client.service
 git clone https://codeberg.org/c4ffe14e/phice.git
 cd phice || exit
 uv sync

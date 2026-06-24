@@ -138,11 +138,6 @@ and follow the prompts until the computer reboots automatically.</li>
 </li>
 <li>Go to <a href="http://localhost:8082">http://localhost:8082</a>, enter default user name <code>admin</code> and password <code>admin123</code>, change user name and password, and login in the pop-up window of ClipCascade client.</li>
 <li>Snap Firefox and Thunderbird are replaced with Deb Firefox and Thunderbird from Mozilla Team PPA, and thus you may want to re-configure launchers in your Desktop Environment.</li>
-<li>If any error occurs when opening or using Firefox, notably the `Close Firefox: Firefox is already running, but is not responding. To use Firefox, you must first close the existing Firefox process, restart your device, or use a different profile.` pop-up, try running:
-<pre><code>sudo ln -sf /etc/apparmor.d/firefox /etc/apparmor.d/disable/
-sudo apparmor_parser -R /etc/apparmor.d/firefox
-</code></pre>
-to disable Firefox AppArmor profile.</li>
 <li>Run
 <pre><code>sudo tailscale up
 </code></pre>

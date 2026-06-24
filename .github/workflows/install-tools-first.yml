@@ -9,11 +9,6 @@ jobs:
       - name: Checkout repository
         timeout-minutes: 360
         uses: actions/checkout@v4
-      - name: Setup environment
-        timeout-minutes: 360
-        run: |
-          sudo apt update
-          sudo apt install ubuntu-desktop-minimal -y
       - name: Run install-tools-first.sh
         timeout-minutes: 360
         run: |

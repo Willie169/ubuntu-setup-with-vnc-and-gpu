@@ -1665,7 +1665,7 @@ Terminal=false
 Categories=Game;
 EOF
 update_cutechess_config
-sudo apt install qt5-qmake qtbase5-dev qtbase5-dev-tools -y
+sudo apt install libqt5svg5-dev qt5-qmake qtbase5-dev qtbase5-dev-tools -y
 git clone --depth=1 https://github.com/hotfics/Sylvan.git
 cd Sylvan || exit
 qmake

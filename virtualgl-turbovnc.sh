@@ -1,19 +1,17 @@
+#!/bin/bash
+
 cd ~
 sudo apt update
-sudo apt install wget -y
-wget https://launchpad.net/ubuntu/+archive/primary/+files/libegl1-mesa_23.0.4-0ubuntu1~22.04.1_amd64.deb
-sudo apt install ./libegl1-mesa_23.0.4-0ubuntu1~22.04.1_amd64.deb -y
-rm libegl1-mesa_23.0.4-0ubuntu1~22.04.1_amd64.deb
-wget https://sourceforge.net/projects/virtualgl/files/3.1/virtualgl_3.1_amd64.deb
-sudo apt install ./virtualgl_3.1_amd64.deb -y
-rm virtualgl_3.1_amd64.deb
-wget https://sourceforge.net/projects/turbovnc/files/3.1/turbovnc_3.1_amd64.deb
-sudo apt install ./turbovnc_3.1_amd64.deb -y
-rm turbovnc_3.1_amd64.deb
-wget https://sourceforge.net/projects/libjpeg-turbo/files/3.0.1/libjpeg-turbo-official_3.0.1_amd64.deb
-sudo apt install ./libjpeg-turbo-official_3.0.1_amd64.deb -y
-rm libjpeg-turbo-official_3.0.1_amd64.deb
-sudo apt install dbus-x11 libglu1-mesa mesa-utils -y
+sudo apt install dbus-x11 libglu1-mesa mesa-utils wget -y
+wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/50-functions.sh
+source 50-functions.sh
+rm 50-functions.sh*
+gh_latest VirtualGL/virtualgl 'virtualgl_*_amd64.deb'
+sudo apt install virtualgl_*_amd64.deb
+rm virtualgl_*_amd64.deb*
+gh_latest TurboVNC/turbovnc 'turbovnc_*_amd64.deb'
+sudo apt install turbovnc_*_amd64.deb
+rm turbovnc_*_amd64.deb*
 sudo vglserver_config +s +f +glx
 sudo groupadd vglusers
 sudo usermod -aG vglusers root

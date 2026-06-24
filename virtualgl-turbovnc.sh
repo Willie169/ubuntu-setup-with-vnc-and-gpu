@@ -2,16 +2,13 @@
 
 cd ~
 sudo apt update
-sudo apt install dbus-x11 libglu1-mesa mesa-utils wget -y
-wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/50-functions.sh
-source 50-functions.sh
-rm 50-functions.sh*
-gh_latest VirtualGL/virtualgl 'virtualgl_*_amd64.deb'
-sudo apt install virtualgl_*_amd64.deb
-rm virtualgl_*_amd64.deb*
-gh_latest TurboVNC/turbovnc 'turbovnc_*_amd64.deb'
-sudo apt install turbovnc_*_amd64.deb
-rm turbovnc_*_amd64.deb*
+sudo apt install mesa-utils wget -y
+wget -q -O- https://packagecloud.io/dcommander/virtualgl/gpgkey | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/VirtualGL.gpg
+sudo wget https://raw.githubusercontent.com/VirtualGL/repo/main/VirtualGL.list -O /etc/apt/sources.list.d/VirtualGL.list
+wget -q -O- https://packagecloud.io/dcommander/turbovnc/gpgkey | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/TurboVNC.gpg
+sudo wget https://raw.githubusercontent.com/TurboVNC/repo/main/TurboVNC.list -O /etc/apt/sources.list.d/TurboVNC.list
+sudo apt update
+sudo apt install virtualgl turbovnc -y
 sudo vglserver_config +s +f +glx
 sudo groupadd vglusers
 sudo usermod -aG vglusers root

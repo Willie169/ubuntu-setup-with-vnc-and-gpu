@@ -1295,13 +1295,13 @@ sudo mv /tmp/onlyoffice.gpg /usr/share/keyrings/onlyoffice.gpg
 echo 'deb [signed-by=/usr/share/keyrings/onlyoffice.gpg] https://download.onlyoffice.com/repo/debian squeeze main' | sudo tee /etc/apt/sources.list.d/onlyoffice.list >/dev/null
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install onlyoffice-desktopeditors -y
-gh_latest rustdesk/rustdesk 'rustdesk-*-x86_64.deb'
+gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' rustdesk/rustdesk 'rustdesk-*-x86_64.deb'
 sudo DEBIAN_FRONTEND=noninteractive apt install ./rustdesk-*-x86_64.deb -y
 rm rustdesk-*-x86_64.deb*
-gh_latest rustdesk/rustdesk-server 'rustdesk-server-hbbs_*_amd64.deb'
+gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' rustdesk/rustdesk-server 'rustdesk-server-hbbs_*_amd64.deb'
 sudo DEBIAN_FRONTEND=noninteractive apt install ./rustdesk-server-hbbs_*_amd64.deb -y
 rm rustdesk-server-hbbs_*_amd64.deb*
-gh_latest rustdesk/rustdesk-server 'rustdesk-server-hbbr_*_amd64.deb'
+gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' rustdesk/rustdesk-server 'rustdesk-server-hbbr_*_amd64.deb'
 sudo DEBIAN_FRONTEND=noninteractive apt install ./rustdesk-server-hbbr_*_amd64.deb -y
 rm rustdesk-server-hbbr_*_amd64.deb*
 sudo systemctl enable --now rustdesk-hbbs.service
@@ -1605,7 +1605,7 @@ cp config.example.toml config.toml
 cd ~ || exit
 sudo gpg --keyserver hkps://keys.openpgp.org --no-default-keyring --no-permission-warning --homedir "$(mktemp -d)" --keyring gnupg-ring:/etc/apt/keyrings/fpf-apt-tools-archive-keyring.gpg --recv-keys DE28AB241FA48260FAC9B8BAA7C9B38522604281
 sudo chmod +r /etc/apt/keyrings/fpf-apt-tools-archive-keyring.gpg
-gh_latest gulp79/rclone-extra rclone-linux-amd64.zip
+gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' gulp79/rclone-extra rclone-linux-amd64.zip
 unzip rclone-linux-amd64.zip
 rm rclone-linux-amd64.zip*
 mv rclone ~/.local/bin/

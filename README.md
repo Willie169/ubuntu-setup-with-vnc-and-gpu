@@ -206,9 +206,7 @@ Installs [Steam](https://store.steampowered.com).
 
 ### [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh)
 
-Installs VirtualGL, TurboVNC, and XFCE desktop environment on Debian derivatives on AMD 64, compatible with most GPU. See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for the necessary steps to do after running this script and more information.
-
-You may want to use TigerVNC instead if your computer does not have a GPU. See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for more information.
+Installs VirtualGL, TurboVNC, and XFCE desktop environment on Debian derivatives on AMD 64, configure TurboVNC to start XFCE desktop environment by default, and reboot. It is compatible with most GPU. You may want to use TigerVNC instead if your computer does not have a GPU. See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for more information.
 
 ### [`waydroid.sh`](waydroid.sh)
 
@@ -395,51 +393,6 @@ You can view the devices logged in and their Tailscale IPs in the app.
 See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) repo for more information.
 
 ### VirtualGL and TurboVNC
-
-#### Prerequisites
-
-<ol>
-<li>Run <a href="virtualgl-turbovnc.sh"><code>virtualgl-turbovnc.sh</code></a>.</li>
-<li>Add <code>export PATH="/opt/TurboVNC/bin:$PATH</code> in <code>~/.bashrc</code>. This has been done in <a href="install-tools-first.sh"><code>install-tools-first.sh</code></a>.</li>
-<li>Determine your Desktop Manager and GPU and follow the corresponding section below:
-<ul>
-<li>GNOME 3, which Ubuntu usually uses, uses GDM.</li>
-<li>KDE Plasma, which Kubuntu uses, uses SDDM.</li>
-<li>Cinnamon, which Linux Mint usually uses, uses LightDM.</li>
-</ul>
-See <a href="#desktop-environment">Desktop Environment</a> section for more information.</li>
-<li>You may need a SSH server on your computer and client otherwhere. See [SSH](#ssh) and [Tailscale](#tailscale) for more information.
-</ol>
-
-#### For GDM
-
-<ol>
-<li>In tty or from SSH client, run:
-<pre><code>sudo systemctl stop gdm
-sudo systemctl start gdm
-</code></pre></li>
-<li>Login into your computer.</li>
-</ol>
-
-#### For SDDM
-
-<ol>
-<li>In tty or from SSH client, run:
-<pre><code>sudo systemctl stop sddm
-sudo systemctl start sddm
-</code></pre></li>
-<li>Login into your computer.</li>
-</ol>
-
-#### For LightDM
-
-<ol>
-<li>In tty or from SSH client, run:
-<pre><code>sudo systemctl stop lightdm
-sudo systemctl start lightdm
-</code></pre></li>
-<li>Login into your computer.</li>
-</ol>
 
 #### VNC Server Usage
 

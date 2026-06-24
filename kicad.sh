@@ -1,5 +1,4 @@
 #!/bin/bash
-
 sudo apt update
 sudo apt install curl wget -y
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://www.kicad.org/download/linux -o kicad.html

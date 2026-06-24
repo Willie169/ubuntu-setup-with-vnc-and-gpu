@@ -1,5 +1,4 @@
 #!/bin/bash
-
 sudo apt update
 sudo apt install clamav clamav-daemon libclamunrar -y
 sudo tee /etc/clamav/clamd.conf >/dev/null <<EOF

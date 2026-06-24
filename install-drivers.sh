@@ -1,5 +1,4 @@
 #!/bin/bash
-
 echo y | sudo ubuntu-drivers install || true
 echo y | sudo ubuntu-drivers install || true
 echo y | sudo ubuntu-drivers install || true

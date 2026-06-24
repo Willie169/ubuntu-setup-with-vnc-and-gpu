@@ -6,6 +6,7 @@ shopt -s expand_aliases
 cd ~ || exit
 sudo -v
 while true; do sudo -v; sleep 30; done & SUDOPID=$!
+export DEBIAN_FRONTEND=noninteractive
 sudo sed -i -e 's/^[# ]*HandleLidSwitch=.*/HandleLidSwitch=ignore/' -e 's/^[# ]*HandleLidSwitchDocked=.*/HandleLidSwitchDocked=ignore/' -e 's/^[# ]*HandleLidSwitchExternalPower=.*/HandleLidSwitchExternalPower=ignore/' "/etc/systemd/logind.conf"
 sudo grep -q '^HandleLidSwitch=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitch=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
 sudo grep -q '^HandleLidSwitchDocked=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchDocked=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
@@ -103,9 +104,8 @@ fi
 EOF
 sudo apt update
 sudo apt purge fcitx* texlive* yq -y
-sudo apt install apt-transport-https bash build-essential ca-certificates coreutils cmake curl dbus openjdk-21-jdk g++ gcc git gnupg grep gzip jq locales make maven ninja-build openssh-server perl perl-tk pipx python-is-python3 python3 vim-gtk3 wget xz-utils -y
-sudo apt install libeigen3-dev qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev -y
-sudo apt install apparmor-utils clinfo dnscrypt-proxy ocl-icd-opencl-dev pipewire pipewire-audio-client-libraries podman ufw uidmap unattended-upgrades wireplumber -y
+sudo apt install apt-transport-https bash build-essential ca-certificates coreutils cmake curl dbus openjdk-21-jdk g++ gcc git gnupg grep gzip jq locales make ninja-build openssh-server perl perl-tk pipx python-is-python3 python3 vim-gtk3 wget xz-utils -y
+sudo apt install apparmor-utils clinfo dnscrypt-proxy pipewire pipewire-audio-client-libraries podman ufw uidmap unattended-upgrades wireplumber -y
 rm -f .bashrc
 mkdir ~/.bashrc.d
 wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/00-env.sh -O ~/.bashrc.d/00-env.sh
@@ -369,13 +369,13 @@ Unattended-Upgrade::Skip-Updates-On-Metered-Connections "false";
 // as unattended-upgrade will not be waiting.
 // Unattended-Upgrade::Postpone-Wait-Time "300";
 ' | sudo tee /etc/apt/apt.conf.d/50unattended-upgrades >/dev/null
-PKG='alsa-utils apksigner apt-transport-https aptitude audacity automake bash bc bear bindfs bison bookletimposer build-essential bzip2 calcurse ca-certificates clang clangd clang-format cmake command-not-found curl cronie dbus dbus-x11 openjdk-21-jdk distro-info dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fontconfig fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gdb gh ghostscript git glab gnupg gnupg2 golang-go gopls gperf grep gzip hyperfine iftop imagemagick info inkscape iotop-c iproute2 jpegoptim jq lftp libeigen3-dev libheif-examples libreoffice lsb-release lsd lzip make maven mpv nano neovim netcat-openbsd nethogs ngspice ninja-build nmap ocrmypdf octave openssh-client openssh-server openssl optipng pandoc perl perl-tk pipx pkg-config poppler-utils procps procs pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv p7zip-full qpdf qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev rustup shellcheck shfmt socat sqlite3 sudo tar tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert tesseract-ocr-eng tesseract-ocr-jpn tesseract-ocr-jpn-vert tmux tree tree-sitter-cli tsocks unrar unzip uuid-runtime verilator vim-gtk3 webp wget wget2 w3m xdotool xmlstarlet xz-utils zip zsh zstd'
+PKG='alsa-utils apksigner apt-transport-https aptitude audacity automake bash bc bear bindfs bison bookletimposer build-essential bzip2 calcurse ca-certificates clang clangd clang-format cmake command-not-found curl cronie dbus dbus-x11 openjdk-21-jdk distro-info dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fontconfig fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gdb gh ghostscript git glab gnupg gnupg2 golang-go gopls gperf grep gzip hyperfine iftop imagemagick info inkscape iotop-c iproute2 jpegoptim jq lftp libheif-examples libreoffice lsb-release lsd lzip make maven mpv nano neovim netcat-openbsd nethogs ngspice ninja-build nmap ocrmypdf octave openssh-client openssh-server openssl optipng pandoc perl perl-tk pipx pkg-config poppler-utils procps procs pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv p7zip-full qpdf rustup shellcheck shfmt socat sqlite3 sudo tar tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert tesseract-ocr-eng tesseract-ocr-jpn tesseract-ocr-jpn-vert tmux tree tree-sitter-cli tsocks unrar unzip uuid-runtime verilator vim-gtk3 webp wget wget2 w3m xdotool xmlstarlet xz-utils zip zsh zstd'
 if [ "$TEST" -eq 0 ]; then
 sudo apt install $PKG -y
 else
 sudo apt install $PKG -y -s
 fi
-PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo distrobox dnscrypt-proxy fcitx5 fcitx5-configtool fcitx5-chinese-addons fcitx5-frontend-all filelight flatpak fwupd gnome-keyring gtkwave kate krita libvirt-daemon-system libvirt-clients ntfs-3g obs-studio ocl-icd-opencl-dev ovmf partitionmanager pipewire pipewire-audio-client-libraries podman qbittorrent qemu-system-gui qemu-system-x86 qemu-user-binfmt qemu-user qemu-utils qtspeech5-speechd-plugin quickemu remmina remmina-plugin-rdp remmina-plugin-secret snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap unattended-upgrades virt-manager virt-viewer wireplumber wl-clipboard xclip'
+PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo distrobox dnscrypt-proxy fcitx5 fcitx5-configtool fcitx5-chinese-addons fcitx5-frontend-all filelight flatpak fwupd gnome-keyring gtkwave kate krita libvirt-daemon-system libvirt-clients ntfs-3g obs-studio ovmf partitionmanager pipewire pipewire-audio-client-libraries podman qbittorrent qemu-system-gui qemu-system-x86 qemu-user-binfmt qemu-user qemu-utils qtspeech5-speechd-plugin quickemu remmina remmina-plugin-rdp remmina-plugin-secret snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap unattended-upgrades virt-manager virt-viewer wireplumber wl-clipboard xclip'
 if [ "$TEST" -eq 0 ]; then
 sudo apt install $PKG -y
 else
@@ -1609,7 +1609,9 @@ unzip rclone-linux-amd64.zip
 rm rclone-linux-amd64.zip*
 mv rclone ~/.local/bin/
 wget --tries=100 --retry-connrefused --waitretry=5 https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt -O ~/.eff_large_wordlist.txt
-git clone https://github.com/lightvector/KataGo.git
+sudo apt install libeigen3-dev libzip-dev zlib1g-dev -y
+sudo apt install clinfo ocl-icd-opencl-dev -y
+git clone --depth=1 https://github.com/lightvector/KataGo.git
 cd KataGo/cpp || exit
 if clinfo -l | grep -q 'Platform'; then
 cmake . -G Ninja -DUSE_BACKEND=OPENCL
@@ -1622,10 +1624,12 @@ mkdir katago-networks
 cd katago-networks || exit
 wget --tries=100 --retry-connrefused --waitretry=5 https://media.katagotraining.org/uploaded/networks/models/kata1/kata1-b6c96-s175395328-d26788732.txt.gz
 cd ~ || exit
-git clone https://github.com/yzyray/lizzieyzy.git
+sudo apt install maven -y
+git clone --depth=1 https://github.com/yzyray/lizzieyzy.git
 cd lizzieyzy || exit
-mvn clean package
+mvn clean packaged 
 cd ~ || exit
+rm -rf ~/.m2/repository
 cat > ~/.local/share/applications/lizzieyzy.desktop <<EOF
 [Desktop Entry]
 Type=Application
@@ -1638,10 +1642,11 @@ Categories=Game;
 StartupWMClass=featurecat-lizzie-Lizzie
 EOF
 update_lizzieyzy_config
-git clone https://github.com/fairy-stockfish/Fairy-Stockfish.git
+git clone --depth=1 https://github.com/fairy-stockfish/Fairy-Stockfish.git
 cd Fairy-Stockfish/src || exit
 make -j ARCH=x86-64 profile-build largeboards=yes nnue=yes
 cd ~ || exit
+sudo apt install qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev -y
 git clone https://github.com/cutechess/cutechess.git
 cd cutechess || exit
 mkdir build
@@ -1660,7 +1665,8 @@ Terminal=false
 Categories=Game;
 EOF
 update_cutechess_config
-git clone https://github.com/hotfics/Sylvan.git
+sudo apt install qt5-qmake qtbase5-dev qtbase5-dev-tools -y
+git clone --depth=1 https://github.com/hotfics/Sylvan.git
 cd Sylvan || exit
 qmake
 make

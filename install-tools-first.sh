@@ -1386,7 +1386,7 @@ gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' vento
 tar -xzf ventoy-*-linux.tar.gz
 rm ventoy-*-linux.tar.gz*
 mv ventoy-* ventoy
-sudo git clone --depth=1 https://github.com/Willie169/vimrc.git /opt/vim_runtime && sudo sh /opt/vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all || true
+git clone --depth=1 https://github.com/Willie169/vimrc.git ~/.vim_runtime && sh ~/.vim_runtime/install_awesome_vimrc.sh
 mkdir -p ~/.config/nvim/lua/config
 mkdir -p ~/.config/nvim/lua/plugins
 cat > ~/.config/nvim/init.lua <<'EOF'

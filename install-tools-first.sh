@@ -76,7 +76,7 @@ sudo add-apt-repository universe -y
 sudo add-apt-repository multiverse -y
 sudo add-apt-repository restricted -y
 sudo add-apt-repository ppa:bkryza/clang-uml -y
-sudo mv /etc/apt/sources.list.d/bkryza-ubuntu-clang-uml-*.sources /etc/apt/sources.list.d/bkryza-ubuntu-clang-uml-noble.sources
+sudo mv /etc/apt/sources.list.d/bkryza-ubuntu-clang-uml-*.sources /etc/apt/sources.list.d/bkryza-ubuntu-clang-uml-noble.sources || true
 sudo sed -i 's/^Suites: .*$/Suites: noble/' /etc/apt/sources.list.d/bkryza-ubuntu-clang-uml-noble.sources
 sudo add-apt-repository ppa:flexiondotorg/quickemu -y
 sudo add-apt-repository ppa:git-core/ppa -y
@@ -84,10 +84,10 @@ sudo add-apt-repository ppa:libreoffice/ppa -y
 sudo add-apt-repository ppa:longsleep/golang-backports -y
 sudo add-apt-repository ppa:obsproject/obs-studio -y
 sudo apt-add-repository ppa:remmina-ppa-team/remmina-next -y
-sudo mv /etc/apt/sources.list.d/remmina-ppa-team-ubuntu-remmina-next-*.sources /etc/apt/sources.list.d/remmina-ppa-team-ubuntu-remmina-next-noble.sources
+sudo mv /etc/apt/sources.list.d/remmina-ppa-team-ubuntu-remmina-next-*.sources /etc/apt/sources.list.d/remmina-ppa-team-ubuntu-remmina-next-noble.sources || true
 sudo sed -i 's/^Suites: .*$/Suites: noble/' /etc/apt/sources.list.d/remmina-ppa-team-ubuntu-remmina-next-noble.sources
 sudo add-apt-repository ppa:stefanberger/swtpm-noble -y
-sudo mv /etc/apt/sources.list.d/stefanberger-ubuntu-swtpm-noble-*.sources /etc/apt/sources.list.d/stefanberger-ubuntu-swtpm-noble-noble.sources
+sudo mv /etc/apt/sources.list.d/stefanberger-ubuntu-swtpm-noble-*.sources /etc/apt/sources.list.d/stefanberger-ubuntu-swtpm-noble-noble.sources || true
 sudo sed -i 's/^Suites: .*$/Suites: noble/' /etc/apt/sources.list.d/stefanberger-ubuntu-swtpm-noble-noble.sources
 echo 'Package: *
 Pin: release o=LP-PPA-stefanberger-swtpm-noble

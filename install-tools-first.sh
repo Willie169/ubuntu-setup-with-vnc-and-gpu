@@ -1295,13 +1295,13 @@ sudo mv /tmp/onlyoffice.gpg /usr/share/keyrings/onlyoffice.gpg
 echo 'deb [signed-by=/usr/share/keyrings/onlyoffice.gpg] https://download.onlyoffice.com/repo/debian squeeze main' | sudo tee /etc/apt/sources.list.d/onlyoffice.list >/dev/null
 sudo apt update
 sudo apt install onlyoffice-desktopeditors -y
-gh_latest rustdesk/rustdesk rustdesk-*-x86_64.deb
+gh_latest rustdesk/rustdesk 'rustdesk-*-x86_64.deb'
 sudo apt install ./rustdesk-*-x86_64.deb -y
 rm rustdesk-*-x86_64.deb*
-gh_latest rustdesk/rustdesk-server rustdesk-server-hbbs_*_amd64.deb
+gh_latest rustdesk/rustdesk-server 'rustdesk-server-hbbs_*_amd64.deb'
 sudo apt install ./rustdesk-server-hbbs_*_amd64.deb -y
 rm rustdesk-server-hbbs_*_amd64.deb*
-gh_latest rustdesk/rustdesk-server rustdesk-server-hbbr_*_amd64.deb
+gh_latest rustdesk/rustdesk-server 'rustdesk-server-hbbr_*_amd64.deb'
 sudo apt install ./rustdesk-server-hbbr_*_amd64.deb -y
 rm rustdesk-server-hbbr_*_amd64.deb*
 sudo systemctl enable --now rustdesk-hbbs.service
@@ -1319,7 +1319,7 @@ sudo apt install lazygit -y
 wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool
 chmod +x apktool
 sudo mv apktool /usr/local/bin/
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' iBotPeaches/Apktool apktool_*.jar
+gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' iBotPeaches/Apktool 'apktool_*.jar'
 chmod +x apktool_*.jar
 sudo mv apktool_*.jar /usr/local/bin/
 mkdir jadx
@@ -1382,7 +1382,7 @@ git config --global merge.conflictStyle zdiff3
 else
 echo y | brew install $BREW --dry-run
 fi
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' ventoy/ventoy ventoy-*-linux.tar.gz
+gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' ventoy/ventoy 'ventoy-*-linux.tar.gz'
 tar -xzf ventoy-*-linux.tar.gz
 rm ventoy-*-linux.tar.gz*
 mv ventoy-* ventoy
@@ -1627,7 +1627,7 @@ cd ~ || exit
 sudo apt install maven -y
 git clone --depth=1 https://github.com/yzyray/lizzieyzy.git
 cd lizzieyzy || exit
-mvn clean packaged 
+mvn clean packaged
 cd ~ || exit
 rm -rf ~/.m2/repository
 cat > ~/.local/share/applications/lizzieyzy.desktop <<EOF

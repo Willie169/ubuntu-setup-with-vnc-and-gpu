@@ -92,7 +92,7 @@ sudo mv /etc/apt/sources.list.d/stefanberger-ubuntu-swtpm-noble-*.sources /etc/a
 sudo sed -i 's/^Suites: .*$/Suites: noble/' /etc/apt/sources.list.d/stefanberger-ubuntu-swtpm-noble-noble.sources
 echo 'Package: *
 Pin: release o=LP-PPA-stefanberger-swtpm-noble
-Pin-Priority: 990' | sudo tee /etc/apt/preferences.d/swtpm >/dev/null
+Pin-Priority: 1001' | sudo tee /etc/apt/preferences.d/swtpm >/dev/null
 sudo add-apt-repository ppa:zhangsongcui3371/fastfetch -y
 bash <<'EOF'
 set -e
@@ -143,7 +143,7 @@ if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
 sudo add-apt-repository ppa:mozillateam/ppa -y
 echo 'Package: firefox*
 Pin: release o=LP-PPA-mozillateam
-Pin-Priority: 990
+Pin-Priority: 1001
 
 Package: firefox*
 Pin: release o=Ubuntu
@@ -177,7 +177,7 @@ sudo rm /var/lib/snapd/inhibit/firefox.lock 2>/dev/null || true
 rm -r snap/firefox 2>/dev/null || true
 echo 'Package: thunderbird*
 Pin: release o=LP-PPA-mozillateam
-Pin-Priority: 990
+Pin-Priority: 1001
 
 Package: thunderbird*
 Pin: release o=Ubuntu
@@ -193,7 +193,7 @@ sudo rm /var/lib/snapd/desktop/applications/thunderbird*.desktop 2>/dev/null || 
 sudo add-apt-repository ppa:xtradeb/apps -y
 echo 'Package: chromium*
 Pin: release o=LP-PPA-xtradeb-apps
-Pin-Priority: 990
+Pin-Priority: 1001
 
 Package: chromium*
 Pin: release o=Ubuntu

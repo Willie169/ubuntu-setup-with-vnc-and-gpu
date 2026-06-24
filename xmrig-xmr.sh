@@ -1,4 +1,5 @@
-sudo -v
+#!/bin/bash
+
 cd ~/xmrig/build
 if ! ss -ltnp 2>/dev/null | grep -q ':9054.*tor'; then
 rm -r .tor 2>/dev/null || true

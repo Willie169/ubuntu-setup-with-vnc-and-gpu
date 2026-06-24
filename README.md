@@ -477,7 +477,7 @@ sudo systemctl start lightdm
 
 #### TigerVNC
 
-You may want to use TigerVNC instead if your computer does not have a GPU. It can be installed via:
+You may want to use TigerVNC instead if your computer does not have a GPU or don't want to use GPU acceleration. It can be installed via:
 ```
 sudo apt install tigervnc-standalone-server -y
 ```
@@ -492,7 +492,9 @@ Its usage is the same as TurboVNC, refer to [VNC Server Usage](#vnc-server-usage
 
 #### Android as SSH and VNC/X Client
 
-[**AVNC**](https://f-droid.org/packages/com.gaurav.avnc) from F-Droid is suggested if you do not have a client of your choice. See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) repo for more information.
+If you do not have a VNC client of your choice, I suggest either of the following apps:
+- [Haven](https://github.com/GlassHaven/Haven) from [F-Droid](https://f-droid.org/packages/sh.haven.app): an open-source SSH, VNC, RDP, and SFTP client for Android with a native Wayland desktop and cloud storage.
+- [AVNC](https://github.com/gujjwal00/avnc) from [F-Droid](https://f-droid.org/packages/com.gaurav.avnc): an open source VNC client for Android.
 
 ### Waydroid
 

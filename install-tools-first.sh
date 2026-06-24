@@ -375,7 +375,7 @@ sudo apt install $PKG -y
 else
 sudo apt install $PKG -y -s
 fi
-PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo distrobox dnscrypt-proxy fcitx5 fcitx5-* filelight flatpak fwupd gnome-keyring gtkwave kate krita libvirt-daemon-system libvirt-clients ntfs-3g obs-studio ocl-icd-opencl-dev ovmf partitionmanager pipewire pipewire-audio-client-libraries podman qbittorrent qemu-system-gui qemu-system-x86 qemu-user-binfmt qemu-user qemu-utils qtspeech5-speechd-plugin quickemu remmina remmina-plugin-rdp remmina-plugin-secret snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap unattended-upgrades virt-manager virt-viewer wireplumber wl-clipboard xclip'
+PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo distrobox dnscrypt-proxy fcitx5 fcitx5-configtool fcitx5-chinese-addons fcitx5-frontend-all filelight flatpak fwupd gnome-keyring gtkwave kate krita libvirt-daemon-system libvirt-clients ntfs-3g obs-studio ocl-icd-opencl-dev ovmf partitionmanager pipewire pipewire-audio-client-libraries podman qbittorrent qemu-system-gui qemu-system-x86 qemu-user-binfmt qemu-user qemu-utils qtspeech5-speechd-plugin quickemu remmina remmina-plugin-rdp remmina-plugin-secret snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap unattended-upgrades virt-manager virt-viewer wireplumber wl-clipboard xclip'
 if [ "$TEST" -eq 0 ]; then
 sudo apt install $PKG -y
 else

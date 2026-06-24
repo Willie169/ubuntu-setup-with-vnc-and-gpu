@@ -208,6 +208,7 @@ sudo touch /etc/apt/apt.conf.d/20apt-esm-hook.conf
 sudo touch /var/lib/update-notifier/hide-esm-in-motd
 sudo rm /etc/update-motd.d/88-esm-announce || true
 sudo rm /etc/update-motd.d/91-contract-ua-esm-status || true
+# shellcheck disable=2016
 echo '// Automatically upgrade packages from these (origin:archive) pairs
 //
 // Note that in Ubuntu security updates may pull in new dependencies
@@ -368,14 +369,18 @@ Unattended-Upgrade::Skip-Updates-On-Metered-Connections "false";
 ' | sudo tee /etc/apt/apt.conf.d/50unattended-upgrades >/dev/null
 PKG='alsa-utils apksigner apt-transport-https aptitude audacity automake bash bc bear bindfs bison bookletimposer build-essential bzip2 ca-certificates calcurse clang clang-format clangd cmake command-not-found cronie curl dbus dbus-x11 debconf-utils distro-info dnsutils dvisvgm fastfetch ffmpeg file flex fontconfig fonts-cns11643-kai fonts-cns11643-sung fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gdb gh ghostscript git glab gnupg gnupg2 golang-go gopls gperf grep gzip hyperfine iftop imagemagick info inkscape iotop-c iproute2 jpegoptim jq lftp libheif-examples libreoffice lsb-release lsd lzip make maven mpv nano neovim netcat-openbsd nethogs ngspice ninja-build nmap ocrmypdf octave openjdk-21-jdk openssh-client openssh-server openssl optipng p7zip-full pandoc perl perl-tk pipx pkg-config poppler-utils procps procs pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-neovim python3-pip python3-requests python3-venv qpdf qt6-5compat-dev qt6-base-dev qt6-base-dev-tools qt6-svg-dev rustup shellcheck shfmt socat sqlite3 sudo tar tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert tesseract-ocr-eng tesseract-ocr-jpn tesseract-ocr-jpn-vert tmux tree tree-sitter-cli tsocks unrar unzip uuid-runtime verilator vim-gtk3 w3m webp wget wget2 xdotool xmlstarlet xz-utils zip zsh zstd'
 if [ "$TEST" -eq 0 ]; then
+# shellcheck disable=2086
 sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y
 else
+# shellcheck disable=2086
 sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s
 fi
 PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo distrobox dnscrypt-proxy fcitx5 fcitx5-configtool fcitx5-chinese-addons fcitx5-frontend-all filelight flatpak fwupd gnome-keyring gtkwave kate krita libvirt-daemon-system libvirt-clients ntfs-3g obs-studio ovmf partitionmanager pipewire pipewire-audio-client-libraries podman qbittorrent qemu-system-gui qemu-system-x86 qemu-user-binfmt qemu-user qemu-utils qtspeech5-speechd-plugin quickemu remmina remmina-plugin-rdp remmina-plugin-secret snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap unattended-upgrades virt-manager virt-viewer wireplumber wl-clipboard xclip'
 if [ "$TEST" -eq 0 ]; then
+# shellcheck disable=2086
 sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y
 else
+# shellcheck disable=2086
 sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s
 fi
 sudo snap set system refresh.retain=2
@@ -1370,12 +1375,14 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
 brew trust gurgeous/tap || true
 BREW='bat bottom broot dust fd fzf git-delta gurgeous/tap/tennis procs resvg ripgrep sevenzip yazi yq zoxide'
 if [ "$TEST" -eq 0 ]; then
+# shellcheck disable=2086
 echo y | brew install $BREW
 git config --global core.pager delta
 git config --global interactive.diffFilter 'delta --color-only'
 git config --global delta.navigate true
 git config --global merge.conflictStyle zdiff3
 else
+# shellcheck disable=2086
 echo y | brew install $BREW --dry-run
 fi
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' ventoy/ventoy 'ventoy-*-linux.tar.gz'
@@ -1515,6 +1522,7 @@ EOF
 systemctl --user daemon-reload
 systemctl --user enable --now stirlingpdf.service
 wget --tries=100 --retry-connrefused --waitretry=5 -O studio.html https://developer.android.com/studio
+# shellcheck disable=2155
 export CMDLINETOOLS="$(awk '/<table class="download">/ { count++ }
 count >= 2 {
   if (match($0, /commandlinetools-linux-.*zip/)) {

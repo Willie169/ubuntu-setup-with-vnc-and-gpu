@@ -1,5 +1,4 @@
 #!/bin/bash
-cd ~
 sudo apt update
 sudo apt install curl ca-certificates wget liblxc1 liblxc-common lxc -y
 curl -s https://repo.waydro.id | sudo bash

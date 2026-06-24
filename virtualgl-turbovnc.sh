@@ -1,6 +1,5 @@
 #!/bin/bash
-
-cd ~
+cd ~ || exit
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install debconf-utils mesa-utils wget xfce4 xfce4-goodies -y
 wget -q -O- https://packagecloud.io/dcommander/virtualgl/gpgkey | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/VirtualGL.gpg
@@ -12,7 +11,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt install virtualgl turbovnc -y
 sudo vglserver_config +s +f +glx
 sudo groupadd vglusers
 sudo usermod -aG vglusers root
-sudo usermod -aG vglusers $USER
+sudo usermod -aG vglusers "$USER"
 sudo mkdir -p /etc/opt/VirtualGL
 sudo chgrp vglusers /etc/opt/VirtualGL
 sudo chmod 750 /etc/opt/VirtualGL

@@ -354,7 +354,7 @@ Unattended-Upgrade::Skip-Updates-On-Metered-Connections "false";
 // as unattended-upgrade will not be waiting.
 // Unattended-Upgrade::Postpone-Wait-Time "300";
 ' | sudo tee /etc/apt/apt.conf.d/50unattended-upgrades >/dev/null
-PKG='alsa-utils apksigner apt-transport-https aptitude audacity automake bash bc bear bindfs bison bookletimposer build-essential bzip2 calcurse ca-certificates clang clangd clang-format cmake command-not-found curl cronie dbus dbus-x11 openjdk-21-jdk distro-info dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fontconfig fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gdb gh ghostscript git glab gnupg gnupg2 golang-go gopls gperf grep gzip hyperfine info imagemagick inkscape iotop-c iproute2 jpegoptim jq lftp libeigen3-dev libheif-examples libreoffice lsb-release lsd lzip make maven mpv nano neovim netcat-openbsd ngspice ninja-build nmap ocrmypdf octave openssh-client openssh-server openssl optipng pandoc perl perl-tk pipx pkg-config poppler-utils procps procs pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv p7zip-full qpdf qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev rustup shellcheck shfmt socat sqlite3 sudo tar tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert tesseract-ocr-eng tesseract-ocr-jpn tesseract-ocr-jpn-vert tmux tree tree-sitter-cli tsocks unrar unzip uuid-runtime verilator vim vim-gtk3 webp wget wget2 w3m xdotool xmlstarlet xz-utils zip zsh zstd'
+PKG='alsa-utils apksigner apt-transport-https aptitude audacity automake bash bc bear bindfs bison bookletimposer build-essential bzip2 calcurse ca-certificates clang clangd clang-format cmake command-not-found curl cronie dbus dbus-x11 openjdk-21-jdk distro-info dnsutils dvisvgm fastfetch ffmpeg file flex fonts-cns11643-kai fonts-cns11643-sung fontconfig fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gdb gh ghostscript git glab gnupg gnupg2 golang-go gopls gperf grep gzip hyperfine iftop imagemagick info inkscape iotop-c iproute2 jpegoptim jq lftp libeigen3-dev libheif-examples libreoffice lsb-release lsd lzip make maven mpv nano neovim netcat-openbsd nethogs ngspice ninja-build nmap ocrmypdf octave openssh-client openssh-server openssl optipng pandoc perl perl-tk pipx pkg-config poppler-utils procps procs pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-neovim python3-requests python3-pip python3-venv p7zip-full qpdf qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev rustup shellcheck shfmt socat sqlite3 sudo tar tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert tesseract-ocr-eng tesseract-ocr-jpn tesseract-ocr-jpn-vert tmux tree tree-sitter-cli tsocks unrar unzip uuid-runtime verilator vim vim-gtk3 webp wget wget2 w3m xdotool xmlstarlet xz-utils zip zsh zstd'
 if [ "$TEST" -eq 0 ]; then
 sudo apt install $PKG -y
 else
@@ -1284,12 +1284,18 @@ sudo apt install onlyoffice-desktopeditors -y
 gh_latest rustdesk/rustdesk rustdesk-*-x86_64.deb
 sudo apt install ./rustdesk-*-x86_64.deb -y
 rm rustdesk-*-x86_64.deb*
+gh_latest rustdesk/rustdesk-server rustdesk-server-hbbs_*_amd64.deb
+sudo apt install ./rustdesk-server-hbbs_*_amd64.deb -y
+rm rustdesk-server-hbbs_*_amd64.deb*
 gh_latest rustdesk/rustdesk-server rustdesk-server-hbbr_*_amd64.deb
 sudo apt install ./rustdesk-server-hbbr_*_amd64.deb -y
 rm rustdesk-server-hbbr_*_amd64.deb*
+sudo systemctl enable --now rustdesk-hbbs.service
+sudo systemctl enable --now rustdesk-hbbr.service
+sudo systemctl enable --now rustdesk.service
 sudo ufw allow 21118/udp
 sudo ufw allow 21118/tcp
-sudo ufw allow 21115:21119/tcp
+sudo ufw allow 21114:21119/tcp
 sudo ufw allow 21116/udp
 sudo ufw reload
 curl -sS https://debian.griffo.io/EA0F721D231FDD3A0A17B9AC7808B4DD62C41256.asc | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/debian.griffo.io.gpg

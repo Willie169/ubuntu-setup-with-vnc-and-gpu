@@ -1265,7 +1265,7 @@ export XMODIFIERS=@im=fcitx
 export INPUT_METHOD=fcitx
 export SDL_IM_MODULE=fcitx
 EOF
-if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "${DESKTOP_SESSION#*plasma}" != "$DESKTOP_SESSION" ] || [ "$KDE_FULL_SESSION" = "true" ]; then
+if [ "${XDG_CURRENT_DESKTOP:-}" = "KDE" ] || [[ "${DESKTOP_SESSION:-}" == *plasma*  ]] || [ "${KDE_FULL_SESSION:-}" = "true" ]; then
   sudo DEBIAN_FRONTEND=noninteractive apt install plasma-discover-backend-flatpak -y
 else
   mkdir -p ~/.config/autostart

@@ -103,7 +103,7 @@ EOF
 sudo apt update
 sudo apt purge fcitx* texlive* yq -y
 sudo DEBIAN_FRONTEND=noninteractive apt install apt-transport-https bash build-essential ca-certificates coreutils cmake curl dbus openjdk-21-jdk g++ gcc git gnupg grep gzip jq locales make ninja-build openssh-server perl perl-tk pipx python-is-python3 python3 vim-gtk3 wget xz-utils -y
-sudo DEBIAN_FRONTEND=noninteractive apt install apparmor-utils clinfo dnscrypt-proxy pipewire pipewire-audio-client-libraries podman ufw uidmap unattended-upgrades wireplumber -y
+sudo DEBIAN_FRONTEND=noninteractive apt install apparmor-utils clinfo dnscrypt-proxy fcitx5 fcitx5-configtool fcitx5-chinese-addons fcitx5-frontend-all pipewire pipewire-audio-client-libraries podman ufw uidmap unattended-upgrades wireplumber -y
 rm -f .bashrc
 mkdir ~/.bashrc.d
 wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/00-env.sh -O ~/.bashrc.d/00-env.sh
@@ -1270,7 +1270,7 @@ if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "${DESKTOP_SESSION#*plasma}" != "$DES
 else
   mkdir -p ~/.config/autostart
   cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
-  [ "$TEST" -eq 0 ] && fcitx5 &
+  fcitx5 &
 fi
 mkdir ~/.JetBrainsMono
 cd ~/.JetBrainsMono || exit

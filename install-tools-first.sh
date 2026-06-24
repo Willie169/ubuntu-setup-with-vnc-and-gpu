@@ -104,7 +104,7 @@ EOF
 sudo apt update
 sudo apt purge fcitx* texlive* yq -y
 sudo apt install apt-transport-https bash build-essential ca-certificates coreutils cmake curl dbus openjdk-21-jdk g++ gcc git gnupg grep gzip jq locales make maven ninja-build openssh-server perl perl-tk pipx python-is-python3 python3 wget xz-utils -y
-sudo apt install libeigen3-dev qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev wget -y
+sudo apt install libeigen3-dev qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev -y
 sudo apt install apparmor-utils clinfo dnscrypt-proxy ocl-icd-opencl-dev pipewire pipewire-audio-client-libraries podman ufw uidmap unattended-upgrades wireplumber -y
 rm -f .bashrc
 mkdir ~/.bashrc.d

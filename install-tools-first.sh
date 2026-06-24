@@ -1281,7 +1281,7 @@ cd ~ || exit
 rm -rf .JetBrainsMono
 [ "$TEST" -eq 0 ] && sudo fc-cache -fv
 sudo systemctl enable --now ssh
-sudo ufw enable --force
+sudo ufw --force enable
 sudo ufw allow ssh
 sudo ufw reload
 rustup update stable

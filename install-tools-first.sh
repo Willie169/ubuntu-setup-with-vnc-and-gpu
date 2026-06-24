@@ -6,7 +6,7 @@ shopt -s expand_aliases
 cd ~ || exit
 sudo -v
 while true; do sudo -v; sleep 30; done & SUDOPID=$!
-export DEBIAN_FRONTEND=noninteractive
+sudo dpkg-reconfigure debconf --frontend=noninteractive
 sudo sed -i -e 's/^[# ]*HandleLidSwitch=.*/HandleLidSwitch=ignore/' -e 's/^[# ]*HandleLidSwitchDocked=.*/HandleLidSwitchDocked=ignore/' -e 's/^[# ]*HandleLidSwitchExternalPower=.*/HandleLidSwitchExternalPower=ignore/' "/etc/systemd/logind.conf"
 sudo grep -q '^HandleLidSwitch=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitch=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
 sudo grep -q '^HandleLidSwitchDocked=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchDocked=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
@@ -1812,6 +1812,7 @@ sudo apt install -f -y
 sudo apt upgrade -y
 sudo apt autoremove --purge -y
 sudo apt clean
+sudo dpkg-reconfigure debconf --frontend=dialog
 [ "$TEST" -eq 0 ] && sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 kill "$SUDOPID"
 [ "$TEST" -eq 0 ] && sudo reboot

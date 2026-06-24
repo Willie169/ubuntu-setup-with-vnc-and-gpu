@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd ~
-export DEBIAN_FRONTEND=noninteractive
+sudo dpkg-reconfigure debconf --frontend=noninteractive
 sudo apt update
 sudo apt install debconf-utils mesa-utils wget xfce4 xfce4-goodies -y
 wget -q -O- https://packagecloud.io/dcommander/virtualgl/gpgkey | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/VirtualGL.gpg
@@ -17,3 +17,4 @@ sudo usermod -aG vglusers $USER
 sudo mkdir -p /etc/opt/VirtualGL
 sudo chgrp vglusers /etc/opt/VirtualGL
 sudo chmod 750 /etc/opt/VirtualGL
+sudo dpkg-reconfigure debconf --frontend=dialog

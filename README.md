@@ -207,7 +207,7 @@ Installs [Steam](https://store.steampowered.com).
 
 ### [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh)
 
-Installs VirtualGL and TurboVNC on Debian derivatives on AMD 64, compatible with most GPU. Requires about 0.1 GB storage. See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for the necessary steps to do after running this script and more information.
+Installs VirtualGL, TurboVNC, and XFCE desktop environment on Debian derivatives on AMD 64, compatible with most GPU. See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for the necessary steps to do after running this script and more information.
 
 You may want to use TigerVNC instead if your computer does not have a GPU. See [VirtualGL and TurboVNC](#virtualgl-and-turbovnc) section for more information.
 
@@ -400,7 +400,7 @@ See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) rep
 #### Prerequisites
 
 <ol>
-<li>Run <a href="virtualgl-turbovnc.sh"><code>virtualgl-turbovnc.sh</code></a> first if you have not. This requires about 0.1 GB storage.</li>
+<li>Run <a href="virtualgl-turbovnc.sh"><code>virtualgl-turbovnc.sh</code></a>.</li>
 <li>Add <code>export PATH="/opt/TurboVNC/bin:$PATH</code> in <code>~/.bashrc</code>. This has been done in <a href="install-tools-first.sh"><code>install-tools-first.sh</code></a>.</li>
 <li>Determine your Desktop Manager and GPU and follow the corresponding section below:
 <ul>

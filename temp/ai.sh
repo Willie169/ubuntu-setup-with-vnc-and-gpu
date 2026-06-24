@@ -58,7 +58,7 @@ cd ~ || exit
 
 mkdir -p ~/dev/llm
 cd ~/dev/llm || exit
-git clone https://github.com/KhronosGroup/OpenCL-Headers && cd OpenCL-Headers || exit
+git clone --depth=1 https://github.com/KhronosGroup/OpenCL-Headers && cd OpenCL-Headers || exit
 mkdir build && cd build || exit
 cmake .. -G Ninja \
   -DBUILD_TESTING=OFF \
@@ -67,7 +67,7 @@ cmake .. -G Ninja \
   -DCMAKE_INSTALL_PREFIX="$HOME/dev/llm/opencl"
 cmake --build . --target install
 cd ~/dev/llm || exit
-git clone https://github.com/KhronosGroup/OpenCL-ICD-Loader && cd OpenCL-ICD-Loader || exit
+git clone --depth=1 https://github.com/KhronosGroup/OpenCL-ICD-Loader && cd OpenCL-ICD-Loader || exit
 mkdir build && cd build || exit
 cmake .. -G Ninja \
   -DCMAKE_BUILD_TYPE=Release \
@@ -75,7 +75,7 @@ cmake .. -G Ninja \
   -DCMAKE_INSTALL_PREFIX="$HOME/dev/llm/opencl"
 cmake --build . --target install
 cd ~/dev/llm || exit
-git clone https://github.com/ggml-org/llama.cpp && cd llama.cpp || exit
+git clone --depth=1 https://github.com/ggml-org/llama.cpp && cd llama.cpp || exit
 mkdir build && cd build || exit
 cmake .. -G Ninja \
   -DCMAKE_BUILD_TYPE=Release \

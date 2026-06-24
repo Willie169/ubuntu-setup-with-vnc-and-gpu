@@ -1597,7 +1597,7 @@ WantedBy=default.target
 EOF
 systemctl --user daemon-reload
 systemctl --user enable clipcascade-client.service
-git clone https://codeberg.org/c4ffe14e/phice.git
+git clone --depth=1 https://codeberg.org/c4ffe14e/phice.git
 cd phice || exit
 uv sync
 cp config.example.toml config.toml
@@ -1647,7 +1647,7 @@ cd Fairy-Stockfish/src || exit
 make -j ARCH=x86-64 profile-build largeboards=yes nnue=yes
 cd ~ || exit
 sudo apt install qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev -y
-git clone https://github.com/cutechess/cutechess.git
+git clone --depth=1 https://github.com/cutechess/cutechess.git
 cd cutechess || exit
 mkdir build
 cd build || exit

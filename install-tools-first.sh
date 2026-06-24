@@ -1630,7 +1630,7 @@ cd ~ || exit
 sudo DEBIAN_FRONTEND=noninteractive apt install maven -y
 git clone --depth=1 https://github.com/yzyray/lizzieyzy.git
 cd lizzieyzy || exit
-mvn clean packaged
+mvn clean package
 cd ~ || exit
 rm -rf ~/.m2/repository
 cat > ~/.local/share/applications/lizzieyzy.desktop <<EOF

@@ -33,6 +33,7 @@ To install and enable SSH server on your computer, run:
 ```
 sudo apt update
 sudo apt install openssh-server -y
+sudo systemctl enable --now ssh
 ```
 If UFW is enabled, allow SSH:
 ```

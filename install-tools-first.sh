@@ -1512,6 +1512,7 @@ unzip "$CMDLINETOOLS"
 mkdir -p ~/Android/Sdk/cmdline-tools/latest
 mv cmdline-tools/* ~/Android/Sdk/cmdline-tools/latest
 rm -r cmdline-tools
+rm "$CMDLINETOOLS"*
 cd ~/Android/Sdk/cmdline-tools/latest/bin || exit
 echo y | ./sdkmanager "platform-tools"
 cd ~ || exit

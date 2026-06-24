@@ -1343,7 +1343,7 @@ echo y | yarn --help
 npm i -g --allow-scripts=opencode-ai bash-language-server dockerfile-language-server-nodejs http-server opencode-ai pyright @linthtml/linthtml @openai/codex
 pipx install cmake-language-server gh2md img2pdf jupyterlab jupytext libretranslate meson notebook pylatexenc tldr uv xmljson yamllint
 pipx install fdroidserver gallery-dl yt-dlp
-pipx runpip yt-dlp install yt-dlp-ejs
+sudo pipx runpip yt-dlp install yt-dlp-ejs
 cat > ~/.config/systemd/user/libretranslate.service <<EOF
 [Unit]
 Description=LibreTranslate

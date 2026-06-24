@@ -1606,8 +1606,6 @@ cd phice || exit
 uv sync
 cp config.example.toml config.toml
 cd ~ || exit
-sudo gpg --keyserver hkps://keys.openpgp.org --no-default-keyring --no-permission-warning --homedir "$(mktemp -d)" --keyring gnupg-ring:/etc/apt/keyrings/fpf-apt-tools-archive-keyring.gpg --recv-keys DE28AB241FA48260FAC9B8BAA7C9B38522604281
-sudo chmod +r /etc/apt/keyrings/fpf-apt-tools-archive-keyring.gpg
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' gulp79/rclone-extra rclone-linux-amd64.zip
 unzip rclone-linux-amd64.zip
 rm rclone-linux-amd64.zip*

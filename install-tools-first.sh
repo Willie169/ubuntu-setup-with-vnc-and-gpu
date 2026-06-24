@@ -1280,7 +1280,6 @@ mv JetBrainsMonoNerdFontMono-Regular.ttf ~/.local/share/fonts/
 cd ~ || exit
 rm -rf .JetBrainsMono
 [ "$TEST" -eq 0 ] && sudo fc-cache -fv
-sudo systemctl enable sshd
 yes | sudo ufw enable
 sudo ufw allow ssh
 sudo ufw reload

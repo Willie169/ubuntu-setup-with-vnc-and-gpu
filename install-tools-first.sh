@@ -2,7 +2,8 @@
 [ "$1" = '--test' ] && TEST=1 || TEST=0
 shopt -s expand_aliases
 [ "$TEST" -eq 1 ] && set -euxo pipefail
-df
+# shellcheck disable=2155
+PREDF=$(df --output=used / | tail -n1 || true)
 cd ~ || exit
 sudo -v
 while true; do sudo -v; sleep 30; done & SUDOPID=$!
@@ -1821,5 +1822,8 @@ sudo apt autoremove --purge -y
 sudo apt clean
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 kill "$SUDOPID"
-df
+# shellcheck disable=2155
+POSTDF=$(df --output=used / | tail -n1 || true)
+echo "$PREDF"
+echo "$POSTDF"
 [ "$TEST" -eq 0 ] && sudo reboot || true

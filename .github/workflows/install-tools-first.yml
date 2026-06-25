@@ -11,5 +11,4 @@ jobs:
         uses: actions/checkout@v4
       - name: Run install-tools-first.sh
         timeout-minutes: 360
-        run: |
-          ./install-tools-first.sh --test
+        run: ./install-tools-first.sh --test

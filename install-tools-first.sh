@@ -1618,6 +1618,11 @@ gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' gulp7
 unzip rclone-linux-amd64.zip
 rm rclone-linux-amd64.zip*
 mv rclone ~/.local/bin/
+gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Genymobile/scrcpy 'scrcpy-linux-x86_64-*.tar.gz'
+tar -xzf scrcpy-linux-x86_64-*.tar.gz
+mv scrcpy-linux-x86_64-*/adb ~/.local/bin/
+mv scrcpy-linux-x86_64-*/scrcpy ~/.local/bin/
+rm -r scrcpy-linux-x86_64-*
 wget --tries=100 --retry-connrefused --waitretry=5 https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt -O ~/.eff_large_wordlist.txt
 sudo DEBIAN_FRONTEND=noninteractive apt install libeigen3-dev libzip-dev zlib1g-dev -y
 sudo DEBIAN_FRONTEND=noninteractive apt install clinfo ocl-icd-opencl-dev -y

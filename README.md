@@ -9,7 +9,7 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 * Sufficient storage: (calculated on Kubuntu 26.04)
   * Kubuntu 26.04 Normal Installation: approximately 8.86 GB.
   * [`install-tools-first.sh`](install-tools-first.sh): approximately 38.08 GB.
-  * [`install-tools-second.sh`](install-tools-second.sh): approximately  GB.
+  * [`install-tools-second.sh`](install-tools-second.sh): approximately 12.89 GB.
 * Sufficient power supply.
 * Stable internet connection.
 * In power management settings, disable suspension when inactive.

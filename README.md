@@ -12,6 +12,7 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
   * [`install-tools-second.sh`](install-tools-second.sh): approximately  GB.
 * Sufficient power supply.
 * Stable internet connection.
+* In power management settings, disable suspension when inactive.
 * Ubuntu >= 24.04 or their derivative. Some features only work on Ubuntu, Kubuntu, and Linux Mint.
 
 ### USB Flashing and Dual Boot

@@ -1530,7 +1530,13 @@ systemctl --user daemon-reload
 systemctl --user enable --now stirlingpdf.service
 wget --tries=100 --retry-connrefused --waitretry=5 -O studio.html https://developer.android.com/studio
 # shellcheck disable=2155
-export CMDLINETOOLS="$(cat studio.html | grep commandlinetools-linux | head -n1 | sed 's/[ \t ]*>//; s/\.zip.*/.zip/')"
+export CMDLINETOOLS="$(awk '/<table class="download">/ { count++ }
+count >= 2 {
+  if (match($0, /commandlinetools-linux-.*zip/)) {
+    print substr($0, RSTART, RLENGTH)
+    exit
+  }
+}' studio.html)"
 rm studio.html*
 wget --tries=100 --retry-connrefused --waitretry=5 "https://dl.google.com/android/repository/${CMDLINETOOLS}"
 unzip "$CMDLINETOOLS"

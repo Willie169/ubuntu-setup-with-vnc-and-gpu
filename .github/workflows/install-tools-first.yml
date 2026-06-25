@@ -5,14 +5,6 @@ jobs:
   install:
     timeout-minutes: 360
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        image:
-          - ubuntu:24.04
-          - ubuntu:26.04
-          - ubuntu:rolling
-    container:
-      image: ${{ matrix.image }}
     steps:
       - name: Checkout repository
         timeout-minutes: 360

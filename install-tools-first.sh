@@ -1608,6 +1608,7 @@ WantedBy=default.target
 EOF
 systemctl --user daemon-reload
 systemctl --user enable clipcascade-client.service
+sudo DEBIAN_FRONTEND=noninteractive apt install libxml2-utils libxslt1.1 -y
 git clone --depth=1 https://codeberg.org/c4ffe14e/phice.git
 cd phice || exit
 uv sync

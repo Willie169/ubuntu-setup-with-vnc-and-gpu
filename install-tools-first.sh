@@ -108,7 +108,7 @@ EOF
 sudo apt update
 sudo apt purge fcitx* texlive* yq -y
 sudo DEBIAN_FRONTEND=noninteractive apt install apt-transport-https bash build-essential ca-certificates coreutils cmake curl dbus openjdk-21-jdk g++ gcc git gnupg grep gzip jq locales make ninja-build openssh-server perl perl-tk pipx python-is-python3 python3 rustup vim-gtk3 wget xz-utils -y
-sudo DEBIAN_FRONTEND=noninteractive apt install apparmor-utils clinfo dnscrypt-proxy fcitx5 fcitx5-configtool fcitx5-chinese-addons fcitx5-frontend-all flatpak language-pack-gnome-en pipewire pipewire-audio-client-libraries podman ufw uidmap unattended-upgrades wireplumber -y
+sudo DEBIAN_FRONTEND=noninteractive apt install apparmor-utils clinfo dnscrypt-proxy fcitx5 fcitx5-configtool fcitx5-chinese-addons fcitx5-frontend-all flatpak language-pack-gnome-en pipewire pipewire-audio-client-libraries ufw unattended-upgrades wireplumber -y
 rm -f .bashrc
 mkdir ~/.bashrc.d
 wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/00-env.sh -O ~/.bashrc.d/00-env.sh
@@ -1444,7 +1444,7 @@ curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://raw.githubuse
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/trusted.gpg.d/docker.asc >/dev/null
 echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 sudo apt update
-sudo DEBIAN_FRONTEND=noninteractive apt install docker-ce docker-ce-rootless-extras -y
+sudo DEBIAN_FRONTEND=noninteractive apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras -y
 sudo systemctl disable --now docker.service docker.socket
 sudo rm /var/run/docker.sock
 dockerd-rootless-setuptool.sh install

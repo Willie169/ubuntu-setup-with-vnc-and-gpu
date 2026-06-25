@@ -1817,4 +1817,4 @@ sudo apt autoremove --purge -y
 sudo apt clean
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 kill "$SUDOPID"
-[ "$TEST" -eq 0 ] && sudo reboot || exit
+[ "$TEST" -eq 0 ] && sudo reboot || true

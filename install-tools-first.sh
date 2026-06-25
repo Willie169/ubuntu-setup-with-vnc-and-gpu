@@ -2,6 +2,7 @@
 [ "$1" = '--test' ] && TEST=1 || TEST=0
 shopt -s expand_aliases
 [ "$TEST" -eq 1 ] && set -euxo pipefail
+df
 cd ~ || exit
 sudo -v
 while true; do sudo -v; sleep 30; done & SUDOPID=$!
@@ -84,6 +85,8 @@ sudo add-apt-repository ppa:libreoffice/ppa -y
 sudo add-apt-repository ppa:longsleep/golang-backports -y
 sudo add-apt-repository ppa:obsproject/obs-studio -y
 sudo add-apt-repository ppa:openjdk-r/ppa -y
+sudo mv /etc/apt/sources.list.d/openjdk-r-ubuntu-ppa-*.sources /etc/apt/sources.list.d/openjdk-r-ubuntu-ppa-noble.sources || true
+sudo sed -i 's/^Suites: .*$/Suites: noble/' /etc/apt/sources.list.d/openjdk-r-ubuntu-ppa-noble.sources
 sudo add-apt-repository ppa:remmina-ppa-team/remmina-next -y
 sudo mv /etc/apt/sources.list.d/remmina-ppa-team-ubuntu-remmina-next-*.sources /etc/apt/sources.list.d/remmina-ppa-team-ubuntu-remmina-next-noble.sources || true
 sudo sed -i 's/^Suites: .*$/Suites: noble/' /etc/apt/sources.list.d/remmina-ppa-team-ubuntu-remmina-next-noble.sources
@@ -1818,4 +1821,5 @@ sudo apt autoremove --purge -y
 sudo apt clean
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 kill "$SUDOPID"
+df
 [ "$TEST" -eq 0 ] && sudo reboot || true

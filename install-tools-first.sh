@@ -1556,13 +1556,7 @@ sudo usermod -aG plugdev "$USER"
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' kristoff-it/superhtml x86_64-linux-musl.tar.xz
 tar -xJf x86_64-linux-musl.tar.xz
 rm x86_64-linux-musl.tar.xz
-mv superhtml ~/.local/bin
-mkdir eclipse.jdt.ls
-cd eclipse.jdt.ls || exit
-wget --tries=100 --retry-connrefused --waitretry=5 'https://www.eclipse.org/downloads/download.php?file=/jdtls/milestones/1.57.0/jdt-language-server-1.57.0-202602261110.tar.gz'
-tar -xzf 'download.php?file=%2Fjdtls%2Fmilestones%2F1.57.0%2Fjdt-language-server-1.57.0-202602261110.tar.gz'
-rm 'download.php?file=%2Fjdtls%2Fmilestones%2F1.57.0%2Fjdt-language-server-1.57.0-202602261110.tar.gz'
-cd ~ || exit
+mv superhtml ~/.local/bin/
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Sathvik-Rao/ClipCascade ClipCascade-Server-JRE_21.jar
 sudo mv ClipCascade-Server-JRE_21.jar /usr/local/java/
 cat > ~/.config/systemd/user/clipcascade-server.service <<EOF

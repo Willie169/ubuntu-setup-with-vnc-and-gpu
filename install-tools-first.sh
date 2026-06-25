@@ -1824,6 +1824,6 @@ sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flat
 kill "$SUDOPID"
 # shellcheck disable=2155
 POSTDF=$(df --output=used / | tail -n1 || true)
-echo "$PREDF"
-echo "$POSTDF"
+echo "PREDF: $PREDF"
+echo "POSTDF: $POSTDF"
 [ "$TEST" -eq 0 ] && sudo reboot || true

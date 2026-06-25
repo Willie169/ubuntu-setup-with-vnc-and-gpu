@@ -1,4 +1,4 @@
-name: install-tools-first
+name: install-tools-first-full
 on:
   workflow_dispatch:
 jobs:

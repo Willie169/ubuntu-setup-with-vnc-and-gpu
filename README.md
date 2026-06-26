@@ -12,7 +12,7 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 * Sufficient power supply.
 * Stable internet connection.
 * In power management settings, disable suspension when inactive.
-* Ubuntu >= 24.04 or their derivative. Some features only work on Ubuntu, Kubuntu, and Linux Mint.
+* Ubuntu >= 24.04 or their derivative. Some features only work on Ubuntu, Kubuntu, and Linux Mint, and only Ubuntu and Kubuntu supports are actively maintained.
 
 ### USB Flashing and Dual Boot
 

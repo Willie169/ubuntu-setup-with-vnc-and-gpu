@@ -142,8 +142,8 @@ and follow the prompts until the computer reboots automatically.</li>
 <pre><code>sudo tailscale up
 </code></pre>
 to login to Tailscale via the URL shown and click <strong>Connect</strong>. Google, Microsoft, GitHub, Apple, and passkey are available.</li>
-<li>Run `element-desktop --password-store="gnome-libsecret"`. It will prompt you to choose password for a new keying called "Default keyring". Set a password for it. It will also be used in other apps with `gnome-keyring` such as Ente Auth. And then you can login to your Matrix account.</li>
-<li>Launch Ente Auth by running `enteauth` or with desktop entry. Type password of "Default keyring" of `gnome-keyring` if prompted. And then you can login to your Ente account.</li>
+<li>Run <code>element-desktop --password-store="gnome-libsecret"</code>. It will prompt you to choose password for a new keying called "Default keyring". Set a password for it. It will also be used in other apps with <code>gnome-keyring</code> such as Ente Auth. And then you can login to your Matrix account.</li>
+<li>Launch Ente Auth by running <code>enteauth</code> or with desktop entry. Type password of "Default keyring" of <code>gnome-keyring</code> if prompted. And then you can login to your Ente account.</li>
 <li>Run
 <pre><code>gh auth login --scopes repo,read:org,admin:org,workflow,gist,notifications,delete_repo,write:packages,read:packages
 </code></pre>
@@ -152,7 +152,7 @@ to login to GitHub and optionally run
 git config --global url."git@github.com:".insteadOf "https://github.com/"
 </code></pre> if you want to use ssh instead of https.</li>
 <li>Config git with <code>git config --global user.name [your_name] &amp;&amp; git config --global user.email [your_email]</code>, <code>git config --global pull.rebase true</code> etc.</li>
-<li>Run `flatpak run com.mikeasoft.pied` to setup Pied.</li>
+<li>Run <code>flatpak run com.mikeasoft.pied</code> to setup Pied.</li>
 <li>Setup RustDesk. To use it with Tailscale, click three dots besides ID to enter <code>Settings</code>, click <code>Security</code>, click <code>Unlock security settings</code>, enter your password, and check <code>Enable direct IP access</code>. To use self-hosted server, click three dots besides ID to enter <code>Settings</code>, click <code>Network</code>, click <code>Unlock security settings</code>, enter your password, in ID server, enter the IP of the RustDesk ID/Rendezvous server, which is <code>localhost</code> as installed here, in relay server, enter the IP of the RustDesk relay server, which is <code>localhost</code> as installed here, and in Key, paste the content of <code>/var/lib/rustdesk-server/id_ed25519.pub</code> in the RustDesk ID/Rendezvous server. To use Android RustDesk app with Tailscale, go to <code>Settings</code> and toggle on <code>Direct IP access</code>. To use self-hosted server in Android RustDesk app, go to <code>Settings > ID/Relay server</code>, in ID server, enter the IP of the RustDesk ID/Rendezvous server, in relay server, enter the IP of the RustDesk relay server, and in Key, paste the content of <code>/var/lib/rustdesk-server/id_ed25519.pub</code> in the RustDesk ID/Rendezvous server. Sometimes it fails to connect to computer from Android while it succeeds to connect to Android from computer, you may use VNC instead for the former.</li>
 <li>Run <code>code</code> or click the <strong>VSCodium</strong> icon to setup VSCodium.</li>
 <li>Run <code>torbrowser-launcher</code> or click the <strong>Tor Browser</strong> icon to finish installing Tor Browser.</li>

@@ -7,7 +7,8 @@ shopt -s expand_aliases
 PREDF=$(df --output=used / | tail -n1 || true)
 cd ~ || exit
 sudo -v
-while true; do sudo -v; sleep 30; done & SUDOPID=$!
+while true; do sudo -nv; sleep 59; done & SUDOPIDFIRST=$!
+while true; do sudo -nv; sleep 61; done & SUDOPIDSECOND=$!
 sudo sed -i -e 's/^[# ]*HandleLidSwitch=.*/HandleLidSwitch=ignore/' -e 's/^[# ]*HandleLidSwitchDocked=.*/HandleLidSwitchDocked=ignore/' -e 's/^[# ]*HandleLidSwitchExternalPower=.*/HandleLidSwitchExternalPower=ignore/' "/etc/systemd/logind.conf"
 sudo grep -q '^HandleLidSwitch=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitch=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
 sudo grep -q '^HandleLidSwitchDocked=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchDocked=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
@@ -1277,7 +1278,6 @@ if [ "${XDG_CURRENT_DESKTOP:-}" = "KDE" ] || [[ "${DESKTOP_SESSION:-}" == *plasm
 else
   mkdir -p ~/.config/autostart
   cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
-  fcitx5 &
 fi
 mkdir ~/.JetBrainsMono
 cd ~/.JetBrainsMono || exit
@@ -1378,7 +1378,6 @@ conda config --set auto_activate_base false
 conda config --add channels pypi
 conda config --add channels pytorch
 conda config --add channels conda-forge
-sudo -v
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
 brew trust gurgeous/tap
@@ -1824,7 +1823,8 @@ sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
 sudo apt autoremove --purge -y
 sudo apt clean
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-kill "$SUDOPID"
+kill "$SUDOPIDFIRST"
+kill "$SUDOPIDSECOND"
 # shellcheck disable=2155
 POSTDF=$(df --output=used / | tail -n1 || true)
 echo "PREDF: $PREDF"

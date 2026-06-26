@@ -1360,7 +1360,7 @@ Description=LibreTranslate
 
 [Service]
 ExecStart=$HOME/.local/bin/libretranslate
-Restart=always
+Restart=on-failure
 RestartSec=5
 
 [Install]
@@ -1487,8 +1487,8 @@ After=docker.service
 [Service]
 ExecStart=/usr/bin/docker run -it --name cyberchef -p 8081:8080 ghcr.io/gchq/cyberchef:latest
 ExecStop=/usr/bin/docker stop cyberchef
-StandardOutput=journal
-StandardError=journal
+Restart=on-failure
+RestartSec=5
 
 [Install]
 WantedBy=default.target
@@ -1521,8 +1521,8 @@ After=docker.service
 WorkingDirectory=${HOME}/stirlingpdf
 ExecStart=/usr/bin/docker compose up
 ExecStop=/usr/bin/docker compose stop
-StandardOutput=journal
-StandardError=journal
+Restart=on-failure
+RestartSec=5
 
 [Install]
 WantedBy=default.target

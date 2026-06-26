@@ -6,11 +6,13 @@ shopt -s expand_aliases
 # shellcheck disable=2155
 PREDF=$(df --output=used / | tail -n1)
 cd ~ || exit
+if [ "$FULL" -eq 0 ]; then
 sudo -v
 while true; do sudo -nv; sleep 29; done & SUDOPIDFIRST=$!
 while true; do sudo -nv; sleep 31; done & SUDOPIDSECOND=$!
 while true; do sudo -nv; sleep 59; done & SUDOPIDTHIRD=$!
 while true; do sudo -nv; sleep 61; done & SUDOPIDFOURTH=$!
+fi
 sudo sed -i -e 's/^[# ]*HandleLidSwitch=.*/HandleLidSwitch=ignore/' -e 's/^[# ]*HandleLidSwitchDocked=.*/HandleLidSwitchDocked=ignore/' -e 's/^[# ]*HandleLidSwitchExternalPower=.*/HandleLidSwitchExternalPower=ignore/' "/etc/systemd/logind.conf"
 sudo grep -q '^HandleLidSwitch=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitch=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
 sudo grep -q '^HandleLidSwitchDocked=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchDocked=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
@@ -133,9 +135,9 @@ if [ -n "$BASH_VERSION" ]; then
   fi
 fi
 EOF
-if [ -d "$HOME/.bashrc.d"  ];  then
+if [ -d "$HOME/.bashrc.d" ];  then
   for f in "$HOME/.bashrc.d/"*; do
-    [ -r "$f"  ] && . "$f"
+    [ -r "$f" ] && . "$f"
   done
 fi
 sudo loginctl enable-linger "$USER"
@@ -1275,7 +1277,7 @@ export XMODIFIERS=@im=fcitx
 export INPUT_METHOD=fcitx
 export SDL_IM_MODULE=fcitx
 EOF
-if [ "${XDG_CURRENT_DESKTOP:-}" = "KDE" ] || [[ "${DESKTOP_SESSION:-}" == *plasma*  ]] || [ "${KDE_FULL_SESSION:-}" = "true" ]; then
+if [ "${XDG_CURRENT_DESKTOP:-}" = "KDE" ] || [[ "${DESKTOP_SESSION:-}" == *plasma* ]] || [ "${KDE_FULL_SESSION:-}" = "true" ]; then
   sudo DEBIAN_FRONTEND=noninteractive apt install plasma-discover-backend-flatpak -y
 else
   mkdir -p ~/.config/autostart
@@ -1821,10 +1823,12 @@ sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
 sudo DEBIAN_FRONTEND=noninteractive apt autoremove --purge -y
 sudo apt clean
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+if [ "$FULL" -eq 0 ];then
 kill "$SUDOPIDFIRST"
 kill "$SUDOPIDSECOND"
 kill "$SUDOPIDTHIRD"
 kill "$SUDOPIDFOURTH"
+fi
 # shellcheck disable=2155
 POSTDF=$(df --output=used / | tail -n1)
 echo "PREDF: $PREDF"

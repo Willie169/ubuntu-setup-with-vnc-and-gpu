@@ -6,10 +6,9 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 
 ### Prerequisites
 
-* Sufficient storage: (calculated on Kubuntu 26.04)
-  * Kubuntu 26.04 Normal Installation: approximately 8.86 GB.
+* Sufficient storage: (calculated using GitHub Action)
   * [`install-tools-first.sh`](install-tools-first.sh): approximately 40.95 GB.
-  * [`install-tools-second.sh`](install-tools-second.sh): approximately 12.89 GB.
+  * [`install-tools-second.sh`](install-tools-second.sh): approximately 11.26 GB.
 * Sufficient power supply.
 * Stable internet connection.
 * In power management settings, disable suspension when inactive.
@@ -187,7 +186,7 @@ switches from Snap Firefox and Thunderbird to Deb Firefox and Thunderbird from M
 
 ### [`cuda.sh`](cuda.sh)
 
-Installs NVIDIA drivers and CUDA Toolkit on Ubuntu derivatives with Nvidia GPU and reboot. Requires about 8 GB storage.
+Installs NVIDIA drivers and CUDA Toolkit on Ubuntu derivatives with Nvidia GPU and reboot.
 
 Restart your computer after running the script and then test with:
 ```
@@ -221,7 +220,7 @@ Installs [WinRAR](https://www.win-rar.com).
 - [`xmrig-xmr.sh`](xmrig-xmr.sh): Mines XMR to [the repository owner](https://github.com/Willie169)'s wallet, `48j6iQDeCSDeH46gw4dPJnMsa6TQzPa6WJaYbBS9JJucKqg9Mkt5EDe9nSkES3b8u7V6XJfL8neAPAtbEpmV2f4XC7bdbkv`, using my modified version of [XMRig](https://github.com/Willie169/xmrig) and through Tor. Change the wallet address and other configurations if you want.
 - [`xmrig-rvn.sh`](xmrig-rvn.sh): Mines RVN to [the repository owner](https://github.com/Willie169)'s wallet, `RCo4QqzEnEtEVv749TJfNz293p2xVVhXFx`, using my modified version of [XMRig](https://github.com/Willie169/xmrig) and through Tor. Change the wallet address and other configurations if you want.
 
-### [`ruview.sh`](ruview.sh) (not actively maintained)
+### [`ruview.sh`](ruview.sh) (no longer actively maintained)
 
 Installs [RuView](https://github.com/ruvnet/RuView) from source (Rust), which requires approximately 13.8 GB storage. The binaries are at `~/RuView/v2/target/release`, which has been added to `$PATH` in [`install-tools-first.sh`](install-tools-first.sh). See <https://github.com/ruvnet/RuView/blob/main/docs/user-guide.md> for more information.
 

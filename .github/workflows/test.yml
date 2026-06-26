@@ -15,6 +15,7 @@ jobs:
           useradd -m runner
           chown -R runner:runner "$GITHUB_WORKSPACE"
           usermod -aG sudo runner
+          mkdir -p /etc/sudoers.d
           echo 'runner ALL=(ALL) NOPASSWD:ALL' >/etc/sudoers.d/runner
           chmod 440 /etc/sudoers.d/runner
           apt update

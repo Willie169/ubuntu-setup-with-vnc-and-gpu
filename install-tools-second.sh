@@ -9,7 +9,7 @@ flatpak update -y
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Elleo/pied com.mikeasoft.pied.flatpak
 flatpak install com.mikeasoft.pied.flatpak -y
 rm com.mikeasoft.pied.flatpak*
-if [ "$TEST" -eq 1 ]; then
+if [ "$TEST" -eq 0 ]; then
 sudo ufw allow 53317
 sudo ufw reload
 fi

@@ -13,5 +13,6 @@ jobs:
           sudo apt update
           sudo apt list --manual-installed 2>/dev/null | sed 's/\/.*//; /\.\.\./d' | xargs sudo apt-mark auto
           sudo DEBIAN_FRONTEND=noninteractive apt install kubuntu-desktop -y
-          sudo apt autoremove
+          sudo DEBIAN_FRONTEND=noninteractive apt autoremove -y
+          sudo apt clean
           df --output=used / | tail -n1

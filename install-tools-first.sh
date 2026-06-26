@@ -20,7 +20,7 @@ sudo grep -q '^HandleLidSwitchExternalPower=' "/etc/systemd/logind.conf" || echo
 for file in /etc/grub.d/* /etc/default/grub.d/*; do
   [[ -f "$file" ]] && sudo sed -i 's/^quick_boot=.*/quick_boot="0"/' "$file"
 done
-sudo update-grub
+[ "$FULL" -eq 0 ] && sudo update-grub
 DM=$(basename "$(basename "$(readlink -f /etc/systemd/system/display-manager.service)" || true)" ".service" || true)
 if [[ -n "$DM" ]] && [[ -n "$USER" ]]; then
 case "$DM" in

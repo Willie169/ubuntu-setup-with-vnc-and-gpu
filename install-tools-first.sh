@@ -1818,7 +1818,7 @@ cd ~ || exit
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install -f -y
 sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
-sudo apt DEBIAN_FRONTEND=noninteractive autoremove --purge -y
+sudo DEBIAN_FRONTEND=noninteractive apt autoremove --purge -y
 sudo apt clean
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 kill "$SUDOPIDFIRST"

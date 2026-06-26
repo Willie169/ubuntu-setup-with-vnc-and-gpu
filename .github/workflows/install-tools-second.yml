@@ -23,6 +23,6 @@ jobs:
         run: |
           sudo docker run --rm -v "$HOME/ubuntu-setup-with-vnc-and-gpu:/data/data/com.termux/files/home/ubuntu-setup-with-vnc-and-gpu" -w "/data/data/com.termux/files/home/ubuntu-setup-with-vnc-and-gpu" --privileged ghcr.io/flathub-infra/flatpak-github-actions:kde-6.10 bash -c '
             set -euxo pipefail
-            sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+            flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
             . install-tools-second.yml
           '

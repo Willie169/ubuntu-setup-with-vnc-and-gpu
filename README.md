@@ -116,7 +116,8 @@ git clone https://github.com/Willie169/ubuntu-setup-with-vnc-and-gpu.git
 <li>Run:
 <pre><code>cd ~/ubuntu-setup-with-vnc-and-gpu
 ./install-drivers.sh
-</code></pre>and wait for the computer to reboot automatically.</li>
+</code></pre>
+and wait for the computer to reboot automatically.</li>
 <li>Run:
 <pre><code>cd ~/ubuntu-setup-with-vnc-and-gpu
 ./install-tools-first.sh
@@ -125,7 +126,8 @@ and follow the prompts until the computer reboots automatically.</li>
 <li>Run:
 <pre><code>cd ~/ubuntu-setup-with-vnc-and-gpu
 ./install-tools-second.sh
-</code></pre>and wait for the shell to exit automatically.</li>
+</code></pre>
+and wait for the shell to exit automatically. It may prompt you to choose password for a new keying called "Default keyring". Set a password for it. It will also be used in other apps with <code>gnome-keyring</code> such as Ente Auth.</li></li>
 <li>Remove the repository:
 <pre><code>rm -r ~/ubuntu-setup-with-vnc-and-gpu
 </code></pre></li>
@@ -141,7 +143,7 @@ and follow the prompts until the computer reboots automatically.</li>
 <pre><code>sudo tailscale up
 </code></pre>
 to login to Tailscale via the URL shown and click <strong>Connect</strong>. Google, Microsoft, GitHub, Apple, and passkey are available.</li>
-<li>Run <code>element-desktop --password-store="gnome-libsecret"</code>. It will prompt you to choose password for a new keying called "Default keyring". Set a password for it. It will also be used in other apps with <code>gnome-keyring</code> such as Ente Auth. And then you can login to your Matrix account.</li>
+<li>Run <code>element-desktop --password-store="gnome-libsecret"</code>. It may prompt you to choose password for a new keying called "Default keyring". Set a password for it. It will also be used in other apps with <code>gnome-keyring</code> such as Ente Auth. And then you can login to your Matrix account.</li>
 <li>Launch Ente Auth by running <code>enteauth</code> or with desktop entry. Type password of "Default keyring" of <code>gnome-keyring</code> if prompted. And then you can login to your Ente account.</li>
 <li>Run
 <pre><code>gh auth login --scopes repo,read:org,admin:org,workflow,gist,notifications,delete_repo,write:packages,read:packages

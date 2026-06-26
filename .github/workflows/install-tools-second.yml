@@ -1,0 +1,28 @@
+name: install-tools-second
+on:
+  workflow_dispatch:
+jobs:
+  install:
+    timeout-minutes: 360
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare
+        timeout-minutes: 360
+        run: |
+          cd ~
+          sudo apt update
+          sudo DEBIAN_FRONTEND=noninteractive apt install curl git -y
+          source /etc/os-release
+          curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/trusted.gpg.d/docker.asc >/dev/null
+          echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
+          sudo apt update
+          sudo DEBIAN_FRONTEND=noninteractive apt install docker-ce -y
+          git clone https://github.com/Willie169/ubuntu-setup-with-vnc-and-gpu.git
+      - name: Run install-tools-second.sh
+        timeout-minutes: 360
+        run: |
+          sudo docker run --rm -v "$HOME/ubuntu-setup-with-vnc-and-gpu:/data/data/com.termux/files/home/ubuntu-setup-with-vnc-and-gpu" -w "/data/data/com.termux/files/home/ubuntu-setup-with-vnc-and-gpu" --privileged ghcr.io/flathub-infra/flatpak-github-actions:kde-6.10 bash -c '
+            set -euxo pipefail
+            sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+            . install-tools-second.yml
+          '

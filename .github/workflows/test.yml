@@ -1,0 +1,15 @@
+name: test
+on:
+  workflow_dispatch:
+jobs:
+  install:
+    timeout-minutes: 360
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare
+        timeout-minutes: 360
+        run: |
+          sudo apt update
+          sudo apt list --manual-installed 2>/dev/null | sed 's/\/.*//; /\.\.\./d' | xargs sudo apt-mark hold
+          sudo DEBIAN_FRONTEND=noninteractive apt install kubuntu-desktop -y
+          sudo apt autoremove

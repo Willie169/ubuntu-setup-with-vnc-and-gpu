@@ -1392,10 +1392,6 @@ git config --global merge.conflictStyle zdiff3
 else
 echo y | brew install $BREW --dry-run
 fi
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' ventoy/ventoy 'ventoy-*-linux.tar.gz'
-tar -xzf ventoy-*-linux.tar.gz
-rm ventoy-*-linux.tar.gz*
-mv ventoy-* ventoy
 git clone --depth=1 https://github.com/Willie169/vimrc.git ~/.vim_runtime && sh ~/.vim_runtime/install_awesome_vimrc.sh
 mkdir -p ~/.config/nvim/lua/config
 mkdir -p ~/.config/nvim/lua/plugins

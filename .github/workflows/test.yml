@@ -7,7 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ubuntu:26.04
-      options: --user 1000
     steps:
       - name: Prepare Kubuntu
         timeout-minutes: 360

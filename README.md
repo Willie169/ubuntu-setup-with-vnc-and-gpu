@@ -135,7 +135,7 @@ and follow the prompts until the computer reboots automatically.</li>
 ### Stuff You May Want to Do Afterwards
 
 <ol>
-<li>Set JetBrainsMono Nerd Font for your terminal emulator for icons used by <code>yazi</code>.</li>
+<li>Set JetBrainsMono Nerd Font as your system mono/fixed-width font or terminal emulator default font for displaying icons in Yazi.</li>
 <li>Go to <a href="http://localhost:8082">http://localhost:8082</a>, enter default user name <code>admin</code> and password <code>admin123</code>, change user name and password, and login in the pop-up window of ClipCascade client.</li>
 <li>Snap Firefox and Thunderbird are replaced with Deb Firefox and Thunderbird from Mozilla Team PPA, and thus you may want to re-configure launchers in your Desktop Environment.</li>
 <li>Run

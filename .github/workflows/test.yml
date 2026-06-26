@@ -13,6 +13,10 @@ jobs:
         timeout-minutes: 360
         run: |
           set -euxo pipefail
+          useradd -m runner
+          chown -R runner:runner "$GITHUB_WORKSPACE"
+          DEBIAN_FRONTEND=noninteractive apt install sudo -y
+          su - runner <<'88837a96-9ded-412a-81c4-eff9b1ef1822'
           df --output=used / | tail -n1
           sudo apt update
           sudo apt list --manual-installed 2>/dev/null | sed 's/\/.*//; /\.\.\./d' | xargs sudo apt-mark auto
@@ -20,3 +24,4 @@ jobs:
           sudo apt autoremove -y
           sudo apt clean
           df --output=used / | tail -n1
+          88837a96-9ded-412a-81c4-eff9b1ef1822

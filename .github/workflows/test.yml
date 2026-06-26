@@ -5,14 +5,18 @@ jobs:
   install:
     timeout-minutes: 360
     runs-on: ubuntu-latest
+    container:
+      image: ubuntu:26.04
+      options: --user 1000
     steps:
       - name: Prepare Kubuntu
         timeout-minutes: 360
         run: |
           set -euxo pipefail
+          df --output=used / | tail -n1
           sudo apt update
           sudo apt list --manual-installed 2>/dev/null | sed 's/\/.*//; /\.\.\./d' | xargs sudo apt-mark auto
           sudo DEBIAN_FRONTEND=noninteractive apt install kubuntu-desktop -y
-          sudo DEBIAN_FRONTEND=noninteractive apt autoremove -y
+          sudo apt autoremove -y
           sudo apt clean
           df --output=used / | tail -n1

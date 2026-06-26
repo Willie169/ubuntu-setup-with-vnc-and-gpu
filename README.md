@@ -188,7 +188,7 @@ switches from Snap Firefox and Thunderbird to Deb Firefox and Thunderbird from M
 
 ### [`cuda.sh`](cuda.sh)
 
-Installs NVIDIA drivers, NVIDIA Wayland, and CUDA Toolkit on Ubuntu 24.04 with Nvidia GPU. Requires about 8 GB storage.
+Installs NVIDIA drivers and CUDA Toolkit on Ubuntu derivatives with Nvidia GPU and reboot. Requires about 8 GB storage.
 
 Restart your computer after running the script and then test with:
 ```

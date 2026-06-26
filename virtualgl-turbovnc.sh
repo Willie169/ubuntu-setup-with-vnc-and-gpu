@@ -1,7 +1,8 @@
 #!/bin/bash
 cd ~ || exit
 sudo apt update
-sudo DEBIAN_FRONTEND=noninteractive apt install mesa-utils wget xfce4 xfce4-goodies xinit -y
+sudo DEBIAN_FRONTEND=noninteractive apt install mesa-utils wget -y
+sudo DEBIAN_FRONTEND=noninteractive apt install xfce4 xfce4-goodies xinit -y --no-install-recommends
 wget -q -O- https://packagecloud.io/dcommander/virtualgl/gpgkey | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/VirtualGL.gpg
 sudo wget https://raw.githubusercontent.com/VirtualGL/repo/main/VirtualGL.list -O /etc/apt/sources.list.d/VirtualGL.list
 wget -q -O- https://packagecloud.io/dcommander/turbovnc/gpgkey | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/TurboVNC.gpg

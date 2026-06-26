@@ -1,16 +1,18 @@
-name: install-tools-first-kubuntu
+name: install-tools-first-full
 on:
   workflow_dispatch:
 jobs:
   install:
     timeout-minutes: 360
+    strategy:
+      matrix:
+        meta:
+          - ubuntu-desktop
+          - kubuntu-desktop
     runs-on: ubuntu-latest
     container:
       image: ubuntu:26.04
     steps:
-      - name: Checkout repository
-        timeout-minutes: 360
-        uses: actions/checkout@v4
       - name: Run install-tools-first.sh
         timeout-minutes: 360
         run: |
@@ -26,8 +28,12 @@ jobs:
           su - runner <<'88837a96-9ded-412a-81c4-eff9b1ef1822'
           set -euxo pipefail
           FIRSTDF=$(df --output=used / | tail -n1)
-          sudo DEBIAN_FRONTEND=noninteractive apt install kubuntu-desktop -y
+        sudo DEBIAN_FRONTEND=noninteractive apt install git ${{ matrix.meta }} -y
           sudo apt clean
+          SECONDDF=$(df --output=used / | tail -n1)
+          git clone https://github.com/Willie169/ubuntu-setup-with-vnc-and-gpu.git
+          cd ubuntu-setup-with-vnc-and-gpu
           ./install-tools-first.sh --full
           echo "FIRSTDF: $FIRSTDF"
+          echo "SECONDDF: $SECONDDF"
           88837a96-9ded-412a-81c4-eff9b1ef1822

@@ -1,4 +1,4 @@
-name: install-tools-first-full
+name: install-tools-first-ubuntu
 on:
   workflow_dispatch:
 jobs:

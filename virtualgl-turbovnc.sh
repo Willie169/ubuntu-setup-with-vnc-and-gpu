@@ -1,4 +1,6 @@
 #!/bin/bash
+# shellcheck disable=2155
+PREDF=$(df --output=used / | tail -n1 || true)
 cd ~ || exit
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install mesa-utils wget -y
@@ -23,4 +25,8 @@ unset SESSION_MANAGER
 unset DBUS_SESSION_BUS_ADDRESS
 startxfce4 &
 EOF
+# shellcheck disable=2155
+POSTDF=$(df --output=used / | tail -n1 || true)
+echo "PREDF: $PREDF"
+echo "POSTDF: $POSTDF"
 sudo reboot

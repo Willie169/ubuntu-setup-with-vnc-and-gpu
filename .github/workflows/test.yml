@@ -6,7 +6,7 @@ jobs:
     timeout-minutes: 360
     runs-on: ubuntu-latest
     steps:
-      - name: Prepare
+      - name: Prepare Kubuntu
         timeout-minutes: 360
         run: |
           set -euxo pipefail

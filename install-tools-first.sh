@@ -4,7 +4,7 @@ shopt -s expand_aliases
 [ "${1:-}" = '--test' ] && TEST=1 || TEST=0
 [ "${1:-}" = '--full' ] && FULL=1 || FULL=0
 # shellcheck disable=2155
-PREDF=$(df --output=used / | tail -n1 || true)
+PREDF=$(df --output=used / | tail -n1)
 cd ~ || exit
 sudo -v
 while true; do sudo -nv; sleep 29; done & SUDOPIDFIRST=$!
@@ -1818,7 +1818,7 @@ cd ~ || exit
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install -f -y
 sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
-sudo apt autoremove --purge -y
+sudo apt DEBIAN_FRONTEND=noninteractive autoremove --purge -y
 sudo apt clean
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 kill "$SUDOPIDFIRST"
@@ -1826,7 +1826,7 @@ kill "$SUDOPIDSECOND"
 kill "$SUDOPIDTHIRD"
 kill "$SUDOPIDFOURTH"
 # shellcheck disable=2155
-POSTDF=$(df --output=used / | tail -n1 || true)
+POSTDF=$(df --output=used / | tail -n1)
 echo "PREDF: $PREDF"
 echo "POSTDF: $POSTDF"
 [ "$TEST" -eq 0 ] && [ "$FULL" -eq 0 ] && sudo reboot || true

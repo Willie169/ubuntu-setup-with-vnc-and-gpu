@@ -28,7 +28,7 @@ jobs:
           su - runner <<'88837a96-9ded-412a-81c4-eff9b1ef1822'
           set -euxo pipefail
           FIRSTDF=$(df --output=used / | tail -n1)
-        sudo DEBIAN_FRONTEND=noninteractive apt install git ${{ matrix.meta }} -y
+          sudo DEBIAN_FRONTEND=noninteractive apt install git ${{ matrix.meta }} -y
           sudo apt clean
           SECONDDF=$(df --output=used / | tail -n1)
           git clone https://github.com/Willie169/ubuntu-setup-with-vnc-and-gpu.git

@@ -9,7 +9,9 @@ jobs:
       - name: Prepare
         timeout-minutes: 360
         run: |
+          set -euxo pipefail
           sudo apt update
           sudo apt list --manual-installed 2>/dev/null | sed 's/\/.*//; /\.\.\./d' | xargs sudo apt-mark hold
           sudo DEBIAN_FRONTEND=noninteractive apt install kubuntu-desktop -y
           sudo apt autoremove
+          df --output=used / | tail -n1

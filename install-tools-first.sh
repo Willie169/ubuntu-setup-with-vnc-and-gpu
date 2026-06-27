@@ -176,7 +176,6 @@ mkdir -p ~/.local/share/applications
 mkdir -p ~/.local/share/fonts
 mkdir -p ~/Desktop
 mkdir -p ~/.config/systemd/user
-if ! grep -q '^NAME="Linux Mint"' /etc/os-release; then
 sudo add-apt-repository ppa:mozillateam/ppa -y
 echo 'Package: firefox*
 Pin: release o=LP-PPA-mozillateam
@@ -236,7 +235,6 @@ Package: chromium*
 Pin: release o=Ubuntu
 Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/chromium >/dev/null
 sudo apt update
-fi
 sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
 echo 'APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Download-Upgradeable-Packages "0";
@@ -1478,25 +1476,16 @@ sudo systemctl disable --now docker.service docker.socket
 sudo rm /var/run/docker.sock
 # dockerd-rootless-setuptool.sh install needs uidmap
 dockerd-rootless-setuptool.sh install
-if grep -q 'resolute' /etc/os-release; then
-LTS_VERSION_CODENAME=resolute
-elif grep -q 'noble' /etc/os-release; then
-LTS_VERSION_CODENAME=noble
-else
-LTS_VERSION_CODENAME=''
-fi
-if [ -n "$LTS_VERSION_CODENAME" ]; then
 sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /etc/apt/keyrings/zabbly.asc https://pkgs.zabbly.com/key.asc
 echo "Enabled: yes
 Types: deb
 URIs: https://pkgs.zabbly.com/incus/stable
-Suites: $LTS_VERSION_CODENAME
+Suites: $(. /etc/os-release && echo $VERSION_CODENAME)
 Components: main
 Architectures: amd64
 Signed-By: /etc/apt/keyrings/zabbly.asc
 " | sudo tee /etc/apt/sources.list.d/zabbly-incus-stable.sources >/dev/null
 sudo apt update
-fi
 sudo DEBIAN_FRONTEND=noninteractive apt install incus -y
 sudo adduser "$USER" incus-admin
 if findmnt -no FSTYPE / | grep -q btrfs; then

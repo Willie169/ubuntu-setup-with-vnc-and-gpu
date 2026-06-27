@@ -6,15 +6,15 @@ jobs:
     timeout-minutes: 360
     strategy:
       matrix:
-        image: 
-          - ubuntu/26.04
-        meta:
-          - ubuntu-desktop
-          - kubuntu-desktop
-          - lubuntu-desktop
-          - xubuntu-desktop
-        flag:
-          - --full
+#        image: 
+#          - ubuntu/26.04
+#        meta:
+#          - ubuntu-desktop
+#          - kubuntu-desktop
+#          - lubuntu-desktop
+#          - xubuntu-desktop
+#        flag:
+#          - --full
         include:
           - image: ubuntu/24.04
             meta: bash

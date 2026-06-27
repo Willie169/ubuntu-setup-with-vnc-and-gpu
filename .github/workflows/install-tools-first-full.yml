@@ -19,9 +19,6 @@ jobs:
           - image: ubuntu/24.04
             meta: bash
             flag: --test --full
-          - image: ubuntu/25.10
-            meta: bash
-            flag: --test --full
           - image: ubuntu/26.04
             meta: bash
             flag: --test --full

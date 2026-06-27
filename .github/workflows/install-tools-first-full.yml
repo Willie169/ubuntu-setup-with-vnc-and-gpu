@@ -41,8 +41,44 @@ jobs:
           Signed-By: /etc/apt/keyrings/zabbly.asc
           " | sudo tee /etc/apt/sources.list.d/zabbly-incus-stable.sources >/dev/null
           sudo apt update
-          sudo DEBIAN_FRONTEND=noninteractive apt install incus -y
-          sudo incus admin init --minimal
+          sudo DEBIAN_FRONTEND=noninteractive apt install btrfs-progs dnsmasq-base incus -y
+          cat <<'EOF' | sudo incus admin init --preseed
+          config: {}
+          networks:
+            - config:
+                ipv4.address: auto
+                ipv6.address: auto
+              description: ""
+              name: incusbr0
+              type: ""
+              project: default
+          storage_pools:
+            - config:
+                source: /var/lib/incus/storage-pools/default
+              description: ""
+              name: default
+              driver: btrfs
+          storage_volumes: []
+          profiles:
+            - config: {}
+              description: ""
+              devices:
+                eth0:
+                  name: eth0
+                  network: incusbr0
+                  type: nic
+                root:
+                  path: /
+                  pool: default
+                  type: disk
+              name: default
+              project: default
+          projects: []
+          certificates: []
+          cluster_groups: []
+          cluster: null
+          EOF
+          sudo ufw --force disable || true
           sudo incus launch images:${{ matrix.image }} runner
       - name: Run install-tools-first.sh
         timeout-minutes: 360

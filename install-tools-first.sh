@@ -1475,13 +1475,36 @@ sudo DEBIAN_FRONTEND=noninteractive apt install docker-ce docker-ce-cli containe
 sudo systemctl disable --now docker.service docker.socket
 sudo rm /var/run/docker.sock
 dockerd-rootless-setuptool.sh install
+sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /etc/apt/keyrings/zabbly.asc https://pkgs.zabbly.com/key.asc
+UBUNTU_VERSION_ID_FIRST=$(
+if grep -q '^NAME="Linux Mint"' /etc/os-release; then
+    inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'
+else
+    . /etc/os-release
+    echo "$VERSION_ID"
+fi | cut -d. -f1
+)
+LTS_VERSION_CODENAME=resolute
+if [ "$UBUNTU_VERSION_ID_FIRST" -le 23 ]; then
+LTS_VERSION_CODENAME=jammy
+elif [ "$UBUNTU_VERSION_ID_FIRST" -le 25 ]; then
+LTS_VERSION_CODENAME=noble
+fi
+echo "Enabled: yes
+Types: deb
+URIs: https://pkgs.zabbly.com/incus/stable
+Suites: $LTS_VERSION_CODENAME
+Components: main
+Architectures: amd64
+Signed-By: /etc/apt/keyrings/zabbly.asc
+" | sudo tee /etc/apt/sources.list.d/zabbly-incus-stable.sources
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.noarmor.gpg" | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.tailscale-keyring.list" | sudo tee /etc/apt/sources.list.d/tailscale.list >/dev/null
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install tailscale -y
 sudo systemctl daemon-reload
 sudo systemctl enable tailscaled
-wget -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg | gpg --dearmor | sudo dd of=/usr/share/keyrings/vscodium-archive-keyring.gpg
+wget --tries=100 --retry-connrefused --waitretry=5 -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg | gpg --dearmor | sudo dd of=/usr/share/keyrings/vscodium-archive-keyring.gpg
 echo -e 'Types: deb\nURIs: https://download.vscodium.com/debs\nSuites: vscodium\nComponents: main\nArchitectures: amd64 arm64\nSigned-by: /usr/share/keyrings/vscodium-archive-keyring.gpg' | sudo tee /etc/apt/sources.list.d/vscodium.sources >/dev/null
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install codium -y
@@ -1498,7 +1521,7 @@ sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install tor torsocks deb.torproject.org-keyring -y
 sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/local/java/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
 sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/local/java/plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
-sudo wget -O /usr/share/keyrings/element-io-archive-keyring.gpg https://packages.element.io/debian/element-io-archive-keyring.gpg
+sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/share/keyrings/element-io-archive-keyring.gpg https://packages.element.io/debian/element-io-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/element-io-archive-keyring.gpg] https://packages.element.io/debian/ default main" | sudo tee /etc/apt/sources.list.d/element-io.list >/dev/null
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install element-desktop -y

@@ -1389,7 +1389,7 @@ Description=LibreTranslate
 
 [Service]
 ExecStart=$HOME/.local/bin/libretranslate
-Restart=on-failure
+Restart=always
 RestartSec=5
 
 [Install]
@@ -1574,9 +1574,9 @@ Description=CyberChef
 After=docker.service
 
 [Service]
-ExecStart=/usr/bin/docker run -it --name cyberchef -p 8081:8080 ghcr.io/gchq/cyberchef:latest
+ExecStart=/usr/bin/docker run --name cyberchef -p 8081:8080 ghcr.io/gchq/cyberchef:latest
 ExecStop=/usr/bin/docker stop cyberchef
-Restart=on-failure
+Restart=always
 RestartSec=5
 
 [Install]
@@ -1610,7 +1610,7 @@ After=docker.service
 WorkingDirectory=${HOME}/stirlingpdf
 ExecStart=/usr/bin/docker compose up
 ExecStop=/usr/bin/docker compose stop
-Restart=on-failure
+Restart=always
 RestartSec=5
 
 [Install]
@@ -1657,7 +1657,7 @@ After=network.target
 [Service]
 Type=simple
 ExecStart=java -jar /usr/local/java/ClipCascade-Server-JRE_21.jar
-Restart=on-failure
+Restart=always
 RestartSec=5
 Environment=CC_PORT=8082
 
@@ -1682,7 +1682,7 @@ Type=simple
 WorkingDirectory=$HOME/ClipCascade
 ExecStartPre=/bin/bash -c '(while ! nc -z -w1 localhost 8082 2>/dev/null; do sleep 2; done); sleep 2'
 ExecStart=/usr/bin/python3 $HOME/ClipCascade/main.py
-Restart=on-failure
+Restart=always
 RestartSec=5
 Environment=PYTHONUNBUFFERED=1
 Environment=CC_PORT=8082

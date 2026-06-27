@@ -168,7 +168,9 @@ if [ -d "$HOME/.bashrc.d" ];  then
 fi
 sudo loginctl enable-linger "$USER"
 sudo mkdir -p /usr/local/java
+sudo mkdir -p /etc/apt/apt.conf.d
 sudo mkdir -p /etc/apt/keyrings
+sudo mkdir -p /etc/systemd/system
 mkdir -p ~/.local/bin
 mkdir -p ~/.local/share/applications
 mkdir -p ~/.local/share/fonts
@@ -243,7 +245,7 @@ echo 'APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Unattended-Upgrade "1";' | sudo tee /etc/apt/apt.conf.d/20auto-upgrades >/dev/null
 sudo mv /etc/apt/apt.conf.d/20apt-esm-hook.conf /etc/apt/apt.conf.d/20apt-esm-hook.conf.bak || true
 sudo touch /etc/apt/apt.conf.d/20apt-esm-hook.conf
-sudo touch /var/lib/update-notifier/hide-esm-in-motd
+sudo touch /var/lib/update-notifier/hide-esm-in-motd || true
 sudo rm /etc/update-motd.d/88-esm-announce || true
 sudo rm /etc/update-motd.d/91-contract-ua-esm-status || true
 # shellcheck disable=2016

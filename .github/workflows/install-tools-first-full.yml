@@ -18,7 +18,8 @@ jobs:
         run: |
           cd ~
           sudo apt update
-          sudo DEBIAN_FRONTEND=noninteractive apt install podman -y
+          sudo DEBIAN_FRONTEND=noninteractive apt install lxc lxc-templates uidmap bridge-utils -y
+          sudo lxc-create -n runner -t download -- -d ubuntu -r resolute -a amd64
       - name: Run install-tools-first.sh
         timeout-minutes: 360
         run: |

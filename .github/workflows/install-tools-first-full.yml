@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ubuntu:26.04
+      options: --privileged
     steps:
       - name: Run install-tools-first.sh
         timeout-minutes: 360

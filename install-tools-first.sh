@@ -1478,21 +1478,15 @@ sudo systemctl disable --now docker.service docker.socket
 sudo rm /var/run/docker.sock
 # dockerd-rootless-setuptool.sh install needs uidmap
 dockerd-rootless-setuptool.sh install
-sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /etc/apt/keyrings/zabbly.asc https://pkgs.zabbly.com/key.asc
-UBUNTU_VERSION_ID_FIRST=$(
-if grep -q '^NAME="Linux Mint"' /etc/os-release; then
-    inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'
-else
-    . /etc/os-release
-    echo "$VERSION_ID"
-fi | cut -d. -f1
-)
+if grep -q 'resolute' /etc/os-release; then
 LTS_VERSION_CODENAME=resolute
-if [ "$UBUNTU_VERSION_ID_FIRST" -le 22 ]; then
-LTS_VERSION_CODENAME=jammy
-elif [ "$UBUNTU_VERSION_ID_FIRST" -le 24 ]; then
+elif grep -q 'noble' /etc/os-release; then
 LTS_VERSION_CODENAME=noble
+else
+LTS_VERSION_CODENAME=''
 fi
+if [ -n "$LTS_VERSION_CODENAME" ]; then
+sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /etc/apt/keyrings/zabbly.asc https://pkgs.zabbly.com/key.asc
 echo "Enabled: yes
 Types: deb
 URIs: https://pkgs.zabbly.com/incus/stable
@@ -1502,6 +1496,7 @@ Architectures: amd64
 Signed-By: /etc/apt/keyrings/zabbly.asc
 " | sudo tee /etc/apt/sources.list.d/zabbly-incus-stable.sources >/dev/null
 sudo apt update
+fi
 sudo DEBIAN_FRONTEND=noninteractive apt install incus -y
 sudo adduser "$USER" incus-admin
 if findmnt -no FSTYPE / | grep -q btrfs; then

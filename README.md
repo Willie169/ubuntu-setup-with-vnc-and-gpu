@@ -300,7 +300,7 @@ See <a href="#desktop-environment">Desktop Environment</a> section for more info
 To make a script for Ubuntu work for both Ubuntu and Linux Mint, do the following tweaks:
 
 <ol>
-<li><code>$(lsb_release -cs)</code>: Add <code>source /etc/os-release</code> before it and replace it with <code>$UBUNTU_CODENAME</code>.</li>
+<li><code>$(lsb_release -cs)</code>: Replace it with <code>$(. /etc/os-release && echo ${UBUNTU_CODENAME})</code>.</li>
 <li><code>$VERSION_ID</code> from <code>/etc/os-release</code>: Add
 <pre><code>export UBUNTU_VERSION_ID=$(
 if grep -q '^NAME="Linux Mint"' /etc/os-release; then

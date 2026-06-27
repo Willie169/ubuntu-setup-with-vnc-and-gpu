@@ -12,6 +12,7 @@ jobs:
           #- lubuntu-desktop
           #- xubuntu-desktop
     runs-on: ubuntu-latest
+    # questing
     steps:
       - name: Prepare
         timeout-minutes: 360

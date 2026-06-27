@@ -57,7 +57,7 @@ jobs:
                 source: /var/lib/incus/storage-pools/default
               description: ""
               name: default
-              driver: btrfs
+              driver: dir
           storage_volumes: []
           profiles:
             - config: {}

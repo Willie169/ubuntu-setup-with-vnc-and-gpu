@@ -1646,11 +1646,11 @@ rm "$CMDLINETOOLS"*
 cd ~/Android/Sdk/cmdline-tools/latest/bin || exit
 echo y | ./sdkmanager "platform-tools"
 cd ~ || exit
-[ "$FULL" -eq 0 ] && sudo tee /etc/udev/rules.d/52-xilinx-usb.rules >/dev/null <<'EOF'
+sudo tee /etc/udev/rules.d/52-xilinx-usb.rules >/dev/null <<'EOF'
 SUBSYSTEM=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="0666", GROUP="plugdev"
 EOF
-sudo udevadm control --reload-rules
-sudo udevadm trigger
+[ "$FULL" -eq 0  ] && sudo udevadm control --reload-rules
+[ "$FULL" -eq 0  ] && sudo udevadm trigger
 sudo usermod -aG plugdev "$USER"
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' kristoff-it/superhtml x86_64-linux-musl.tar.xz
 tar -xJf x86_64-linux-musl.tar.xz

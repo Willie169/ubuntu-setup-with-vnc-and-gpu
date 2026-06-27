@@ -9,19 +9,19 @@ jobs:
         image: 
           - ubuntu/26.04
         meta:
-          #- ubuntu-desktop
+          - ubuntu-desktop
           - kubuntu-desktop
-          #- lubuntu-desktop
-          #- xubuntu-desktop
+          - lubuntu-desktop
+          - xubuntu-desktop
         flag:
           - --full
-        #include:
-          #- image: ubuntu/24.04
-          #  meta: git
-          #  flag: --test --full
-          #- image: ubuntu/25.10
-          #  meta: git
-          #  flag: --test --full
+        include:
+          - image: ubuntu/24.04
+            meta: git
+            flag: --test --full
+          - image: ubuntu/25.10
+            meta: git
+            flag: --test --full
     runs-on: ubuntu-latest
     steps:
       - name: Prepare

@@ -412,7 +412,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y
 else
 sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s
 fi
-PKG='apparmor-utils aria2 bridge-utils btrfs-progs clang-uml clinfo distrobox dnscrypt-proxy fcitx5 fcitx5-configtool fcitx5-chinese-addons fcitx5-frontend-all filelight flatpak fwupd gnome-keyring gtkwave kate krita language-pack-gnome-en libvirt-daemon-system libvirt-clients lxc lxc-templates ntfs-3g obs-studio ovmf pipewire pipewire-audio-client-libraries podman qbittorrent qemu-system-gui qemu-system-x86 qemu-user-binfmt qemu-user qemu-utils qtspeech5-speechd-plugin quickemu remmina remmina-plugin-rdp remmina-plugin-secret snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap unattended-upgrades virt-manager virt-viewer wireplumber wl-clipboard xclip'
+PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo distrobox dnscrypt-proxy fcitx5 fcitx5-configtool fcitx5-chinese-addons fcitx5-frontend-all filelight flatpak fwupd gnome-keyring gtkwave kate krita language-pack-gnome-en libvirt-daemon-system libvirt-clients lxc lxc-templates ntfs-3g obs-studio ovmf pipewire pipewire-audio-client-libraries podman qbittorrent qemu-system-gui qemu-system-x86 qemu-user-binfmt qemu-user qemu-utils qtspeech5-speechd-plugin quickemu remmina remmina-plugin-rdp remmina-plugin-secret snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap unattended-upgrades virt-manager virt-viewer wireplumber wl-clipboard xclip'
 # shellcheck disable=2086
 if [ "$TEST" -eq 0 ]; then
 sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y
@@ -1501,7 +1501,16 @@ Signed-By: /etc/apt/keyrings/zabbly.asc
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install incus -y
 sudo adduser "$USER" incus-admin
-cat <<'EOF' | sudo incus admin init --preseed
+if findmnt -no FSTYPE / | grep -q btrfs; then
+sudo DEBIAN_FRONTEND=noninteractive apt install btrfs-progs -y
+STORAGE_DRIVER=btrfs
+elif findmnt -no FSTYPE / | grep -q zfs; then
+sudo DEBIAN_FRONTEND=noninteractive apt install zfsutils-linux -y
+STORAGE_DRIVER=zfs
+else
+STORAGE_DRIVER=dir
+fi
+cat <<EOF | sudo incus admin init --preseed
 config: {}
 networks:
   - config:
@@ -1516,7 +1525,7 @@ storage_pools:
       source: /var/lib/incus/storage-pools/default
     description: ""
     name: default
-    driver: btrfs
+    driver: $STORAGE_DRIVER
 storage_volumes: []
 profiles:
   - config: {}

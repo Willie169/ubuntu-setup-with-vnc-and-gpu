@@ -24,8 +24,19 @@ done
 DM=$(basename "$(basename "$(readlink -f /etc/systemd/system/display-manager.service)" || true)" ".service" || true)
 if [[ -n "$DM" ]] && [[ -n "$USER" ]]; then
 case "$DM" in
-gdm)
+gdm|gdm3)
+if [ -f "/etc/gdm3/custom.conf" ]; then
+CONF="/etc/gdm3/custom.conf"
+elif [ -f "/etc/gdm/custom.conf" ]; then
 CONF="/etc/gdm/custom.conf"
+elif [ -d "/etc/gdm3" ]; then
+CONF="/etc/gdm3/custom.conf"
+elif [ -d "/etc/gdm" ]; then
+CONF="/etc/gdm/custom.conf"
+else
+CONF="/etc/gdm3/custom.conf"
+fi
+if [ -f "$CONF" ]; then
 sudo sed -i '/^AutomaticLoginEnable/d' "$CONF"
 sudo sed -i '/^AutomaticLogin=/d' "$CONF"
 sudo sed -i '/^WaylandEnable=/d' "$CONF"
@@ -34,14 +45,6 @@ sudo sed -i "/^\[daemon\]/a AutomaticLoginEnable=True\nAutomaticLogin=$USER\nWay
 else
 printf '\n[daemon]\nAutomaticLoginEnable=True\nAutomaticLogin=%s\nWaylandEnable=true\n' "$USER" | sudo tee -a "$CONF" >/dev/null
 fi
-;;
-gdm)
-CONF="/etc/gdm3/custom.conf"
-sudo sed -i '/^AutomaticLoginEnable/d' "$CONF"
-sudo sed -i '/^AutomaticLogin=/d' "$CONF"
-sudo sed -i '/^WaylandEnable=/d' "$CONF"
-if sudo grep -q "^\[daemon\]" "$CONF"; then
-sudo sed -i "/^\[daemon\]/a AutomaticLoginEnable=True\nAutomaticLogin=$USER\nWaylandEnable=true" "$CONF"
 else
 printf '\n[daemon]\nAutomaticLoginEnable=True\nAutomaticLogin=%s\nWaylandEnable=true\n' "$USER" | sudo tee -a "$CONF" >/dev/null
 fi

@@ -64,22 +64,26 @@ done
 ;;
 sddm)
 COUNT=0
-PLASMA_VERSION=$(/usr/bin/plasmashell --version 2>/dev/null | head -n1 | sed 's/ *plasmashell *//' | sed 's/[a-zA-Z \t]*//' | cut -d. -f1)
+command -v kinfo >/dev/null 2>&1 && PLASMA_VERSION=$(kinfo 2>/dev/null | grep 'KDE Plasma Version' | sed 's/KDE Plasma Version: //' | cut -d. -f1) || PLASMA_VERSION=''
 if [ "$PLASMA_VERSION" -ge 6 ]; then
-PLASMA_SESSION=plasma
+SESSION='plasma'
 elif [ "$PLASMA_VERSION" -le 5 ]; then
-PLASMA_SESSION=plasmawayland
+SESSION='plasmawayland'
+elif command -v lxqt-runner >/dev/null 2>&1; then
+SESSION='lxqt.desktop'
 fi
+if [ -n "$SESSION" ]; then
 for CONF in "/etc/sddm.conf" "/etc/sddm.conf.d/"*; do
 sudo test -f "$CONF" || continue
 sudo sed -i '/^User=/d' "$CONF"
 sudo sed -i '/^Session=/d' "$CONF"
 if sudo grep -q "^\[Autologin\]" "$CONF" && [ "$COUNT" -eq 0 ]; then
-sudo sed -i "/^\[Autologin\]/a User=$USER\nSession=$PLASMA_SESSION" "$CONF"
+sudo sed -i "/^\[Autologin\]/a User=$USER\nSession=$SESSION" "$CONF"
 COUNT=1
 fi
 done
-[ "$COUNT" -eq 0 ] && printf '\n[Autologin]\nUser=%s\nSession=%s\n' "$USER" "$PLASMA_SESSION" | sudo tee -a "/etc/sddm.conf" >/dev/null
+[ "$COUNT" -eq 0 ] && printf '\n[Autologin]\nUser=%s\nSession=%s\n' "$USER" "$SESSION" | sudo tee -a "/etc/sddm.conf" >/dev/null
+fi
 ;;
 esac
 fi

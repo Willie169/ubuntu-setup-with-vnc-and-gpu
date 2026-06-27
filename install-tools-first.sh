@@ -94,8 +94,8 @@ if dpkg -s kwalletmanager &>/dev/null; then
   fi
   sed -i "/^\[Wallet\]/a Enabled=false" ~/.config/kwalletrc
 fi
-sudo timedatectl set-local-rtc 1
-sudo timedatectl set-ntp true
+[ "$FULL" -eq 0 ] && sudo timedatectl set-local-rtc 1
+[ "$FULL" -eq 0 ] && sudo timedatectl set-ntp true
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install software-properties-common -y
 sudo add-apt-repository universe -y

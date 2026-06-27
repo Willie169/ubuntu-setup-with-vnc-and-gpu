@@ -1501,7 +1501,6 @@ Signed-By: /etc/apt/keyrings/zabbly.asc
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install incus -y
 sudo adduser "$USER" incus-admin
-newgrp incus-admin
 cat <<'EOF' | sudo incus admin init --preseed
 config: {}
 networks:

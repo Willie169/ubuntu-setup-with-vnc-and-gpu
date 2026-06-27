@@ -1488,9 +1488,9 @@ else
 fi | cut -d. -f1
 )
 LTS_VERSION_CODENAME=resolute
-if [ "$UBUNTU_VERSION_ID_FIRST" -le 23 ]; then
+if [ "$UBUNTU_VERSION_ID_FIRST" -le 22 ]; then
 LTS_VERSION_CODENAME=jammy
-elif [ "$UBUNTU_VERSION_ID_FIRST" -le 25 ]; then
+elif [ "$UBUNTU_VERSION_ID_FIRST" -le 24 ]; then
 LTS_VERSION_CODENAME=noble
 fi
 echo "Enabled: yes

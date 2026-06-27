@@ -1646,7 +1646,7 @@ rm "$CMDLINETOOLS"*
 cd ~/Android/Sdk/cmdline-tools/latest/bin || exit
 echo y | ./sdkmanager "platform-tools"
 cd ~ || exit
-sudo tee /etc/udev/rules.d/52-xilinx-usb.rules >/dev/null <<'EOF'
+[ "$FULL" -eq 0 ] && sudo tee /etc/udev/rules.d/52-xilinx-usb.rules >/dev/null <<'EOF'
 SUBSYSTEM=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="0666", GROUP="plugdev"
 EOF
 sudo udevadm control --reload-rules

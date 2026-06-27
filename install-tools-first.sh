@@ -1502,6 +1502,45 @@ sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install incus -y
 sudo adduser "$USER" incus-admin
 newgrp incus-admin
+cat <<'EOF' | sudo incus admin init --preseed
+config: {}
+networks:
+  - config:
+      ipv4.address: auto
+      ipv6.address: auto
+    description: ""
+    name: incusbr0
+    type: ""
+    project: default
+storage_pools:
+  - config:
+      source: /var/lib/incus/storage-pools/default
+    description: ""
+    name: default
+    driver: btrfs
+storage_volumes: []
+profiles:
+  - config: {}
+    description: ""
+    devices:
+      eth0:
+        name: eth0
+        network: incusbr0
+        type: nic
+      root:
+        path: /
+        pool: default
+        type: disk
+    name: default
+    project: default
+projects: []
+certificates: []
+cluster_groups: []
+cluster: null
+EOF
+sudo ufw allow in on incusbr0
+sudo ufw route allow in on incusbr0
+sudo ufw route allow out on incusbr0
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.noarmor.gpg" | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.tailscale-keyring.list" | sudo tee /etc/apt/sources.list.d/tailscale.list >/dev/null
 sudo apt update

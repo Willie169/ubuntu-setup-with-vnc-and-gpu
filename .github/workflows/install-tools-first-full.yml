@@ -7,8 +7,10 @@ jobs:
     strategy:
       matrix:
         meta:
-          - ubuntu-desktop
+          #- ubuntu-desktop
           - kubuntu-desktop
+          #- lubuntu-desktop
+          #- xubuntu-desktop
     runs-on: ubuntu-latest
     container:
       image: ubuntu:26.04

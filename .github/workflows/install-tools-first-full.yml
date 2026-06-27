@@ -17,10 +17,10 @@ jobs:
           - --full
         include:
           - image: ubuntu/24.04
-            meta: ubuntu-desktop-minimal
+            meta: bash
             flag: --test --full
           - image: ubuntu/25.10
-            meta: ubuntu-desktop-minimal
+            meta: bash
             flag: --test --full
     runs-on: ubuntu-latest
     steps:
@@ -92,7 +92,7 @@ jobs:
           chmod 440 /etc/sudoers.d/runner
           apt update
           DEBIAN_FRONTEND=noninteractive apt install sudo -y
-          su - runner <<'88837a96-9ded-412a-81c4-eff9b1ef1822'
+          su -s /bin/bash - runner <<'88837a96-9ded-412a-81c4-eff9b1ef1822'
           set -euxo pipefail
           cd ~
           FIRSTDF=$(df --output=used / | tail -n1)

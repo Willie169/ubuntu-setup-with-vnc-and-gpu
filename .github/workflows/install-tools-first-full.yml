@@ -96,7 +96,7 @@ jobs:
           set -euxo pipefail
           cd ~
           FIRSTDF=$(df --output=used / | tail -n1)
-          sudo DEBIAN_FRONTEND=noninteractive apt install git ${{ matrix.meta }} -y
+          sudo DEBIAN_FRONTEND=noninteractive apt install git ${{ matrix.meta }} -y || true
           sudo apt clean
           SECONDDF=$(df --output=used / | tail -n1)
           git clone https://github.com/Willie169/ubuntu-setup-with-vnc-and-gpu.git

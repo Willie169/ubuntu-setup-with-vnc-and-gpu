@@ -6,44 +6,69 @@ jobs:
     timeout-minutes: 360
     strategy:
       matrix:
+        image: 
+          - ubuntu/26.04
         meta:
           #- ubuntu-desktop
           - kubuntu-desktop
           #- lubuntu-desktop
           #- xubuntu-desktop
+        flag:
+          - --full --test
+        #include:
+          #- image: ubuntu/24.04
+          #  meta: git
+          #  flag: --test
+          #- image: ubuntu/25.10
+          #  meta: git
+          #  flag: --test
     runs-on: ubuntu-latest
-    # questing
     steps:
       - name: Prepare
         timeout-minutes: 360
         run: |
+          set -euxo pipefail
           cd ~
           sudo apt update
-          sudo DEBIAN_FRONTEND=noninteractive apt install lxc lxc-templates uidmap bridge-utils -y
-          sudo lxc-create -n runner -t download -- -d ubuntu -r resolute -a amd64
+          sudo DEBIAN_FRONTEND=noninteractive apt install wget -y
+          sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /etc/apt/keyrings/zabbly.asc https://pkgs.zabbly.com/key.asc
+          echo "Enabled: yes
+          Types: deb
+          URIs: https://pkgs.zabbly.com/incus/stable
+          Suites: $(./etc/os-release && echo ${VERSION_CODENAME})
+          Components: main
+          Architectures: amd64
+          Signed-By: /etc/apt/keyrings/zabbly.asc
+          " | sudo tee /etc/apt/sources.list.d/zabbly-incus-stable.sources >/dev/null
+          sudo apt update
+          sudo DEBIAN_FRONTEND=noninteractive apt install incus -y
+          sudo adduser "$USER" incus-admin
+          newgrp incus-admin
+          incus admin init --minimal
+          incus launch ${{ matrix.image }} runner
       - name: Run install-tools-first.sh
         timeout-minutes: 360
         run: |
-          sudo podman run --rm --privileged ubuntu:26.04 bash -c ' 
-            set -euxo pipefail
-            useradd -m runner
-            chown -R runner:runner "$GITHUB_WORKSPACE"
-            usermod -aG sudo runner
-            mkdir -p /etc/sudoers.d
-            echo 'runner ALL=(ALL) NOPASSWD:ALL' >/etc/sudoers.d/runner
-            chmod 440 /etc/sudoers.d/runner
-            apt update
-            DEBIAN_FRONTEND=noninteractive apt install sudo -y
-            su - runner <<'88837a96-9ded-412a-81c4-eff9b1ef1822'
-            set -euxo pipefail
-            FIRSTDF=$(df --output=used / | tail -n1)
-            sudo DEBIAN_FRONTEND=noninteractive apt install git ${{ matrix.meta }} -y
-            sudo apt clean
-            SECONDDF=$(df --output=used / | tail -n1)
-            git clone https://github.com/Willie169/ubuntu-setup-with-vnc-and-gpu.git
-            cd ubuntu-setup-with-vnc-and-gpu
-            ./install-tools-first.sh --full
-            echo "FIRSTDF: $FIRSTDF"
-            echo "SECONDDF: $SECONDDF"
-            88837a96-9ded-412a-81c4-eff9b1ef1822
-          '
+          incus exec runner -- bash <<'2538a64a-9a35-480e-8d91-8ab414fc3e04'
+          set -euxo pipefail
+          useradd -m runner
+          usermod -aG sudo runner
+          mkdir -p /etc/sudoers.d
+          echo 'runner ALL=(ALL) NOPASSWD:ALL' >/etc/sudoers.d/runner
+          chmod 440 /etc/sudoers.d/runner
+          apt update
+          DEBIAN_FRONTEND=noninteractive apt install sudo -y
+          su - runner <<'88837a96-9ded-412a-81c4-eff9b1ef1822'
+          set -euxo pipefail
+          cd ~
+          FIRSTDF=$(df --output=used / | tail -n1)
+          sudo DEBIAN_FRONTEND=noninteractive apt install git ${{ matrix.meta }} -y
+          sudo apt clean
+          SECONDDF=$(df --output=used / | tail -n1)
+          git clone https://github.com/Willie169/ubuntu-setup-with-vnc-and-gpu.git
+          cd ubuntu-setup-with-vnc-and-gpu
+          ./install-tools-first.sh --full
+          echo "FIRSTDF: $FIRSTDF"
+          echo "SECONDDF: $SECONDDF"
+          88837a96-9ded-412a-81c4-eff9b1ef1822
+          2538a64a-9a35-480e-8d91-8ab414fc3e04

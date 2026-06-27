@@ -1498,6 +1498,10 @@ Components: main
 Architectures: amd64
 Signed-By: /etc/apt/keyrings/zabbly.asc
 " | sudo tee /etc/apt/sources.list.d/zabbly-incus-stable.sources
+sudo apt update
+sudo DEBIAN_FRONTEND=noninteractive apt install incus -y
+sudo adduser "$USER" incus-admin
+newgrp incus-admin
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.noarmor.gpg" | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.tailscale-keyring.list" | sudo tee /etc/apt/sources.list.d/tailscale.list >/dev/null
 sudo apt update

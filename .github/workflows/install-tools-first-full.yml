@@ -22,6 +22,9 @@ jobs:
           - image: ubuntu/25.10
             meta: bash
             flag: --test --full
+          - image: ubuntu/26.04
+            meta: bash
+            flag: --test --full
     runs-on: ubuntu-latest
     steps:
       - name: Prepare

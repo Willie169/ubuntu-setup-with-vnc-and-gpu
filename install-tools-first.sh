@@ -1497,7 +1497,7 @@ Suites: $LTS_VERSION_CODENAME
 Components: main
 Architectures: amd64
 Signed-By: /etc/apt/keyrings/zabbly.asc
-" | sudo tee /etc/apt/sources.list.d/zabbly-incus-stable.sources
+" | sudo tee /etc/apt/sources.list.d/zabbly-incus-stable.sources >/dev/null
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install incus -y
 sudo adduser "$USER" incus-admin

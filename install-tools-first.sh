@@ -24,24 +24,40 @@ done
 DM=$(basename "$(basename "$(readlink -f /etc/systemd/system/display-manager.service)" || true)" ".service" || true)
 if [[ -n "$DM" ]] && [[ -n "$USER" ]]; then
 case "$DM" in
-gdm|gdm3)
+gdm)
 CONF="/etc/gdm/custom.conf"
-sudo sed -i '/AutomaticLoginEnable/d' "$CONF"
-sudo sed -i '/AutomaticLogin=/d' "$CONF"
-sudo sed -i '/WaylandEnable=/d' "$CONF"
-if ! sudo grep -q "^\[daemon\]" "$CONF"; then
-printf "\n[daemon]\n" | sudo tee -a "$CONF" >/dev/null
-fi
+sudo sed -i '/^AutomaticLoginEnable/d' "$CONF"
+sudo sed -i '/^AutomaticLogin=/d' "$CONF"
+sudo sed -i '/^WaylandEnable=/d' "$CONF"
+if sudo grep -q "^\[daemon\]" "$CONF"; then
 sudo sed -i "/^\[daemon\]/a AutomaticLoginEnable=True\nAutomaticLogin=$USER\nWaylandEnable=true" "$CONF"
+else
+printf '\n[daemon]\nAutomaticLoginEnable=True\nAutomaticLogin=%s\nWaylandEnable=true\n' "$USER" | sudo tee -a "$CONF" >/dev/null
+fi
+;;
+gdm)
+CONF="/etc/gdm3/custom.conf"
+sudo sed -i '/^AutomaticLoginEnable/d' "$CONF"
+sudo sed -i '/^AutomaticLogin=/d' "$CONF"
+sudo sed -i '/^WaylandEnable=/d' "$CONF"
+if sudo grep -q "^\[daemon\]" "$CONF"; then
+sudo sed -i "/^\[daemon\]/a AutomaticLoginEnable=True\nAutomaticLogin=$USER\nWaylandEnable=true" "$CONF"
+else
+printf '\n[daemon]\nAutomaticLoginEnable=True\nAutomaticLogin=%s\nWaylandEnable=true\n' "$USER" | sudo tee -a "$CONF" >/dev/null
+fi
 ;;
 lightdm)
-CONF="/etc/lightdm/lightdm.conf"
-sudo sed -i '/autologin-user=/d' "$CONF"
-sudo sed -i '/autologin-user-timeout=/d' "$CONF"
-if ! sudo grep -q "^\[Seat:\*\]" "$CONF"; then
-printf "\n[Seat:*]\n" | sudo tee -a "$CONF" >/dev/null
-fi
+COUNT=0
+for CONF in "/etc/lightdm/"*".conf" "/etc/lightdm/lightdm.conf.d/"*; do
+sudo test -f "$CONF" || continue
+sudo sed -i '/^autologin-user=/d' "$CONF"
+sudo sed -i '/^autologin-user-timeout=/d' "$CONF"
+if sudo grep -q "^\[Seat:\*\]" "$CONF" && [ "$COUNT" -eq 0 ]; then
 sudo sed -i "/^\[Seat:\*\]/a autologin-user=$USER\nautologin-user-timeout=0" "$CONF"
+COUNT=1
+fi
+done
+[ "$COUNT" -eq 0 ] && printf '\n[Seat:*]\nautologin-user=%s\nautologin-user-timeout=0\n' "$USER" | sudo tee -a "/etc/lightdm/lightdm.conf" >/dev/null
 ;;
 sddm)
 COUNT=0
@@ -53,12 +69,11 @@ PLASMA_SESSION=plasmawayland
 fi
 for CONF in "/etc/sddm.conf" "/etc/sddm.conf.d/"*; do
 sudo test -f "$CONF" || continue
-sudo sed -i '/User=/d' "$CONF"
-sudo sed -i '/Session=/d' "$CONF"
-if sudo grep -q "^\[Autologin\]" "$CONF"; then
+sudo sed -i '/^User=/d' "$CONF"
+sudo sed -i '/^Session=/d' "$CONF"
+if sudo grep -q "^\[Autologin\]" "$CONF" && [ "$COUNT" -eq 0 ]; then
 sudo sed -i "/^\[Autologin\]/a User=$USER\nSession=$PLASMA_SESSION" "$CONF"
 COUNT=1
-break
 fi
 done
 [ "$COUNT" -eq 0 ] && printf '\n[Autologin]\nUser=%s\nSession=%s\n' "$USER" "$PLASMA_SESSION" | sudo tee -a "/etc/sddm.conf" >/dev/null

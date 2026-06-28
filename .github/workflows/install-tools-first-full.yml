@@ -6,7 +6,7 @@ jobs:
     timeout-minutes: 360
     strategy:
       matrix:
-        image: 
+        image:
           - ubuntu/26.04
         meta:
           - ubuntu-desktop

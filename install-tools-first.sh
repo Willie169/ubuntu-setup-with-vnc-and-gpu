@@ -1382,7 +1382,7 @@ gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' yt-dl
 chmod +x yt-dlp
 mv yt-dlp ~/.local/bin/
 pipx install cmake-language-server gh2md img2pdf jupyterlab jupytext libretranslate meson notebook pylatexenc tldr uv xmljson yamllint
-pipx install fdroidserver gallery-dl
+pipx install BetterADBSync fdroidserver gallery-dl
 cat > ~/.config/systemd/user/libretranslate.service <<EOF
 [Unit]
 Description=LibreTranslate

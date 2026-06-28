@@ -65,7 +65,7 @@ ssh -i ~/.ssh/id_ed25519 user@server
 If it works, you can disable password authentication on server by running
 ```
 sudo sed -Ei 's/^#?PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
-sudo systemctl restart sshd
+sudo systemctl restart ssh
 ```
 If your SSH connection is unstable. You may try adding keepalive packets sending on client by running:
 ```

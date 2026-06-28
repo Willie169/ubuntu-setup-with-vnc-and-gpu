@@ -72,6 +72,7 @@ command -v kinfo >/dev/null 2>&1 && PLASMA_VERSION=$(kinfo 2>/dev/null | grep 'K
 if [ "$PLASMA_VERSION" -ge 6 ]; then
 SESSION='plasma'
 elif [ "$PLASMA_VERSION" -le 5 ]; then
+sudo DEBIAN_FRONTEND=noninteractive apt install plasma-workspace-wayland -y -o Dpkg::Options::="--force-confnew"
 SESSION='plasmawayland'
 elif command -v lxqt-runner >/dev/null 2>&1; then
 SESSION='lxqt.desktop'

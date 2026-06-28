@@ -1480,7 +1480,7 @@ sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /etc/apt/keyrings/zab
 echo "Enabled: yes
 Types: deb
 URIs: https://pkgs.zabbly.com/incus/stable
-Suites: $(. /etc/os-release && echo $VERSION_CODENAME)
+Suites: $(. /etc/os-release && echo "$VERSION_CODENAME")
 Components: main
 Architectures: amd64
 Signed-By: /etc/apt/keyrings/zabbly.asc

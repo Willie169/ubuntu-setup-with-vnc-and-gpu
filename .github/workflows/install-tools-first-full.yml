@@ -79,6 +79,7 @@ jobs:
           cluster: null
           EOF
           sudo ufw --force disable || true
+          ping ghcr.io -c 1
           sudo incus launch images:${{ matrix.image }} runner
       - name: Run install-tools-first.sh
         timeout-minutes: 360

@@ -421,7 +421,6 @@ else
 sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="--force-confnew"
 fi
 sudo snap set system refresh.retain=2
-if [ "$FULL" -eq 0 ]; then
 sudo cp /usr/share/doc/dnscrypt-proxy/examples/* /etc/dnscrypt-proxy/
 sudo mkdir -p /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist
 cd /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist || exit
@@ -1287,9 +1286,10 @@ skip_incompatible = false
   # [static.'myserver']
   # stamp = 'sdns://AQcAAAAAAAAAAAAQMi5kbnNjcnlwdC1jZXJ0Lg'
 EOF
+cd ~ || exit
+if [ "$FULL" -eq 0 ]; then
 sudo dnscrypt-proxy -service install
 sudo dnscrypt-proxy -service start
-cd ~ || exit
 sudo tee /etc/systemd/resolved.conf >/dev/null <<'EOF'
 [Resolve]
 DNS=127.0.0.1

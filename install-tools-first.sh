@@ -17,6 +17,15 @@ while true; do sudo -nv; sleep 31; done & SUDOPIDSECOND=$!
 while true; do sudo -nv; sleep 59; done & SUDOPIDTHIRD=$!
 while true; do sudo -nv; sleep 61; done & SUDOPIDFOURTH=$!
 fi
+sudo mkdir -p /usr/local/java
+sudo mkdir -p /etc/apt/apt.conf.d
+sudo mkdir -p /etc/apt/keyrings
+sudo mkdir -p /etc/systemd/system
+mkdir -p ~/.local/bin
+mkdir -p ~/.local/share/applications
+mkdir -p ~/.local/share/fonts
+mkdir -p ~/Desktop
+mkdir -p ~/.config/systemd/user
 sudo sed -i -e 's/^[# ]*HandleLidSwitch=.*/HandleLidSwitch=ignore/' -e 's/^[# ]*HandleLidSwitchDocked=.*/HandleLidSwitchDocked=ignore/' -e 's/^[# ]*HandleLidSwitchExternalPower=.*/HandleLidSwitchExternalPower=ignore/' "/etc/systemd/logind.conf"
 sudo grep -q '^HandleLidSwitch=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitch=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
 sudo grep -q '^HandleLidSwitchDocked=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchDocked=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
@@ -168,15 +177,6 @@ if [ -d "$HOME/.bashrc.d" ];  then
   done
 fi
 sudo loginctl enable-linger "$USER"
-sudo mkdir -p /usr/local/java
-sudo mkdir -p /etc/apt/apt.conf.d
-sudo mkdir -p /etc/apt/keyrings
-sudo mkdir -p /etc/systemd/system
-mkdir -p ~/.local/bin
-mkdir -p ~/.local/share/applications
-mkdir -p ~/.local/share/fonts
-mkdir -p ~/Desktop
-mkdir -p ~/.config/systemd/user
 sudo add-apt-repository ppa:mozillateam/ppa -y
 echo 'Package: firefox*
 Pin: release o=LP-PPA-mozillateam

@@ -1287,7 +1287,6 @@ skip_incompatible = false
   # stamp = 'sdns://AQcAAAAAAAAAAAAQMi5kbnNjcnlwdC1jZXJ0Lg'
 EOF
 cd ~ || exit
-if [ "$FULL" -eq 0 ]; then
 sudo dnscrypt-proxy -service install
 sudo dnscrypt-proxy -service start
 sudo tee /etc/systemd/resolved.conf >/dev/null <<'EOF'
@@ -1295,7 +1294,6 @@ sudo tee /etc/systemd/resolved.conf >/dev/null <<'EOF'
 DNS=127.0.0.1
 EOF
 sudo systemctl restart systemd-resolved
-fi
 systemctl --user restart pipewire pipewire-pulse wireplumber
 im-config -n fcitx5
 cat > ~/.xprofile <<'EOF'

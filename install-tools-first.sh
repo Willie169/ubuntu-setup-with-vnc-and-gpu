@@ -1318,9 +1318,13 @@ cd ~ || exit
 rm -rf .JetBrainsMono
 [ "$TEST" -eq 0 ] && sudo fc-cache -fv
 sudo systemctl enable --now ssh
+if [ "$FULL" -eq 0 ]; then
 sudo ufw --force enable
 sudo ufw allow ssh
 sudo ufw reload
+else
+sudo ufw --force disable
+fi
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
@@ -1345,11 +1349,13 @@ rm rustdesk-server-hbbr_*_amd64.deb*
 sudo systemctl enable --now rustdesk-hbbs.service
 sudo systemctl enable --now rustdesk-hbbr.service
 sudo systemctl enable --now rustdesk.service
+if [ "$FULL" -eq 0 ]; then
 sudo ufw allow 21118/udp
 sudo ufw allow 21118/tcp
 sudo ufw allow 21114:21119/tcp
 sudo ufw allow 21116/udp
 sudo ufw reload
+fi
 curl -sS https://debian.griffo.io/EA0F721D231FDD3A0A17B9AC7808B4DD62C41256.asc | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/debian.griffo.io.gpg
 echo "deb https://debian.griffo.io/apt $(lsb_release -sc 2>/dev/null) main" | sudo tee /etc/apt/sources.list.d/debian.griffo.io.list >/dev/null
 sudo apt update
@@ -1535,9 +1541,11 @@ certificates: []
 cluster_groups: []
 cluster: null
 EOF
+if [ "$FULL" -eq 0 ]; then
 sudo ufw allow in on incusbr0
 sudo ufw route allow in on incusbr0
 sudo ufw route allow out on incusbr0
+fi
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.noarmor.gpg" | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.tailscale-keyring.list" | sudo tee /etc/apt/sources.list.d/tailscale.list >/dev/null
 sudo apt update
@@ -1664,8 +1672,10 @@ WantedBy=default.target
 EOF
 systemctl --user daemon-reload
 systemctl --user enable --now clipcascade-server.service
+if [ "$FULL" -eq 0 ]; then
 sudo ufw allow 8082/tcp
 sudo ufw reload
+fi
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Sathvik-Rao/ClipCascade ClipCascade_Linux.tar.xz
 tar -xJf ClipCascade_Linux.tar.xz
 rm ClipCascade_Linux.tar.xz

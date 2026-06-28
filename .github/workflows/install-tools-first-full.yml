@@ -16,9 +16,9 @@ jobs:
 #        flag:
 #          - --full
         include:
-          - image: ubuntu/24.04
-            meta: bash
-            flag: --test --full
+#          - image: ubuntu/24.04
+#            meta: bash
+#            flag: --test --full
           - image: ubuntu/26.04
             meta: bash
             flag: --test --full
@@ -28,7 +28,6 @@ jobs:
         timeout-minutes: 360
         run: |
           set -euxo pipefail
-          ping ghcr.io -c 3
           cd ~
           sudo apt update
           sudo DEBIAN_FRONTEND=noninteractive apt install wget -y

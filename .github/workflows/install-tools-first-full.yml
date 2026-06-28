@@ -78,10 +78,7 @@ jobs:
           cluster_groups: []
           cluster: null
           EOF
-          sudo ufw allow in on incusbr0
-          sudo ufw route allow in on incusbr0
-          sudo ufw route allow out on incusbr0
-          sudo ufw reload
+          sudo ufw --force disable
           sudo incus launch images:${{ matrix.image }} runner
       - name: Run install-tools-first.sh
         timeout-minutes: 360

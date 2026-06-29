@@ -1905,7 +1905,6 @@ git clone https://github.com/Willie169/physics-patch
 cd physics-patch || exit
 git checkout dev
 cd ~ || exit
-sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install -f -y -o Dpkg::Options::="--force-confnew"
 sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y -o Dpkg::Options::="--force-confnew"
 sudo DEBIAN_FRONTEND=noninteractive apt autoremove --purge -y -o Dpkg::Options::="--force-confnew"

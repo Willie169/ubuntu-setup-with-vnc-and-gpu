@@ -9,11 +9,10 @@ jobs:
         image:
           - ubuntu/26.04
         meta:
-          - ubuntu-desktop
           - kubuntu-desktop
-          - lubuntu-desktop
+          - ubuntu-desktop
           - xubuntu-desktop
-          - bash
+          - lubuntu-desktop
         flag:
           - --full
     runs-on: ubuntu-latest

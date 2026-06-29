@@ -12,7 +12,7 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 * Sufficient power supply.
 * Stable internet connection.
 * In power management settings, disable suspension when inactive.
-* Ubuntu 24.04 or 26.04 of any flavor. Other Ubuntu versions or derivatives may need manual adjustments on the scripts to make it work.
+* Ubuntu Desktop 24.04 or 26.04 of any flavor. Other Ubuntu versions or derivatives may need manual adjustments on the scripts to make it work. Kubuntu, Ubuntu, Xubuntu, and Lubuntu are tested in GitHub Action CIs of this repo.
 
 ### USB Flashing and Dual Boot
 

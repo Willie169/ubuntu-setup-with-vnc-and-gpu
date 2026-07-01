@@ -422,9 +422,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="-
 fi
 sudo snap set system refresh.retain=2
 systemctl --user restart pipewire pipewire-pulse wireplumber
-sudo systemctl disable --now systemd-resolved
 echo '[main]
-dns=dnsmasq
 plugins=ifupdown,keyfile
 
 [ifupdown]
@@ -432,8 +430,7 @@ managed=true
 
 [device]
 wifi.scan-rand-mac-address=yes' | sudo tee /etc/NetworkManager/NetworkManager.conf >/dev/null
-sudo mkdir -p /etc/NetworkManager/dnsmasq.d
-sudo tee /etc/NetworkManager/dnsmasq.d/dnsmasq.conf >/dev/null <<'EOF'
+sudo tee /etc/dnsmasq.conf >/dev/null <<'EOF'
 # Configuration file for dnsmasq.
 #
 # Format is one option per line, legal options are the same
@@ -443,7 +440,7 @@ sudo tee /etc/NetworkManager/dnsmasq.d/dnsmasq.conf >/dev/null <<'EOF'
 # Listen on this specific port instead of the standard DNS port
 # (53). Setting this to zero completely disables DNS function,
 # leaving only DHCP and/or TFTP.
-#port=5353
+port=5353
 
 # The following two options make you a better netizen, since they
 # tell dnsmasq to filter out queries which the public DNS cannot
@@ -486,7 +483,7 @@ dnssec
 # to  be  up.  Uncommenting this forces dnsmasq to try each query
 # with  each  server  strictly  in  the  order  they   appear   in
 # /etc/resolv.conf
-strict-order
+#strict-order
 
 # If you don't want dnsmasq to read /etc/resolv.conf or any other
 # file, getting its servers from this file instead (see below), then
@@ -1133,14 +1130,13 @@ no-negcache
 #dhcp-name-match=set:wpad-ignore,wpad
 #dhcp-ignore-names=tag:wpad-ignore
 EOF
-sudo ln -sf /run/NetworkManager/no-stub-resolv.conf /etc/resolv.conf
-sudo systemctl restart NetworkManager
-sudo tee /etc/dnsmasq.d/fetch-hosts.sh >/dev/null <<'EOF'
+sudo mkdir -p /etc/dnsmasq-fetch-hosts
+sudo tee /etc/dnsmasq-fetch-hosts/fetch-hosts.sh >/dev/null <<'EOF'
 #!/usr/bin/env bash
 set -u
 
 URL="https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
-DIR="/etc/dnsmasq.d"
+DIR="/etc/dnsmasq-fetch-hosts"
 TARGET="$DIR/hosts"
 TMP="$DIR/hosts.tmp"
 exec 9>"$DIR/.lock"
@@ -1149,7 +1145,7 @@ flock -n 9 || exit 0
 if curl -fsSL --max-time 10 "$URL" -o "$TMP"; then
     if [ -s "$TMP" ]; then
         mv "$TMP" "$TARGET"
-        sudo kill -HUP "$(cat /run/NetworkManager/dnsmasq.pid)"
+        sudo kill -HUP "$(cat /run/dnsmasq/dnsmasq.pid)"
     else
         rm -f "$TMP"
         exit 0
@@ -1161,7 +1157,7 @@ fi
 
 exit 0
 EOF
-sudo chmod +x /etc/dnsmasq.d/fetch-hosts.sh
+sudo chmod +x /etc/dnsmasq-fetch-hosts/fetch-hosts.sh
 sudo tee /etc/systemd/system/fetch-hosts.service >/dev/null <<'EOF'
 [Unit]
 Description=Fetch hosts
@@ -1170,7 +1166,7 @@ After=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/etc/dnsmasq.d/fetch-hosts.sh
+ExecStart=/etc/dnsmasq-fetch-hosts/fetch-hosts.sh
 EOF
 sudo tee /etc/systemd/system/fetch-hosts.timer >/dev/null <<'EOF'
 [Unit]
@@ -1183,8 +1179,56 @@ OnUnitActiveSec=1day
 [Install]
 WantedBy=timers.target
 EOF
+sudo mkdir -p /etc/systemd/resolved.conf.d
+sudo tee /etc/systemd/resolved.conf.d/resolved.conf >/dev/null <<'EOF'
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it under the
+#  terms of the GNU Lesser General Public License as published by the Free
+#  Software Foundation; either version 2.1 of the License, or (at your option)
+#  any later version.
+#
+# Entries in this file show the compile time defaults. Local configuration
+# should be created by either modifying this file (or a copy of it placed in
+# /etc/ if the original file is shipped in /usr/), or by creating "drop-ins" in
+# the /etc/systemd/resolved.conf.d/ directory. The latter is generally
+# recommended. Defaults can be restored by simply deleting the main
+# configuration file and all drop-ins located in /etc/.
+#
+# Use 'systemd-analyze cat-config systemd/resolved.conf' to display the full config.
+#
+# See resolved.conf(5) for details.
+
+[Resolve]
+# Some examples of DNS servers which may be used for DNS= and FallbackDNS=:
+# Cloudflare: 1.1.1.1#cloudflare-dns.com 1.0.0.1#cloudflare-dns.com 2606:4700:4700::1111#cloudflare-dns.com 2606:4700:4700::1001#cloudflare-dns.com
+# Google:     8.8.8.8#dns.google 8.8.4.4#dns.google 2001:4860:4860::8888#dns.google 2001:4860:4860::8844#dns.google
+# Quad9:      9.9.9.9#dns.quad9.net 149.112.112.112#dns.quad9.net 2620:fe::fe#dns.quad9.net 2620:fe::9#dns.quad9.net
+#
+# Using DNS= configures global DNS servers and does not suppress link-specific
+# configuration. Parallel requests will be sent to per-link DNS servers
+# configured automatically by systemd-networkd.service(8), NetworkManager(8), or
+# similar management services, or configured manually via resolvectl(1). See
+# resolved.conf(5) and systemd-resolved(8) for more details.
+DNS=127.0.0.1:5353
+FallbackDNS=1.1.1.1 1.0.0.1 2606:4700:4700::1111 2606:4700:4700::1001 94.140.14.140 94.140.14.141 2a10:50c0::1:ff 2a10:50c0::2:ff
+#Domains=
+DNSSEC=allow-downgrade
+#DNSOverTLS=no
+MulticastDNS=yes
+#LLMNR=no
+#Cache=yes
+#CacheFromLocalhost=no
+#DNSStubListener=yes
+#DNSStubListenerExtra=
+#ReadEtcHosts=yes
+#ResolveUnicastSingleLabel=no
+#StaleRetentionSec=0
+#RefuseRecordTypes=
+EOF
 sudo systemctl daemon-reload
 sudo systemctl enable --now fetch-hosts.timer
+sudo systemctl restart systemd-resolved
 sudo systemctl restart NetworkManager
 im-config -n fcitx5
 cat > ~/.xprofile <<'EOF'

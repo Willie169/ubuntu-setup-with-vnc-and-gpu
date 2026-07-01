@@ -769,7 +769,7 @@ block_unqualified = true
 ## Immediately respond to queries for local zones instead of leaking them to
 ## upstream resolvers (always causing errors or timeouts).
 
-block_undelegated = false
+block_undelegated = true
 
 
 ## TTL for synthetic responses sent when a request has been blocked (due to

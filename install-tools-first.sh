@@ -422,42 +422,6 @@ sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="-
 fi
 sudo snap set system refresh.retain=2
 sudo cp /usr/share/doc/dnscrypt-proxy/examples/* /etc/dnscrypt-proxy/
-sudo mkdir -p /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist
-sudo rm -f /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/generate-domains-blocklist.py || true
-sudo wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/DNSCrypt/dnscrypt-proxy/refs/heads/master/utils/generate-domains-blocklist/generate-domains-blocklist.py -O /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/generate-domains-blocklist.py
-sudo tee /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/domains-blocklist.conf >/dev/null <<'EOF'
-https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
-EOF
-sudo tee /etc/systemd/system/dnscrypt-proxy-blocklist-update.service >/dev/null <<'EOF'
-[Unit]
-Description=dnscrypt-proxy blocklist Update
-PartOf=dnscrypt-proxy.service
-Wants=network-online.target
-After=dnscrypt-proxy.service
-After=network-online.target
-
-[Service]
-Type=oneshot
-User=root
-WorkingDirectory=/usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/
-ExecStart=/bin/python3 generate-domains-blocklist.py -o blocklist.txt ; sleep 2 ; systemctl restart dnscrypt-proxy.service
-
-[Install]
-WantedBy=multi-user.target
-EOF
-sudo tee /etc/systemd/system/dnscrypt-proxy-blocklist-update.timer >/dev/null <<'EOF'
-[Unit]
-Description=dnscrypt-proxy blocklist Update
-
-[Timer]
-OnUnitActiveSec=6h
-
-[Install]
-WantedBy=timers.target
-EOF
-sudo systemctl daemon-reload
-sudo systemctl enable --now dnscrypt-proxy-blocklist-update.service
-sudo systemctl enable --now dnscrypt-proxy-blocklist-update.timer
 sudo tee /etc/dnscrypt-proxy/forwarding-rules.txt >/dev/null <<'EOF'
 ts.net 100.100.100.100
 EOF
@@ -1292,6 +1256,42 @@ skip_incompatible = false
 EOF
 sudo dnscrypt-proxy -service install
 sudo dnscrypt-proxy -service start
+sudo mkdir -p /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist
+sudo rm -f /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/generate-domains-blocklist.py || true
+sudo wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/DNSCrypt/dnscrypt-proxy/refs/heads/master/utils/generate-domains-blocklist/generate-domains-blocklist.py -O /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/generate-domains-blocklist.py
+sudo tee /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/domains-blocklist.conf >/dev/null <<'EOF'
+https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+EOF
+sudo tee /etc/systemd/system/dnscrypt-proxy-blocklist-update.service >/dev/null <<'EOF'
+[Unit]
+Description=dnscrypt-proxy blocklist Update
+PartOf=dnscrypt-proxy.service
+Wants=network-online.target
+After=dnscrypt-proxy.service
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/
+ExecStart=/bin/python3 generate-domains-blocklist.py -o blocklist.txt ; sleep 2 ; systemctl restart dnscrypt-proxy.service
+
+[Install]
+WantedBy=multi-user.target
+EOF
+sudo tee /etc/systemd/system/dnscrypt-proxy-blocklist-update.timer >/dev/null <<'EOF'
+[Unit]
+Description=dnscrypt-proxy blocklist Update
+
+[Timer]
+OnUnitActiveSec=6h
+
+[Install]
+WantedBy=timers.target
+EOF
+sudo systemctl daemon-reload
+sudo systemctl enable --now dnscrypt-proxy-blocklist-update.service
+sudo systemctl enable --now dnscrypt-proxy-blocklist-update.timer
 sudo mkdir -p /etc/systemd/resolved.conf.d
 sudo tee /etc/systemd/resolved.conf.d/resolved.conf >/dev/null <<'EOF'
 [Resolve]

@@ -1265,9 +1265,7 @@ EOF
 sudo tee /etc/systemd/system/dnscrypt-proxy-blocklist-update.service >/dev/null <<'EOF'
 [Unit]
 Description=dnscrypt-proxy blocklist Update
-PartOf=dnscrypt-proxy.service
 Wants=network-online.target
-After=dnscrypt-proxy.service
 After=network-online.target
 
 [Service]

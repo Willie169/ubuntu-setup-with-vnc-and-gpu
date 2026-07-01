@@ -456,7 +456,6 @@ EOF
 sudo systemctl daemon-reload
 sudo systemctl enable --now dnscrypt-filterlist-update.service
 sudo systemctl enable dnscrypt-filterlist-update.timer
-mkdir -p /etc/dnscrypt-proxy
 sudo tee /etc/dnscrypt-proxy/dnscrypt-proxy.toml >/dev/null <<'EOF'
 
 ##############################################

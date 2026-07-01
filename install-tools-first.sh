@@ -518,7 +518,7 @@ max_clients = 250
 ipv4_servers = true
 
 # Use servers reachable over IPv6 -- Do not enable if you don't have IPv6 connectivity
-ipv6_servers = false
+ipv6_servers = true
 
 # Use servers implementing the DNSCrypt protocol
 dnscrypt_servers = true
@@ -530,7 +530,7 @@ doh_servers = true
 ## Require servers defined by remote sources to satisfy specific properties
 
 # Server must support DNS security extensions (DNSSEC)
-require_dnssec = false
+require_dnssec = true
 
 # Server must not log user queries (declarative)
 require_nolog = true
@@ -898,7 +898,7 @@ cache_neg_max_ttl = 600
   ## Path to the query log file (absolute, or relative to the same directory as the config file)
   ## Can be set to /dev/stdout in order to log to the standard output.
 
-  # file = 'query.log'
+  file = 'query.log'
 
 
   ## Query log format (currently supported: tsv and ltsv)
@@ -924,7 +924,7 @@ cache_neg_max_ttl = 600
 
   ## Path to the query log file (absolute, or relative to the same directory as the config file)
 
-  # file = 'nx.log'
+  file = 'nx.log'
 
 
   ## Query log format (currently supported: tsv and ltsv)

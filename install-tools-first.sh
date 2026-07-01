@@ -456,7 +456,7 @@ EOF
 sudo systemctl daemon-reload
 sudo systemctl enable --now dnscrypt-filterlist-update.service
 sudo systemctl enable dnscrypt-filterlist-update.timer
-cd /etc/dnscrypt-proxy || exit
+mkdir -p /etc/dnscrypt-proxy
 sudo tee /etc/dnscrypt-proxy/dnscrypt-proxy.toml >/dev/null <<'EOF'
 
 ##############################################
@@ -1286,7 +1286,6 @@ skip_incompatible = false
   # [static.'myserver']
   # stamp = 'sdns://AQcAAAAAAAAAAAAQMi5kbnNjcnlwdC1jZXJ0Lg'
 EOF
-cd ~ || exit
 sudo dnscrypt-proxy -service install
 sudo dnscrypt-proxy -service start
 sudo tee /etc/systemd/resolved.conf >/dev/null <<'EOF'

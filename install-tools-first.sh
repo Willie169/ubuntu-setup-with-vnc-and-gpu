@@ -1136,9 +1136,11 @@ no-negcache
 
 addn-hosts=/etc/dnsmasq.d/hosts
 EOF
-echo 'nameserver 127.0.0.1
-nameserver ::1
+sudo rm /etc/resolv.conf || true
+echo 'nameserver ::1
+nameserver 127.0.0.1
 options trust-ad' | sudo tee /etc/resolv.conf >/dev/null
+sudo chattr +i /etc/resolv.conf
 sudo systemctl restart NetworkManager
 sudo tee /etc/dnsmasq.d/fetch-hosts.sh <<'EOF'
 #!/usr/bin/env bash

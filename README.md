@@ -140,7 +140,7 @@ and wait for the shell to exit automatically. It may prompt you to choose passwo
 <li>Go to <a href="http://localhost:8082">http://localhost:8082</a>, enter default user name <code>admin</code> and password <code>admin123</code>, change user name and password, and login in the pop-up window of ClipCascade client.</li>
 <li>Snap Firefox and Thunderbird are replaced with Deb Firefox and Thunderbird from Mozilla Team PPA, and thus you may want to re-configure launchers in your Desktop Environment.</li>
 <li>Run
-<pre><code>sudo tailscale up --accept-dns=false
+<pre><code>sudo tailscale up
 </code></pre>
 to login to Tailscale via the URL shown and click <strong>Connect</strong>. Google, Microsoft, GitHub, Apple, and passkey are available.</li>
 <li>Run <code>element-desktop --password-store="gnome-libsecret"</code>. It may prompt you to choose password for a new keying called "Default keyring". Set a password for it. It will also be used in other apps with <code>gnome-keyring</code> such as Ente Auth. And then you can login to your Matrix account.</li>
@@ -164,7 +164,7 @@ git config --global url."git@github.com:".insteadOf "https://github.com/"
 ### Content of Main Installation Scripts
 
 Configures dual-boot friendly configurations, enables automatic login if on GDM, LightDM, KDE Plasma, or LXQt, enables Wayland if on GDM or KDE Plasma, disables KDE Wallet if installed, installs recommended drivers and tools for C, C++, Python3, Java21, Node.js LTS (via NVM), Rust, Perl, Aptitude, GitHub CLI, GitLab CLI, Kate, GVim, OpenSSL, OpenSSH, Tailscale, GNOME Keyring, jq, mikefarah's yq, FFMPEG, Fcitx5, 
-Snap, Flatpak (all Flatpak apps are defined with CLI aliases to be able to be run like native apps), QEMU full system emulation (x86), QEMU user mode emulation, Quickemu, UFW, TeX Live (via regular installation instead of APT for unrestricted `tlmgr` and updates, can be updated with `update_texlive`), Pandoc, NTFS-3G, Maven, Zsh, iproute2, net-tools, Nmap, aria2, nvm, npm, Yarn, Deno, http-server, LintHTML, OpenCode, Codex, yt-dlp, Lazygit, dnsmasq, Homebrew, Filelight, Glow, bat, fd, ncdu, dust, fzf, Delta, ripgrep (rg), Yazi, zoxide, Miniforge, pipx, uv, procs, tldr, xmljson, JADX, Apktool, broot, bottom (btm), hyperfine, lsd, 
+Snap, Flatpak (all Flatpak apps are defined with CLI aliases to be able to be run like native apps), QEMU full system emulation (x86), QEMU user mode emulation, Quickemu, UFW, TeX Live (via regular installation instead of APT for unrestricted `tlmgr` and updates, can be updated with `update_texlive`), Pandoc, NTFS-3G, Maven, Zsh, iproute2, net-tools, Nmap, aria2, nvm, npm, Yarn, Deno, http-server, LintHTML, OpenCode, Codex, yt-dlp, Lazygit, Homebrew, Filelight, Glow, bat, fd, ncdu, dust, fzf, Delta, ripgrep (rg), Yazi, zoxide, Miniforge, pipx, uv, procs, tldr, xmljson, JADX, Apktool, broot, bottom (btm), hyperfine, lsd, 
 lftp, LibreTranslate, gh2md, img2pdf, English, Chinese - Simplified, Chinese - Simplified (vertical), Chinese - Traditional, and Chinese - Traditional (vertical) Tesseract OCR, OCRmyPDF, Jupyter Notebook, JupyterLab, Jupytext, Meson, Tree-sitter CLI, pylatexenc, lazy.nvim and Neovim plugins from my [**bashrc**](https://github.com/Willie169/bashrc) repo (can be updated by running `update_nvim`), LSP servers, RARLAB UnRAR, Verilator, Ngspice, jpegoptim, optipng, libheif, LibWebP, ImageMagick, Inkscape, 
 Poppler, qpdf, PDFtk, Ghostscript, Bookletimposer, Tesseract with English, Chinese - Simplified, Chinese - Simplified (vertical), Chinese - Traditional, Chinese - Traditional (vertical), Japanese, and Japanese (vertical), OCRmyPDF, Audacity, w3m, XMLStarlet, GTKWave, rclone-extra, Docker Rootless mode, Podman, Distrobox, LXC (Linux Container), Incus, CyberChef (server enabled with `systemctl --user enable --now cyberchef` on `http://localhost:8081`), Stirling PDF (in `~/stirlingpdf`, server enabled with `systemctl --user enable --now stirlingpdf` on `http://localhost:9000`, can be started by running `stirlingpdf-up`, stopped by running `stirlingpdf-stop`, and downed by running `stirlingpdf-down`), Element Desktop (can be setup with `element-desktop --password-store="gnome-libsecret"` at the first time later launched by running `element-desktop` or with desktop entr0y), Tokodon, Newsflash, JamesDSP, Octave, VSCodium, qBittorrent, Remmina, ANTLR 4 (JAR in `/usr/local/java`), Tor, Tor Browser, PlantUML (JAR in `/usr/local/java`), clang-uml, SQLite 3, mpv, iotop-c, netcat, NetHogs, net-tools, iftop, LocalSend, RustDesk ID/Rendezvous server, RustDesk relay server, RustDesk, 
 Android SDK Command-line tools and platform-tools, Better ADB Sync, fdroidserver, gallery-dl, Brave Browser, Bottles, Ente Auth, OBS Studio, HandBrake, FreeTube, GIMP, Luanti, vokoscreenNG, Telegram, Pied (run `flatpak run com.mikeasoft.pied` to setup it), FreeCAD, Kdenlive, ClipCascade (server enabled with `systemctl --user enable --now clipcascade-server` on 
@@ -364,12 +364,6 @@ sudo apt install tailscale -y
 ```
 sudo tailscale up
 ```
-If you've run [`install-tools-first.sh`](install-tools-first.sh), use
-```
-sudo tailscale up --accept-dns=false
-```
-Tailscale DNS has already been configured with dnsmasq.
-
 Log in via the URL shown and click **Connect**. Google, Microsoft, GitHub, Apple, and passkey are available.
 
 #### Systemd

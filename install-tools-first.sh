@@ -433,7 +433,7 @@ managed=true
 [device]
 wifi.scan-rand-mac-address=yes' | sudo tee /etc/NetworkManager/NetworkManager.conf >/dev/null
 sudo mkdir -p /etc/NetworkManager/dnsmasq.d
-sudo tee /etc/NetworkManager/dnsmasq.d/dnsmasq.conf <<'EOF'
+sudo tee /etc/NetworkManager/dnsmasq.d/dnsmasq.conf >/dev/null <<'EOF'
 # Configuration file for dnsmasq.
 #
 # Format is one option per line, legal options are the same
@@ -1141,7 +1141,7 @@ nameserver 127.0.0.1
 options trust-ad' | sudo tee /etc/resolv.conf >/dev/null
 sudo chattr +i /etc/resolv.conf
 sudo systemctl restart NetworkManager
-sudo tee /etc/dnsmasq.d/fetch-hosts.sh <<'EOF'
+sudo tee /etc/dnsmasq.d/fetch-hosts.sh >/dev/null <<'EOF'
 #!/usr/bin/env bash
 set -u
 
@@ -1168,7 +1168,7 @@ fi
 exit 0
 EOF
 sudo chmod +x /etc/dnsmasq.d/fetch-hosts.sh
-sudo tee /etc/systemd/system/fetch-hosts.service <<'EOF'
+sudo tee /etc/systemd/system/fetch-hosts.service >/dev/null <<'EOF'
 [Unit]
 Description=Fetch hosts
 Wants=network-online.target
@@ -1178,7 +1178,7 @@ After=network-online.target
 Type=oneshot
 ExecStart=/etc/dnsmasq.d/fetch-hosts.sh
 EOF
-sudo tee /etc/systemd/system/fetch-hosts.timer <<'EOF'
+sudo tee /etc/systemd/system/fetch-hosts.timer >/dev/null <<'EOF'
 [Unit]
 Description=Fetch hosts timer
 

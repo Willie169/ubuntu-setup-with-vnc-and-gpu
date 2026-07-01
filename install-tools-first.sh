@@ -486,12 +486,12 @@ dnssec
 # to  be  up.  Uncommenting this forces dnsmasq to try each query
 # with  each  server  strictly  in  the  order  they   appear   in
 # /etc/resolv.conf
-#strict-order
+strict-order
 
 # If you don't want dnsmasq to read /etc/resolv.conf or any other
 # file, getting its servers from this file instead (see below), then
 # uncomment this.
-no-resolv
+#no-resolv
 
 # If you don't want dnsmasq to poll /etc/resolv.conf or other resolv
 # files for changes and re-read them then uncomment this.
@@ -501,6 +501,14 @@ no-resolv
 # non-public domains.
 #server=/localnet/192.168.0.1
 server=/ts.net/100.100.100.100
+server=1.1.1.1
+server=1.0.0.1
+server=2606:4700:4700::1111
+server=2606:4700:4700::1001
+server=94.140.14.140
+server=94.140.14.141
+server=2a10:50c0::1:ff
+server=2a10:50c0::2:ff
 
 # Example of routing PTR queries to nameservers: this will send all
 # address->name queries for 192.168.3/24 to nameserver 10.1.2.3
@@ -559,7 +567,7 @@ listen-address=::1,127.0.0.1
 # If you want dnsmasq to provide only DNS service on an interface,
 # configure it as shown above, and then use the following line to
 # disable DHCP and TFTP on it.
-no-dhcp-interface=wlo1
+#no-dhcp-interface=
 
 # On systems which support it, dnsmasq binds the wildcard address,
 # even when it is listening on only some interfaces. It then discards
@@ -568,7 +576,7 @@ no-dhcp-interface=wlo1
 # want dnsmasq to really bind only the interfaces it is listening on,
 # uncomment this option. About the only time you may need this is when
 # running another nameserver on the same machine.
-#bind-interfaces
+bind-interfaces
 
 # If you don't want dnsmasq to read /etc/hosts, uncomment the
 # following line.
@@ -1125,11 +1133,7 @@ no-negcache
 #dhcp-name-match=set:wpad-ignore,wpad
 #dhcp-ignore-names=tag:wpad-ignore
 EOF
-sudo rm /etc/resolv.conf || true
-echo 'nameserver ::1
-nameserver 127.0.0.1
-options trust-ad' | sudo tee /etc/resolv.conf >/dev/null
-sudo chattr +i /etc/resolv.conf
+sudo ln -sf /run/NetworkManager/no-stub-resolv.conf /etc/resolv.conf
 sudo systemctl restart NetworkManager
 sudo tee /etc/dnsmasq.d/fetch-hosts.sh >/dev/null <<'EOF'
 #!/usr/bin/env bash

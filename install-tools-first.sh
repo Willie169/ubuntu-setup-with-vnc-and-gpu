@@ -423,15 +423,18 @@ fi
 sudo snap set system refresh.retain=2
 sudo cp /usr/share/doc/dnscrypt-proxy/examples/* /etc/dnscrypt-proxy/
 sudo mkdir -p /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist
-cd /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist || exit
-sudo rm -f generate-domains-blocklist.py || true
-sudo wget https://raw.githubusercontent.com/DNSCrypt/dnscrypt-proxy/refs/heads/master/utils/generate-domains-blocklist/generate-domains-blocklist.py
+sudo rm -f /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/generate-domains-blocklist.py || true
+sudo wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/DNSCrypt/dnscrypt-proxy/refs/heads/master/utils/generate-domains-blocklist/generate-domains-blocklist.py -O /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/generate-domains-blocklist.py
 sudo tee /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/domains-blocklist.conf >/dev/null <<'EOF'
 https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
 EOF
-sudo tee /etc/systemd/system/dnscrypt-filterlist-update.service >/dev/null <<'EOF'
+sudo tee /etc/systemd/system/dnscrypt-proxy-blocklist-update.service >/dev/null <<'EOF'
 [Unit]
-Description=DNSCrypt Filterlist Update
+Description=dnscrypt-proxy blocklist Update
+PartOf=dnscrypt-proxy.service
+Wants=network-online.target
+After=dnscrypt-proxy.service
+After=network-online.target
 
 [Service]
 Type=oneshot
@@ -442,20 +445,22 @@ ExecStart=/bin/python3 generate-domains-blocklist.py -o blocklist.txt ; sleep 2 
 [Install]
 WantedBy=multi-user.target
 EOF
-sudo tee /etc/systemd/system/dnscrypt-filterlist-update.timer >/dev/null <<'EOF'
+sudo tee /etc/systemd/system/dnscrypt-proxy-blocklist-update.timer >/dev/null <<'EOF'
 [Unit]
-Description=Run 15min after boot and every 5 hours (DNSCrypt Filterlist Update)
+Description=dnscrypt-proxy blocklist Update
 
 [Timer]
-OnBootSec=15min
-OnUnitActiveSec=5h
+OnUnitActiveSec=6h
 
 [Install]
 WantedBy=timers.target
 EOF
 sudo systemctl daemon-reload
-sudo systemctl enable --now dnscrypt-filterlist-update.service
-sudo systemctl enable dnscrypt-filterlist-update.timer
+sudo systemctl enable --now dnscrypt-proxy-blocklist-update.service
+sudo systemctl enable --now dnscrypt-proxy-blocklist-update.timer
+sudo tee /etc/dnscrypt-proxy/forwarding-rules.txt >/dev/null <<'EOF'
+ts.net 100.100.100.100
+EOF
 sudo tee /etc/dnscrypt-proxy/dnscrypt-proxy.toml >/dev/null <<'EOF'
 
 ##############################################
@@ -689,7 +694,7 @@ fallback_resolvers = ['1.1.1.1:53', '1.0.0.1:53', '2606:4700:4700::1111:53', '26
 
 ## Always use the fallback resolver before the system DNS settings.
 
-ignore_system_dns = false
+ignore_system_dns = true
 
 
 ## Maximum time (in seconds) to wait for network connectivity before
@@ -784,7 +789,7 @@ reject_ttl = 600
 
 ## See the `example-forwarding-rules.txt` file for an example
 
-# forwarding_rules = 'forwarding-rules.txt'
+forwarding_rules = 'forwarding-rules.txt'
 
 
 
@@ -1287,9 +1292,12 @@ skip_incompatible = false
 EOF
 sudo dnscrypt-proxy -service install
 sudo dnscrypt-proxy -service start
-sudo tee /etc/systemd/resolved.conf >/dev/null <<'EOF'
+sudo mkdir -p /etc/systemd/resolved.conf.d
+sudo tee /etc/systemd/resolved.conf.d/resolved.conf >/dev/null <<'EOF'
 [Resolve]
 DNS=127.0.0.1
+FallbackDNS=1.1.1.1:53 1.0.0.1:53 2606:4700:4700::1111:53 2606:4700:4700::1001:53 94.140.14.140:53 94.140.14.141:53 2a10:50c0::1:ff:53 2a10:50c0::2:ff:53
+MulticastDNS=yes
 EOF
 sudo systemctl restart systemd-resolved
 systemctl --user restart pipewire pipewire-pulse wireplumber

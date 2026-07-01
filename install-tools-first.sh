@@ -1137,7 +1137,7 @@ no-negcache
 addn-hosts=/etc/dnsmasq.d/hosts
 EOF
 echo 'nameserver 127.0.0.1
-namservser ::1
+nameservser ::1
 options trust-ad' | sudo tee /etc/resolv.conf >/dev/null
 sudo systemctl restart NetworkManager
 sudo tee /etc/dnsmasq.d/fetch-hosts.sh <<'EOF'

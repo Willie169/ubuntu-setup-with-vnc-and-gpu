@@ -508,6 +508,7 @@ server=94.140.14.140
 server=94.140.14.141
 server=2a10:50c0::1:ff
 server=2a10:50c0::2:ff
+server=/ts.net/100.100.100.100
 
 # Example of routing PTR queries to nameservers: this will send all
 # address->name queries for 192.168.3/24 to nameserver 10.1.2.3
@@ -1135,10 +1136,10 @@ no-negcache
 
 addn-hosts=/etc/dnsmasq.d/hosts
 EOF
-sudo rm /etc/resolv.conf || true
 echo 'nameserver 127.0.0.1
 namservser ::1
-options trust-ad' | sudo tee /etc/resolv.conf >/dev/null
+options trust-ad' | sudo tee /etc/dnsmasq.d/resolv.conf >/dev/null
+sudo ln -sf /etc/dnsmasq.d/resolv.conf /etc/resolv.conf
 sudo systemctl restart NetworkManager
 sudo tee /etc/dnsmasq.d/fetch-hosts.sh <<'EOF'
 #!/usr/bin/env bash

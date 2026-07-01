@@ -1155,6 +1155,7 @@ flock -n 9 || exit 0
 if curl -fsSL --max-time 10 "$URL" -o "$TMP"; then
     if [ -s "$TMP" ]; then
         mv "$TMP" "$TARGET"
+        sudo kill -HUP "$(cat /run/NetworkManager/dnsmasq.pid)"
     else
         rm -f "$TMP"
         exit 0

@@ -491,7 +491,7 @@ dnssec
 # If you don't want dnsmasq to read /etc/resolv.conf or any other
 # file, getting its servers from this file instead (see below), then
 # uncomment this.
-#no-resolv
+no-resolv
 
 # If you don't want dnsmasq to poll /etc/resolv.conf or other resolv
 # files for changes and re-read them then uncomment this.
@@ -500,14 +500,6 @@ dnssec
 # Add other name servers here, with domain specs if they are for
 # non-public domains.
 #server=/localnet/192.168.0.1
-server=1.1.1.1
-server=1.0.0.1
-server=2606:4700:4700::1111
-server=2606:4700:4700::1001
-server=94.140.14.140
-server=94.140.14.141
-server=2a10:50c0::1:ff
-server=2a10:50c0::2:ff
 server=/ts.net/100.100.100.100
 
 # Example of routing PTR queries to nameservers: this will send all
@@ -1134,6 +1126,10 @@ no-negcache
 #dhcp-ignore-names=tag:wpad-ignore
 EOF
 sudo rm /etc/resolv.conf || true
+echo 'nameserver ::1
+nameserver 127.0.0.1
+options trust-ad' | sudo tee /etc/resolv.conf >/dev/null
+sudo chattr +i /etc/resolv.conf
 sudo systemctl restart NetworkManager
 sudo tee /etc/dnsmasq.d/fetch-hosts.sh >/dev/null <<'EOF'
 #!/usr/bin/env bash

@@ -491,7 +491,7 @@ dnssec
 # If you don't want dnsmasq to read /etc/resolv.conf or any other
 # file, getting its servers from this file instead (see below), then
 # uncomment this.
-no-resolv
+#no-resolv
 
 # If you don't want dnsmasq to poll /etc/resolv.conf or other resolv
 # files for changes and re-read them then uncomment this.
@@ -1134,10 +1134,6 @@ no-negcache
 #dhcp-ignore-names=tag:wpad-ignore
 EOF
 sudo rm /etc/resolv.conf || true
-echo 'nameserver ::1
-nameserver 127.0.0.1
-options trust-ad' | sudo tee /etc/resolv.conf >/dev/null
-sudo chattr +i /etc/resolv.conf
 sudo systemctl restart NetworkManager
 sudo tee /etc/dnsmasq.d/fetch-hosts.sh >/dev/null <<'EOF'
 #!/usr/bin/env bash

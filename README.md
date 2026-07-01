@@ -140,7 +140,7 @@ and wait for the shell to exit automatically. It may prompt you to choose passwo
 <li>Go to <a href="http://localhost:8082">http://localhost:8082</a>, enter default user name <code>admin</code> and password <code>admin123</code>, change user name and password, and login in the pop-up window of ClipCascade client.</li>
 <li>Snap Firefox and Thunderbird are replaced with Deb Firefox and Thunderbird from Mozilla Team PPA, and thus you may want to re-configure launchers in your Desktop Environment.</li>
 <li>Run
-<pre><code>sudo tailscale up
+<pre><code>sudo tailscale up --accept-dns=false
 </code></pre>
 to login to Tailscale via the URL shown and click <strong>Connect</strong>. Google, Microsoft, GitHub, Apple, and passkey are available.</li>
 <li>Run <code>element-desktop --password-store="gnome-libsecret"</code>. It may prompt you to choose password for a new keying called "Default keyring". Set a password for it. It will also be used in other apps with <code>gnome-keyring</code> such as Ente Auth. And then you can login to your Matrix account.</li>
@@ -364,6 +364,11 @@ sudo apt install tailscale -y
 ```
 sudo tailscale up
 ```
+If you've run [`install-tools-first.sh`](install-tools-first.sh), use
+```
+sudo tailscale up --accept-dns=false
+```
+Tailscale DNS has already been configured with dnsmasq.
 
 Log in via the URL shown and click **Connect**. Google, Microsoft, GitHub, Apple, and passkey are available.
 

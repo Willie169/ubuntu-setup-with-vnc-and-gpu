@@ -1138,8 +1138,7 @@ addn-hosts=/etc/dnsmasq.d/hosts
 EOF
 echo 'nameserver 127.0.0.1
 namservser ::1
-options trust-ad' | sudo tee /etc/dnsmasq.d/resolv.conf >/dev/null
-sudo ln -sf /etc/dnsmasq.d/resolv.conf /etc/resolv.conf
+options trust-ad' | sudo tee /etc/resolv.conf >/dev/null
 sudo systemctl restart NetworkManager
 sudo tee /etc/dnsmasq.d/fetch-hosts.sh <<'EOF'
 #!/usr/bin/env bash

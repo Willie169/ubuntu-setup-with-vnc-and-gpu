@@ -454,7 +454,7 @@ sudo tee /etc/NetworkManager/dnsmasq.d/dnsmasq.conf >/dev/null <<'EOF'
 # Never forward plain names (without a dot or domain part)
 domain-needed
 # Never forward addresses in the non-routed address spaces.
-bogus-priv
+#bogus-priv
 
 # Uncomment these to enable DNSSEC validation and caching:
 # (Requires dnsmasq to be built with DNSSEC option.)
@@ -567,7 +567,7 @@ listen-address=::1,127.0.0.1
 # If you want dnsmasq to provide only DNS service on an interface,
 # configure it as shown above, and then use the following line to
 # disable DHCP and TFTP on it.
-#no-dhcp-interface=
+no-dhcp-interface=wlo1
 
 # On systems which support it, dnsmasq binds the wildcard address,
 # even when it is listening on only some interfaces. It then discards
@@ -576,14 +576,14 @@ listen-address=::1,127.0.0.1
 # want dnsmasq to really bind only the interfaces it is listening on,
 # uncomment this option. About the only time you may need this is when
 # running another nameserver on the same machine.
-bind-interfaces
+#bind-interfaces
 
 # If you don't want dnsmasq to read /etc/hosts, uncomment the
 # following line.
 #no-hosts
 # or if you want it to read another file, as well as /etc/hosts, use
 # this.
-#addn-hosts=/etc/banner_add_hosts
+addn-hosts=/etc/dnsmasq.d/hosts
 
 # Set this (and domain: see below) if you want to have a domain
 # automatically added to simple names in a hosts-file.
@@ -1132,8 +1132,6 @@ no-negcache
 # This fixes a security hole. see CERT Vulnerability VU#598349
 #dhcp-name-match=set:wpad-ignore,wpad
 #dhcp-ignore-names=tag:wpad-ignore
-
-addn-hosts=/etc/dnsmasq.d/hosts
 EOF
 sudo rm /etc/resolv.conf || true
 echo 'nameserver ::1

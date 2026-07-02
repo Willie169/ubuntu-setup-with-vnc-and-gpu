@@ -1249,7 +1249,7 @@ sudo mkdir -p /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist
 sudo rm -f /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/generate-domains-blocklist.py || true
 sudo wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/DNSCrypt/dnscrypt-proxy/refs/heads/master/utils/generate-domains-blocklist/generate-domains-blocklist.py -O /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/generate-domains-blocklist.py
 sudo tee /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/domains-blocklist.conf >/dev/null <<'EOF'
-https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/pro-onlydomains.txt
 EOF
 sudo tee /etc/systemd/system/dnscrypt-proxy-blocklist-update.service >/dev/null <<'EOF'
 [Unit]

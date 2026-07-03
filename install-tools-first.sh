@@ -1249,7 +1249,38 @@ sudo mkdir -p /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist
 sudo rm -f /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/generate-domains-blocklist.py || true
 sudo wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/DNSCrypt/dnscrypt-proxy/refs/heads/master/utils/generate-domains-blocklist/generate-domains-blocklist.py -O /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/generate-domains-blocklist.py
 sudo tee /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/domains-blocklist.conf >/dev/null <<'EOF'
+##################################################################################
+#                                                                                #
+#   Generate a block list of domains using public data sources, and the local    #
+#   domains-blocklist-local-additions.txt file.                                  #
+#                                                                                #
+#   The default configuration is just indicative, and corresponds to the one     #
+#   used to produce the public "mybase" set.                                     #
+#                                                                                #
+#   Comment out the URLs of the sources you wish to disable, leave the ones      #
+#   you would like enabled uncommented.  Then run the script to build the        #
+#   dnscrypt-blocklist-domains.txt file:                                         #
+#                                                                                #
+#   $  generate-domains-blocklist.py -o dnscrypt-blocklist-domains.txt           #
+#                                                                                #
+#   Domains that should never be blocked can be put into a file named            #
+#   domains-allowlist.txt.                                                       #
+#                                                                                #
+#   That blocklist file can then be used in the dnscrypt-proxy.toml file:        #
+#                                                                                #
+#   [blocked_names]                                                              #
+#                                                                                #
+#     blocked_names_file = 'dnscrypt-blocklist-domains.txt'                      #
+#                                                                                #
+##################################################################################
+
+# Local additions
+#file:domains-blocklist-local-additions.txt
+
+https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/doh-onlydomains.txt
+https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/dyndns-onlydomains.txt
 https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/pro-onlydomains.txt
+https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/tif.medium-onlydomains.txt
 EOF
 sudo tee /etc/systemd/system/dnscrypt-proxy-blocklist-update.service >/dev/null <<'EOF'
 [Unit]

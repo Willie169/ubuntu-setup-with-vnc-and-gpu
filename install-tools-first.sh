@@ -411,6 +411,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="-
 fi
 sudo snap set system refresh.retain=2
 sudo cp /usr/share/doc/dnscrypt-proxy/examples/* /etc/dnscrypt-proxy/
+sudo wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/DNSCrypt/dnscrypt-proxy/master/dnscrypt-proxy/localhost.pem -O /etc/dnscrypt-proxy/localhost.pem
 sudo tee /etc/dnscrypt-proxy/forwarding-rules.txt >/dev/null <<'EOF'
 ts.net 100.100.100.100
 EOF

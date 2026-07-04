@@ -411,7 +411,6 @@ sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="-
 fi
 sudo snap set system refresh.retain=2
 sudo cp /usr/share/doc/dnscrypt-proxy/examples/* /etc/dnscrypt-proxy/
-sudo wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/DNSCrypt/dnscrypt-proxy/master/dnscrypt-proxy/localhost.pem -O /etc/dnscrypt-proxy/localhost.pem
 sudo tee /etc/dnscrypt-proxy/forwarding-rules.txt >/dev/null <<'EOF'
 ts.net 100.100.100.100
 EOF
@@ -826,7 +825,7 @@ cache_neg_max_ttl = 600
 
 ## Addresses that the local DoH server should listen to
 
-listen_addresses = ['127.0.0.1:3000']
+# listen_addresses = ['127.0.0.1:3000']
 
 
 ## Path of the DoH URL. This is not a file, but the part after the hostname
@@ -834,14 +833,14 @@ listen_addresses = ['127.0.0.1:3000']
 ## For each `listen_address` the complete URL to access the server will be:
 ## `https://<listen_address><path>` (ex: `https://127.0.0.1/dns-query`)
 
-path = '/dns-query'
+# path = '/dns-query'
 
 
 ## Certificate file and key - Note that the certificate has to be trusted.
 ## See the documentation (wiki) for more information.
 
-cert_file = 'localhost.pem'
-cert_key_file = 'localhost.pem'
+# cert_file = 'localhost.pem'
+# cert_key_file = 'localhost.pem'
 
 
 

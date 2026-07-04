@@ -839,8 +839,8 @@ path = '/dns-query'
 ## Certificate file and key - Note that the certificate has to be trusted.
 ## See the documentation (wiki) for more information.
 
-# cert_file = 'localhost.pem'
-# cert_key_file = 'localhost.pem'
+cert_file = 'localhost.pem'
+cert_key_file = 'localhost.pem'
 
 
 

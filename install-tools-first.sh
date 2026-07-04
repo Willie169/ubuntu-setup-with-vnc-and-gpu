@@ -1314,6 +1314,8 @@ FallbackDNS=1.1.1.1:53 1.0.0.1:53 2606:4700:4700::1111:53 2606:4700:4700::1001:5
 Domains=~.
 EOF
 sudo systemctl restart systemd-resolved
+wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/macvk/dnsleaktest/master/dnsleaktest.sh -O ~/.local/bin/dnsleaktest.sh
+chmod +x ~/.local/bin/dnsleaktest.sh
 systemctl --user restart pipewire pipewire-pulse wireplumber
 im-config -n fcitx5
 cat > ~/.xprofile <<'EOF'

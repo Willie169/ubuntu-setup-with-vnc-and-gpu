@@ -825,7 +825,7 @@ cache_neg_max_ttl = 600
 
 ## Addresses that the local DoH server should listen to
 
-# listen_addresses = ['127.0.0.1:3000']
+listen_addresses = ['127.0.0.1:3000']
 
 
 ## Path of the DoH URL. This is not a file, but the part after the hostname
@@ -833,7 +833,7 @@ cache_neg_max_ttl = 600
 ## For each `listen_address` the complete URL to access the server will be:
 ## `https://<listen_address><path>` (ex: `https://127.0.0.1/dns-query`)
 
-# path = '/dns-query'
+path = '/dns-query'
 
 
 ## Certificate file and key - Note that the certificate has to be trusted.

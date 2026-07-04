@@ -1348,10 +1348,6 @@ sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://b
 sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install brave-browser -y -o Dpkg::Options::="--force-confnew"
-sudo curl -fsSLo /usr/share/keyrings/mullvad-keyring.asc https://repository.mullvad.net/deb/mullvad-keyring.asc
-echo 'deb [signed-by=/usr/share/keyrings/mullvad-keyring.asc arch=amd64] https://repository.mullvad.net/deb/stable stable main' | sudo tee /etc/apt/sources.list.d/mullvad.list
-sudo apt update
-sudo DEBIAN_FRONTEND=noninteractive apt install mullvad-browser -y -o Dpkg::Options::="--force-confnew"
 curl -fsSL https://download.onlyoffice.com/GPG-KEY-ONLYOFFICE | gpg --no-default-keyring --keyring gnupg-ring:/tmp/onlyoffice.gpg --import
 chmod 644 /tmp/onlyoffice.gpg
 sudo chown root:root /tmp/onlyoffice.gpg

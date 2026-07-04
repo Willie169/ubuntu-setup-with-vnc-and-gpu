@@ -1293,22 +1293,19 @@ Type=oneshot
 User=root
 WorkingDirectory=/usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/
 ExecStart=/bin/python3 generate-domains-blocklist.py -o blocklist.txt ; sleep 2 ; systemctl restart dnscrypt-proxy.service
-
-[Install]
-WantedBy=multi-user.target
 EOF
 sudo tee /etc/systemd/system/dnscrypt-proxy-blocklist-update.timer >/dev/null <<'EOF'
 [Unit]
 Description=dnscrypt-proxy blocklist Update
 
 [Timer]
+OnBootSec=5min
 OnUnitActiveSec=6h
 
 [Install]
 WantedBy=timers.target
 EOF
 sudo systemctl daemon-reload
-sudo systemctl enable --now dnscrypt-proxy-blocklist-update.service
 sudo systemctl enable --now dnscrypt-proxy-blocklist-update.timer
 sudo mkdir -p /etc/systemd/resolved.conf.d
 sudo tee /etc/systemd/resolved.conf.d/resolved.conf >/dev/null <<'EOF'

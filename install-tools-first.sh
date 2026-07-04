@@ -1277,7 +1277,6 @@ sudo tee /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/domains-bloc
 # Local additions
 #file:domains-blocklist-local-additions.txt
 
-https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/doh-onlydomains.txt
 https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/dyndns-onlydomains.txt
 https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/pro-onlydomains.txt
 https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/tif.medium-onlydomains.txt

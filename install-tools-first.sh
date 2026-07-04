@@ -1310,7 +1310,7 @@ sudo systemctl enable --now dnscrypt-proxy-blocklist-update.timer
 sudo mkdir -p /etc/systemd/resolved.conf.d
 sudo tee /etc/systemd/resolved.conf.d/resolved.conf >/dev/null <<'EOF'
 [Resolve]
-DNS=127.0.0.1
+DNS=127.0.0.1:53
 FallbackDNS=1.1.1.1:53 1.0.0.1:53 2606:4700:4700::1111:53 2606:4700:4700::1001:53 94.140.14.140:53 94.140.14.141:53 2a10:50c0::1:ff:53 2a10:50c0::2:ff:53
 MulticastDNS=yes
 EOF

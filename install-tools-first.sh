@@ -1281,6 +1281,8 @@ https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/dyndns-onlydom
 https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/pro-onlydomains.txt
 https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/tif.medium-onlydomains.txt
 EOF
+sudo touch /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/domains-time-restricted.txt
+sudo touch /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/domains-allowlist.txt
 sudo tee /etc/systemd/system/dnscrypt-proxy-blocklist-update.service >/dev/null <<'EOF'
 [Unit]
 Description=dnscrypt-proxy blocklist Update

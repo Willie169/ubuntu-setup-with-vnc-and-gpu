@@ -1285,7 +1285,7 @@ sudo touch /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/domains-ti
 sudo touch /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/domains-allowlist.txt
 sudo tee /etc/systemd/system/dnscrypt-proxy-blocklist-update.service >/dev/null <<'EOF'
 [Unit]
-Description=dnscrypt-proxy blocklist Update
+Description=dnscrypt-proxy blocklist update
 Wants=network-online.target
 After=network-online.target
 After=dnscrypt-proxy.service
@@ -1301,7 +1301,7 @@ WantedBy=multi-user.target
 EOF
 sudo tee /etc/systemd/system/dnscrypt-proxy-blocklist-update.timer >/dev/null <<'EOF'
 [Unit]
-Description=dnscrypt-proxy blocklist Update
+Description=dnscrypt-proxy blocklist update
 
 [Timer]
 OnUnitActiveSec=6h
@@ -1319,7 +1319,30 @@ DNS=127.0.0.1
 FallbackDNS=1.1.1.1:53 1.0.0.1:53 2606:4700:4700::1111:53 2606:4700:4700::1001:53 94.140.14.140:53 94.140.14.141:53 2a10:50c0::1:ff:53 2a10:50c0::2:ff:53
 Domains=~.
 EOF
+sudo tee /etc/systemd/resolved.conf.d/resolved.conf.bak >/dev/null <<'EOF'
+[Resolve]
+DNS=127.0.0.1
+FallbackDNS=1.1.1.1:53 1.0.0.1:53 2606:4700:4700::1111:53 2606:4700:4700::1001:53 94.140.14.140:53 94.140.14.141:53 2a10:50c0::1:ff:53 2a10:50c0::2:ff:53
+Domains=~.
+EOF
 sudo systemctl restart systemd-resolved
+sudo tee /etc/systemd/system/systemd-resolved-conf-dns-up.service >/dev/null <<'EOF'
+[Unit]
+Description=systemd-resolved conf dns_up
+After=systemd-sysctl.service systemd-sysusers.service
+Before=systemd-resolved.service
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/etc/systemd/resolved.conf.d/
+ExecStart=cp resolved.conf.bak resolved.conf
+
+[Install]
+WantedBy=sysinit.target
+EOF
+sudo systemctl daemon-reload
+sudo systemctl enable --now systemd-resolved-conf-dns-up.service
 wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/macvk/dnsleaktest/master/dnsleaktest.sh -O ~/.local/bin/dnsleaktest.sh
 chmod +x ~/.local/bin/dnsleaktest.sh
 systemctl --user restart pipewire pipewire-pulse wireplumber

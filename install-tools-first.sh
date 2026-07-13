@@ -1831,6 +1831,14 @@ Terminal=false
 Categories=Game;
 EOF
 update_sylvan_config
+git clone https://github.com/jusw85/mozlz4.git
+cd mozlz4 || true
+cargo build --release
+cd target/release || true
+mv mozlz4-bin mozlz4
+mv mozlz4 ~/.local/bin/
+cd ~ || true
+rm -rf mozlz4
 if [ "$TEST" -eq 0 ]; then
 wget --tries=100 --retry-connrefused --waitretry=5 https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xzf install-tl-unx.tar.gz

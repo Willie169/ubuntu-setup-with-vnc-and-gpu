@@ -229,7 +229,6 @@ Installs [RuView](https://github.com/ruvnet/RuView) from source (Rust), which re
 
 ### Table of Contents
 
-+ [Desktop Environment](#desktop-environment)
 + [Wayland](#wayland)
 + [Linux Mint Ubuntu Version Tweak](#linux-mint-ubuntu-version-tweak)
 + [Desktop App Launchers](#desktop-app-launchers)
@@ -241,41 +240,11 @@ Installs [RuView](https://github.com/ruvnet/RuView) from source (Rust), which re
 + [Bottles](#bottles)
 + [My Related Repositories](#my-related-repositories)
 
-### Desktop Environment
-
-#### GNOME 3
-
-- Ubuntu uses it.
-- Uses GDM.
-- Supports both X11 and Wayland.
-- Built upon GTK.
-
-#### KDE Plasma
-
-- Kubuntu uses it.
-- Uses SDDM.
-- Supports both X11 and Wayland.
-- Built upon Qt.
-
-#### Cinnamon
-
-- Linux Mint Cinnamon Edition uses it.
-- Uses LightDM.
-- Supports X11.
-- Not fully supports Wayland currently.
-- Built upon GTK.
-
 ### Wayland
 
-#### Prerequisites
+#### Check
 
-Run `echo $XDG_SESSION_TYPE`. If it prints `wayland`, you're already using Wayland. Otherwise, determine your Desktop Environment and follow the corresponding section below:
-<ul>
-<li>GNOME 3, which Ubuntu usually uses, supports Wayland.</li>
-<li>KDE Plasma, which Kubuntu uses, supports Wayland.</li>
-<li>Cinnamon, which Linux Mint usually uses, doesn't fully support Wayland currently. This instruction does not cover how to switch to Wayland on Cinnamon. Sorry.</li>
-</ul>
-See <a href="#desktop-environment">Desktop Environment</a> section for more information.
+Run `echo $XDG_SESSION_TYPE`. If it prints `wayland`, you're already using Wayland; if it prints `x11`, you're running X11.
 
 #### Enable Wayland for GNOME3
 
@@ -284,7 +253,7 @@ See <a href="#desktop-environment">Desktop Environment</a> section for more info
 <li>In the down right corner of the login page, choose <code>Ubuntu on Wayland</code>.</li>
 </ol>
 
-#### Enable Wayland for KDE Plasma
+#### Enable Wayland for KDE Plasma 5
 
 <ol>
 <li>Run:

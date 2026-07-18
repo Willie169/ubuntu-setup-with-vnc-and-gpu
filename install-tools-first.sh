@@ -1893,7 +1893,7 @@ After=docker.service
 [Service]
 WorkingDirectory=${HOME}/typetype-stack
 ExecStart=/usr/bin/docker compose -f docker-compose.yml --env-file .env up
-ExecStop=/usr/bin/docker compose stop
+ExecStop=/usr/bin/docker compose -f docker-compose.yml stop
 Restart=always
 RestartSec=5
 

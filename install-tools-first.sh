@@ -1526,6 +1526,9 @@ curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://download.dock
 echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y -o Dpkg::Options::="--force-confnew"
+sudo systemctl enable --now docker
+sudo groupadd docker || true
+sudo usermod -aG docker "$USER"
 sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /etc/apt/keyrings/zabbly.asc https://pkgs.zabbly.com/key.asc
 echo "Enabled: yes
 Types: deb

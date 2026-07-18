@@ -1839,6 +1839,69 @@ mv mozlz4-bin mozlz4
 mv mozlz4 ~/.local/bin/
 cd ~ || true
 rm -rf mozlz4
+mkdir ~/typetype-stack
+cat > ~/typetype-stack/.env <<'EOF'
+ALLOWED_ORIGINS=http://localhost:9082,http://127.0.0.1:9082,http://localhost:5173,http://127.0.0.1:5173
+HOST_PORT_WEB=9082
+HOST_BIND_SERVER=127.0.0.1
+HOST_PORT_SERVER=9080
+HOST_BIND_TOKEN=127.0.0.1
+HOST_PORT_TOKEN=9081
+HOST_BIND_GARAGE_S3=127.0.0.1
+HOST_PORT_GARAGE_S3=3900
+HOST_PORT_WEB_BETA=18082
+HOST_BIND_SERVER_BETA=127.0.0.1
+HOST_PORT_SERVER_BETA=18080
+HOST_BIND_DOWNLOADER_BETA=127.0.0.1
+HOST_PORT_DOWNLOADER_BETA=19093
+HOST_BIND_TOKEN_BETA=127.0.0.1
+HOST_PORT_TOKEN_BETA=18081
+HOST_BIND_GARAGE_S3_BETA=127.0.0.1
+HOST_PORT_GARAGE_S3_BETA=3900
+TYPETYPE_WEB_IMAGE=
+TYPETYPE_SERVER_IMAGE=
+TYPETYPE_DOWNLOADER_IMAGE=
+TYPETYPE_TOKEN_IMAGE=
+TYPETYPE_WEB_BETA_IMAGE=
+TYPETYPE_SERVER_BETA_IMAGE=
+TYPETYPE_DOWNLOADER_BETA_IMAGE=
+TYPETYPE_TOKEN_BETA_IMAGE=
+POSTGRES_DB=typetype
+POSTGRES_USER=typetype
+POSTGRES_PASSWORD=typetype
+DRAGONFLY_URL=redis://dragonfly:6379
+GITHUB_REPO=TypeType-Video/TypeType
+GITHUB_ISSUE_TEMPLATE=bug_report_backend.md
+DOWNLOADER_S3_ACCESS_KEY=SET_ME_ACCESS_KEY
+DOWNLOADER_S3_SECRET_KEY=SET_ME_SECRET_KEY
+GARAGE_RPC_SECRET=SET_ME_GARAGE_RPC_SECRET
+YOUTUBE_REMOTE_LOGIN_ENABLED=false
+YOUTUBE_REMOTE_LOGIN_INTERNAL_TOKEN=SET_ME_YOUTUBE_REMOTE_LOGIN_INTERNAL_TOKEN
+YOUTUBE_SESSION_ENCRYPTION_KEY=SET_ME_YOUTUBE_SESSION_ENCRYPTION_KEY
+YOUTUBE_REMOTE_LOGIN_CALLBACK_ORIGIN=http://typetype-server:9080
+YOUTUBE_REMOTE_LOGIN_TTL_MS=480000
+YOUTUBE_REMOTE_LOGIN_MAX_SESSIONS=2
+YOUTUBE_REMOTE_LOGIN_FRAME_FPS=10
+YOUTUBE_REMOTE_LOGIN_MAX_FRAME_BYTES=524288
+EOF
+curl -fsSL https://raw.githubusercontent.com/TypeType-Video/TypeType/main/scripts/install-stack.sh | bash -s -- --yes --download-only
+cat > ~/.config/systemd/user/typetype.service <<EOF
+[Unit]
+Description=TypeType
+After=docker.service
+
+[Service]
+WorkingDirectory=${HOME}/typetype-stack
+ExecStart=/usr/bin/docker compose -f docker-compose.yml --env-file .env up
+ExecStop=/usr/bin/docker compose stop
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
+EOF
+systemctl --user daemon-reload
+systemctl --user enable --now typetype.service
 if [ "$TEST" -eq 0 ]; then
 wget --tries=100 --retry-connrefused --waitretry=5 https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xzf install-tl-unx.tar.gz

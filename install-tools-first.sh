@@ -197,7 +197,7 @@ RemainAfterExit=yes
 WantedBy=multi-user.target
 EOF
 sudo systemctl daemon-reload
-sudo systemctl enable --now firefox-apparmor.service
+sudo systemctl enable --now firefox-apparmor
 sudo rm /var/lib/snapd/desktop/applications/firefox*.desktop 2>/dev/null || true
 sudo rm /var/lib/snapd/inhibit/firefox.lock 2>/dev/null || true
 rm -r snap/firefox 2>/dev/null || true
@@ -1310,7 +1310,7 @@ OnUnitActiveSec=6h
 WantedBy=timers.target
 EOF
 sudo systemctl daemon-reload
-sudo systemctl enable --now dnscrypt-proxy-blocklist-update.service
+sudo systemctl enable --now dnscrypt-proxy-blocklist-update
 sudo systemctl enable --now dnscrypt-proxy-blocklist-update.timer
 sudo mkdir -p /etc/systemd/resolved.conf.d
 sudo tee /etc/systemd/resolved.conf.d/resolved.conf >/dev/null <<'EOF'
@@ -1342,7 +1342,7 @@ ExecStart=cp resolved.conf.bak resolved.conf
 WantedBy=sysinit.target
 EOF
 sudo systemctl daemon-reload
-sudo systemctl enable --now systemd-resolved-conf-dns-up.service
+sudo systemctl enable --now systemd-resolved-conf-dns-up
 wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/macvk/dnsleaktest/master/dnsleaktest.sh -O ~/.local/bin/dnsleaktest.sh
 chmod +x ~/.local/bin/dnsleaktest.sh
 systemctl --user restart pipewire pipewire-pulse wireplumber
@@ -1393,9 +1393,9 @@ rm rustdesk-server-hbbs_*_amd64.deb*
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' rustdesk/rustdesk-server 'rustdesk-server-hbbr_*_amd64.deb'
 sudo DEBIAN_FRONTEND=noninteractive apt install ./rustdesk-server-hbbr_*_amd64.deb -y -o Dpkg::Options::="--force-confnew"
 rm rustdesk-server-hbbr_*_amd64.deb*
-sudo systemctl enable --now rustdesk-hbbs.service
-sudo systemctl enable --now rustdesk-hbbr.service
-sudo systemctl enable --now rustdesk.service
+sudo systemctl enable --now rustdesk-hbbs
+sudo systemctl enable --now rustdesk-hbbr
+sudo systemctl enable --now rustdesk
 sudo ufw allow 21118/udp
 sudo ufw allow 21118/tcp
 sudo ufw allow 21114:21119/tcp
@@ -1449,7 +1449,7 @@ RestartSec=5
 WantedBy=default.target
 EOF
 systemctl --user daemon-reload
-systemctl --user enable --now libretranslate.service
+systemctl --user enable --now libretranslate
 wget --tries=100 --retry-connrefused --waitretry=5 https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
 bash Miniforge3-Linux-x86_64.sh -b -p "${HOME}/conda"
 rm Miniforge3-Linux-x86_64.sh*
@@ -1633,7 +1633,7 @@ RestartSec=5
 WantedBy=default.target
 EOF
 systemctl --user daemon-reload
-systemctl --user enable --now cyberchef.service
+systemctl --user enable --now cyberchef
 mkdir -p ~/stirlingpdf/stirling-data/configs
 cd ~/stirlingpdf || exit
 cat > docker-compose.yml <<'EOF'
@@ -1667,7 +1667,7 @@ RestartSec=5
 WantedBy=default.target
 EOF
 systemctl --user daemon-reload
-systemctl --user enable --now stirlingpdf.service
+systemctl --user enable --now stirlingpdf
 wget --tries=100 --retry-connrefused --waitretry=5 -O studio.html https://developer.android.com/studio
 # shellcheck disable=2155
 export CMDLINETOOLS="$(awk '/<table class="download">/ { count++ }
@@ -1715,7 +1715,7 @@ Environment=CC_PORT=8082
 WantedBy=default.target
 EOF
 systemctl --user daemon-reload
-systemctl --user enable --now clipcascade-server.service
+systemctl --user enable --now clipcascade-server
 sudo ufw allow 8082/tcp
 sudo ufw reload
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Sathvik-Rao/ClipCascade ClipCascade_Linux.tar.xz
@@ -1741,7 +1741,7 @@ Environment=CC_PORT=8082
 WantedBy=default.target
 EOF
 systemctl --user daemon-reload
-systemctl --user enable clipcascade-client.service
+systemctl --user enable clipcascade-client
 sudo DEBIAN_FRONTEND=noninteractive apt install libxml2-utils libxslt1.1 -y -o Dpkg::Options::="--force-confnew"
 git clone --depth=1 https://codeberg.org/c4ffe14e/phice.git
 cd phice || exit
@@ -1901,7 +1901,7 @@ RestartSec=5
 WantedBy=default.target
 EOF
 systemctl --user daemon-reload
-systemctl --user enable --now typetype.service
+systemctl --user enable --now typetype
 if [ "$TEST" -eq 0 ]; then
 wget --tries=100 --retry-connrefused --waitretry=5 https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xzf install-tl-unx.tar.gz

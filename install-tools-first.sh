@@ -1525,11 +1525,7 @@ curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://raw.githubuse
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/trusted.gpg.d/docker.asc >/dev/null
 echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 sudo apt update
-sudo DEBIAN_FRONTEND=noninteractive apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras uidmap -y -o Dpkg::Options::="--force-confnew"
-sudo systemctl disable --now docker.service docker.socket
-sudo rm /var/run/docker.sock
-# dockerd-rootless-setuptool.sh install needs uidmap
-dockerd-rootless-setuptool.sh install
+sudo DEBIAN_FRONTEND=noninteractive apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y -o Dpkg::Options::="--force-confnew"
 sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /etc/apt/keyrings/zabbly.asc https://pkgs.zabbly.com/key.asc
 echo "Enabled: yes
 Types: deb

@@ -9,9 +9,9 @@ jobs:
         image:
           - ubuntu/26.04
         meta:
-          #- kubuntu-desktop
-          #- ubuntu-desktop
-          #- xubuntu-desktop
+          - kubuntu-desktop
+          - ubuntu-desktop
+          - xubuntu-desktop
           - lubuntu-desktop
         flag:
           - --full

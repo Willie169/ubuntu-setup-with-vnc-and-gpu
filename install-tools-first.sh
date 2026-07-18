@@ -1650,6 +1650,7 @@ services:
       - LANGS=en_GB
     restart: unless-stopped
 EOF
+docker compose pull
 cd ~ || exit
 cat > ~/.config/systemd/user/stirlingpdf.service <<EOF
 [Unit]
@@ -1885,6 +1886,9 @@ YOUTUBE_REMOTE_LOGIN_FRAME_FPS=10
 YOUTUBE_REMOTE_LOGIN_MAX_FRAME_BYTES=524288
 EOF
 curl -fsSL https://raw.githubusercontent.com/TypeType-Video/TypeType/main/scripts/install-stack.sh | bash -s -- --yes --download-only
+cd ~/typetype-stack || exit
+docker compose -f docker-compose.yml pull
+cd ~ || exit
 cat > ~/.config/systemd/user/typetype.service <<EOF
 [Unit]
 Description=TypeType

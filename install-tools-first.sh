@@ -1243,8 +1243,8 @@ skip_incompatible = false
   # [static.'myserver']
   # stamp = 'sdns://AQcAAAAAAAAAAAAQMi5kbnNjcnlwdC1jZXJ0Lg'
 EOF
-[ "$FULL" -eq 0  ] && sudo dnscrypt-proxy -service install
-[ "$FULL" -eq 0  ] && sudo dnscrypt-proxy -service start
+[ "$TEST" -eq 0  ] && [ "$FULL" -eq 0  ] && sudo dnscrypt-proxy -service install
+[ "$TEST" -eq 0  ] && [ "$FULL" -eq 0  ] && sudo dnscrypt-proxy -service start
 sudo mkdir -p /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist
 sudo rm -f /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/generate-domains-blocklist.py || true
 sudo wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/DNSCrypt/dnscrypt-proxy/refs/heads/master/utils/generate-domains-blocklist/generate-domains-blocklist.py -O /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/generate-domains-blocklist.py
@@ -1310,10 +1310,10 @@ OnUnitActiveSec=6h
 WantedBy=timers.target
 EOF
 sudo systemctl daemon-reload
-[ "$FULL" -eq 0  ] && sudo systemctl enable --now dnscrypt-proxy-blocklist-update
-[ "$FULL" -eq 0  ] && sudo systemctl enable --now dnscrypt-proxy-blocklist-update.timer
+[ "$TEST" -eq 0  ] && [ "$FULL" -eq 0  ] && sudo systemctl enable --now dnscrypt-proxy-blocklist-update
+[ "$TEST" -eq 0  ] && [ "$FULL" -eq 0  ] && sudo systemctl enable --now dnscrypt-proxy-blocklist-update.timer
 sudo mkdir -p /etc/systemd/resolved.conf.d
-[ "$FULL" -eq 0  ] && sudo tee /etc/systemd/resolved.conf.d/resolved.conf >/dev/null <<'EOF'
+[ "$TEST" -eq 0  ] && [ "$FULL" -eq 0  ] && sudo tee /etc/systemd/resolved.conf.d/resolved.conf >/dev/null <<'EOF'
 [Resolve]
 DNS=127.0.0.1
 FallbackDNS=1.1.1.1:53 1.0.0.1:53 2606:4700:4700::1111:53 2606:4700:4700::1001:53 94.140.14.140:53 94.140.14.141:53 2a10:50c0::1:ff:53 2a10:50c0::2:ff:53
@@ -1325,7 +1325,7 @@ DNS=127.0.0.1
 FallbackDNS=1.1.1.1:53 1.0.0.1:53 2606:4700:4700::1111:53 2606:4700:4700::1001:53 94.140.14.140:53 94.140.14.141:53 2a10:50c0::1:ff:53 2a10:50c0::2:ff:53
 Domains=~.
 EOF
-[ "$FULL" -eq 0  ] && sudo systemctl restart systemd-resolved
+[ "$TEST" -eq 0  ] && [ "$FULL" -eq 0  ] && sudo systemctl restart systemd-resolved
 sudo tee /etc/systemd/system/systemd-resolved-conf-dns-up.service >/dev/null <<'EOF'
 [Unit]
 Description=systemd-resolved conf dns_up
@@ -1342,7 +1342,7 @@ ExecStart=cp resolved.conf.bak resolved.conf
 WantedBy=sysinit.target
 EOF
 sudo systemctl daemon-reload
-[ "$FULL" -eq 0  ] && sudo systemctl enable --now systemd-resolved-conf-dns-up
+[ "$TEST" -eq 0  ] && [ "$FULL" -eq 0  ] && sudo systemctl enable --now systemd-resolved-conf-dns-up
 wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/macvk/dnsleaktest/master/dnsleaktest.sh -O ~/.local/bin/dnsleaktest.sh
 chmod +x ~/.local/bin/dnsleaktest.sh
 systemctl --user restart pipewire pipewire-pulse wireplumber

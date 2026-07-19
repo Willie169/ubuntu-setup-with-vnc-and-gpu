@@ -1401,10 +1401,6 @@ sudo ufw allow 21118/tcp
 sudo ufw allow 21114:21119/tcp
 sudo ufw allow 21116/udp
 sudo ufw reload
-curl -fsSL https://deb.griffo.io/EA0F721D231FDD3A0A17B9AC7808B4DD62C41256.asc | sudo gpg --dearmor --yes -o /etc/apt/keyrings/deb.griffo.io.gpg
-echo "deb https://debian.griffo.io/apt $(lsb_release -sc 2>/dev/null) main" | sudo tee /etc/apt/sources.list.d/debian.griffo.io.list >/dev/null
-sudo apt update
-sudo DEBIAN_FRONTEND=noninteractive apt install lazygit -y -o Dpkg::Options::="--force-confnew"
 wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool
 chmod +x apktool
 sudo mv apktool /usr/local/bin/
@@ -1462,7 +1458,7 @@ conda config --add channels pytorch
 conda config --add channels conda-forge
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
-BREW='bat bottom broot dust fd fzf git-delta procs resvg ripgrep sevenzip yazi yq zoxide'
+BREW='bat bottom broot dust fd fzf git-delta lazygit procs resvg ripgrep sevenzip yazi yq zoxide'
 # shellcheck disable=2086
 if [ "$TEST" -eq 0 ]; then
 echo y | brew install $BREW || true

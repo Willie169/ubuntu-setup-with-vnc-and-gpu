@@ -139,7 +139,7 @@ EOF
 sudo apt update
 sudo apt purge fcitx* rustup texlive* yq -y
 sudo DEBIAN_FRONTEND=noninteractive apt install apt-transport-https bash build-essential ca-certificates coreutils cmake curl dbus openjdk-21-jdk g++ gcc git gnupg grep gzip jq locales lsb-release make ninja-build openssh-server perl perl-tk pipx python-is-python3 python3 vim-gtk3 wget xz-utils -y -o Dpkg::Options::="--force-confnew"
-sudo DEBIAN_FRONTEND=noninteractive apt install apparmor-utils clinfo dnscrypt-proxy fcitx5 fcitx5-* flatpak language-pack-gnome-en pipewire pipewire-audio-client-libraries snapd ufw unattended-upgrades wireplumber -y -o Dpkg::Options::="--force-confnew"
+sudo DEBIAN_FRONTEND=noninteractive apt install apparmor-utils clinfo dnscrypt-proxy fcitx5 fcitx5-* flatpak keyd language-pack-gnome-en pipewire pipewire-audio-client-libraries snapd ufw unattended-upgrades wireplumber -y -o Dpkg::Options::="--force-confnew"
 rm -f .bashrc
 mkdir ~/.bashrc.d
 wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/00-env.sh -O ~/.bashrc.d/00-env.sh
@@ -410,6 +410,12 @@ else
 sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="--force-confnew"
 fi
 sudo snap set system refresh.retain=2
+echo '[ids]
+*
+
+[main]
+f23+leftshift+leftmeta=rightcontrol
+' | sudo tee /etc/keyd/default.conf >/dev/null
 sudo cp /usr/share/doc/dnscrypt-proxy/examples/* /etc/dnscrypt-proxy/
 sudo tee /etc/dnscrypt-proxy/forwarding-rules.txt >/dev/null <<'EOF'
 ts.net 100.100.100.100

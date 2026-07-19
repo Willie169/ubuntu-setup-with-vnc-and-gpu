@@ -1530,9 +1530,7 @@ sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y -o Dpkg::Options::="--force-confnew"
 sudo systemctl enable --now docker
 sudo systemctl enable --now containerd
-sudo groupadd docker || true
 sudo usermod -aG docker "$USER"
-newgrp docker
 sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /etc/apt/keyrings/zabbly.asc https://pkgs.zabbly.com/key.asc
 echo "Enabled: yes
 Types: deb
@@ -1620,7 +1618,7 @@ sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/share/keyrings/e
 echo "deb [signed-by=/usr/share/keyrings/element-io-archive-keyring.gpg] https://packages.element.io/debian/ default main" | sudo tee /etc/apt/sources.list.d/element-io.list >/dev/null
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install element-desktop -y -o Dpkg::Options::="--force-confnew"
-docker pull ghcr.io/gchq/cyberchef:latest
+sudo docker pull ghcr.io/gchq/cyberchef:latest
 cat > ~/.config/systemd/user/cyberchef.service <<EOF
 [Unit]
 Description=CyberChef
@@ -1653,7 +1651,7 @@ services:
       - LANGS=en_GB
     restart: unless-stopped
 EOF
-docker compose pull
+sudo docker compose pull
 cd ~ || exit
 cat > ~/.config/systemd/user/stirlingpdf.service <<EOF
 [Unit]
@@ -1890,7 +1888,7 @@ YOUTUBE_REMOTE_LOGIN_MAX_FRAME_BYTES=524288
 EOF
 curl -fsSL https://raw.githubusercontent.com/TypeType-Video/TypeType/main/scripts/install-stack.sh | bash -s -- --yes --download-only
 cd ~/typetype-stack || exit
-docker compose -f docker-compose.yml pull
+sudo docker compose -f docker-compose.yml pull
 cd ~ || exit
 cat > ~/.config/systemd/user/typetype.service <<EOF
 [Unit]

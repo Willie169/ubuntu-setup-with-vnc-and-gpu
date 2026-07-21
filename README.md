@@ -720,22 +720,18 @@ sudo systemctl restart systemd-logind
 
 ### Bottles
 
+#### Introduction
+
 Bottles lets you run Windows software on Linux, such as applications and games. It introduces a workflow that helps you organize by categorizing each software to your liking. Bottles provides several tools and integrations to help you manage and optimize your applications.
 
 See <https://usebottles.com> for more information.
 
 #### Install 
 
-Bottles has been installed in [`install-tools-first.sh`](install-tools-first.sh) and [`install-tools-second.sh`](install-tools-second.sh).
+Bottles has been installed in [`install-tools-second.sh`](install-tools-second.sh).
 
 Flatpak is required. Run:
 ```
-echo y | sudo ubuntu-drivers install || true
-echo y | sudo ubuntu-drivers install || true
-echo y | sudo ubuntu-drivers install || true
-echo y | sudo ubuntu-drivers autoinstall || true
-echo y | sudo ubuntu-drivers autoinstall || true
-echo y | sudo ubuntu-drivers autoinstall || true
 flatpak install flathub com.usebottles.bottles
 flatpak run com.usebottles.bottles
 ```

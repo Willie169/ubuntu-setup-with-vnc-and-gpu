@@ -171,7 +171,7 @@ KataGo (`~/KataGo/cpp/katago` and can be run with `katago`) and KataGo network `
 Fairy-Stockfish (`~/Fairy-Stockfish/src/stockfish` and can be run with `stockfish`), Cute Chess (GUI at `~/cutechess/build/cutechess` and can be launched by running `cutechess` or with desktop entry `~/.local/share/applications/cutechess.desktop`, CLI at `~/cutechess/build/cutechess-cli` and can be run with `cutechess-cli`, Fairy-Stockfish configured as engine in `~/.config/cutechess/engines.json`, which can be updated by running `update_cutechess_config`), 
 Sylvan (GUI at `~/Sylvan/projects/gui/sylvan` and can be launched by running `sylvan` or with desktop entry `~/.local/share/applications/sylvan.desktop`, CLI at `~/Sylvan/projects/cli/sylvan-cli` and can be run with `sylvan-cli`, Fairy-Stockfish configured as engine in `~/.config/EterCyber/engines.json`, which can be updated by running `update_sylvan_config`), 
 mozlz4, Noto Fonts (set as default font for system ui), Noto CJK Fonts (set as fallback font for system ui), Noto Color Emoji (set as fallback font for system ui), 全字庫正楷體 TW-Kai (set as fallback font for 標楷體 DFKai-SB), 全字庫正宋體 TW-Sung (set as fallback font for 細明體 MingLiu and 新細明體 PMingLiu), 文泉驛正黑 WenQuanYi Zen Hei (set as fallback font for 微軟正黑體 Microsoft JhengHei), JetBrainsMono Nerd Font (downloaded in `~/.local/share/fonts`), [my modified version](https://github.com/Willie169/vimrc) of [vimrc by Amir Salihefendic (amix)](https://github.com/amix/vimrc) for both Vim and Neovim (can be updated by running `update_vimrc`), my LaTeX package [`physics-patch`](https://github.com/Willie169/physics-patch) (in `~/texmf/tex/latex/physics-patch`, checked out `dev` branch, and can be updated with `update_latex`), my LaTeX template [`LaTeX-ToolKit`](https://github.com/Willie169/LaTeX-ToolKit) (in `/usr/share/LaTeX-ToolKit/template.tex` and can be updated with `update_latex`), 
-switches from Snap Firefox and Thunderbird to Deb Firefox and Thunderbird from Mozilla Team PPA, adds XtraDeb PPA, where you can install Deb Chromium from by running `sudo apt install chromium -y`, prevents Snap Chromium from being installed, and disables Ubuntu Pro-related MOTD messages and APT hook using scripts from my [switch-firefox-from-snap-to-deb](https://github.com/Willie169/switch-firefox-from-snap-to-deb), enables unattended upgrades for all origins, downloads [EFF Large Wordlist for Passphrases](https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt) in `~/.eff_large_wordlist.txt`, downloads [DNS Leak Test](https://github.com/macvk/dnsleaktest) in `~/.local/bin/dnsleaktest.sh`, copies `~/.bashrc.d` and `~/.bashrc` from my [**bashrc**](https://github.com/Willie169/bashrc) repo (can be updated by running `update_bashrc`, tools installed by this script that is not managed by a package manager can be updated by running `update_tools`, tools installed by this script and package managers can be updated by running `update_all`), and more.
+switches from Snap Firefox and Thunderbird to Deb Firefox and Thunderbird from Mozilla Team PPA, adds XtraDeb PPA, where you can install Deb Chromium from by running `sudo apt install chromium -y`, prevents Snap Chromium from being installed, and disables Ubuntu Pro-related MOTD messages and APT hook using scripts from my [switch-firefox-from-snap-to-deb](https://github.com/Willie169/switch-firefox-from-snap-to-deb), enables unattended upgrades for all origins, downloads [EFF Large Wordlist for Passphrases](https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt) in `~/.eff_large_wordlist.txt`, downloads [DNS Leak Test](https://github.com/macvk/dnsleaktest) in `~/.local/bin/dnsleaktest.sh`, copies `~/.bashrc.d` and `~/.bashrc` from my [**bashrc**](https://github.com/Willie169/bashrc) repo (can be updated by running `update_bashrc`. Put your overrides in `~/.bashrc.overrides`. Tools installed by this script that is not managed by a package manager can be updated by running `update_tools`. Tools installed by this script and package managers can be updated by running `update_all`.), and more.
 
 ## Other Scripts
 
@@ -186,7 +186,7 @@ switches from Snap Firefox and Thunderbird to Deb Firefox and Thunderbird from M
 
 ### [`cuda.sh`](cuda.sh)
 
-Installs NVIDIA drivers and CUDA Toolkit on Ubuntu derivatives with Nvidia GPU and reboot.
+Installs NVIDIA drivers and CUDA Toolkit on Ubuntu derivatives with NVIDIA GPU and reboot.
 
 Restart your computer after running the script and then test with:
 ```
@@ -228,6 +228,7 @@ Installs [RuView](https://github.com/ruvnet/RuView) from source (Rust), which re
 
 ### Table of Contents
 
++ [NVIDIA GPU](#nvidia-gpu)
 + [Wayland](#wayland)
 + [Linux Mint Ubuntu Version Tweak](#linux-mint-ubuntu-version-tweak)
 + [Desktop App Launchers](#desktop-app-launchers)
@@ -238,6 +239,43 @@ Installs [RuView](https://github.com/ruvnet/RuView) from source (Rust), which re
 + [Solution for Closing Lip Overrides Power Off](#solution-for-closing-lip-overrides-power-off)
 + [Bottles](#bottles)
 + [My Related Repositories](#my-related-repositories)
+
+### NVIDIA GPU
+
+#### Load nvidia_drm.modeset
+
+Add `nvidia_drm.modeset=1` in `GRUB_CMDLINE_LINUX_DEFAULT` line in `/etc/default/grub` and
+```
+sudo update-grub
+```
+Reboot to apply. This is executed in [`nvidia.sh`](nvidia.sh).
+
+#### Install Drivers
+
+Depending on version, you can install drivers with one of
+```
+echo y | sudo ubuntu-drivers install || true
+echo y | sudo ubuntu-drivers autoinstall || true
+```
+and sometimes running multiple times is required. Reboot to apply. This is executed in [`install-drivers.sh`](install-drivers.sh).
+
+#### Run Applications with NVIDIA GPU
+
+If your display server is not running on NVIDIA GPU, to run an application with NVIDIA GPU, prefix
+```
+__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia __VK_LAYER_NV_optimus=NVIDIA_only
+```
+environmental variables to the command.
+
+The following function is defined in `~/.bashrc` in [`install-tools-first.sh`](install-tools-first.sh).
+```
+prime-run() {
+  __NV_PRIME_RENDER_OFFLOAD=1 \
+  __GLX_VENDOR_LIBRARY_NAME=nvidia \
+  __VK_LAYER_NV_optimus=NVIDIA_only \
+  "$@"
+}
+```
 
 ### Wayland
 
@@ -431,48 +469,48 @@ Done in [`waydroid.sh`](waydroid.sh).
 2. Choose options you want. In `Android Type`, there are `Minimal Android` or `Vanilla`, which refers to a pure AOSP (Android Open-Source Project) build without any Google services and occupies approximately 1.0 GB, and `Android with Google Apps` or `Gapps`, which refers to a build that provides access to Google services and occupies approximately 1.4 GB. For beginners, `Android with Google Apps` is recommended.
 3. Press `Download`, wait until `Done` button is shown, and press it.
 
-#### NVIDIA GPU
+#### NVIDIA GPU 
 
-Currently Waydroid needs to run on the same GPU the host compositor is running on. NVIDIA GPUs don't support Waydroid.
+NVIDIA does not build their drivers against bionic libc, thus Waydroid can't support NVIDIA GPU.
 
-If you have integrated GPU alongside it, you may switch to the integrated GPU for the whole desktop session or use
-```
-waydroid session stop
-wget https://github.com/Quackdoc/waydroid-scripts/raw/refs/heads/main/waydroid-choose-gpu.sh
-sudo bash waydroid-choose-gpu.sh
-```
-to select it, and then run:
-```
-sudo waydroid upgrade --offline
-sudo systemctl restart waydroid-container
-```
-and then reboot your computer.
+If you have another non-NVIDIA GPU alongside (e.g., integrated GPU), you may
+- Switch to that GPU for the entire display server. This is recommended since you can run other applications with NVIDIA GPU following the [NVIDIA GPU](#nvidia-gpu) session.
+- Select that GPU for Waydroid and continue using NVIDIA GPU for the host display server. However, there's known issue that using different GPU from the one the host compositor is running on for Waydroid may causegarbled or flickering display. To use it anyway, execute
+  ```
+  waydroid session stop
+  wget https://github.com/Quackdoc/waydroid-scripts/raw/refs/heads/main/waydroid-choose-gpu.sh
+  sudo bash waydroid-choose-gpu.sh
+  ```
+  select that GPU, and then execute:
+  ```
+  sudo waydroid upgrade --offline
+  sudo systemctl restart waydroid-container
+  ```
+  and then reboot your computer.
+- Switch software rendering by editing `/var/lib/waydroid/waydroid.cfg` with
+  ```
+  ro.hardware.gralloc=default
+  ro.hardware.egl=swiftshader
+  ```
+  under `[properties]`, and then running:
+  ```
+  waydroid session stop
+  sudo waydroid upgrade --offline
+  sudo systemctl restart waydroid-container
+  ```
+  To undo it, remove those lines in `/var/lib/waydroid/waydroid.cfg`, and edit `/var/lib/waydroid/waydroid_base.prop` with those lines replaced with
+  ```
+  ro.hardware.gralloc=gbm
+  ro.hardware.egl=mesa
+  ```
+  and then run:
+  ```
+  waydroid session stop
+  sudo waydroid upgrade --offline
+  sudo systemctl restart waydroid-container
+  ```
 
-Alternatively, switch software rendering by editing `/var/lib/waydroid/waydroid.cfg` and adding
-```
-ro.hardware.gralloc=default
-ro.hardware.egl=swiftshader
-```
-under `[properties]`, and then running:
-```
-waydroid session stop
-sudo waydroid upgrade --offline
-sudo systemctl restart waydroid-container
-```
-
-To undo it, remove those lines in `/var/lib/waydroid/waydroid.cfg`, and edit `/var/lib/waydroid/waydroid_base.prop` and replace those lines with
-```
-ro.hardware.gralloc=gbm
-ro.hardware.egl=mesa
-```
-and then run:
-```
-waydroid session stop
-sudo waydroid upgrade --offline
-sudo systemctl restart waydroid-container
-```
-
-See <https://github.com/Quackdoc/waydroid-scripts> for more information.
+Refer to <https://github.com/Quackdoc/waydroid-scripts> for more information.
 
 #### Prevent Flutter Apps Crashes
 
@@ -516,8 +554,7 @@ waydroid session stop
 sudo waydroid upgrade --offline
 sudo systemctl restart waydroid-container
 ```
-
-See <https://github.com/waydroid/waydroid/issues/1060> for more information.
+`ro.product.model=gphone_x64`, which is different from the source, is used to prevent Flutter apps crashes. Refer to <https://github.com/waydroid/waydroid/issues/1060> for more information.
 
 #### Waydroid Extras Script
 
@@ -532,8 +569,7 @@ sudo venv/bin/python3 main.py
 Select what you want in the interactive terminal interface.
 
 - microG is a FLOSS implementation of Google Play Services, which you don't need in Gapps build.
-- libndk and libhoudini are ARM translation layers. Due to optimizations in the translation layers, it is recommended to use libndk on AMD CPUs and libhoudini on Intel CPUs. When using ARM translation layer, it is still recommended to use x86\_64 app when available in most cases as the translation layer is not quite stable. When using [Obtainium](https://github.com/ImranR98/Obtainium), you can add an app with only ARM apks by turning off "Attempt to filter APKs by CPU
-    architecture if possible" and filter the architecture you want to install with "Filter APKs by regular expression" when there are multiple architectures.
+- libndk and libhoudini are ARM translation layers. Due to optimizations in the translation layers, it is recommended to use libndk on AMD CPUs and libhoudini on Intel CPUs. Note that the ARM translation layers are not quite stable and often cause crashes, so you may want to use x86\_64 app when available in most cases. When using [Obtainium](https://github.com/ImranR98/Obtainium), you can add an app with only ARM apks by turning off "Attempt to filter APKs by CPU architecture if possible" and filter the architecture you want to install with "Filter APKs by regular expression" when there are multiple architectures.
 - If you install Smart Dock and Trebuchet keeps crashing, run `sudo waydroid shell pm disable com.android.launcher3` to disable it. However, recent apps page will not work after disabling. If you disabled it and then delete Smart Dock, run `sudo waydroid shell pm enable com.android.launcher3` to enable it. It should not crash when not used with Smart Dock.
 
 Afterwards, run

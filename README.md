@@ -630,11 +630,19 @@ doesn't start a new session, start it with desktop entry.
 
 #### Storage
 
+Waydroid's root directory is:
+```
+~/.local/share/waydroid/data/media/0/
+```
+This has been exported as `$WAYDROID_ROOT` in `.bashrc` in [`install-tools-first.sh`](install-tools-first.sh).
+
+To backup Waydroid's data, copy this directory.
+
 Waydroid's home directory is:
 ```
 ~/.local/share/waydroid/data/media/0/
 ```
-This has been exported as `WAYDROID` in `.bashrc` in [`install-tools-first.sh`](install-tools-first.sh).
+This has been exported as `$WAYDROID_HOME` in `.bashrc` in [`install-tools-first.sh`](install-tools-first.sh).
 
 To mount it in host, run
 ```
@@ -651,9 +659,9 @@ This can be made permanent by
 ```
 echo "$HOME/.local/share/waydroid/data/media/0 /mnt/waydroid fuse rw,nosuid,nodev,relatime,user_id=0,group_id=0,default_permissions,allow_other 0 0" | sudo tee -a /etc/fstab >/dev/null
 ```
-Note that you need to remove this line manually after removing Waydroid. Otherwise, you may boot into emergency mode next boot, and you can remove this line there.
+Note that you need to remove this line manually if you remove Waydroid. Otherwise, you'll boot into emergency mode in next boot, you can also remove this line there.
 
-Remember to `chmod 770` folders and `chmod 660` files to be accessible in Waydroid.
+You may need to `chmod 770` folders and `chmod 660` files copied into Waydroid for them to be accessible in Waydroid.
 
 #### Multi-Window Mode
 

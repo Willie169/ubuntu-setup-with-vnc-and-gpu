@@ -267,6 +267,11 @@ __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia __VK_LAYER_NV_optim
 ```
 environmental variables to the command.
 
+You can check with
+```
+nvidia-smi
+```
+
 The following function is defined in `~/.bashrc` in [`install-tools-first.sh`](install-tools-first.sh).
 ```
 prime-run() {
@@ -276,6 +281,10 @@ prime-run() {
   "$@"
 }
 ```
+
+#### CUDA
+
+Refer to [`cuda.sh`](#cudash) section.
 
 ### Wayland
 

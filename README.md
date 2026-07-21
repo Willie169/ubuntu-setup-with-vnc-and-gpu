@@ -471,7 +471,7 @@ Done in [`waydroid.sh`](waydroid.sh).
 
 #### NVIDIA GPU 
 
-NVIDIA does not build their drivers against bionic libc, thus Waydroid can't support NVIDIA GPU.
+Waydroid currently does not support NVIDIA GPUs since NVIDIA does not build their drivers against bionic libc. Refer to [Waydroid issue 1883](https://github.com/waydroid/waydroid/issues/1883) for more information.
 
 If you have another non-NVIDIA GPU alongside (e.g., integrated GPU), you may
 - Switch to that GPU for the entire display server. This is recommended since you can run other applications with NVIDIA GPU following the [NVIDIA GPU](#nvidia-gpu) session.
@@ -554,7 +554,7 @@ waydroid session stop
 sudo waydroid upgrade --offline
 sudo systemctl restart waydroid-container
 ```
-`ro.product.model=gphone_x64`, which is different from the source, is used to prevent Flutter apps crashes. Refer to <https://github.com/waydroid/waydroid/issues/1060> for more information.
+`ro.product.model=gphone_x64`, which is different from the source, is used to prevent Flutter apps crashes. Refer to [Waydroid issue 1060](https://github.com/waydroid/waydroid/issues/1060) for more information.
 
 #### Waydroid Extras Script
 

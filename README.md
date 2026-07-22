@@ -7,7 +7,7 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
 ### Prerequisites
 
 * Sufficient storage: (calculated using GitHub Action, typically a bit less than that on a real device)
-  * [`install-tools-first.sh`](install-tools-first.sh): approximately 47.22 GB on top of Kubuntu, 47.58 GB on top of Lubuntu, 48.18 GB on top of Ubuntu, 47.78 GB on top of Xubuntu.
+  * [`install-tools-first.sh`](install-tools-first.sh): approximately 46.30 GB on top of Kubuntu, 47.28 GB on top of Lubuntu, 46.86 GB on top of Ubuntu, 46.66 GB on top of Xubuntu.
   * [`install-tools-second.sh`](install-tools-second.sh): approximately 10.83 GB.
 * Stable internet connection.
 * In power management settings, disable suspension when inactive.

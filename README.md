@@ -632,7 +632,7 @@ doesn't start a new session, start it with desktop entry.
 
 Waydroid's root directory is:
 ```
-~/.local/share/waydroid/data/media/0/
+~/.local/share/waydroid
 ```
 This has been exported as `$WAYDROID_ROOT` in `.bashrc` in [`install-tools-first.sh`](install-tools-first.sh).
 

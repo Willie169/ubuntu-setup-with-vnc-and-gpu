@@ -1933,7 +1933,7 @@ WantedBy=default.target
 EOF
 systemctl --user daemon-reload
 systemctl --user enable --now typetype
-sudo apt install gawk git make python3 lld bison clang flex libffi-dev libfl-dev libreadline-dev pkg-config tcl-dev zlib1g-dev graphviz xdot -y
+sudo DEBIAN_FRONTEND=noninteractive apt install gawk git make python3 lld bison clang flex libffi-dev libfl-dev libreadline-dev pkg-config tcl-dev zlib1g-dev graphviz xdot -y -o Dpkg::Options::="--force-confnew"
 git clone --depth=1 https://github.com/YosysHQ/yosys.git
 cd yosys || exit
 git submodule update --init --depth=1

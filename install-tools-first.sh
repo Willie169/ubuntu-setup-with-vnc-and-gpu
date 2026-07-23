@@ -1379,7 +1379,7 @@ sudo ufw --force enable
 sudo ufw allow ssh
 sudo ufw reload
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
-. ${HOME}/.cargo/env
+. "${HOME}"/.cargo/env
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
 sudo apt update
@@ -1938,7 +1938,7 @@ git clone --depth=1 https://github.com/YosysHQ/yosys.git
 cd yosys || exit
 git submodule update --init --depth=1
 cmake -B build . -DCMAKE_BUILD_TYPE=Release
-cmake --build build --config Release --parallel $(nproc)
+cmake --build build --config Release --parallel "$(nproc)"
 sudo cmake --install build --strip
 cd ~ || exit
 if [ "$TEST" -eq 0 ]; then

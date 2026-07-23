@@ -1933,6 +1933,14 @@ WantedBy=default.target
 EOF
 systemctl --user daemon-reload
 systemctl --user enable --now typetype
+sudo apt install gawk git make python3 lld bison clang flex libffi-dev libfl-dev libreadline-dev pkg-config tcl-dev zlib1g-dev graphviz xdot -y
+git clone --depth=1 https://github.com/YosysHQ/yosys.git
+cd yosys || exit
+git submodule update --init --depth=1
+cmake -B build . -DCMAKE_BUILD_TYPE=Release
+cmake --build build --config Release --parallel $(nproc)
+sudo cmake --install build --strip
+cd ~ || exit
 if [ "$TEST" -eq 0 ]; then
 wget --tries=100 --retry-connrefused --waitretry=5 --no-check-certificate https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xzf install-tl-unx.tar.gz

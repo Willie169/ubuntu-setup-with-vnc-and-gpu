@@ -105,6 +105,15 @@ fi
 [ "$FULL" -eq 0 ] && sudo timedatectl set-local-rtc 1
 [ "$FULL" -eq 0 ] && sudo timedatectl set-ntp true
 sudo apt update
+# shellcheck disable=2155
+export UBUNTU_VERSION_ID=$(
+if grep -q '^NAME="Linux Mint"' /etc/os-release; then
+  inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'
+else
+  . /etc/os-release
+  echo "$VERSION_ID"
+fi
+)
 sudo DEBIAN_FRONTEND=noninteractive apt install software-properties-common -y -o Dpkg::Options::="--force-confnew"
 sudo add-apt-repository universe -y
 sudo add-apt-repository multiverse -y
@@ -137,6 +146,7 @@ if [ -f "$f" ] && grep -q "^Types:.*deb" "$f"; then
   sudo sed -i 's/^Types: *deb.*/Types: deb deb-src/' "$f"
 fi
 EOF
+[[ $(echo "$UBUNTU_VERSION_ID" | cut -d. -f1) -lt 26 ]] && sudo add-apt-repository ppa:keyd-team/ppa -y
 sudo apt update
 sudo apt purge fcitx* rustup texlive* yq -y
 sudo DEBIAN_FRONTEND=noninteractive apt install apt-transport-https bash build-essential ca-certificates coreutils cmake curl dbus openjdk-21-jdk g++ gcc git gnupg grep gzip jq locales lsb-release make ninja-build openssh-server perl perl-tk python-is-python3 python3 vim-gtk3 wget xz-utils -y -o Dpkg::Options::="--force-confnew"

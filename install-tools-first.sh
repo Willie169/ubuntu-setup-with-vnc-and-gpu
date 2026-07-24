@@ -1372,10 +1372,14 @@ export INPUT_METHOD=fcitx
 export SDL_IM_MODULE=fcitx
 EOF
 if [ "${XDG_CURRENT_DESKTOP:-}" = "KDE" ] || [[ "${DESKTOP_SESSION:-}" == *plasma* ]] || [ "${KDE_FULL_SESSION:-}" = "true" ]; then
-  sudo DEBIAN_FRONTEND=noninteractive apt install plasma-discover-backend-flatpak -y -o Dpkg::Options::="--force-confnew"
+if [ "$TEST" -eq 0 ]; then
+sudo DEBIAN_FRONTEND=noninteractive apt install plasma-discover-backend-flatpak -y -o Dpkg::Options::="--force-confnew"
 else
-  mkdir -p ~/.config/autostart
-  cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
+sudo DEBIAN_FRONTEND=noninteractive apt install plasma-discover-backend-flatpak -y -s -o Dpkg::Options::="--force-confnew"
+fi
+else
+mkdir -p ~/.config/autostart
+cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
 fi
 mkdir ~/.JetBrainsMono
 cd ~/.JetBrainsMono || exit
@@ -1394,14 +1398,22 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
 sudo apt update
+if [ "$TEST" -eq 0 ]; then
 sudo DEBIAN_FRONTEND=noninteractive apt install brave-browser -y -o Dpkg::Options::="--force-confnew"
+else
+sudo DEBIAN_FRONTEND=noninteractive apt install brave-browser -y -s -o Dpkg::Options::="--force-confnew"
+fi
 curl -fsSL https://download.onlyoffice.com/GPG-KEY-ONLYOFFICE | gpg --no-default-keyring --keyring gnupg-ring:/tmp/onlyoffice.gpg --import
 chmod 644 /tmp/onlyoffice.gpg
 sudo chown root:root /tmp/onlyoffice.gpg
 sudo mv /tmp/onlyoffice.gpg /usr/share/keyrings/onlyoffice.gpg
 echo 'deb [signed-by=/usr/share/keyrings/onlyoffice.gpg] https://download.onlyoffice.com/repo/debian squeeze main' | sudo tee /etc/apt/sources.list.d/onlyoffice.list >/dev/null
 sudo apt update
+if [ "$TEST" -eq 0 ]; then
 sudo DEBIAN_FRONTEND=noninteractive apt install onlyoffice-desktopeditors -y -o Dpkg::Options::="--force-confnew"
+else
+sudo DEBIAN_FRONTEND=noninteractive apt install onlyoffice-desktopeditors -y -s -o Dpkg::Options::="--force-confnew"
+fi
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' rustdesk/rustdesk 'rustdesk-*-x86_64.deb'
 sudo DEBIAN_FRONTEND=noninteractive apt install ./rustdesk-*-x86_64.deb -y -o Dpkg::Options::="--force-confnew"
 rm rustdesk-*-x86_64.deb*
@@ -1443,16 +1455,18 @@ echo y | corepack enable npm
 echo y | npm --help || true
 echo y | corepack enable yarn
 echo y | yarn --help || true
-npm i -g --allow-scripts=opencode-ai bash-language-server deno dockerfile-language-server-nodejs http-server opencode-ai pyright @linthtml/linthtml @openai/codex
+[ "$TEST" -eq 0 ] && npm i -g --allow-scripts=opencode-ai bash-language-server deno dockerfile-language-server-nodejs http-server opencode-ai pyright @linthtml/linthtml @openai/codex
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' yt-dlp/yt-dlp yt-dlp
 chmod +x yt-dlp
 mv yt-dlp ~/.local/bin/
 curl -LsSf https://astral.sh/uv/install.sh | sh
+if [ "$TEST" -eq 0 ]; then
 for pkg in cmake-language-server gallery-dl gh2md img2pdf jupyterlab jupytext libretranslate meson notebook pylatexenc tldr xmljson yamllint; do
 uv tool install "$pkg"
 done
 uv tool install fdroidserver
 uv tool install 'git+https://github.com/jpstotz/better-adb-sync#BetterADBSync'
+fi
 cat > ~/.config/systemd/user/libretranslate.service <<EOF
 [Unit]
 Description=LibreTranslate
@@ -1466,7 +1480,7 @@ RestartSec=5
 WantedBy=default.target
 EOF
 systemctl --user daemon-reload
-systemctl --user enable --now libretranslate
+[ "$TEST" -eq 0 ] && systemctl --user enable --now libretranslate
 wget --tries=100 --retry-connrefused --waitretry=5 https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
 bash Miniforge3-Linux-x86_64.sh -b -p "${HOME}/conda"
 rm Miniforge3-Linux-x86_64.sh*
@@ -1615,25 +1629,41 @@ sudo systemctl enable tailscaled
 wget --tries=100 --retry-connrefused --waitretry=5 -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg | gpg --dearmor | sudo dd of=/usr/share/keyrings/vscodium-archive-keyring.gpg
 echo -e 'Types: deb\nURIs: https://download.vscodium.com/debs\nSuites: vscodium\nComponents: main\nArchitectures: amd64 arm64\nSigned-by: /usr/share/keyrings/vscodium-archive-keyring.gpg' | sudo tee /etc/apt/sources.list.d/vscodium.sources >/dev/null
 sudo apt update
+if [ "$TEST" -eq 0 ]; then
 sudo DEBIAN_FRONTEND=noninteractive apt install codium -y -o Dpkg::Options::="--force-confnew"
+else
+sudo DEBIAN_FRONTEND=noninteractive apt install codium -y -s -o Dpkg::Options::="--force-confnew"
+fi
 curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
 echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list >/dev/null
 sudo apt update
+if [ "$TEST" -eq 0 ]; then
 sudo DEBIAN_FRONTEND=noninteractive apt install glow -y -o Dpkg::Options::="--force-confnew"
+else
+sudo DEBIAN_FRONTEND=noninteractive apt install glow -y -s -o Dpkg::Options::="--force-confnew"
+fi
 wget --tries=100 --retry-connrefused --waitretry=5 -O- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | sudo tee /usr/share/keyrings/deb.torproject.org-keyring.gpg >/dev/null
 sudo tee /etc/apt/sources.list.d/tor.list > /dev/null <<EOF
 deb [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
 deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
 EOF
 sudo apt update
+if [ "$TEST" -eq 0 ]; then
 sudo DEBIAN_FRONTEND=noninteractive apt install tor torsocks deb.torproject.org-keyring -y -o Dpkg::Options::="--force-confnew"
+else
+sudo DEBIAN_FRONTEND=noninteractive apt install tor torsocks deb.torproject.org-keyring -y -s -o Dpkg::Options::="--force-confnew"
+fi
 sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/local/java/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
 sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/local/java/plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
 sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/share/keyrings/element-io-archive-keyring.gpg https://packages.element.io/debian/element-io-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/element-io-archive-keyring.gpg] https://packages.element.io/debian/ default main" | sudo tee /etc/apt/sources.list.d/element-io.list >/dev/null
 sudo apt update
+if [ "$TEST" -eq 0 ]; then
 sudo DEBIAN_FRONTEND=noninteractive apt install element-desktop -y -o Dpkg::Options::="--force-confnew"
-sudo docker pull ghcr.io/gchq/cyberchef:latest
+else
+sudo DEBIAN_FRONTEND=noninteractive apt install element-desktop -y -s -o Dpkg::Options::="--force-confnew"
+fi
+[ "$TEST" -eq 0 ] && sudo docker pull ghcr.io/gchq/cyberchef:latest
 cat > ~/.config/systemd/user/cyberchef.service <<EOF
 [Unit]
 Description=CyberChef
@@ -1666,7 +1696,7 @@ services:
       - LANGS=en_GB
     restart: unless-stopped
 EOF
-sudo docker compose pull
+[ "$TEST" -eq 0 ] && sudo docker compose pull
 cd ~ || exit
 cat > ~/.config/systemd/user/stirlingpdf.service <<EOF
 [Unit]
@@ -1925,7 +1955,7 @@ YOUTUBE_REMOTE_LOGIN_MAX_FRAME_BYTES=524288
 EOF
 curl -fsSL https://raw.githubusercontent.com/TypeType-Video/TypeType/main/scripts/install-stack.sh | bash -s -- --yes --download-only
 cd ~/typetype-stack || exit
-sudo docker compose -f docker-compose.yml pull
+[ "$TEST" -eq 0 ] && sudo docker compose -f docker-compose.yml pull
 cd ~ || exit
 cat > ~/.config/systemd/user/typetype.service <<EOF
 [Unit]

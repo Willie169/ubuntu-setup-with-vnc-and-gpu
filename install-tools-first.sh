@@ -1985,7 +1985,7 @@ cd ~ || exit
 rm -rf yosys
 sudo DEBIAN_FRONTEND=noninteractive apt install binfmt-support libfuse2t64 -y -o Dpkg::Options::="--force-confnew"
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' TheAssassin/AppImageLauncher 'appimagelauncher_*-*.*_amd64.deb'
-sudo DEBIAN_FRONTEND=noninteractive apt install ./appimagelauncher_*-*.*_amd64.deb -y -o Dpkg::Options::="--force-confnew" || (sudo mv /var/lib/dpkg/info/appimagelauncher.postinst /var/lib/dpkg/info/appimagelauncher.postinst.bak && echo '#! /bin/bash
+sudo DEBIAN_FRONTEND=noninteractive apt install ./appimagelauncher_*-*.*_amd64.deb -y -o Dpkg::Options::="--force-confnew" || (sudo mv /var/lib/dpkg/info/appimagelauncher.postinst /var/lib/dpkg/info/appimagelauncher.postinst.bak && echo '#!/bin/bash
 
 exit 0' | sudo tee /var/lib/dpkg/info/appimagelauncher.postinst >/dev/null && sudo dpkg --configure appimagelauncher)
 rm appimagelauncher_*-*.*_amd64.deb*

@@ -14,8 +14,6 @@ if [ "$FULL" -eq 0 ]; then
 sudo -v
 while true; do sudo -nv; sleep 29; done & SUDOPIDFIRST=$!
 while true; do sudo -nv; sleep 31; done & SUDOPIDSECOND=$!
-while true; do sudo -nv; sleep 59; done & SUDOPIDTHIRD=$!
-while true; do sudo -nv; sleep 61; done & SUDOPIDFOURTH=$!
 fi
 sudo mkdir -p /usr/local/java
 sudo mkdir -p /etc/apt/apt.conf.d
@@ -1360,6 +1358,7 @@ WantedBy=sysinit.target
 EOF
 sudo systemctl daemon-reload
 [ "$TEST" -eq 0  ] && [ "$FULL" -eq 0  ] && sudo systemctl enable --now systemd-resolved-conf-dns-up
+sudo /usr/sbin/update-ca-certificates --fresh
 wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/macvk/dnsleaktest/master/dnsleaktest.sh -O ~/.local/bin/dnsleaktest.sh
 chmod +x ~/.local/bin/dnsleaktest.sh
 systemctl --user restart pipewire pipewire-pulse wireplumber
@@ -2135,8 +2134,6 @@ sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flat
 if [ "$FULL" -eq 0 ];then
 kill "$SUDOPIDFIRST"
 kill "$SUDOPIDSECOND"
-kill "$SUDOPIDTHIRD"
-kill "$SUDOPIDFOURTH"
 fi
 # shellcheck disable=2155
 POSTDF=$(df --output=used / | tail -n1)

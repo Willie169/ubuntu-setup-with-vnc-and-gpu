@@ -26,6 +26,7 @@ mkdir -p ~/.local/share/applications
 mkdir -p ~/.local/share/fonts
 mkdir -p ~/Desktop
 mkdir -p ~/.config/systemd/user
+mkdir -p ~/Applications
 sudo sed -i -e 's/^[# ]*HandleLidSwitch=.*/HandleLidSwitch=ignore/' -e 's/^[# ]*HandleLidSwitchDocked=.*/HandleLidSwitchDocked=ignore/' -e 's/^[# ]*HandleLidSwitchExternalPower=.*/HandleLidSwitchExternalPower=ignore/' "/etc/systemd/logind.conf"
 sudo grep -q '^HandleLidSwitch=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitch=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
 sudo grep -q '^HandleLidSwitchDocked=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchDocked=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
@@ -402,7 +403,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -o Dpkg::Options::="--fo
 else
 sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="--force-confnew"
 fi
-PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo dnscrypt-proxy fcitx5 fcitx5-* filelight flatpak fwupd gtkwave kate krita language-pack-gnome-en libvirt-daemon-system libvirt-clients lxc lxc-templates ntfs-3g obs-studio ovmf pipewire pipewire-audio-client-libraries qalculate-gtk qbittorrent qemu-system-gui qemu-system-x86 qemu-user-binfmt qemu-user qemu-utils qtspeech5-speechd-plugin quickemu remmina remmina-plugin-rdp remmina-plugin-secret snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap unattended-upgrades virt-manager virt-viewer wireplumber wl-clipboard xclip'
+PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo dnscrypt-proxy fcitx5 fcitx5-* filelight flatpak fwupd gtkwave kate krita language-pack-gnome-en libfuse2t64 libvirt-daemon-system libvirt-clients lxc lxc-templates ntfs-3g obs-studio ovmf pipewire pipewire-audio-client-libraries qalculate-gtk qbittorrent qemu-system-gui qemu-system-x86 qemu-user-binfmt qemu-user qemu-utils qtspeech5-speechd-plugin quickemu remmina remmina-plugin-rdp remmina-plugin-secret snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap unattended-upgrades virt-manager virt-viewer wireplumber wl-clipboard xclip'
 # shellcheck disable=2086
 if [ "$TEST" -eq 0 ]; then
 sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -o Dpkg::Options::="--force-confnew"
@@ -1942,6 +1943,21 @@ cmake --build build --config Release --parallel "$(nproc)"
 sudo cmake --install build --strip
 cd ~ || exit
 rm -rf yosys
+sudo DEBIAN_FRONTEND=noninteractive apt install binfmt-support libfuse2t64 -y -o Dpkg::Options::="--force-confnew"
+gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' TheAssassin/AppImageLauncher 'appimagelauncher_*-*.*_amd64.deb'
+sudo DEBIAN_FRONTEND=noninteractive apt install ./appimagelauncher_*-*.*_amd64.deb -y -o Dpkg::Options::="--force-confnew"
+rm appimagelauncher_*-*.*_amd64.deb*
+sudo update-binfmts --package appimage --install appimage_type2 /usr/bin/AppImageLauncher --magic 'AI\x02' --offset 8
+cat > ~/.config/appimagelauncher.cfg <<'EOF'
+[AppImageLauncher]
+destination = ~/Applications
+enable_daemon = true
+EOF
+systemctl --user enable --now appimagelauncherd
+cd ~/Applications || exit
+wget --tries=100 --retry-connrefused --waitretry=5 https://github.com/ppy/osu/releases/latest/download/osu.AppImage
+chmod +x osu.Appimage
+cd ~ || exit
 if [ "$TEST" -eq 0 ]; then
 wget --tries=100 --retry-connrefused --waitretry=5 --no-check-certificate https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xzf install-tl-unx.tar.gz

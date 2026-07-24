@@ -1989,7 +1989,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt install ./appimagelauncher_*-*.*_amd64.d
 
 exit 0' | sudo tee /var/lib/dpkg/info/appimagelauncher.postinst >/dev/null && sudo dpkg --configure appimagelauncher)
 rm appimagelauncher_*-*.*_amd64.deb*
-sudo update-binfmts --package appimage --install appimage_type2 /usr/bin/AppImageLauncher --magic 'AI\x02' --offset 8
+[ "$FULL" -eq 0 ] && sudo update-binfmts --package appimage --install appimage_type2 /usr/bin/AppImageLauncher --magic 'AI\x02' --offset 8
 cat > ~/.config/appimagelauncher.cfg <<'EOF'
 [AppImageLauncher]
 destination = ~/Applications

@@ -4,12 +4,7 @@ on:
 jobs:
   install:
     timeout-minutes: 360
-    strategy:
-      matrix:
-        runner:
-          - ubuntu-24.04
-          - ubuntu-26.04
-    runs-on: ${{ matrix.runner }}
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
         timeout-minutes: 360

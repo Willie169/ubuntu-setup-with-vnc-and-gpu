@@ -1956,7 +1956,7 @@ EOF
 systemctl --user enable --now appimagelauncherd
 cd ~/Applications || exit
 wget --tries=100 --retry-connrefused --waitretry=5 https://github.com/ppy/osu/releases/latest/download/osu.AppImage
-chmod +x osu.Appimage
+chmod +x osu.AppImage
 cd ~ || exit
 if [ "$TEST" -eq 0 ]; then
 wget --tries=100 --retry-connrefused --waitretry=5 --no-check-certificate https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz

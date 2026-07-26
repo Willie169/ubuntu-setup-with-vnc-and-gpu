@@ -152,7 +152,7 @@ git config --global url."git@github.com:".insteadOf "https://github.com/"
 </code></pre> if you want to use ssh instead of https.</li>
 <li>Config git with <code>git config --global user.name [your_name] &amp;&amp; git config --global user.email [your_email]</code>, <code>git config --global pull.rebase true</code> etc.</li>
 <li>Run <code>flatpak run com.mikeasoft.pied</code> to setup Pied.</li>
-<li>Setup RustDesk. To use it with Tailscale, click three dots besides ID to enter <code>Settings</code>, click <code>Security</code>, click <code>Unlock security settings</code>, enter your password, and check <code>Enable direct IP access</code>, click <code>Account > Login</code> and login, and paste the Tailscale IP of the remote desktop you want to control in <code>Control</c. To use Android RustDesk app with Tailscale, go to <code>Settings</code> and toggle on <code>Direct IP access</code>, and click <code>Login</code> under <code>Account</code> and login to the same account.</li>
+<li>Setup RustDesk. Refer to <a href="#rustdesk">RustDesk</a> for more information.</li>
 <li>Run <code>code</code> or click the <strong>VSCodium</strong> icon to setup VSCodium.</li>
 <li>Run <code>torbrowser-launcher</code> or click the <strong>Tor Browser</strong> icon to finish installing Tor Browser.</li>
 <li>Go to <a href="#other-scripts">Other Scripts</a> section for other scripts in this repository.</li>
@@ -234,6 +234,7 @@ Installs [RuView](https://github.com/ruvnet/RuView) from source (Rust), which re
 + [Desktop App Launchers](#desktop-app-launchers)
 + [Fcitx5](#fcitx5)
 + [Tailscale](#tailscale)
++ [RustDesk](#rustdesk)
 + [VirtualGL and TurboVNC](#virtualgl-and-turbovnc)
 + [Waydroid](#waydroid)
 + [Solution for Closing Lip Overrides Power Off](#solution-for-closing-lip-overrides-power-off)
@@ -379,7 +380,7 @@ sudo apt install tailscale -y
 sudo tailscale up
 ```
 
-Log in via the URL shown and click **Connect**. Google, Microsoft, GitHub, Apple, and passkey are available.
+Log in via the URL shown and click **Connect**.
 
 #### Systemd
 
@@ -405,6 +406,39 @@ Tailscale (`com.tailscale.ipn`) can be installed from [F-Droid](https://f-droid.
 You can view the devices logged in and their Tailscale IPs in the app.
 
 See my [**Android-Non-Root**](https://github.com/Willie169/Android-Non-Root) repo for more information.
+
+### RustDesk
+
+#### Support
+
+Windows, Linux, macOS, Android, iOS, and Web are supported. For Linux, both X11 and Wayland are supported. For Wayland, you need to select Wayland screen selection at the first time.
+
+#### Installation
+
+Download the `rustdesk-*-x86_64.deb` from the latest release in [rustdesk GitHub releases](https://github.com/rustdesk/rustdesk/releases) and
+```
+sudo apt install ./rustdesk-*-x86_64.deb -y
+```
+This has been done in [`install-tools-first.sh`](install-tools-first.sh) and can be updated with `update_tools` function defined in `~/.bashrc` in [`install-tools-first.sh`](install-tools-first.sh).
+
+#### Android
+
+RustDesk app for Android can be installed from [F-Droid](https://f-droid.org/en/packages/com.carriez.flutter_hbb).
+
+#### Settings
+
+Click three dots besides ID to enter `Settings`. Some settings such as `Security` need to be unlocked by clicking `Unlock * settings` on the top and entering your password to be adjusted.
+
+#### Use with Tailscale
+
+To use it with Tailscale,
+- Login on both ends: Click `Settings > Account > Login` and login to the same account. Self-host server may not work with controlling desktop from Android as of my tests and is not necessary since the connections are already P2P with Tailscale instead of through RustDesk server.
+- Enable direct IP access on both ends: For desktop, check `Settings > Security > Security > Enable direct IP access`. For Android, toggle on `Settings > Share screen > Direct IP access`.
+- Remote control using IP: In `Control Remote Desktop` for desktop and `Remote ID` for Android, do not use ID but use Tailscale IP to connect.
+
+#### Password
+
+You may use one-time password, permanent password, or both passwords, which can be set in `Settings > Security > Password` for desktop and `Share screen > three dots` for Android. Permanent password is convenient when connecting to a remote machine.
 
 ### VirtualGL and TurboVNC
 

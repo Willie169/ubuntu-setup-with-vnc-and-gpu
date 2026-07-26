@@ -1416,19 +1416,9 @@ fi
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' rustdesk/rustdesk 'rustdesk-*-x86_64.deb'
 sudo DEBIAN_FRONTEND=noninteractive apt install ./rustdesk-*-x86_64.deb -y -o Dpkg::Options::="--force-confnew"
 rm rustdesk-*-x86_64.deb*
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' rustdesk/rustdesk-server 'rustdesk-server-hbbs_*_amd64.deb'
-sudo DEBIAN_FRONTEND=noninteractive apt install ./rustdesk-server-hbbs_*_amd64.deb -y -o Dpkg::Options::="--force-confnew"
-rm rustdesk-server-hbbs_*_amd64.deb*
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' rustdesk/rustdesk-server 'rustdesk-server-hbbr_*_amd64.deb'
-sudo DEBIAN_FRONTEND=noninteractive apt install ./rustdesk-server-hbbr_*_amd64.deb -y -o Dpkg::Options::="--force-confnew"
-rm rustdesk-server-hbbr_*_amd64.deb*
-sudo systemctl enable --now rustdesk-hbbs
-sudo systemctl enable --now rustdesk-hbbr
 sudo systemctl enable --now rustdesk
 sudo ufw allow 21118/udp
 sudo ufw allow 21118/tcp
-sudo ufw allow 21114:21119/tcp
-sudo ufw allow 21116/udp
 sudo ufw reload
 wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool
 chmod +x apktool

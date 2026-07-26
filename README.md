@@ -273,6 +273,8 @@ You can check with
 nvidia-smi
 ```
 
+You may edit `.desktop` to make it launch with NVIDIA GPU used. Some desktop environments on some systems have option to run a `.desktop` with NVIDIA GPU in right-click menu.
+
 The following function is defined in `~/.bashrc` in [`install-tools-first.sh`](install-tools-first.sh).
 ```
 prime-run() {

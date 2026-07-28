@@ -1487,19 +1487,24 @@ NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Ho
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
 BREW='bat bottom broot dust fd fzf git-delta lazygit neovim procs resvg ripgrep sevenzip yazi yq zoxide'
 CASK='altersend'
-# shellcheck disable=2086
 if [ "$TEST" -eq 0 ]; then
+# shellcheck disable=2086
 echo y | brew install $BREW || true
+# shellcheck disable=2086
 echo y | brew install $BREW
+# shellcheck disable=2086
 echo y | brew install --cask $CASK || true
+# shellcheck disable=2086
 echo y | brew install --cask $CASK
 git config --global core.pager delta
 git config --global interactive.diffFilter 'delta --color-only'
 git config --global delta.navigate true
 git config --global merge.conflictStyle zdiff3
-broot --set-install-state installed && mkdir -p ${HOME}/.config/broot/launcher/bash && broot --print-shell-function bash > ${HOME}/.config/broot/launcher/bash/br && chmod +x ${HOME}/.config/broot/launcher/bash/br
+broot --set-install-state installed && mkdir -p "${HOME}"/.config/broot/launcher/bash && broot --print-shell-function bash > "${HOME}"/.config/broot/launcher/bash/br && chmod +x "${HOME}"/.config/broot/launcher/bash/br
 else
+# shellcheck disable=2086
 echo y | brew install $BREW --dry-run
+# shellcheck disable=2086
 echo y | brew install --cask $CASK --dry-run
 fi
 brew cleanup

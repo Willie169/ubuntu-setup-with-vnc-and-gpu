@@ -1483,16 +1483,20 @@ conda config --add channels conda-forge
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
 BREW='bat bottom broot dust fd fzf git-delta lazygit procs resvg ripgrep sevenzip yazi yq zoxide'
+CASK='altersend'
 # shellcheck disable=2086
 if [ "$TEST" -eq 0 ]; then
 echo y | brew install $BREW || true
 echo y | brew install $BREW
+echo y | brew install --cask $CASK || true
+echo y | brew install --cask $CASK
 git config --global core.pager delta
 git config --global interactive.diffFilter 'delta --color-only'
 git config --global delta.navigate true
 git config --global merge.conflictStyle zdiff3
 else
 echo y | brew install $BREW --dry-run
+echo y | brew install --cask $CASK --dry-run
 fi
 brew cleanup
 git clone --depth=1 https://github.com/Willie169/vimrc.git ~/.vim_runtime && sh ~/.vim_runtime/install_awesome_vimrc.sh

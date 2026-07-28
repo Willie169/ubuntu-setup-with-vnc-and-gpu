@@ -1494,6 +1494,7 @@ git config --global core.pager delta
 git config --global interactive.diffFilter 'delta --color-only'
 git config --global delta.navigate true
 git config --global merge.conflictStyle zdiff3
+broot --set-install-state installed
 else
 echo y | brew install $BREW --dry-run
 echo y | brew install --cask $CASK --dry-run

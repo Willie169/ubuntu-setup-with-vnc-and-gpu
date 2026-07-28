@@ -124,6 +124,8 @@ sudo add-apt-repository ppa:git-core/ppa -y
 sudo add-apt-repository ppa:libreoffice/ppa -y
 sudo add-apt-repository ppa:longsleep/golang-backports -y
 sudo add-apt-repository ppa:neovim-ppa/stable -y
+sudo mv /etc/apt/sources.list.d/neovim-ppa-ubuntu-stable-*.sources /etc/apt/sources.list.d/neovim-ppa-ubuntu-stable-rnoble.sources || true
+sudo sed -i 's/^Suites: .*$/Suites: noble/' /etc/apt/sources.list.d/neovim-ppa-ubuntu-stable-rnoble.sources
 sudo add-apt-repository ppa:obsproject/obs-studio -y
 sudo add-apt-repository ppa:openjdk-r/ppa -y
 sudo mv /etc/apt/sources.list.d/openjdk-r-ubuntu-ppa-*.sources /etc/apt/sources.list.d/openjdk-r-ubuntu-ppa-noble.sources || true

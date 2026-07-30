@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 set -euxo pipefail
 shopt -s expand_aliases
 TEST=0
@@ -11,9 +12,17 @@ FULL=0
 PREDF=$(df --output=used / | tail -n1)
 cd ~ || exit
 if [ "$FULL" -eq 0 ]; then
-sudo -v
-while true; do sudo -nv; sleep 29; done & SUDOPIDFIRST=$!
-while true; do sudo -nv; sleep 31; done & SUDOPIDSECOND=$!
+	sudo -v
+	while true; do
+		sudo -nv
+		sleep 29
+	done &
+	SUDOPIDFIRST=$!
+	while true; do
+		sudo -nv
+		sleep 31
+	done &
+	SUDOPIDSECOND=$!
 fi
 sudo mkdir -p /usr/local/java
 sudo mkdir -p /etc/apt/apt.conf.d
@@ -30,87 +39,87 @@ sudo grep -q '^HandleLidSwitch=' "/etc/systemd/logind.conf" || echo 'HandleLidSw
 sudo grep -q '^HandleLidSwitchDocked=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchDocked=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
 sudo grep -q '^HandleLidSwitchExternalPower=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchExternalPower=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
 for file in /etc/grub.d/* /etc/default/grub.d/*; do
-  [[ -f "$file" ]] && sudo sed -i 's/^quick_boot=.*/quick_boot="0"/' "$file"
+	[[ -f "$file" ]] && sudo sed -i 's/^quick_boot=.*/quick_boot="0"/' "$file"
 done
 [ "$FULL" -eq 0 ] && sudo update-grub
 DM=$(basename "$(basename "$(readlink -f /etc/systemd/system/display-manager.service)" || true)" ".service" || true)
 if [[ -n "$DM" ]] && [[ -n "$USER" ]]; then
-case "$DM" in
-gdm|gdm3)
-if [ -f "/etc/gdm3/custom.conf" ]; then
-CONF="/etc/gdm3/custom.conf"
-elif [ -f "/etc/gdm/custom.conf" ]; then
-CONF="/etc/gdm/custom.conf"
-elif [ -d "/etc/gdm3" ]; then
-CONF="/etc/gdm3/custom.conf"
-elif [ -d "/etc/gdm" ]; then
-CONF="/etc/gdm/custom.conf"
-else
-CONF="/etc/gdm3/custom.conf"
-fi
-if [ -f "$CONF" ]; then
-sudo sed -i '/^AutomaticLoginEnable/d' "$CONF"
-sudo sed -i '/^AutomaticLogin=/d' "$CONF"
-sudo sed -i '/^WaylandEnable=/d' "$CONF"
-if sudo grep -q "^\[daemon\]" "$CONF"; then
-sudo sed -i "/^\[daemon\]/a AutomaticLoginEnable=True\nAutomaticLogin=$USER\nWaylandEnable=true" "$CONF"
-else
-printf '\n[daemon]\nAutomaticLoginEnable=True\nAutomaticLogin=%s\nWaylandEnable=true\n' "$USER" | sudo tee -a "$CONF" >/dev/null
-fi
-else
-printf '\n[daemon]\nAutomaticLoginEnable=True\nAutomaticLogin=%s\nWaylandEnable=true\n' "$USER" | sudo tee -a "$CONF" >/dev/null
-fi
-;;
-lightdm)
-COUNT=0
-for CONF in "/etc/lightdm/"*".conf" "/etc/lightdm/lightdm.conf.d/"*; do
-sudo test -f "$CONF" || continue
-sudo sed -i '/^autologin-user=/d' "$CONF"
-sudo sed -i '/^autologin-user-timeout=/d' "$CONF"
-if sudo grep -q "^\[Seat:\*\]" "$CONF" && [ "$COUNT" -eq 0 ]; then
-sudo sed -i "/^\[Seat:\*\]/a autologin-user=$USER\nautologin-user-timeout=0" "$CONF"
-COUNT=1
-fi
-done
-[ "$COUNT" -eq 0 ] && printf '\n[Seat:*]\nautologin-user=%s\nautologin-user-timeout=0\n' "$USER" | sudo tee -a "/etc/lightdm/lightdm.conf" >/dev/null
-;;
-sddm)
-COUNT=0
-command -v kinfo >/dev/null 2>&1 && PLASMA_VERSION=$(kinfo 2>/dev/null | grep 'KDE Plasma Version' | sed 's/KDE Plasma Version: //' | cut -d. -f1) || PLASMA_VERSION=''
-if [ "$PLASMA_VERSION" -ge 6 ]; then
-SESSION='plasma'
-elif [ "$PLASMA_VERSION" -le 5 ]; then
-sudo DEBIAN_FRONTEND=noninteractive apt install plasma-workspace-wayland -y -o Dpkg::Options::="--force-confnew"
-SESSION='plasmawayland'
-elif command -v lxqt-runner >/dev/null 2>&1; then
-SESSION='lxqt.desktop'
-fi
-if [ -n "$SESSION" ]; then
-for CONF in "/etc/sddm.conf" "/etc/sddm.conf.d/"*; do
-sudo test -f "$CONF" || continue
-sudo sed -i '/^User=/d' "$CONF"
-sudo sed -i '/^Session=/d' "$CONF"
-if sudo grep -q "^\[Autologin\]" "$CONF" && [ "$COUNT" -eq 0 ]; then
-sudo sed -i "/^\[Autologin\]/a User=$USER\nSession=$SESSION" "$CONF"
-COUNT=1
-fi
-done
-[ "$COUNT" -eq 0 ] && printf '\n[Autologin]\nUser=%s\nSession=%s\n' "$USER" "$SESSION" | sudo tee -a "/etc/sddm.conf" >/dev/null
-fi
-;;
-esac
+	case "$DM" in
+	gdm | gdm3)
+		if [ -f "/etc/gdm3/custom.conf" ]; then
+			CONF="/etc/gdm3/custom.conf"
+		elif [ -f "/etc/gdm/custom.conf" ]; then
+			CONF="/etc/gdm/custom.conf"
+		elif [ -d "/etc/gdm3" ]; then
+			CONF="/etc/gdm3/custom.conf"
+		elif [ -d "/etc/gdm" ]; then
+			CONF="/etc/gdm/custom.conf"
+		else
+			CONF="/etc/gdm3/custom.conf"
+		fi
+		if [ -f "$CONF" ]; then
+			sudo sed -i '/^AutomaticLoginEnable/d' "$CONF"
+			sudo sed -i '/^AutomaticLogin=/d' "$CONF"
+			sudo sed -i '/^WaylandEnable=/d' "$CONF"
+			if sudo grep -q "^\[daemon\]" "$CONF"; then
+				sudo sed -i "/^\[daemon\]/a AutomaticLoginEnable=True\nAutomaticLogin=$USER\nWaylandEnable=true" "$CONF"
+			else
+				printf '\n[daemon]\nAutomaticLoginEnable=True\nAutomaticLogin=%s\nWaylandEnable=true\n' "$USER" | sudo tee -a "$CONF" >/dev/null
+			fi
+		else
+			printf '\n[daemon]\nAutomaticLoginEnable=True\nAutomaticLogin=%s\nWaylandEnable=true\n' "$USER" | sudo tee -a "$CONF" >/dev/null
+		fi
+		;;
+	lightdm)
+		COUNT=0
+		for CONF in "/etc/lightdm/"*".conf" "/etc/lightdm/lightdm.conf.d/"*; do
+			sudo test -f "$CONF" || continue
+			sudo sed -i '/^autologin-user=/d' "$CONF"
+			sudo sed -i '/^autologin-user-timeout=/d' "$CONF"
+			if sudo grep -q "^\[Seat:\*\]" "$CONF" && [ "$COUNT" -eq 0 ]; then
+				sudo sed -i "/^\[Seat:\*\]/a autologin-user=$USER\nautologin-user-timeout=0" "$CONF"
+				COUNT=1
+			fi
+		done
+		[ "$COUNT" -eq 0 ] && printf '\n[Seat:*]\nautologin-user=%s\nautologin-user-timeout=0\n' "$USER" | sudo tee -a "/etc/lightdm/lightdm.conf" >/dev/null
+		;;
+	sddm)
+		COUNT=0
+		command -v kinfo >/dev/null 2>&1 && PLASMA_VERSION=$(kinfo 2>/dev/null | grep 'KDE Plasma Version' | sed 's/KDE Plasma Version: //' | cut -d. -f1) || PLASMA_VERSION=''
+		if [ "$PLASMA_VERSION" -ge 6 ]; then
+			SESSION='plasma'
+		elif [ "$PLASMA_VERSION" -le 5 ]; then
+			sudo DEBIAN_FRONTEND=noninteractive apt install plasma-workspace-wayland -y -o Dpkg::Options::="--force-confnew"
+			SESSION='plasmawayland'
+		elif command -v lxqt-runner >/dev/null 2>&1; then
+			SESSION='lxqt.desktop'
+		fi
+		if [ -n "$SESSION" ]; then
+			for CONF in "/etc/sddm.conf" "/etc/sddm.conf.d/"*; do
+				sudo test -f "$CONF" || continue
+				sudo sed -i '/^User=/d' "$CONF"
+				sudo sed -i '/^Session=/d' "$CONF"
+				if sudo grep -q "^\[Autologin\]" "$CONF" && [ "$COUNT" -eq 0 ]; then
+					sudo sed -i "/^\[Autologin\]/a User=$USER\nSession=$SESSION" "$CONF"
+					COUNT=1
+				fi
+			done
+			[ "$COUNT" -eq 0 ] && printf '\n[Autologin]\nUser=%s\nSession=%s\n' "$USER" "$SESSION" | sudo tee -a "/etc/sddm.conf" >/dev/null
+		fi
+		;;
+	esac
 fi
 [ "$FULL" -eq 0 ] && sudo timedatectl set-local-rtc 1
 [ "$FULL" -eq 0 ] && sudo timedatectl set-ntp true
 sudo apt update
 # shellcheck disable=2155
 export UBUNTU_VERSION_ID=$(
-if grep -q '^NAME="Linux Mint"' /etc/os-release; then
-  inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'
-else
-  . /etc/os-release
-  echo "$VERSION_ID"
-fi
+	if grep -q '^NAME="Linux Mint"' /etc/os-release; then
+		inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'
+	else
+		. /etc/os-release
+		echo "$VERSION_ID"
+	fi
 )
 sudo DEBIAN_FRONTEND=noninteractive apt install software-properties-common -y -o Dpkg::Options::="--force-confnew"
 sudo add-apt-repository universe -y
@@ -162,17 +171,17 @@ wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent
 wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/50-functions.sh -O ~/.bashrc.d/50-functions.sh
 wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/60-completion.sh -O ~/.bashrc.d/60-completion.sh
 wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/bashrc -O ~/.bashrc
-cat > ~/.profile <<'EOF'
+cat >~/.profile <<'EOF'
 if [ -n "$BASH_VERSION" ]; then
   if [ -f "$HOME/.bashrc" ]; then
     . "$HOME/.bashrc"
   fi
 fi
 EOF
-if [ -d "$HOME/.bashrc.d" ];  then
-  for f in "$HOME/.bashrc.d/"*; do
-    [ -r "$f" ] && . "$f"
-  done
+if [ -d "$HOME/.bashrc.d" ]; then
+	for f in "$HOME/.bashrc.d/"*; do
+		[ -r "$f" ] && . "$f"
+	done
 fi
 sudo loginctl enable-linger "$USER"
 sudo add-apt-repository ppa:mozillateam/ppa -y
@@ -407,16 +416,16 @@ Unattended-Upgrade::Skip-Updates-On-Metered-Connections "false";
 PKG='alsa-utils apksigner apt-transport-https aptitude audacity automake bash bc bear bindfs bison bookletimposer build-essential bzip2 ca-certificates calcurse clang clang-format clangd cmake command-not-found cronie curl dbus dbus-x11 debconf-utils distro-info dnsutils dvisvgm fastfetch ffmpeg file flex fontconfig fonts-cns11643-kai fonts-cns11643-sung fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gdb gh ghostscript git glab gnupg gnupg2 golang-go gopls gperf grep gzip hyperfine iftop imagemagick info inkscape iotop-c iproute2 jpegoptim jq lftp libheif-examples libreoffice lsb-release lsd luajit lzip make maven mesa-utils mpv nano ncdu netcat-openbsd nethogs net-tools ngspice ninja-build nmap ocrmypdf octave openjdk-21-jdk openssh-client openssh-server openssl optipng p7zip-full pandoc perl perl-tk pkg-config poppler-utils procps pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-neovim python3-pip python3-requests python3-venv qalc qpdf shellcheck shfmt socat sqlite3 strace sudo tar tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert tesseract-ocr-eng tesseract-ocr-jpn tesseract-ocr-jpn-vert tmux tree tsocks unrar unzip uuid-runtime verilator vim-gtk3 w3m webp wget wget2 xdotool xmlstarlet xz-utils zip zsh zstd 2048'
 # shellcheck disable=2086
 if [ "$TEST" -eq 0 ]; then
-sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -o Dpkg::Options::="--force-confnew"
 else
-sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="--force-confnew"
 fi
 PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo dnscrypt-proxy fcitx5 fcitx5-* filelight flatpak fwupd gtkwave kate krita language-pack-gnome-en libfuse2t64 libvirt-daemon-system libvirt-clients lxc lxc-templates ntfs-3g obs-studio ovmf pipewire pipewire-audio-client-libraries qalculate-gtk qbittorrent qemu-system-gui qemu-system-x86 qemu-user-binfmt qemu-user qemu-utils qtspeech5-speechd-plugin quickemu remmina remmina-plugin-rdp remmina-plugin-secret snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap unattended-upgrades virt-manager virt-viewer wireplumber wl-clipboard xclip'
 # shellcheck disable=2086
 if [ "$TEST" -eq 0 ]; then
-sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -o Dpkg::Options::="--force-confnew"
 else
-sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="--force-confnew"
 fi
 sudo snap set system refresh.retain=2
 echo '[ids]
@@ -1258,8 +1267,8 @@ skip_incompatible = false
   # [static.'myserver']
   # stamp = 'sdns://AQcAAAAAAAAAAAAQMi5kbnNjcnlwdC1jZXJ0Lg'
 EOF
-[ "$TEST" -eq 0  ] && [ "$FULL" -eq 0  ] && sudo dnscrypt-proxy -service install
-[ "$TEST" -eq 0  ] && [ "$FULL" -eq 0  ] && sudo dnscrypt-proxy -service start
+[ "$TEST" -eq 0 ] && [ "$FULL" -eq 0 ] && sudo dnscrypt-proxy -service install
+[ "$TEST" -eq 0 ] && [ "$FULL" -eq 0 ] && sudo dnscrypt-proxy -service start
 sudo mkdir -p /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist
 sudo rm -f /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/generate-domains-blocklist.py || true
 sudo wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/DNSCrypt/dnscrypt-proxy/refs/heads/master/utils/generate-domains-blocklist/generate-domains-blocklist.py -O /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/generate-domains-blocklist.py
@@ -1325,10 +1334,10 @@ OnUnitActiveSec=6h
 WantedBy=timers.target
 EOF
 sudo systemctl daemon-reload
-[ "$TEST" -eq 0  ] && [ "$FULL" -eq 0  ] && sudo systemctl enable --now dnscrypt-proxy-blocklist-update
-[ "$TEST" -eq 0  ] && [ "$FULL" -eq 0  ] && sudo systemctl enable --now dnscrypt-proxy-blocklist-update.timer
+[ "$TEST" -eq 0 ] && [ "$FULL" -eq 0 ] && sudo systemctl enable --now dnscrypt-proxy-blocklist-update
+[ "$TEST" -eq 0 ] && [ "$FULL" -eq 0 ] && sudo systemctl enable --now dnscrypt-proxy-blocklist-update.timer
 sudo mkdir -p /etc/systemd/resolved.conf.d
-[ "$TEST" -eq 0  ] && [ "$FULL" -eq 0  ] && sudo tee /etc/systemd/resolved.conf.d/resolved.conf >/dev/null <<'EOF'
+[ "$TEST" -eq 0 ] && [ "$FULL" -eq 0 ] && sudo tee /etc/systemd/resolved.conf.d/resolved.conf >/dev/null <<'EOF'
 [Resolve]
 DNS=127.0.0.1
 FallbackDNS=1.1.1.1:53 1.0.0.1:53 2606:4700:4700::1111:53 2606:4700:4700::1001:53 94.140.14.140:53 94.140.14.141:53 2a10:50c0::1:ff:53 2a10:50c0::2:ff:53
@@ -1340,7 +1349,7 @@ DNS=127.0.0.1
 FallbackDNS=1.1.1.1:53 1.0.0.1:53 2606:4700:4700::1111:53 2606:4700:4700::1001:53 94.140.14.140:53 94.140.14.141:53 2a10:50c0::1:ff:53 2a10:50c0::2:ff:53
 Domains=~.
 EOF
-[ "$TEST" -eq 0  ] && [ "$FULL" -eq 0  ] && sudo systemctl restart systemd-resolved
+[ "$TEST" -eq 0 ] && [ "$FULL" -eq 0 ] && sudo systemctl restart systemd-resolved
 sudo tee /etc/systemd/system/systemd-resolved-conf-dns-up.service >/dev/null <<'EOF'
 [Unit]
 Description=systemd-resolved conf dns_up
@@ -1357,13 +1366,13 @@ ExecStart=cp resolved.conf.bak resolved.conf
 WantedBy=sysinit.target
 EOF
 sudo systemctl daemon-reload
-[ "$TEST" -eq 0  ] && [ "$FULL" -eq 0  ] && sudo systemctl enable --now systemd-resolved-conf-dns-up
+[ "$TEST" -eq 0 ] && [ "$FULL" -eq 0 ] && sudo systemctl enable --now systemd-resolved-conf-dns-up
 sudo /usr/sbin/update-ca-certificates --fresh
 wget --tries=100 --retry-connrefused --waitretry=5 https://raw.githubusercontent.com/macvk/dnsleaktest/master/dnsleaktest.sh -O ~/.local/bin/dnsleaktest.sh
 chmod +x ~/.local/bin/dnsleaktest.sh
 systemctl --user restart pipewire pipewire-pulse wireplumber
 im-config -n fcitx5
-cat > ~/.xprofile <<'EOF'
+cat >~/.xprofile <<'EOF'
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
@@ -1371,14 +1380,14 @@ export INPUT_METHOD=fcitx
 export SDL_IM_MODULE=fcitx
 EOF
 if [ "${XDG_CURRENT_DESKTOP:-}" = "KDE" ] || [[ "${DESKTOP_SESSION:-}" == *plasma* ]] || [ "${KDE_FULL_SESSION:-}" = "true" ]; then
-if [ "$TEST" -eq 0 ]; then
-sudo DEBIAN_FRONTEND=noninteractive apt install plasma-discover-backend-flatpak -y -o Dpkg::Options::="--force-confnew"
+	if [ "$TEST" -eq 0 ]; then
+		sudo DEBIAN_FRONTEND=noninteractive apt install plasma-discover-backend-flatpak -y -o Dpkg::Options::="--force-confnew"
+	else
+		sudo DEBIAN_FRONTEND=noninteractive apt install plasma-discover-backend-flatpak -y -s -o Dpkg::Options::="--force-confnew"
+	fi
 else
-sudo DEBIAN_FRONTEND=noninteractive apt install plasma-discover-backend-flatpak -y -s -o Dpkg::Options::="--force-confnew"
-fi
-else
-mkdir -p ~/.config/autostart
-cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
+	mkdir -p ~/.config/autostart
+	cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
 fi
 mkdir ~/.JetBrainsMono
 cd ~/.JetBrainsMono || exit
@@ -1401,9 +1410,9 @@ sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://b
 sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
 sudo apt update
 if [ "$TEST" -eq 0 ]; then
-sudo DEBIAN_FRONTEND=noninteractive apt install brave-browser -y -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install brave-browser -y -o Dpkg::Options::="--force-confnew"
 else
-sudo DEBIAN_FRONTEND=noninteractive apt install brave-browser -y -s -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install brave-browser -y -s -o Dpkg::Options::="--force-confnew"
 fi
 curl -fsSL https://download.onlyoffice.com/GPG-KEY-ONLYOFFICE | gpg --no-default-keyring --keyring gnupg-ring:/tmp/onlyoffice.gpg --import
 chmod 644 /tmp/onlyoffice.gpg
@@ -1412,9 +1421,9 @@ sudo mv /tmp/onlyoffice.gpg /usr/share/keyrings/onlyoffice.gpg
 echo 'deb [signed-by=/usr/share/keyrings/onlyoffice.gpg] https://download.onlyoffice.com/repo/debian squeeze main' | sudo tee /etc/apt/sources.list.d/onlyoffice.list >/dev/null
 sudo apt update
 if [ "$TEST" -eq 0 ]; then
-sudo DEBIAN_FRONTEND=noninteractive apt install onlyoffice-desktopeditors -y -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install onlyoffice-desktopeditors -y -o Dpkg::Options::="--force-confnew"
 else
-sudo DEBIAN_FRONTEND=noninteractive apt install onlyoffice-desktopeditors -y -s -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install onlyoffice-desktopeditors -y -s -o Dpkg::Options::="--force-confnew"
 fi
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' rustdesk/rustdesk 'rustdesk-*-x86_64.deb'
 sudo DEBIAN_FRONTEND=noninteractive apt install ./rustdesk-*-x86_64.deb -y -o Dpkg::Options::="--force-confnew"
@@ -1440,8 +1449,8 @@ cd ~ || exit
 NVM_VERSION=$(curl -fsSL "https://api.github.com/repos/nvm-sh/nvm/releases/latest" | jq -r '.tag_name')
 PROFILE=/dev/null bash -c "curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh | bash"
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 nvm install --lts
 echo y | corepack enable npm
 echo y | npm --help || true
@@ -1453,13 +1462,13 @@ chmod +x yt-dlp
 mv yt-dlp ~/.local/bin/
 curl -LsSf https://astral.sh/uv/install.sh | sh
 if [ "$TEST" -eq 0 ]; then
-for pkg in autopep8 cmake-language-server gallery-dl gh2md img2pdf jupyterlab jupytext libretranslate meson notebook pylatexenc tldr xmljson yamllint; do
-uv tool install "$pkg"
-done
-uv tool install fdroidserver
-uv tool install 'git+https://github.com/jpstotz/better-adb-sync#BetterADBSync'
+	for pkg in autopep8 cmake-language-server gallery-dl gh2md img2pdf jupyterlab jupytext libretranslate meson notebook pylatexenc tldr xmljson yamllint; do
+		uv tool install "$pkg"
+	done
+	uv tool install fdroidserver
+	uv tool install 'git+https://github.com/jpstotz/better-adb-sync#BetterADBSync'
 fi
-cat > ~/.config/systemd/user/libretranslate.service <<EOF
+cat >~/.config/systemd/user/libretranslate.service <<EOF
 [Unit]
 Description=LibreTranslate
 
@@ -1488,36 +1497,36 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
 BREW='bat bottom broot dust fd fzf git-delta lazygit neovim procs resvg ripgrep sevenzip yazi yq zoxide'
 CASK='altersend'
 if [ "$TEST" -eq 0 ]; then
-# shellcheck disable=2086
-echo y | brew install $BREW || true
-# shellcheck disable=2086
-echo y | brew install $BREW
-# shellcheck disable=2086
-echo y | brew install --cask $CASK || true
-# shellcheck disable=2086
-echo y | brew install --cask $CASK
-git config --global core.pager delta
-git config --global interactive.diffFilter 'delta --color-only'
-git config --global delta.navigate true
-git config --global merge.conflictStyle zdiff3
-broot --set-install-state installed && mkdir -p "${HOME}"/.config/broot/launcher/bash && broot --print-shell-function bash > "${HOME}"/.config/broot/launcher/bash/br && chmod +x "${HOME}"/.config/broot/launcher/bash/br
+	# shellcheck disable=2086
+	echo y | brew install $BREW || true
+	# shellcheck disable=2086
+	echo y | brew install $BREW
+	# shellcheck disable=2086
+	echo y | brew install --cask $CASK || true
+	# shellcheck disable=2086
+	echo y | brew install --cask $CASK
+	git config --global core.pager delta
+	git config --global interactive.diffFilter 'delta --color-only'
+	git config --global delta.navigate true
+	git config --global merge.conflictStyle zdiff3
+	broot --set-install-state installed && mkdir -p "${HOME}"/.config/broot/launcher/bash && broot --print-shell-function bash >"${HOME}"/.config/broot/launcher/bash/br && chmod +x "${HOME}"/.config/broot/launcher/bash/br
 else
-# shellcheck disable=2086
-echo y | brew install $BREW --dry-run
-# shellcheck disable=2086
-echo y | brew install --cask $CASK --dry-run
+	# shellcheck disable=2086
+	echo y | brew install $BREW --dry-run
+	# shellcheck disable=2086
+	echo y | brew install --cask $CASK --dry-run
 fi
 brew cleanup
 git clone --depth=1 https://github.com/Willie169/vimrc.git ~/.vim_runtime && sh ~/.vim_runtime/install_awesome_vimrc.sh
 mkdir -p ~/.config/nvim/lua/config
 mkdir -p ~/.config/nvim/lua/plugins
-cat > ~/.config/nvim/init.lua <<'EOF'
+cat >~/.config/nvim/init.lua <<'EOF'
 vim.cmd("set runtimepath^=~/.vim runtimepath+=~/.vim/after")
 vim.cmd("let &packpath = &runtimepath")
 vim.cmd("source ~/.vimrc")
 require("config.lazy")
 EOF
-cat > ~/.config/nvim/lua/config/lazy.lua <<'EOF'
+cat >~/.config/nvim/lua/config/lazy.lua <<'EOF'
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -1575,13 +1584,13 @@ sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install incus -y -o Dpkg::Options::="--force-confnew"
 sudo adduser "$USER" incus-admin
 if findmnt -no FSTYPE / | grep -q btrfs; then
-sudo DEBIAN_FRONTEND=noninteractive apt install btrfs-progs -y -o Dpkg::Options::="--force-confnew"
-STORAGE_DRIVER=btrfs
+	sudo DEBIAN_FRONTEND=noninteractive apt install btrfs-progs -y -o Dpkg::Options::="--force-confnew"
+	STORAGE_DRIVER=btrfs
 elif findmnt -no FSTYPE / | grep -q zfs; then
-sudo DEBIAN_FRONTEND=noninteractive apt install zfsutils-linux -y -o Dpkg::Options::="--force-confnew"
-STORAGE_DRIVER=zfs
+	sudo DEBIAN_FRONTEND=noninteractive apt install zfsutils-linux -y -o Dpkg::Options::="--force-confnew"
+	STORAGE_DRIVER=zfs
 else
-STORAGE_DRIVER=dir
+	STORAGE_DRIVER=dir
 fi
 cat <<EOF | sudo incus admin init --preseed
 config: {}
@@ -1632,28 +1641,28 @@ wget --tries=100 --retry-connrefused --waitretry=5 -qO - https://gitlab.com/paul
 echo -e 'Types: deb\nURIs: https://download.vscodium.com/debs\nSuites: vscodium\nComponents: main\nArchitectures: amd64 arm64\nSigned-by: /usr/share/keyrings/vscodium-archive-keyring.gpg' | sudo tee /etc/apt/sources.list.d/vscodium.sources >/dev/null
 sudo apt update
 if [ "$TEST" -eq 0 ]; then
-sudo DEBIAN_FRONTEND=noninteractive apt install codium -y -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install codium -y -o Dpkg::Options::="--force-confnew"
 else
-sudo DEBIAN_FRONTEND=noninteractive apt install codium -y -s -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install codium -y -s -o Dpkg::Options::="--force-confnew"
 fi
 curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
 echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list >/dev/null
 sudo apt update
 if [ "$TEST" -eq 0 ]; then
-sudo DEBIAN_FRONTEND=noninteractive apt install glow -y -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install glow -y -o Dpkg::Options::="--force-confnew"
 else
-sudo DEBIAN_FRONTEND=noninteractive apt install glow -y -s -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install glow -y -s -o Dpkg::Options::="--force-confnew"
 fi
 wget --tries=100 --retry-connrefused --waitretry=5 -O- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | sudo tee /usr/share/keyrings/deb.torproject.org-keyring.gpg >/dev/null
-sudo tee /etc/apt/sources.list.d/tor.list > /dev/null <<EOF
+sudo tee /etc/apt/sources.list.d/tor.list >/dev/null <<EOF
 deb [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
 deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org ${UBUNTU_CODENAME} main
 EOF
 sudo apt update
 if [ "$TEST" -eq 0 ]; then
-sudo DEBIAN_FRONTEND=noninteractive apt install tor torsocks deb.torproject.org-keyring -y -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install tor torsocks deb.torproject.org-keyring -y -o Dpkg::Options::="--force-confnew"
 else
-sudo DEBIAN_FRONTEND=noninteractive apt install tor torsocks deb.torproject.org-keyring -y -s -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install tor torsocks deb.torproject.org-keyring -y -s -o Dpkg::Options::="--force-confnew"
 fi
 sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/local/java/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
 sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/local/java/plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
@@ -1661,12 +1670,12 @@ sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/share/keyrings/e
 echo "deb [signed-by=/usr/share/keyrings/element-io-archive-keyring.gpg] https://packages.element.io/debian/ default main" | sudo tee /etc/apt/sources.list.d/element-io.list >/dev/null
 sudo apt update
 if [ "$TEST" -eq 0 ]; then
-sudo DEBIAN_FRONTEND=noninteractive apt install element-desktop -y -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install element-desktop -y -o Dpkg::Options::="--force-confnew"
 else
-sudo DEBIAN_FRONTEND=noninteractive apt install element-desktop -y -s -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install element-desktop -y -s -o Dpkg::Options::="--force-confnew"
 fi
 [ "$TEST" -eq 0 ] && sudo docker pull ghcr.io/gchq/cyberchef:latest
-cat > ~/.config/systemd/user/cyberchef.service <<EOF
+cat >~/.config/systemd/user/cyberchef.service <<EOF
 [Unit]
 Description=CyberChef
 After=docker.service
@@ -1684,7 +1693,7 @@ systemctl --user daemon-reload
 systemctl --user enable --now cyberchef
 mkdir -p ~/stirlingpdf/stirling-data/configs
 cd ~/stirlingpdf || exit
-cat > docker-compose.yml <<'EOF'
+cat >docker-compose.yml <<'EOF'
 services:
   stirling-pdf:
     image: stirlingtools/stirling-pdf:latest
@@ -1700,7 +1709,7 @@ services:
 EOF
 [ "$TEST" -eq 0 ] && sudo docker compose pull
 cd ~ || exit
-cat > ~/.config/systemd/user/stirlingpdf.service <<EOF
+cat >~/.config/systemd/user/stirlingpdf.service <<EOF
 [Unit]
 Description=Stirling PDF
 After=docker.service
@@ -1739,8 +1748,8 @@ cd ~ || exit
 sudo tee /etc/udev/rules.d/52-xilinx-usb.rules >/dev/null <<'EOF'
 SUBSYSTEM=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="0666", GROUP="plugdev"
 EOF
-[ "$FULL" -eq 0  ] && sudo udevadm control --reload-rules
-[ "$FULL" -eq 0  ] && sudo udevadm trigger
+[ "$FULL" -eq 0 ] && sudo udevadm control --reload-rules
+[ "$FULL" -eq 0 ] && sudo udevadm trigger
 sudo usermod -aG plugdev "$USER"
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' kristoff-it/superhtml x86_64-linux-musl.tar.xz
 tar -xJf x86_64-linux-musl.tar.xz
@@ -1748,7 +1757,7 @@ rm x86_64-linux-musl.tar.xz
 mv superhtml ~/.local/bin/
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Sathvik-Rao/ClipCascade ClipCascade-Server-JRE_21.jar
 sudo mv ClipCascade-Server-JRE_21.jar /usr/local/java/
-cat > ~/.config/systemd/user/clipcascade-server.service <<EOF
+cat >~/.config/systemd/user/clipcascade-server.service <<EOF
 [Unit]
 Description=ClipCascade Server
 After=network.target
@@ -1770,7 +1779,7 @@ sudo ufw reload
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Sathvik-Rao/ClipCascade ClipCascade_Linux.tar.xz
 tar -xJf ClipCascade_Linux.tar.xz
 rm ClipCascade_Linux.tar.xz
-cat > ~/.config/systemd/user/clipcascade-client.service <<EOF
+cat >~/.config/systemd/user/clipcascade-client.service <<EOF
 [Unit]
 Description=ClipCascade Client
 Requires=clipcascade-server.service
@@ -1812,9 +1821,9 @@ sudo DEBIAN_FRONTEND=noninteractive apt install clinfo ocl-icd-opencl-dev -y -o 
 git clone --depth=1 https://github.com/lightvector/KataGo.git
 cd KataGo/cpp || exit
 if clinfo -l | grep -q 'Platform'; then
-cmake . -G Ninja -DUSE_BACKEND=OPENCL
+	cmake . -G Ninja -DUSE_BACKEND=OPENCL
 else
-cmake . -G Ninja -DUSE_BACKEND=EIGEN
+	cmake . -G Ninja -DUSE_BACKEND=EIGEN
 fi
 ninja
 cd ../.. || exit
@@ -1834,7 +1843,7 @@ cd ~ || exit
 mv ~/lizzieyzy/src/main/resources/assets/logo.png ~/.local/share/lizzieyzy/
 rm -rf ~/.m2/repository
 rm -rf ~/lizzieyzy
-cat > ~/.local/share/applications/lizzieyzy.desktop <<EOF
+cat >~/.local/share/applications/lizzieyzy.desktop <<EOF
 [Desktop Entry]
 Type=Application
 Name=LizzieYzy
@@ -1850,11 +1859,11 @@ git clone --depth=1 https://github.com/fairy-stockfish/Fairy-Stockfish.git
 cd Fairy-Stockfish/src || exit
 ARCH=$(uname -m)
 if [ "$ARCH" == "x86_64" ]; then
-ARCH="x86-64"
+	ARCH="x86-64"
 elif [ "$ARCH" == "aarch64" ]; then
-ARCH="armv8"
+	ARCH="armv8"
 elif [ "$ARCH" == "arm" ]; then
-ARCH="armv7"
+	ARCH="armv7"
 fi
 make -j ARCH="$ARCH" profile-build largeboards=yes nnue=yes
 mv stockfish ~/.local/bin/
@@ -1874,7 +1883,7 @@ cd ..
 mv projects/gui/res/icons/cutechess_128x128.png ~/.config/cutechess/
 cd ~ || exit
 rm -rf cutechess
-cat > ~/.local/share/applications/cutechess.desktop <<EOF
+cat >~/.local/share/applications/cutechess.desktop <<EOF
 [Desktop Entry]
 Type=Application
 Name=Cute Chess
@@ -1891,7 +1900,7 @@ cd Sylvan || exit
 qmake
 make
 cd ~ || exit
-cat > ~/.local/share/applications/sylvan.desktop <<EOF
+cat >~/.local/share/applications/sylvan.desktop <<EOF
 [Desktop Entry]
 Type=Application
 Name=Sylvan
@@ -1911,7 +1920,7 @@ mv mozlz4 ~/.local/bin/
 cd ~ || true
 rm -rf mozlz4
 mkdir ~/typetype-stack
-cat > ~/typetype-stack/.env <<'EOF'
+cat >~/typetype-stack/.env <<'EOF'
 ALLOWED_ORIGINS=http://localhost:9082,http://127.0.0.1:9082,http://localhost:5173,http://127.0.0.1:5173
 HOST_PORT_WEB=9082
 HOST_BIND_SERVER=127.0.0.1
@@ -1959,7 +1968,7 @@ curl -fsSL https://raw.githubusercontent.com/TypeType-Video/TypeType/main/script
 cd ~/typetype-stack || exit
 [ "$TEST" -eq 0 ] && sudo docker compose -f docker-compose.yml pull
 cd ~ || exit
-cat > ~/.config/systemd/user/typetype.service <<EOF
+cat >~/.config/systemd/user/typetype.service <<EOF
 [Unit]
 Description=TypeType
 After=docker.service
@@ -1992,24 +2001,24 @@ sudo DEBIAN_FRONTEND=noninteractive apt install ./appimagelauncher_*-*.*_amd64.d
 exit 0' | sudo tee /var/lib/dpkg/info/appimagelauncher.postinst >/dev/null && sudo dpkg --configure appimagelauncher)
 rm appimagelauncher_*-*.*_amd64.deb*
 [ "$FULL" -eq 0 ] && sudo update-binfmts --package appimage --install appimage_type2 /usr/bin/AppImageLauncher --magic 'AI\x02' --offset 8
-cat > ~/.config/appimagelauncher.cfg <<'EOF'
+cat >~/.config/appimagelauncher.cfg <<'EOF'
 [AppImageLauncher]
 destination = ~/Applications
 enable_daemon = true
 EOF
 systemctl --user enable --now appimagelauncherd
 if [ "$TEST" -eq 0 ]; then
-wget --tries=100 --retry-connrefused --waitretry=5 --no-check-certificate https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-tar -xzf install-tl-unx.tar.gz
-rm install-tl-unx.tar.gz*
-cd install-tl-* || exit
-sudo perl ./install-tl --no-interaction
-cd ~ || exit
-rm -rf install-tl-*
-sudo /usr/local/texlive/2026/bin/x86_64-linux/tlmgr update --all --self --reinstall-forcibly-removed
+	wget --tries=100 --retry-connrefused --waitretry=5 --no-check-certificate https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+	tar -xzf install-tl-unx.tar.gz
+	rm install-tl-unx.tar.gz*
+	cd install-tl-* || exit
+	sudo perl ./install-tl --no-interaction
+	cd ~ || exit
+	rm -rf install-tl-*
+	sudo /usr/local/texlive/2026/bin/x86_64-linux/tlmgr update --all --self --reinstall-forcibly-removed
 fi
 mkdir -p ~/.config/fontconfig/conf.d
-cat > ~/.config/fontconfig/conf.d/00-noto.conf <<'EOF'
+cat >~/.config/fontconfig/conf.d/00-noto.conf <<'EOF'
 <?xml version="1.0"?>
 <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
 <fontconfig>
@@ -2065,7 +2074,7 @@ cat > ~/.config/fontconfig/conf.d/00-noto.conf <<'EOF'
 </match>
 </fontconfig>
 EOF
-cat > ~/.config/fontconfig/conf.d/01-replace.conf <<'EOF'
+cat >~/.config/fontconfig/conf.d/01-replace.conf <<'EOF'
 <?xml version="1.0"?>
 <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
 <fontconfig>
@@ -2103,7 +2112,7 @@ cat > ~/.config/fontconfig/conf.d/01-replace.conf <<'EOF'
 </match>
 </fontconfig>
 EOF
-cat > ~/.config/fontconfig/conf.d/99-texlive.conf <<'EOF'
+cat >~/.config/fontconfig/conf.d/99-texlive.conf <<'EOF'
 <?xml version="1.0"?>
 <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
 <fontconfig>
@@ -2129,9 +2138,9 @@ sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y -o Dpkg::Options::="--force-c
 sudo DEBIAN_FRONTEND=noninteractive apt autoremove --purge -y -o Dpkg::Options::="--force-confnew"
 sudo apt clean
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-if [ "$FULL" -eq 0 ];then
-kill "$SUDOPIDFIRST"
-kill "$SUDOPIDSECOND"
+if [ "$FULL" -eq 0 ]; then
+	kill "$SUDOPIDFIRST"
+	kill "$SUDOPIDSECOND"
 fi
 # shellcheck disable=2155
 POSTDF=$(df --output=used / | tail -n1)

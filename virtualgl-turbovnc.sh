@@ -19,7 +19,7 @@ sudo mkdir -p /etc/opt/VirtualGL
 sudo chgrp vglusers /etc/opt/VirtualGL
 sudo chmod 750 /etc/opt/VirtualGL
 mkdir -p ~/.vnc
-cat > ~/.vnc/xstartup.turbovnc <<EOF
+cat >~/.vnc/xstartup.turbovnc <<EOF
 #!/bin/bash
 unset SESSION_MANAGER
 unset DBUS_SESSION_BUS_ADDRESS

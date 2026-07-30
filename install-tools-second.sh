@@ -8,14 +8,14 @@ flatpak install flathub com.github.vkohaupt.vokoscreenNG com.usebottles.bottles 
 flatpak update -y
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Elleo/pied com.mikeasoft.pied.flatpak
 if [ "$TEST" -eq 0 ]; then
-sudo flatpak install com.mikeasoft.pied.flatpak -y
+	sudo flatpak install com.mikeasoft.pied.flatpak -y
 else
-flatpak install com.mikeasoft.pied.flatpak -y
+	flatpak install com.mikeasoft.pied.flatpak -y
 fi
 rm com.mikeasoft.pied.flatpak*
 if [ "$TEST" -eq 0 ]; then
-sudo ufw allow 53317
-sudo ufw reload
+	sudo ufw allow 53317
+	sudo ufw reload
 fi
 # shellcheck disable=2155
 POSTDF=$(df --output=used / | tail -n1)

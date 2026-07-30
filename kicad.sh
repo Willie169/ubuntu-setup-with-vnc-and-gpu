@@ -11,7 +11,7 @@ rm kicad-"$KICAD_VERSION"-x86_64.AppImage.tar
 chmod +x kicad-"$KICAD_VERSION"-x86_64.AppImage
 mkdir -p ~/.local/kicad
 mv kicad-"$KICAD_VERSION"-x86_64.AppImage ~/.local/kicad
-cat > ~/.local/bin/kicad <<EOF
+cat >~/.local/bin/kicad <<EOF
 #!/bin/bash
 ~/.local/kicad/kicad-$KICAD_VERSION-x86_64.AppImage
 EOF
@@ -19,7 +19,7 @@ chmod +x ~/.local/bin/kicad
 cd ~/.local/kicad || exit
 wget --tries=100 --retry-connrefused --waitretry=5 https://gitlab.com/kicad/code/kicad/-/raw/master/resources/bitmaps_png/icons/icon_kicad.ico
 cd ~ || exit
-cat > ~/.local/share/applications/kicad.desktop <<EOF
+cat >~/.local/share/applications/kicad.desktop <<EOF
 [Desktop Entry]
 Version=$KICAD_VERSION
 Type=Application

@@ -166,11 +166,7 @@ if [ -n "$BASH_VERSION" ]; then
   fi
 fi
 EOF
-if [ -d "$HOME/.bashrc.d" ]; then
-	for f in "$HOME/.bashrc.d/"*; do
-		[ -r "$f" ] && . "$f"
-	done
-fi
+source ~/.bashrc
 sudo loginctl enable-linger "$USER"
 sudo add-apt-repository ppa:mozillateam/ppa -y
 echo 'Package: firefox*

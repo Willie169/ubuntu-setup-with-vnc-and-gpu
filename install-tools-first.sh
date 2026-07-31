@@ -1440,7 +1440,7 @@ echo y | corepack enable npm
 echo y | npm --help || true
 echo y | corepack enable yarn
 echo y | yarn --help || true
-[ "$TEST" -eq 0 ] && npm config set allow-scripts=deno,opencode-ai --location=user && npm i -g bash-language-server deno dockerfile-language-server-nodejs http-server neovim opencode-ai pyright @linthtml/linthtml @openai/codex
+[ "$TEST" -eq 0 ] && npm config set allow-scripts=deno,opencode-ai --location=user && npm i -g bash-language-server deno dockerfile-language-server-nodejs http-server neovim opencode-ai pyright @openai/codex
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' yt-dlp/yt-dlp yt-dlp
 chmod +x yt-dlp
 mv yt-dlp ~/.local/bin/
@@ -1691,10 +1691,6 @@ EOF
 [ "$FULL" -eq 0 ] && sudo udevadm control --reload-rules
 [ "$FULL" -eq 0 ] && sudo udevadm trigger
 sudo usermod -aG plugdev "$USER"
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' kristoff-it/superhtml x86_64-linux-musl.tar.xz
-tar -xJf x86_64-linux-musl.tar.xz
-rm x86_64-linux-musl.tar.xz
-mv superhtml ~/.local/bin/
 gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Sathvik-Rao/ClipCascade ClipCascade-Server-JRE_21.jar
 sudo mv ClipCascade-Server-JRE_21.jar /usr/local/java/
 cat >~/.config/systemd/user/clipcascade-server.service <<EOF

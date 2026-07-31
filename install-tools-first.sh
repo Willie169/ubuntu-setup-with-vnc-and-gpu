@@ -1446,7 +1446,7 @@ chmod +x yt-dlp
 mv yt-dlp ~/.local/bin/
 curl -LsSf https://astral.sh/uv/install.sh | sh
 if [ "$TEST" -eq 0 ]; then
-	for pkg in autopep8 cmake-language-server gallery-dl gh2md img2pdf jupyterlab jupytext libretranslate meson notebook pylatexenc tldr vint xmljson yamllint; do
+	for pkg in autopep8 cmake-language-server gallery-dl gh2md img2pdf jupyterlab jupytext libretranslate meson notebook pylatexenc tldr vim-vint xmljson yamllint; do
 		uv tool install "$pkg"
 	done
 	uv tool install fdroidserver

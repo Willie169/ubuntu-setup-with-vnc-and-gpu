@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 [ "${1:-}" = '--test' ] && TEST=1 || TEST=0
 # shellcheck disable=2155
 PREDF=$(df --output=used / | tail -n1)

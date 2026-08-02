@@ -23,7 +23,6 @@ if [ "$FULL" -eq 0 ]; then
 	done &
 	SUDOPIDSECOND=$!
 fi
-sudo mkdir -p /usr/local/java
 sudo mkdir -p /etc/apt/apt.conf.d
 sudo mkdir -p /etc/apt/keyrings
 sudo mkdir -p /etc/systemd/system
@@ -396,7 +395,7 @@ Unattended-Upgrade::Skip-Updates-On-Metered-Connections "false";
 // as unattended-upgrade will not be waiting.
 // Unattended-Upgrade::Postpone-Wait-Time "300";
 ' | sudo tee /etc/apt/apt.conf.d/50unattended-upgrades >/dev/null
-PKG='alsa-utils apksigner apt-transport-https aptitude audacity automake bash bc bear bindfs bison bookletimposer build-essential bzip2 ca-certificates calcurse clang clang-format cmake command-not-found cronie curl dbus dbus-x11 debconf-utils distro-info dnsutils dvisvgm fastfetch ffmpeg file flex fontconfig fonts-cns11643-kai fonts-cns11643-sung fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gdb gh ghostscript git glab gnupg gnupg2 golang-go gperf grep gzip hyperfine iftop imagemagick info inkscape iotop-c iproute2 jpegoptim jq lftp libheif-examples libreoffice lsb-release lsd luajit lzip make maven mesa-utils mpv nano ncdu netcat-openbsd nethogs net-tools ngspice ninja-build nmap ocrmypdf octave openjdk-21-jdk openssh-client openssh-server openssl optipng p7zip-full pandoc perl perl-tk pkg-config poppler-utils procps pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-pip python3-requests python3-venv qalc qpdf shellcheck shfmt socat sqlite3 strace sudo tar tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert tesseract-ocr-eng tesseract-ocr-jpn tesseract-ocr-jpn-vert tmux tree tsocks unrar unzip uuid-runtime verilator vim-gtk3 w3m webp wget wget2 xdotool xmlstarlet xz-utils zip zsh zstd 2048'
+PKG='alsa-utils apksigner apt-transport-https aptitude audacity automake bash bc bear bindfs bison bookletimposer build-essential bzip2 ca-certificates calcurse clang clang-format cmake command-not-found cronie curl dbus dbus-x11 debconf-utils distro-info dnsutils dvisvgm fastfetch ffmpeg file flex fontconfig fonts-cns11643-kai fonts-cns11643-sung fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gdb gh ghostscript git glab gnupg gnupg2 golang-go gperf grep gzip hyperfine iftop imagemagick info inkscape iotop-c iproute2 jpegoptim jq lftp libheif-examples libreoffice lsb-release lsd luajit lzip make maven mesa-utils mpv nano ncdu netcat-openbsd nethogs net-tools ngspice ninja-build nmap ocrmypdf octave openjdk-21-jdk openssh-client openssh-server openssl optipng p7zip-full pandoc perl perl-tk pkg-config plantuml poppler-utils procps pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-pip python3-requests python3-venv qalc qpdf shellcheck shfmt socat sqlite3 strace sudo tar tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert tesseract-ocr-eng tesseract-ocr-jpn tesseract-ocr-jpn-vert tmux tree tsocks unrar unzip uuid-runtime verilator vim-gtk3 w3m webp wget wget2 xdotool xmlstarlet xz-utils zip zsh zstd 2048'
 # shellcheck disable=2086
 if [ "$TEST" -eq 0 ]; then
 	sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -o Dpkg::Options::="--force-confnew"
@@ -1602,8 +1601,6 @@ if [ "$TEST" -eq 0 ]; then
 else
 	sudo DEBIAN_FRONTEND=noninteractive apt install tor torsocks deb.torproject.org-keyring -y -s -o Dpkg::Options::="--force-confnew"
 fi
-sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/local/java/antlr-4.13.2-complete.jar https://www.antlr.org/download/antlr-4.13.2-complete.jar
-sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/local/java/plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
 sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/share/keyrings/element-io-archive-keyring.gpg https://packages.element.io/debian/element-io-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/element-io-archive-keyring.gpg] https://packages.element.io/debian/ default main" | sudo tee /etc/apt/sources.list.d/element-io.list >/dev/null
 sudo apt update
@@ -1689,51 +1686,6 @@ EOF
 [ "$FULL" -eq 0 ] && sudo udevadm control --reload-rules
 [ "$FULL" -eq 0 ] && sudo udevadm trigger
 sudo usermod -aG plugdev "$USER"
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Sathvik-Rao/ClipCascade ClipCascade-Server-JRE_21.jar
-sudo mv ClipCascade-Server-JRE_21.jar /usr/local/java/
-cat >~/.config/systemd/user/clipcascade-server.service <<EOF
-[Unit]
-Description=ClipCascade Server
-After=network.target
-
-[Service]
-Type=simple
-ExecStart=java -jar /usr/local/java/ClipCascade-Server-JRE_21.jar
-Restart=always
-RestartSec=5
-Environment=CC_PORT=8082
-
-[Install]
-WantedBy=default.target
-EOF
-systemctl --user daemon-reload
-systemctl --user enable --now clipcascade-server
-sudo ufw allow 8082/tcp
-sudo ufw reload
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Sathvik-Rao/ClipCascade ClipCascade_Linux.tar.xz
-tar -xJf ClipCascade_Linux.tar.xz
-rm ClipCascade_Linux.tar.xz
-cat >~/.config/systemd/user/clipcascade-client.service <<EOF
-[Unit]
-Description=ClipCascade Client
-Requires=clipcascade-server.service
-After=clipcascade-server.service
-
-[Service]
-Type=simple
-WorkingDirectory=$HOME/ClipCascade
-ExecStartPre=/bin/bash -c '(while ! nc -z -w1 localhost 8082 2>/dev/null; do sleep 2; done); sleep 2'
-ExecStart=/usr/bin/python3 $HOME/ClipCascade/main.py
-Restart=always
-RestartSec=5
-Environment=PYTHONUNBUFFERED=1
-Environment=CC_PORT=8082
-
-[Install]
-WantedBy=default.target
-EOF
-systemctl --user daemon-reload
-systemctl --user enable clipcascade-client
 sudo DEBIAN_FRONTEND=noninteractive apt install libxml2-utils libxslt1.1 -y -o Dpkg::Options::="--force-confnew"
 git clone --depth=1 https://codeberg.org/c4ffe14e/phice.git
 cd phice || exit

@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 # shellcheck disable=2155
 PREDF=$(df --output=used / | tail -n1 || true)
 cd ~ || exit

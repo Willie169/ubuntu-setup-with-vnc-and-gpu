@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 cd ~ || exit
 sudo apt install git build-essential cmake libuv1-dev libssl-dev libhwloc-dev tor -y
 git clone https://github.com/Willie169/xmrig.git

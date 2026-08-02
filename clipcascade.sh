@@ -2,7 +2,7 @@
 
 PORT=${1:-8082}
 cd ~ || exit
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Sathvik-Rao/ClipCascade ClipCascade-Server-JRE_21.jar
+gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Sathvik-Rao/ClipCascade ClipCascade-Server-JRE_21.jar
 cat >~/.config/systemd/user/clipcascade-server.service <<EOF
 [Unit]
 Description=ClipCascade Server
@@ -22,7 +22,7 @@ systemctl --user daemon-reload
 systemctl --user enable --now clipcascade-server
 sudo ufw allow "$PORT"/tcp
 sudo ufw reload
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Sathvik-Rao/ClipCascade ClipCascade_Linux.tar.xz
+gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Sathvik-Rao/ClipCascade ClipCascade_Linux.tar.xz
 tar -xJf ClipCascade_Linux.tar.xz
 rm ClipCascade_Linux.tar.xz*
 cat >~/.config/systemd/user/clipcascade-client.service <<EOF

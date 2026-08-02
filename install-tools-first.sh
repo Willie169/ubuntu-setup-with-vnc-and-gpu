@@ -1406,7 +1406,7 @@ if [ "$TEST" -eq 0 ]; then
 else
 	sudo DEBIAN_FRONTEND=noninteractive apt install onlyoffice-desktopeditors -y -s -o Dpkg::Options::="--force-confnew"
 fi
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' rustdesk/rustdesk 'rustdesk-*-x86_64.deb'
+gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' rustdesk/rustdesk 'rustdesk-*-x86_64.deb'
 sudo DEBIAN_FRONTEND=noninteractive apt install ./rustdesk-*-x86_64.deb -y -o Dpkg::Options::="--force-confnew"
 rm rustdesk-*-x86_64.deb*
 sudo systemctl enable --now rustdesk
@@ -1416,12 +1416,12 @@ sudo ufw reload
 wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool
 chmod +x apktool
 sudo mv apktool /usr/local/bin/
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' iBotPeaches/Apktool 'apktool_*.jar'
+gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' iBotPeaches/Apktool 'apktool_*.jar'
 chmod +x apktool_*.jar
 sudo mv apktool_*.jar /usr/local/bin/
 mkdir jadx
 cd jadx || exit
-gh_latest_r -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' skylot/jadx 'jadx-[0-9\.]*\.zip'
+gh_release_r -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' skylot/jadx 'jadx-[0-9\.]*\.zip'
 unzip jadx*.zip
 rm jadx*.zip*
 chmod +x bin/jadx
@@ -1438,7 +1438,7 @@ echo y | npm --help || true
 echo y | corepack enable yarn
 echo y | yarn --help || true
 [ "$TEST" -eq 0 ] && npm config set allow-scripts=deno,opencode-ai --location=user && npm i -g deno http-server opencode-ai prettier @openai/codex
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' yt-dlp/yt-dlp yt-dlp
+gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' yt-dlp/yt-dlp yt-dlp
 chmod +x yt-dlp
 mv yt-dlp ~/.local/bin/
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -1692,11 +1692,11 @@ cd phice || exit
 uv sync
 cp config.example.toml config.toml
 cd ~ || exit
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' gulp79/rclone-extra rclone-linux-amd64.zip
+gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' gulp79/rclone-extra rclone-linux-amd64.zip
 unzip rclone-linux-amd64.zip
 rm rclone-linux-amd64.zip*
 mv rclone ~/.local/bin/
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Genymobile/scrcpy 'scrcpy-linux-x86_64-*.tar.gz'
+gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Genymobile/scrcpy 'scrcpy-linux-x86_64-*.tar.gz'
 tar -xzf scrcpy-linux-x86_64-*.tar.gz
 mv scrcpy-linux-x86_64-*/adb ~/.local/bin/
 mv scrcpy-linux-x86_64-*/scrcpy ~/.local/bin/
@@ -1881,7 +1881,7 @@ sudo cmake --install build --strip
 cd ~ || exit
 rm -rf yosys
 sudo DEBIAN_FRONTEND=noninteractive apt install binfmt-support libfuse2t64 -y -o Dpkg::Options::="--force-confnew"
-gh_latest -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' TheAssassin/AppImageLauncher 'appimagelauncher_*-*.*_amd64.deb'
+gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' TheAssassin/AppImageLauncher 'appimagelauncher_*-*.*_amd64.deb'
 sudo DEBIAN_FRONTEND=noninteractive apt install ./appimagelauncher_*-*.*_amd64.deb -y -o Dpkg::Options::="--force-confnew" || (sudo mv /var/lib/dpkg/info/appimagelauncher.postinst /var/lib/dpkg/info/appimagelauncher.postinst.bak && echo '#!/bin/bash
 
 exit 0' | sudo tee /var/lib/dpkg/info/appimagelauncher.postinst >/dev/null && sudo dpkg --configure appimagelauncher)

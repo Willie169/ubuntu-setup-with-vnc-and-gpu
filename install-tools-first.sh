@@ -1489,13 +1489,13 @@ BREW='bat bottom broot dust fd fzf git-delta lazygit procs resvg ripgrep sevenzi
 CASK='altersend'
 if [ "$TEST" -eq 0 ]; then
 	# shellcheck disable=2086
-	echo y | brew install $BREW || true
+	if ! echo y | brew install $BREW; then
+		echo y | brew install $BREW
+	fi
 	# shellcheck disable=2086
-	echo y | brew install $BREW
-	# shellcheck disable=2086
-	echo y | brew install --cask $CASK || true
-	# shellcheck disable=2086
-	echo y | brew install --cask $CASK
+	if ! echo y | brew install --cask $CASK; then
+		echo y | brew install --cask $CASK
+	fi
 	git config --global core.pager delta
 	git config --global interactive.diffFilter 'delta --color-only'
 	git config --global delta.navigate true
@@ -1808,12 +1808,12 @@ Categories=Game;
 EOF
 update_sylvan_config
 git clone https://github.com/jusw85/mozlz4.git
-cd mozlz4 || true
+cd mozlz4 || exit
 cargo build --release
-cd target/release || true
+cd target/release || exit
 mv mozlz4-bin mozlz4
 mv mozlz4 ~/.local/bin/
-cd ~ || true
+cd ~ || exit
 rm -rf mozlz4
 mkdir ~/typetype-stack
 cat >~/typetype-stack/.env <<'EOF'

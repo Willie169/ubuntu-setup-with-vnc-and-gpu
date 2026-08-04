@@ -202,6 +202,24 @@ nvcc --version
 
 Installs KiCad and creates desktop entry `~/.local/share/applications/kicad.desktop` for it.
 
+### [`steam.sh`](steam.sh)
+
+Installs Steam Flatpak. You need execute
+```
+sudo apt install flatpak -y
+sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+```
+and reboot beforehand, which has been done in [`install-tools-first.sh`](install-tools-first.sh).
+
+It can be launched by running
+```
+flatpak run com.valvesoftware.Steam
+```
+or with desktop entry. If you've run[`install-tools-first.sh`](install-tools-first.sh), you can also launch it by running
+```
+steam
+```
+
 ### [`typetype.sh`](typetype.sh)
 
 Installs TypeType in `~/typetype-stack` with systemd service `typetype` defined to `docker compose -f docker-compose.yml --env-file .env up` in `~/typetype-stack` and enabled with `HOST_PORT_WEB=9082`, `HOST_PORT_SERVER=9080`, and `HOST_PORT_TOKEN=9081`, which can be accessed at <https://localhost:9082>.. Docker default mode is required. 

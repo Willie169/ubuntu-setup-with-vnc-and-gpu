@@ -6,7 +6,6 @@ PREDF=$(df --output=used / | tail -n1)
 . <(curl -fsSL https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/bashrc.d/50-functions.sh)
 flatpak --user override --filesystem=xdg-config/fontconfig:ro
 flatpak install flathub com.github.vkohaupt.vokoscreenNG com.usebottles.bottles fr.handbrake.ghb io.ente.auth io.gitlab.news_flash.NewsFlash me.timschneeberger.jdsp4linux org.freecad.FreeCAD org.gimp.GIMP org.kde.kdenlive org.localsend.localsend_app org.luanti.luanti org.musescore.MuseScore org.videolan.VLC -y
-flatpak update -y
 gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Elleo/pied com.mikeasoft.pied.flatpak
 if [ "$TEST" -eq 0 ]; then
 	sudo flatpak install com.mikeasoft.pied.flatpak -y

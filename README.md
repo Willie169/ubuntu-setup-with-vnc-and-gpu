@@ -189,6 +189,10 @@ Installs ClipCascade server with systemd service `clipcascade-server` defined an
 
 To set it up, go to <http://localhost:8082> with 8082 replaced with your port if supplied, enter user name `admin` and password `admin123`, change user name and password, and login in the pop-up window of ClipCascade client. Windows, macOS, and Android client are also available from [GitHub releases](https://github.com/Sathvik-Rao/ClipCascade/releases).
 
+### [`cuda.sh`](cuda.sh)
+
+Refer to [CUDA](#cuda) section.
+
 ### [`kicad.sh`](kicad.sh)
 
 Installs KiCad and creates desktop entry `~/.local/share/applications/kicad.desktop` for it.
@@ -262,7 +266,7 @@ Reboot to apply. This is executed in [`nvidia.sh`](nvidia.sh).
 
 #### Purge NVIDIA Packages
 
-In case you want to purge all NVIDIA-related packages to do a fresh install, execute [`purge-nvidia.sh`](purge-nvidia.sh):
+In case you want to purge all NVIDIA packages, including CUDA ones, to do a fresh install, execute [`purge-nvidia.sh`](purge-nvidia.sh):
 ```
 ./purge-nvidia.sh
 ```
@@ -285,7 +289,11 @@ echo y | sudo ubuntu-drivers autoinstall || true
 ```
 Reboot to apply. This is executed in [`install-drivers.sh`](install-drivers.sh).
 
-It's not recommended to use NVIDIA's PPA to avoid breaking dependencies.
+You can check with
+```
+nvidia-smi
+```
+It's not recommended to use sources other than this, including NVIDIA official PPA, to avoid breaking dependencies.
 
 #### Run Applications with NVIDIA GPU
 
@@ -311,6 +319,20 @@ prime-run() {
   "$@"
 }
 ```
+
+#### CUDA
+
+To install CUDA, first ensure drivers are installed using `ubuntu-drivers`, and then execute [`cuda.sh`](cuda.sh).
+```
+./cuda.sh
+```
+You can check with
+```
+nvcc --version
+```
+It's not recommended to use sources other than this, including Ubuntu official repo, to avoid too old CUDA version that contains bugs.
+
+Use sandboxed solutions such as Docker or Incus if you need other versions of CUDA.
 
 ### Wayland
 

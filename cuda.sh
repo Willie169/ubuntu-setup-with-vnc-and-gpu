@@ -13,4 +13,6 @@ export UBUNTU_VERSION_ID=$(
 link="https://developer.download.nvidia.com/compute/cuda/repos/ubuntu${UBUNTU_VERSION_ID/./}/x86_64/cuda-keyring_1.1-1_all.deb"
 wget --tries=100 --retry-connrefused --waitretry=5 "$link"
 sudo apt install ./cuda-keyring_1.1-1_all.deb
+rm cuda-keyring_1.1-1_all.deb*
 sudo apt update
+sudo apt install cuda-toolkit -y

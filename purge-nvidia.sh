@@ -28,3 +28,5 @@ if [ "$1" = '-i' ]; then
 else
 	sudo apt autoremove --purge "${pkgs[@]}" -y
 fi
+sudo rm /etc/apt/sources.list.d/cuda-*.list || true
+sudo apt update

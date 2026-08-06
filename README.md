@@ -110,6 +110,7 @@ git clone https://github.com/Willie169/ubuntu-setup-with-vnc-and-gpu.git
 </code></pre></li>
 <li>If you are using an NVIDIA GPU, run:
 <pre><code>cd ~/ubuntu-setup-with-vnc-and-gpu
+./purge-nvidia.sh
 ./nvidia.sh
 </code></pre></li>
 <li>Run:
@@ -259,14 +260,32 @@ sudo update-grub
 ```
 Reboot to apply. This is executed in [`nvidia.sh`](nvidia.sh).
 
+#### Purge NVIDIA Packages
+
+In case you want to purge all NVIDIA-related packages to do a fresh install, execute [`purge-nvidia.sh`](purge-nvidia.sh):
+```
+./purge-nvidia.sh
+```
+or interactively,
+```
+./purge-nvidia.sh -i
+```
+
 #### Install Drivers
 
-Depending on version, you can install drivers with one of
+Depending on version, you can install drivers with
 ```
+sudo apt update
+echo y | sudo ubuntu-drivers install || true
+echo y | sudo ubuntu-drivers install || true
 echo y | sudo ubuntu-drivers install || true
 echo y | sudo ubuntu-drivers autoinstall || true
+echo y | sudo ubuntu-drivers autoinstall || true
+echo y | sudo ubuntu-drivers autoinstall || true
 ```
-and sometimes running multiple times is required. Reboot to apply. This is executed in [`install-drivers.sh`](install-drivers.sh).
+Reboot to apply. This is executed in [`install-drivers.sh`](install-drivers.sh).
+
+It's not recommended to use NVIDIA's PPA to avoid breaking dependencies.
 
 #### Run Applications with NVIDIA GPU
 

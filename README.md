@@ -188,16 +188,6 @@ Installs ClipCascade server with systemd service `clipcascade-server` defined an
 
 To set it up, go to <http://localhost:8082> with 8082 replaced with your port if supplied, enter user name `admin` and password `admin123`, change user name and password, and login in the pop-up window of ClipCascade client. Windows, macOS, and Android client are also available from [GitHub releases](https://github.com/Sathvik-Rao/ClipCascade/releases).
 
-### [`cuda.sh`](cuda.sh)
-
-Installs NVIDIA drivers and CUDA Toolkit on Ubuntu derivatives with NVIDIA GPU and reboot.
-
-Restart your computer after running the script and then test with:
-```
-nvidia-smi
-nvcc --version
-```
-
 ### [`kicad.sh`](kicad.sh)
 
 Installs KiCad and creates desktop entry `~/.local/share/applications/kicad.desktop` for it.
@@ -302,10 +292,6 @@ prime-run() {
   "$@"
 }
 ```
-
-#### CUDA
-
-Refer to [`cuda.sh`](#cudash) section.
 
 ### Wayland
 

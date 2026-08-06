@@ -322,7 +322,7 @@ prime-run() {
 
 #### CUDA
 
-To install CUDA, first ensure drivers are installed using `ubuntu-drivers`, and then execute [`cuda.sh`](cuda.sh).
+To install CUDA on an Ubuntu LTS, first ensure drivers are installed using `ubuntu-drivers`, and then execute [`cuda.sh`](cuda.sh).
 ```
 ./cuda.sh
 ```
@@ -330,6 +330,8 @@ You can check with
 ```
 nvcc --version
 ```
+Non-LTS is not supported, use sandboxed solutions such as Docker or Incus instead.
+
 It's not recommended to use sources other than this, including Ubuntu official repo, to avoid too old CUDA version that contains bugs.
 
 Use sandboxed solutions such as Docker or Incus if you need other versions of CUDA.

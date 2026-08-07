@@ -1692,11 +1692,13 @@ EOF
 [ "$FULL" -eq 0 ] && sudo udevadm trigger
 sudo usermod -aG plugdev "$USER"
 sudo DEBIAN_FRONTEND=noninteractive apt install libxml2-utils libxslt1.1 -y -o Dpkg::Options::="--force-confnew"
-git clone --depth=1 https://codeberg.org/c4ffe14e/phice.git
-cd phice || exit
-uv sync
-cp config.example.toml config.toml
-cd ~ || exit
+if false; then
+    git clone --depth=1 https://codeberg.org/c4ffe14e/phice.git
+    cd phice || exit
+    uv sync
+    cp config.example.toml config.toml
+    cd ~ || exit
+fi
 gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' gulp79/rclone-extra rclone-linux-amd64.zip
 unzip rclone-linux-amd64.zip
 rm rclone-linux-amd64.zip*

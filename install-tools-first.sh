@@ -156,7 +156,9 @@ sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt purge fcitx* neovim rustup texlive* tree-sitter-cli yq -y -o Dpkg::Options::="--force-confnew"
 sudo DEBIAN_FRONTEND=noninteractive apt install apt-transport-https bash build-essential ca-certificates coreutils cmake curl dbus openjdk-21-jdk g++ gcc git gnupg grep gzip jq locales lsb-release make ninja-build openssh-server perl perl-tk python-is-python3 python3 vim-gtk3 wget xz-utils -y -o Dpkg::Options::="--force-confnew"
 sudo DEBIAN_FRONTEND=noninteractive apt install apparmor-utils clinfo dnscrypt-proxy fcitx5 fcitx5-* flatpak keyd language-pack-gnome-en pipewire pipewire-audio-client-libraries snapd ufw unattended-upgrades wireplumber -y -o Dpkg::Options::="--force-confnew"
-wget --tries=100 --retry-connrefused --waitretry=5 -qO- https://raw.githubusercontent.com/Willie169/bashrc/main/ubuntu-amd/install.sh | sh
+rm -rf ~/.bashrc ~/.bashrc.d
+git clone --depth=1 https://github.com/Willie169/bashrc ~/.bashrc.d
+ln -sf "${HOME}"/.bashrc.d/bashrc.d/bashrc "${HOME}"/.bashrc
 cat >~/.profile <<'EOF'
 if [ -n "$BASH_VERSION" ]; then
   if [ -f "$HOME/.bashrc" ]; then

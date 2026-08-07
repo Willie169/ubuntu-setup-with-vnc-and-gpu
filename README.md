@@ -363,21 +363,8 @@ Run `echo $XDG_SESSION_TYPE`. If it prints `wayland`, you're already using Wayla
 
 To make a script for Ubuntu work for both Ubuntu and Linux Mint, do the following tweaks:
 
-<ol>
-<li><code>$(lsb_release -cs)</code>: Replace it with <code>$(. /etc/os-release && echo ${UBUNTU_CODENAME})</code>.</li>
-<li><code>$VERSION_ID</code> from <code>/etc/os-release</code>: Add
-<pre><code>export UBUNTU_VERSION_ID=$(
-if grep -q '^NAME="Linux Mint"' /etc/os-release; then
-    inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'
-else
-    . /etc/os-release
-    echo "$VERSION_ID"
-fi
-)
-</code></pre>
-before it and replace it with <code>$UBUNTU_VERSION_ID</code>.</li>
-</ol>
-These have been added to <code>~/.bashrc</code> in <a href="install-tools-first.sh"><code>install-tools-first.sh</code></a>.
+- Replace `$(lsb_release -cs)` with `$(. /etc/os-release && echo ${UBUNTU_CODENAME})`.
+- Replace `$VERSION_ID` with `$(if grep -q '^NAME="Linux Mint"' /etc/os-release; then inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'; else . /etc/os-release && echo "$VERSION_ID"; fi)`. This has been defined as function `ubuntu_version_id` and exported to `$UBUNTU_VERSION_ID` in `` in [`install-tools-first.sh`](install-tools-first.sh).
 
 ### Desktop App Launchers
 

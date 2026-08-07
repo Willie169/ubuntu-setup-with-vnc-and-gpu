@@ -152,6 +152,8 @@ sudo DEBIAN_FRONTEND=noninteractive apt install apparmor-utils clinfo dnscrypt-p
 rm -rf ~/.bashrc ~/.bashrc.d
 git clone --depth=1 https://github.com/Willie169/bashrc ~/.bashrc.d
 ln -sf "${HOME}"/.bashrc.d/bashrc.d/bashrc "${HOME}"/.bashrc
+source ~/.bashrc
+source /etc/os-release
 cat >~/.profile <<'EOF'
 if [ -n "$BASH_VERSION" ]; then
   if [ -f "$HOME/.bashrc" ]; then
@@ -159,7 +161,6 @@ if [ -n "$BASH_VERSION" ]; then
   fi
 fi
 EOF
-source ~/.bashrc
 sudo loginctl enable-linger "$USER"
 sudo add-apt-repository ppa:mozillateam/ppa -y
 echo 'Package: firefox*

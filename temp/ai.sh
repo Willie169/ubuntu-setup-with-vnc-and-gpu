@@ -5,7 +5,7 @@ Description=Open WebUI
 
 [Service]
 ExecStart=$HOME/.local/bin/open-webui serve
-Environment=DATA_DIR=$HOME/.open-webui
+Environment=DATA_DIR=$HOME/open-webui
 Environment=OLLAMA_BASE_URL=http://127.0.0.1:11434
 Restart=always
 RestartSec=5
@@ -20,8 +20,8 @@ systemctl --user enable --now open-webui
 
 
 
-mkdir ~/.open-notebook
-cat > ~/.open-notebook/docker-compose.yml<<EOF
+mkdir ~/open-notebook
+cat > ~/open-notebook/docker-compose.yml<<EOF
 services:
   surrealdb:
     image: surrealdb/surrealdb:v2
@@ -49,7 +49,7 @@ services:
       - surrealdb
     restart: always
 EOF
-cd ~/.open-notebook || exit
+cd ~/open-notebook || exit
 docker compose up -d
 cd ~ || exit
 
@@ -86,8 +86,8 @@ ninja
 cd ~ || exit
 
 
-mkdir ~/.litellm
-cd ~/.litellm || exit
+mkdir ~/litellm
+cd ~/litellm || exit
 cat ~/API_KEY.sh | grep LITELLM_MASTER_KEY >> .env || true
 cat ~/API_KEY.sh | grep LITELLM_SALT_KEY >> .env || true
 cat ~/API_KEY.sh | grep OPENAI_API_KEY >> .env || true
@@ -165,7 +165,7 @@ volumes:
   postgres_data:
     name: litellm_postgres_data # Named volume for Postgres data persistence
 EOF
-cat > ~/.litellm/config.yaml <<'EOF'
+cat > ~/litellm/config.yaml <<'EOF'
 environment_variables:
     LITELLM_SALT_KEY: os.environ/LITELLM_SALT_KEY
 
@@ -211,7 +211,7 @@ After=docker.service
 
 [Service]
 Type=oneshot
-WorkingDirectory=$HOME/.litellm
+WorkingDirectory=$HOME/litellm
 ExecStart=/usr/bin/docker compose up -d
 ExecStop=/usr/bin/docker compose down
 RemainAfterExit=yes

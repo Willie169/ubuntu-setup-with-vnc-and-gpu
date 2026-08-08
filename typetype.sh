@@ -16,6 +16,7 @@ curl -fsSL https://raw.githubusercontent.com/TypeType-Video/TypeType/main/script
 cd ~/typetype-stack || exit
 sudo docker compose -f docker-compose.yml pull
 cd ~ || exit
+mkdir -p ~/.config/systemd/user
 cat >~/.config/systemd/user/typetype.service <<EOF
 [Unit]
 Description=TypeType

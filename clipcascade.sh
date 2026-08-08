@@ -2,6 +2,7 @@
 
 PORT=${1:-8082}
 cd ~ || exit
+mkdir -p mkdir -p ~/.config/systemd/user
 gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Sathvik-Rao/ClipCascade ClipCascade-Server-JRE_21.jar
 cat >~/.config/systemd/user/clipcascade-server.service <<EOF
 [Unit]

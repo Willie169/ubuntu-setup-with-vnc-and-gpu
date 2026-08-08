@@ -1,4 +1,5 @@
 uv tool install --force --python python3.11 open-webui@latest
+mkdir -p ~/.config/systemd/user
 cat > ~/.config/systemd/user/open-webui.service <<EOF
 [Unit]
 Description=Open WebUI

@@ -975,7 +975,7 @@ cache_neg_max_ttl = 600
 
   ## Optional path to a file logging allowed queries
 
-  # log_file = 'allowed-names.log'
+  log_file = 'allowed-names.log'
 
 
   ## Optional log format: tsv or ltsv (default: tsv)

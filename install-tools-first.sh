@@ -970,7 +970,7 @@ cache_neg_max_ttl = 600
 
   ## Path to the file of allow list rules (absolute, or relative to the same directory as the config file)
 
-  # allowed_names_file = 'allowed-names.txt'
+  allowed_names_file = 'allowed-names.txt'
 
 
   ## Optional path to a file logging allowed queries
@@ -1244,6 +1244,44 @@ skip_incompatible = false
 
   # [static.'myserver']
   # stamp = 'sdns://AQcAAAAAAAAAAAAQMi5kbnNjcnlwdC1jZXJ0Lg'
+EOF
+sudo tee /etc/dnscrypt-proxy/allowed-names.txt >/dev/null <<'EOF'
+
+###########################
+#        Allowlist        #
+###########################
+
+## Rules for allowing queries based on name, one per line
+##
+## Example of valid patterns:
+##
+## ads.*                    | matches anything with an "ads." prefix
+## *.example.com            | matches example.com and all names within that zone such as www.example.com
+## example.com              | identical to the above
+## =example.com             | allows example.com but not *.example.com
+## [a-z0-9\-_]*.example.com | allows *.example.com but not example.com
+## *sex*                    | matches any name containing that substring
+## ads[0-9]*                | matches "ads" followed by one or more digits
+## ads*.example*            | *, ? and [] can be used anywhere, but prefixes/suffixes are faster
+
+
+# That one may be blocked due to 'tracker' being in the name.
+tracker.debian.org
+
+# That one may be blocked due to 'ads' being in the name.
+# However, blocking it prevents all sponsored links from the Google
+# search engine from being opened.
+googleadservices.com
+
+
+## Time-based rules
+
+# *.youtube.*  @time-to-play
+# facebook.com @play
+
+## hagezi
+## https://github.com/hagezi/dns-blocklists/issues/11120
+reo.dev
 EOF
 [ "$TEST" -eq 0 ] && [ "$FULL" -eq 0 ] && sudo dnscrypt-proxy -service install
 [ "$TEST" -eq 0 ] && [ "$FULL" -eq 0 ] && sudo dnscrypt-proxy -service start

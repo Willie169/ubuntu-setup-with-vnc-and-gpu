@@ -1284,7 +1284,7 @@ https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/pro-onlydomain
 https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/tif.medium-onlydomains.txt
 EOF
 sudo tee /usr/share/dnscrypt-proxy/utils/generate-domains-blocklist/domains-allowlist.txt >/dev/null <<'EOF'
-# domain allow list
+# domains allow list
 EOF
 sudo tee /etc/systemd/system/dnscrypt-proxy-blocklist-update.service >/dev/null <<'EOF'
 [Unit]

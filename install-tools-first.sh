@@ -1625,7 +1625,7 @@ Description=CyberChef
 After=docker.service
 
 [Service]
-ExecStart=/usr/bin/docker run --name cyberchef -p 8081:8080 ghcr.io/gchq/cyberchef:latest
+ExecStart=/usr/bin/docker run -p 8081:8080 ghcr.io/gchq/cyberchef:latest
 ExecStop=/usr/bin/docker stop cyberchef
 Restart=always
 RestartSec=5

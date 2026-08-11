@@ -1804,7 +1804,7 @@ Terminal=false
 Categories=Game;
 EOF
 update_sylvan_config
-gh_release Willie169/mozlz4 mozlz4-x86_64-unknown-linux-gnu
+gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Willie169/mozlz4 mozlz4-x86_64-unknown-linux-gnu
 cp mozlz4-x86_64-unknown-linux-gnu mozlz4
 chmod +x mozlz4
 mv mozlz4 ~/.local/bin/

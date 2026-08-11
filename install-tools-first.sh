@@ -1804,14 +1804,11 @@ Terminal=false
 Categories=Game;
 EOF
 update_sylvan_config
-git clone https://github.com/jusw85/mozlz4.git
-cd mozlz4 || exit
-cargo build --release
-cd target/release || exit
-mv mozlz4-bin mozlz4
+gh_release Willie169/mozlz4 mozlz4-x86_64-unknown-linux-gnu
+cp mozlz4-x86_64-unknown-linux-gnu mozlz4
+chmod +x mozlz4
 mv mozlz4 ~/.local/bin/
-cd ~ || exit
-rm -rf mozlz4
+rm mozlz4-x86_64-unknown-linux-gnu*
 sudo DEBIAN_FRONTEND=noninteractive apt install gawk git make python3 lld bison clang flex libffi-dev libfl-dev libreadline-dev pkg-config tcl-dev zlib1g-dev graphviz xdot -y -o Dpkg::Options::="--force-confnew"
 git clone --depth=1 https://github.com/YosysHQ/yosys.git
 cd yosys || exit

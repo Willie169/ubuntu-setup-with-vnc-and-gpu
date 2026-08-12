@@ -32,10 +32,10 @@ mkdir -p ~/.local/share/fonts
 mkdir -p ~/Desktop
 mkdir -p ~/.config/systemd/user
 mkdir -p ~/Applications
-sudo sed -i -e 's/^[# ]*HandleLidSwitch=.*/HandleLidSwitch=ignore/' -e 's/^[# ]*HandleLidSwitchDocked=.*/HandleLidSwitchDocked=ignore/' -e 's/^[# ]*HandleLidSwitchExternalPower=.*/HandleLidSwitchExternalPower=ignore/' "/etc/systemd/logind.conf"
-sudo grep -q '^HandleLidSwitch=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitch=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
-sudo grep -q '^HandleLidSwitchDocked=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchDocked=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
-sudo grep -q '^HandleLidSwitchExternalPower=' "/etc/systemd/logind.conf" || echo 'HandleLidSwitchExternalPower=ignore' | sudo tee -a "/etc/systemd/logind.conf" >/dev/null
+sudo sed -i 's/^[# ]*HandleLidSwitch=.*/HandleLidSwitch=ignore/; s/^[# ]*HandleLidSwitchDocked=.*/HandleLidSwitchDocked=ignore/; s/^[# ]*HandleLidSwitchExternalPower=.*/HandleLidSwitchExternalPower=ignore/' /etc/systemd/logind.conf
+sudo grep -q '^HandleLidSwitch=' /etc/systemd/logind.conf || echo 'HandleLidSwitch=ignore' | sudo tee -a /etc/systemd/logind.conf >/dev/null
+sudo grep -q '^HandleLidSwitchDocked=' /etc/systemd/logind.conf || echo 'HandleLidSwitchDocked=ignore' | sudo tee -a /etc/systemd/logind.conf >/dev/null
+sudo grep -q '^HandleLidSwitchExternalPower=' /etc/systemd/logind.conf || echo 'HandleLidSwitchExternalPower=ignore' | sudo tee -a /etc/systemd/logind.conf >/dev/null
 for file in /etc/grub.d/* /etc/default/grub.d/*; do
 	[[ -f "$file" ]] && sudo sed -i 's/^quick_boot=.*/quick_boot="0"/' "$file"
 done

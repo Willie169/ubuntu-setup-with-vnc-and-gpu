@@ -11,7 +11,7 @@ Scripts and instructions for setting up Ubuntu derivatives on AMD64 with tools f
   * [`install-tools-second.sh`](install-tools-second.sh): approximately 10.83 GB.
 * Stable internet connection.
 * In power management settings, disable suspension when inactive.
-* Ubuntu Desktop 24.04 or 26.04 of any flavor. Other Ubuntu versions or derivatives may need manual adjustments on the scripts to make it work. Kubuntu, Ubuntu, Xubuntu, and Lubuntu are tested in GitHub Action CIs of this repo.
+* Ubuntu 24.04 or 26.04. It may and may not work for other Ubuntu versions and derivatives.
 
 ### USB Flashing and Dual Boot
 

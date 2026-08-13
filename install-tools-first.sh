@@ -87,7 +87,7 @@ if [[ -n "$DM" ]] && [[ -n "$USER" ]]; then
 		if [ "$PLASMA_VERSION" -ge 6 ]; then
 			SESSION='plasma'
 		elif [ "$PLASMA_VERSION" -le 5 ]; then
-			sudo DEBIAN_FRONTEND=noninteractive apt install plasma-workspace-wayland -y -o Dpkg::Options::="--force-confnew"
+			sudo DEBIAN_FRONTEND=noninteractive apt install plasma-workspace-wayland -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 			SESSION='plasmawayland'
 		elif command -v lxqt-runner >/dev/null 2>&1; then
 			SESSION='lxqt.desktop'
@@ -112,7 +112,7 @@ fi
 sudo apt update
 # shellcheck disable=2155
 VERSION_ID=$(if grep -q '^NAME="Linux Mint"' /etc/os-release; then inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'; else . /etc/os-release && echo "$VERSION_ID"; fi)
-sudo DEBIAN_FRONTEND=noninteractive apt install software-properties-common -y -o Dpkg::Options::="--force-confnew"
+sudo DEBIAN_FRONTEND=noninteractive apt install software-properties-common -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 sudo add-apt-repository universe -y
 sudo add-apt-repository multiverse -y
 sudo add-apt-repository restricted -y
@@ -146,9 +146,9 @@ fi
 EOF
 [[ $(echo "$VERSION_ID" | cut -d. -f1) -lt 26 ]] && sudo add-apt-repository ppa:keyd-team/ppa -y
 sudo apt update
-sudo DEBIAN_FRONTEND=noninteractive apt purge fcitx* neovim rustup texlive* tree-sitter-cli yq -y -o Dpkg::Options::="--force-confnew"
-sudo DEBIAN_FRONTEND=noninteractive apt install apt-transport-https bash build-essential ca-certificates coreutils cmake curl dbus openjdk-21-jdk g++ gcc git gnupg grep gzip jq locales lsb-release make ninja-build openssh-server perl perl-tk python-is-python3 python3 vim-gtk3 wget xz-utils -y -o Dpkg::Options::="--force-confnew"
-sudo DEBIAN_FRONTEND=noninteractive apt install apparmor-utils clinfo dnscrypt-proxy fcitx5 fcitx5-* flatpak keyd language-pack-gnome-en pipewire pipewire-audio-client-libraries snapd ufw unattended-upgrades wireplumber -y -o Dpkg::Options::="--force-confnew"
+sudo DEBIAN_FRONTEND=noninteractive apt purge fcitx* neovim rustup texlive* tree-sitter-cli yq -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+sudo DEBIAN_FRONTEND=noninteractive apt install apt-transport-https bash build-essential ca-certificates coreutils cmake curl dbus openjdk-21-jdk g++ gcc git gnupg grep gzip jq locales lsb-release make ninja-build openssh-server perl perl-tk python-is-python3 python3 vim-gtk3 wget xz-utils -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+sudo DEBIAN_FRONTEND=noninteractive apt install apparmor-utils clinfo dnscrypt-proxy fcitx5 fcitx5-* flatpak keyd language-pack-gnome-en pipewire pipewire-audio-client-libraries snapd ufw unattended-upgrades wireplumber -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 rm -rf ~/.bashrc ~/.bashrc.d
 git clone --depth=1 https://github.com/Willie169/bashrc ~/.bashrc.d
 ln -sf "${HOME}"/.bashrc.d/bashrc.d/bashrc "${HOME}"/.bashrc
@@ -176,7 +176,7 @@ sudo systemctl stop var-snap-firefox-common-*.mount 2>/dev/null || true
 sudo systemctl disable var-snap-firefox-common-*.mount 2>/dev/null || true
 sudo systemctl disable snap-firefox*.mount 2>/dev/null || true
 sudo snap remove firefox 2>/dev/null || true
-sudo DEBIAN_FRONTEND=noninteractive apt install firefox --allow-downgrades -y -o Dpkg::Options::="--force-confnew"
+sudo DEBIAN_FRONTEND=noninteractive apt install firefox --allow-downgrades -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 sudo tee /etc/systemd/system/firefox-apparmor.service >/dev/null <<'EOF'
 [Unit]
 Description=Firefox Apparmor Disable
@@ -210,7 +210,7 @@ sudo systemctl stop var-snap-thunderbird-common-*.mount 2>/dev/null || true
 sudo systemctl disable var-snap-thunderbird-common-*.mount 2>/dev/null || true
 sudo systemctl disable snap-thunderbird*.mount 2>/dev/null || true
 sudo snap remove thunderbird 2>/dev/null || true
-sudo DEBIAN_FRONTEND=noninteractive apt install thunderbird --allow-downgrades -y -o Dpkg::Options::="--force-confnew"
+sudo DEBIAN_FRONTEND=noninteractive apt install thunderbird --allow-downgrades -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 sudo rm /var/lib/snapd/desktop/applications/thunderbird*.desktop 2>/dev/null || true
 sudo add-apt-repository ppa:xtradeb/apps -y
 echo 'Package: chromium*
@@ -221,7 +221,7 @@ Package: chromium*
 Pin: release o=Ubuntu
 Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/chromium >/dev/null
 sudo apt update
-sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y -o Dpkg::Options::="--force-confnew"
+sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 echo 'APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Download-Upgradeable-Packages "0";
 APT::Periodic::AutocleanInterval "1";' | sudo tee /etc/apt/apt.conf.d/10periodic >/dev/null
@@ -394,16 +394,16 @@ Unattended-Upgrade::Skip-Updates-On-Metered-Connections "false";
 PKG='alsa-utils apksigner apt-transport-https aptitude audacity automake bash bc bear bindfs bison bookletimposer build-essential bzip2 ca-certificates calcurse checkinstall clang clang-format cmake command-not-found cronie curl dbus dbus-x11 debconf-utils diffoscope distro-info dnsutils dvisvgm fastfetch ffmpeg file flex fontconfig fonts-cns11643-kai fonts-cns11643-sung fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gdb gh ghostscript git glab gnupg gnupg2 golang-go gperf grep gzip hyperfine iftop imagemagick info inkscape iotop-c iproute2 jpegoptim jq lftp libheif-examples libimage-exiftool-perl libjxl-tools libreoffice lsb-release lsd luajit lzip make maven mesa-utils mpv nano ncdu netcat-openbsd nethogs net-tools ngspice ninja-build nmap ocrmypdf octave openjdk-21-jdk openssh-client openssh-server openssl optipng p7zip-full pandoc perl perl-tk pkg-config plantuml poppler-utils procps pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-pip python3-requests python3-venv qalc qpdf shellcheck shfmt socat sqlite3 strace sudo tar tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert tesseract-ocr-eng tesseract-ocr-jpn tesseract-ocr-jpn-vert tmux tree tsocks unrar unzip uuid-runtime verilator vim-gtk3 w3m webp wget wget2 xdotool xmlstarlet xz-utils zip zsh zstd 2048'
 # shellcheck disable=2086
 if [ "$TEST" -eq 0 ]; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 else
-	sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 fi
 PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo dnscrypt-proxy fcitx5 fcitx5-* filelight flatpak fwupd gtkwave kate krita language-pack-gnome-en libfuse2t64 libvirt-daemon-system libvirt-clients lxc lxc-templates ntfs-3g obs-studio ovmf pipewire pipewire-audio-client-libraries qalculate-gtk qbittorrent qemu-system-gui qemu-system-x86 qemu-user-binfmt qemu-user qemu-utils qtspeech5-speechd-plugin quickemu remmina remmina-plugin-rdp remmina-plugin-secret snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap unattended-upgrades virt-manager virt-viewer wireplumber wl-clipboard xclip'
 # shellcheck disable=2086
 if [ "$TEST" -eq 0 ]; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 else
-	sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 fi
 sudo snap set system refresh.retain=2
 echo '[ids]
@@ -1360,9 +1360,9 @@ export SDL_IM_MODULE=fcitx
 EOF
 if [ "${XDG_CURRENT_DESKTOP:-}" = "KDE" ] || [[ "${DESKTOP_SESSION:-}" == *plasma* ]] || [ "${KDE_FULL_SESSION:-}" = "true" ]; then
 	if [ "$TEST" -eq 0 ]; then
-		sudo DEBIAN_FRONTEND=noninteractive apt install plasma-discover-backend-flatpak -y -o Dpkg::Options::="--force-confnew"
+		sudo DEBIAN_FRONTEND=noninteractive apt install plasma-discover-backend-flatpak -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 	else
-		sudo DEBIAN_FRONTEND=noninteractive apt install plasma-discover-backend-flatpak -y -s -o Dpkg::Options::="--force-confnew"
+		sudo DEBIAN_FRONTEND=noninteractive apt install plasma-discover-backend-flatpak -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 	fi
 else
 	mkdir -p ~/.config/autostart
@@ -1388,9 +1388,9 @@ sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://b
 sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
 sudo apt update
 if [ "$TEST" -eq 0 ]; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install brave-browser -y -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install brave-browser -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 else
-	sudo DEBIAN_FRONTEND=noninteractive apt install brave-browser -y -s -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install brave-browser -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 fi
 curl -fsSL https://download.onlyoffice.com/GPG-KEY-ONLYOFFICE | gpg --no-default-keyring --keyring gnupg-ring:/tmp/onlyoffice.gpg --import
 chmod 644 /tmp/onlyoffice.gpg
@@ -1399,12 +1399,12 @@ sudo mv /tmp/onlyoffice.gpg /usr/share/keyrings/onlyoffice.gpg
 echo 'deb [signed-by=/usr/share/keyrings/onlyoffice.gpg] https://download.onlyoffice.com/repo/debian squeeze main' | sudo tee /etc/apt/sources.list.d/onlyoffice.list >/dev/null
 sudo apt update
 if [ "$TEST" -eq 0 ]; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install onlyoffice-desktopeditors -y -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install onlyoffice-desktopeditors -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 else
-	sudo DEBIAN_FRONTEND=noninteractive apt install onlyoffice-desktopeditors -y -s -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install onlyoffice-desktopeditors -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 fi
 gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' rustdesk/rustdesk 'rustdesk-*-x86_64.deb'
-sudo DEBIAN_FRONTEND=noninteractive apt install ./rustdesk-*-x86_64.deb -y -o Dpkg::Options::="--force-confnew"
+sudo DEBIAN_FRONTEND=noninteractive apt install ./rustdesk-*-x86_64.deb -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 rm rustdesk-*-x86_64.deb*
 sudo systemctl enable --now rustdesk
 sudo ufw allow 21118/udp
@@ -1511,7 +1511,7 @@ nvim --headless "+Lazy! install" +qa
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/trusted.gpg.d/docker.asc >/dev/null
 echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBUNTU_CODENAME stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 sudo apt update
-sudo DEBIAN_FRONTEND=noninteractive apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y -o Dpkg::Options::="--force-confnew"
+sudo DEBIAN_FRONTEND=noninteractive apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 sudo systemctl enable --now docker
 sudo systemctl enable --now containerd
 sudo usermod -aG docker "$USER"
@@ -1525,13 +1525,13 @@ Architectures: amd64
 Signed-By: /etc/apt/keyrings/zabbly.asc
 " | sudo tee /etc/apt/sources.list.d/zabbly-incus-stable.sources >/dev/null
 sudo apt update
-sudo DEBIAN_FRONTEND=noninteractive apt install incus -y -o Dpkg::Options::="--force-confnew"
+sudo DEBIAN_FRONTEND=noninteractive apt install incus -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 sudo adduser "$USER" incus-admin
 if findmnt -no FSTYPE / | grep -q btrfs; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install btrfs-progs -y -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install btrfs-progs -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 	STORAGE_DRIVER=btrfs
 elif findmnt -no FSTYPE / | grep -q zfs; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install zfsutils-linux -y -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install zfsutils-linux -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 	STORAGE_DRIVER=zfs
 else
 	STORAGE_DRIVER=dir
@@ -1578,24 +1578,24 @@ sudo ufw route allow out on incusbr0
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.noarmor.gpg" | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
 curl --retry 100 --retry-connrefused --retry-delay 5 -fsSL "https://pkgs.tailscale.com/stable/ubuntu/$UBUNTU_CODENAME.tailscale-keyring.list" | sudo tee /etc/apt/sources.list.d/tailscale.list >/dev/null
 sudo apt update
-sudo DEBIAN_FRONTEND=noninteractive apt install tailscale -y -o Dpkg::Options::="--force-confnew"
+sudo DEBIAN_FRONTEND=noninteractive apt install tailscale -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 sudo systemctl daemon-reload
 sudo systemctl enable tailscaled
 wget --tries=100 --retry-connrefused --waitretry=5 -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg | gpg --dearmor | sudo dd of=/usr/share/keyrings/vscodium-archive-keyring.gpg
 echo -e 'Types: deb\nURIs: https://download.vscodium.com/debs\nSuites: vscodium\nComponents: main\nArchitectures: amd64 arm64\nSigned-by: /usr/share/keyrings/vscodium-archive-keyring.gpg' | sudo tee /etc/apt/sources.list.d/vscodium.sources >/dev/null
 sudo apt update
 if [ "$TEST" -eq 0 ]; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install codium -y -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install codium -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 else
-	sudo DEBIAN_FRONTEND=noninteractive apt install codium -y -s -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install codium -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 fi
 curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
 echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list >/dev/null
 sudo apt update
 if [ "$TEST" -eq 0 ]; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install glow -y -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install glow -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 else
-	sudo DEBIAN_FRONTEND=noninteractive apt install glow -y -s -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install glow -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 fi
 wget --tries=100 --retry-connrefused --waitretry=5 -O- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | sudo tee /usr/share/keyrings/deb.torproject.org-keyring.gpg >/dev/null
 sudo tee /etc/apt/sources.list.d/tor.list >/dev/null <<EOF
@@ -1604,17 +1604,17 @@ deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg
 EOF
 sudo apt update
 if [ "$TEST" -eq 0 ]; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install tor torsocks deb.torproject.org-keyring -y -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install tor torsocks deb.torproject.org-keyring -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 else
-	sudo DEBIAN_FRONTEND=noninteractive apt install tor torsocks deb.torproject.org-keyring -y -s -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install tor torsocks deb.torproject.org-keyring -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 fi
 sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/share/keyrings/element-io-archive-keyring.gpg https://packages.element.io/debian/element-io-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/element-io-archive-keyring.gpg] https://packages.element.io/debian/ default main" | sudo tee /etc/apt/sources.list.d/element-io.list >/dev/null
 sudo apt update
 if [ "$TEST" -eq 0 ]; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install element-desktop -y -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install element-desktop -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 else
-	sudo DEBIAN_FRONTEND=noninteractive apt install element-desktop -y -s -o Dpkg::Options::="--force-confnew"
+	sudo DEBIAN_FRONTEND=noninteractive apt install element-desktop -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 fi
 [ "$TEST" -eq 0 ] && sudo docker pull ghcr.io/gchq/cyberchef:latest
 cat >~/.config/systemd/user/cyberchef.service <<EOF
@@ -1693,7 +1693,7 @@ EOF
 [ "$FULL" -eq 0 ] && sudo udevadm control --reload-rules
 [ "$FULL" -eq 0 ] && sudo udevadm trigger
 sudo usermod -aG plugdev "$USER"
-sudo DEBIAN_FRONTEND=noninteractive apt install libxml2-utils libxslt1.1 -y -o Dpkg::Options::="--force-confnew"
+sudo DEBIAN_FRONTEND=noninteractive apt install libxml2-utils libxslt1.1 -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 git clone --depth=1 https://github.com/Willie169/phice.git
 cd phice || exit
 uv sync
@@ -1709,8 +1709,8 @@ mv scrcpy-linux-x86_64-*/adb ~/.local/bin/
 mv scrcpy-linux-x86_64-*/scrcpy ~/.local/bin/
 rm -r scrcpy-linux-x86_64-*
 wget --tries=100 --retry-connrefused --waitretry=5 https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt -O ~/.eff_large_wordlist.txt
-sudo DEBIAN_FRONTEND=noninteractive apt install libeigen3-dev libzip-dev zlib1g-dev -y -o Dpkg::Options::="--force-confnew"
-sudo DEBIAN_FRONTEND=noninteractive apt install clinfo ocl-icd-opencl-dev -y -o Dpkg::Options::="--force-confnew"
+sudo DEBIAN_FRONTEND=noninteractive apt install libeigen3-dev libzip-dev zlib1g-dev -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+sudo DEBIAN_FRONTEND=noninteractive apt install clinfo ocl-icd-opencl-dev -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 git clone --depth=1 https://github.com/lightvector/KataGo.git
 cd KataGo/cpp || exit
 if clinfo -l | grep -q 'Platform'; then
@@ -1724,7 +1724,7 @@ mkdir katago-networks
 cd katago-networks || exit
 wget --tries=100 --retry-connrefused --waitretry=5 https://media.katagotraining.org/uploaded/networks/models/kata1/kata1-b6c96-s175395328-d26788732.txt.gz
 cd ~ || exit
-sudo DEBIAN_FRONTEND=noninteractive apt install maven -y -o Dpkg::Options::="--force-confnew"
+sudo DEBIAN_FRONTEND=noninteractive apt install maven -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 mkdir ~/.local/share/lizzieyzy
 git clone --depth=1 https://github.com/yzyray/lizzieyzy.git
 cd lizzieyzy || exit
@@ -1762,7 +1762,7 @@ make -j ARCH="$ARCH" profile-build largeboards=yes nnue=yes
 mv stockfish ~/.local/bin/
 cd ~ || exit
 rm -rf Fairy-Stockfish
-sudo DEBIAN_FRONTEND=noninteractive apt install qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev -y -o Dpkg::Options::="--force-confnew"
+sudo DEBIAN_FRONTEND=noninteractive apt install qt6-base-dev qt6-base-dev-tools qt6-svg-dev qt6-5compat-dev -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 mkdir ~/.config/cutechess
 git clone --depth=1 https://github.com/cutechess/cutechess.git
 cd cutechess || exit
@@ -1787,7 +1787,7 @@ Terminal=false
 Categories=Game;
 EOF
 update_cutechess_config
-sudo DEBIAN_FRONTEND=noninteractive apt install libqt5svg5-dev qt5-qmake qtbase5-dev qtbase5-dev-tools -y -o Dpkg::Options::="--force-confnew"
+sudo DEBIAN_FRONTEND=noninteractive apt install libqt5svg5-dev qt5-qmake qtbase5-dev qtbase5-dev-tools -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 git clone --depth=1 https://github.com/hotfics/Sylvan.git
 cd Sylvan || exit
 qmake
@@ -1812,7 +1812,7 @@ mv mozlz4-bin mozlz4
 mv mozlz4 ~/.local/bin/
 cd ~ || exit
 rm -rf mozlz4
-sudo DEBIAN_FRONTEND=noninteractive apt install gawk git make python3 lld bison clang flex libffi-dev libfl-dev libreadline-dev pkg-config tcl-dev zlib1g-dev graphviz xdot -y -o Dpkg::Options::="--force-confnew"
+sudo DEBIAN_FRONTEND=noninteractive apt install gawk git make python3 lld bison clang flex libffi-dev libfl-dev libreadline-dev pkg-config tcl-dev zlib1g-dev graphviz xdot -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 git clone --depth=1 https://github.com/YosysHQ/yosys.git
 cd yosys || exit
 git submodule update --init --depth=1
@@ -1821,9 +1821,9 @@ cmake --build build --config Release --parallel "$(nproc)"
 sudo cmake --install build --strip
 cd ~ || exit
 rm -rf yosys
-sudo DEBIAN_FRONTEND=noninteractive apt install binfmt-support libfuse2t64 -y -o Dpkg::Options::="--force-confnew"
+sudo DEBIAN_FRONTEND=noninteractive apt install binfmt-support libfuse2t64 -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' TheAssassin/AppImageLauncher 'appimagelauncher_*-*.*_amd64.deb'
-sudo DEBIAN_FRONTEND=noninteractive apt install ./appimagelauncher_*-*.*_amd64.deb -y -o Dpkg::Options::="--force-confnew" || (sudo mv /var/lib/dpkg/info/appimagelauncher.postinst /var/lib/dpkg/info/appimagelauncher.postinst.bak && echo '#!/bin/bash
+sudo DEBIAN_FRONTEND=noninteractive apt install ./appimagelauncher_*-*.*_amd64.deb -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite" || (sudo mv /var/lib/dpkg/info/appimagelauncher.postinst /var/lib/dpkg/info/appimagelauncher.postinst.bak && echo '#!/bin/bash
 
 exit 0' | sudo tee /var/lib/dpkg/info/appimagelauncher.postinst >/dev/null && sudo dpkg --configure appimagelauncher)
 rm appimagelauncher_*-*.*_amd64.deb*
@@ -1960,9 +1960,9 @@ git clone https://github.com/Willie169/physics-patch
 cd physics-patch || exit
 git checkout dev
 cd ~ || exit
-sudo DEBIAN_FRONTEND=noninteractive apt install -f -y -o Dpkg::Options::="--force-confnew"
-sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y -o Dpkg::Options::="--force-confnew"
-sudo DEBIAN_FRONTEND=noninteractive apt autoremove --purge -y -o Dpkg::Options::="--force-confnew"
+sudo DEBIAN_FRONTEND=noninteractive apt install -f -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+sudo DEBIAN_FRONTEND=noninteractive apt autoremove --purge -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 sudo apt clean
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 if [ "$FULL" -eq 0 ]; then

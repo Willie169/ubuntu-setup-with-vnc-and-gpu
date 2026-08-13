@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+sudo apt update
 list="$(dpkg-query -W -f='${binary:Package}\n' | grep -E '^.*nvidia.*$')"
 list+=$'\n'
 list+="$(dpkg-query -W -f='${binary:Package}\n' | grep -E '^.*cuda.*$')"

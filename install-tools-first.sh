@@ -399,6 +399,7 @@ else
 	sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 fi
 PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo dnscrypt-proxy fcitx5 fcitx5-* filelight flatpak fwupd gtkwave kate krita language-pack-gnome-en libfuse2t64 libvirt-daemon-system libvirt-clients lxc lxc-templates ntfs-3g obs-studio ovmf pipewire pipewire-audio-client-libraries qalculate-gtk qbittorrent qemu-system-gui qemu-system-x86 qemu-user-binfmt qemu-user qemu-utils qtspeech5-speechd-plugin quickemu remmina remmina-plugin-rdp remmina-plugin-secret snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap unattended-upgrades virt-manager virt-viewer wireplumber wl-clipboard xclip'
+
 # shellcheck disable=2086
 if [ "$TEST" -eq 0 ]; then
 	sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
@@ -1436,12 +1437,15 @@ echo y | corepack enable npm
 echo y | npm --help || true
 echo y | corepack enable yarn
 echo y | yarn --help || true
-NPMG='deno http-server opencode-ai prettier @openai/codex'
+NPMG='deno http-server prettier'
+NPMIGNORE='opencode-ai @earendil-works/pi-coding-agent'
 # shellcheck disable=2086
 if [ "$TEST" -eq 0 ]; then
 	npmig $NPMG
+    npm i -g --ignore-scripts $NPMIGNORE
 else
 	npmig -o --dry-run $NPMG
+    npm i -g --ignore-scripts --dry-run $NPMIGNORE
 fi
 gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' yt-dlp/yt-dlp yt-dlp
 chmod +x yt-dlp

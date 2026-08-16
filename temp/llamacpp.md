@@ -7,6 +7,11 @@ CUDA_SCALE_LAUNCH_QUEUES=4x GGML_CUDA_ENABLE_UNIFIED_MEMORY=1
 #### Download
 
 https://huggingface.co/unsloth/Qwen3.5-9B-GGUF
+https://huggingface.co/unsloth/Qwen3.5-4B-GGUF
+https://huggingface.co/unsloth/Qwen3.5-2B-GGUF
+https://huggingface.co/unsloth/gemma-4-12B-it-qat-GGUF
+https://huggingface.co/unsloth/gemma-4-E4B-it-qat-GGUF
+https://huggingface.co/unsloth/gemma-4-E2B-it-qat-GGUF
 
 ```
 llama download -hf unsloth/Qwen3.8-27B-GGUF:Q4_K_M

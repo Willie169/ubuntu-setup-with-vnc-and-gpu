@@ -217,7 +217,7 @@ steam
 
 ### [`typetype.sh`](typetype.sh)
 
-Installs TypeType in `~/typetype-stack` with systemd service `typetype` defined to `docker compose -f docker-compose.yml --env-file .env up` in `~/typetype-stack` and enabled with `HOST_PORT_WEB=9082`, `HOST_PORT_SERVER=9080`, and `HOST_PORT_TOKEN=9081`, which can be accessed at <https://localhost:9082>.. Docker default mode is required. 
+Installs TypeType in `~/typetype-stack` with systemd service `typetype` defined to `docker compose -f docker-compose.yml --env-file .env up` in `~/typetype-stack` and enabled with `HOST_PORT_WEB=9082`, `HOST_PORT_SERVER=9080`, and `HOST_PORT_TOKEN=9081`, which can be accessed at <https://localhost:9082>. Docker default mode is required. 
 
 ### [`virtualgl-turbovnc.sh`](virtualgl-turbovnc.sh)
 

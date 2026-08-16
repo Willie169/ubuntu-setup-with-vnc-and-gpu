@@ -1622,6 +1622,7 @@ fi
 cat >~/.config/systemd/user/cyberchef.service <<EOF
 [Unit]
 Description=CyberChef
+Requires=docker.service
 After=docker.service
 
 [Service]
@@ -1656,6 +1657,7 @@ cd ~ || exit
 cat >~/.config/systemd/user/stirlingpdf.service <<EOF
 [Unit]
 Description=Stirling PDF
+Requires=docker.service
 After=docker.service
 
 [Service]

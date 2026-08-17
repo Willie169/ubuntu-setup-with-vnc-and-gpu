@@ -11,17 +11,17 @@ FULL=0
 PREDF=$(df --output=used / | tail -n1)
 cd ~ || exit
 if [ "$FULL" -eq 0 ]; then
-	sudo -v
-	while true; do
-		sudo -nv
-		sleep 29
-	done &
-	SUDOPIDFIRST=$!
-	while true; do
-		sudo -nv
-		sleep 31
-	done &
-	SUDOPIDSECOND=$!
+  sudo -v
+  while true; do
+    sudo -nv
+    sleep 29
+  done &
+  SUDOPIDFIRST=$!
+  while true; do
+    sudo -nv
+    sleep 31
+  done &
+  SUDOPIDSECOND=$!
 fi
 sudo mkdir -p /etc/apt/apt.conf.d
 sudo mkdir -p /etc/apt/keyrings
@@ -37,75 +37,75 @@ sudo grep -q '^HandleLidSwitch=' /etc/systemd/logind.conf || echo 'HandleLidSwit
 sudo grep -q '^HandleLidSwitchDocked=' /etc/systemd/logind.conf || echo 'HandleLidSwitchDocked=ignore' | sudo tee -a /etc/systemd/logind.conf >/dev/null
 sudo grep -q '^HandleLidSwitchExternalPower=' /etc/systemd/logind.conf || echo 'HandleLidSwitchExternalPower=ignore' | sudo tee -a /etc/systemd/logind.conf >/dev/null
 for file in /etc/grub.d/* /etc/default/grub.d/*; do
-	[[ -f "$file" ]] && sudo sed -i 's/^quick_boot=.*/quick_boot="0"/' "$file"
+  [[ -f "$file" ]] && sudo sed -i 's/^quick_boot=.*/quick_boot="0"/' "$file"
 done
 [ "$FULL" -eq 0 ] && sudo update-grub
 DM=$(basename "$(basename "$(readlink -f /etc/systemd/system/display-manager.service)" || true)" ".service" || true)
 if [[ -n "$DM" ]] && [[ -n "$USER" ]]; then
-	case "$DM" in
-	gdm | gdm3)
-		if [ -f "/etc/gdm3/custom.conf" ]; then
-			CONF="/etc/gdm3/custom.conf"
-		elif [ -f "/etc/gdm/custom.conf" ]; then
-			CONF="/etc/gdm/custom.conf"
-		elif [ -d "/etc/gdm3" ]; then
-			CONF="/etc/gdm3/custom.conf"
-		elif [ -d "/etc/gdm" ]; then
-			CONF="/etc/gdm/custom.conf"
-		else
-			CONF="/etc/gdm3/custom.conf"
-		fi
-		if [ -f "$CONF" ]; then
-			sudo sed -i '/^AutomaticLoginEnable/d' "$CONF"
-			sudo sed -i '/^AutomaticLogin=/d' "$CONF"
-			sudo sed -i '/^WaylandEnable=/d' "$CONF"
-			if sudo grep -q "^\[daemon\]" "$CONF"; then
-				sudo sed -i "/^\[daemon\]/a AutomaticLoginEnable=True\nAutomaticLogin=$USER\nWaylandEnable=true" "$CONF"
-			else
-				printf '\n[daemon]\nAutomaticLoginEnable=True\nAutomaticLogin=%s\nWaylandEnable=true\n' "$USER" | sudo tee -a "$CONF" >/dev/null
-			fi
-		else
-			printf '\n[daemon]\nAutomaticLoginEnable=True\nAutomaticLogin=%s\nWaylandEnable=true\n' "$USER" | sudo tee -a "$CONF" >/dev/null
-		fi
-		;;
-	lightdm)
-		COUNT=0
-		for CONF in "/etc/lightdm/"*".conf" "/etc/lightdm/lightdm.conf.d/"*; do
-			sudo test -f "$CONF" || continue
-			sudo sed -i '/^autologin-user=/d' "$CONF"
-			sudo sed -i '/^autologin-user-timeout=/d' "$CONF"
-			if sudo grep -q "^\[Seat:\*\]" "$CONF" && [ "$COUNT" -eq 0 ]; then
-				sudo sed -i "/^\[Seat:\*\]/a autologin-user=$USER\nautologin-user-timeout=0" "$CONF"
-				COUNT=1
-			fi
-		done
-		[ "$COUNT" -eq 0 ] && printf '\n[Seat:*]\nautologin-user=%s\nautologin-user-timeout=0\n' "$USER" | sudo tee -a "/etc/lightdm/lightdm.conf" >/dev/null
-		;;
-	sddm)
-		COUNT=0
-		command -v kinfo >/dev/null 2>&1 && PLASMA_VERSION=$(kinfo 2>/dev/null | grep 'KDE Plasma Version' | sed 's/KDE Plasma Version: //' | cut -d. -f1) || PLASMA_VERSION=''
-		if [ "$PLASMA_VERSION" -ge 6 ]; then
-			SESSION='plasma'
-		elif [ "$PLASMA_VERSION" -le 5 ]; then
-			sudo DEBIAN_FRONTEND=noninteractive apt install plasma-workspace-wayland -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
-			SESSION='plasmawayland'
-		elif command -v lxqt-runner >/dev/null 2>&1; then
-			SESSION='lxqt.desktop'
-		fi
-		if [ -n "$SESSION" ]; then
-			for CONF in "/etc/sddm.conf" "/etc/sddm.conf.d/"*; do
-				sudo test -f "$CONF" || continue
-				sudo sed -i '/^User=/d' "$CONF"
-				sudo sed -i '/^Session=/d' "$CONF"
-				if sudo grep -q "^\[Autologin\]" "$CONF" && [ "$COUNT" -eq 0 ]; then
-					sudo sed -i "/^\[Autologin\]/a User=$USER\nSession=$SESSION" "$CONF"
-					COUNT=1
-				fi
-			done
-			[ "$COUNT" -eq 0 ] && printf '\n[Autologin]\nUser=%s\nSession=%s\n' "$USER" "$SESSION" | sudo tee -a "/etc/sddm.conf" >/dev/null
-		fi
-		;;
-	esac
+  case "$DM" in
+    gdm | gdm3)
+      if [ -f "/etc/gdm3/custom.conf" ]; then
+        CONF="/etc/gdm3/custom.conf"
+      elif [ -f "/etc/gdm/custom.conf" ]; then
+        CONF="/etc/gdm/custom.conf"
+      elif [ -d "/etc/gdm3" ]; then
+        CONF="/etc/gdm3/custom.conf"
+      elif [ -d "/etc/gdm" ]; then
+        CONF="/etc/gdm/custom.conf"
+      else
+        CONF="/etc/gdm3/custom.conf"
+      fi
+      if [ -f "$CONF" ]; then
+        sudo sed -i '/^AutomaticLoginEnable/d' "$CONF"
+        sudo sed -i '/^AutomaticLogin=/d' "$CONF"
+        sudo sed -i '/^WaylandEnable=/d' "$CONF"
+        if sudo grep -q "^\[daemon\]" "$CONF"; then
+          sudo sed -i "/^\[daemon\]/a AutomaticLoginEnable=True\nAutomaticLogin=$USER\nWaylandEnable=true" "$CONF"
+        else
+          printf '\n[daemon]\nAutomaticLoginEnable=True\nAutomaticLogin=%s\nWaylandEnable=true\n' "$USER" | sudo tee -a "$CONF" >/dev/null
+        fi
+      else
+        printf '\n[daemon]\nAutomaticLoginEnable=True\nAutomaticLogin=%s\nWaylandEnable=true\n' "$USER" | sudo tee -a "$CONF" >/dev/null
+      fi
+      ;;
+    lightdm)
+      COUNT=0
+      for CONF in "/etc/lightdm/"*".conf" "/etc/lightdm/lightdm.conf.d/"*; do
+        sudo test -f "$CONF" || continue
+        sudo sed -i '/^autologin-user=/d' "$CONF"
+        sudo sed -i '/^autologin-user-timeout=/d' "$CONF"
+        if sudo grep -q "^\[Seat:\*\]" "$CONF" && [ "$COUNT" -eq 0 ]; then
+          sudo sed -i "/^\[Seat:\*\]/a autologin-user=$USER\nautologin-user-timeout=0" "$CONF"
+          COUNT=1
+        fi
+      done
+      [ "$COUNT" -eq 0 ] && printf '\n[Seat:*]\nautologin-user=%s\nautologin-user-timeout=0\n' "$USER" | sudo tee -a "/etc/lightdm/lightdm.conf" >/dev/null
+      ;;
+    sddm)
+      COUNT=0
+      command -v kinfo >/dev/null 2>&1 && PLASMA_VERSION=$(kinfo 2>/dev/null | grep 'KDE Plasma Version' | sed 's/KDE Plasma Version: //' | cut -d. -f1) || PLASMA_VERSION=''
+      if [ "$PLASMA_VERSION" -ge 6 ]; then
+        SESSION='plasma'
+      elif [ "$PLASMA_VERSION" -le 5 ]; then
+        sudo DEBIAN_FRONTEND=noninteractive apt install plasma-workspace-wayland -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+        SESSION='plasmawayland'
+      elif command -v lxqt-runner >/dev/null 2>&1; then
+        SESSION='lxqt.desktop'
+      fi
+      if [ -n "$SESSION" ]; then
+        for CONF in "/etc/sddm.conf" "/etc/sddm.conf.d/"*; do
+          sudo test -f "$CONF" || continue
+          sudo sed -i '/^User=/d' "$CONF"
+          sudo sed -i '/^Session=/d' "$CONF"
+          if sudo grep -q "^\[Autologin\]" "$CONF" && [ "$COUNT" -eq 0 ]; then
+            sudo sed -i "/^\[Autologin\]/a User=$USER\nSession=$SESSION" "$CONF"
+            COUNT=1
+          fi
+        done
+        [ "$COUNT" -eq 0 ] && printf '\n[Autologin]\nUser=%s\nSession=%s\n' "$USER" "$SESSION" | sudo tee -a "/etc/sddm.conf" >/dev/null
+      fi
+      ;;
+  esac
 fi
 [ "$FULL" -eq 0 ] && sudo timedatectl set-local-rtc 1
 [ "$FULL" -eq 0 ] && sudo timedatectl set-ntp true
@@ -394,17 +394,17 @@ Unattended-Upgrade::Skip-Updates-On-Metered-Connections "false";
 PKG='alsa-utils apksigner apt-transport-https aptitude audacity automake bash bc bear bindfs bison bookletimposer build-essential bzip2 ca-certificates calcurse checkinstall clang clang-format cmake command-not-found cronie curl dbus dbus-x11 debconf-utils diffoscope distro-info dnsutils dvisvgm fastfetch file flex fontconfig fonts-cns11643-kai fonts-cns11643-sung fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei g++ gcc gdb gh ghostscript git git-lfs glab gnupg gnupg2 golang-go gperf grep gzip hyperfine iftop imagemagick info inkscape iotop-c iproute2 jpegoptim jq lftp libheif-examples libimage-exiftool-perl libjxl-tools libreoffice libssl-dev lsb-release lsd luajit lzip make maven mediainfo mesa-utils mplayer mpv nano ncdu netcat-openbsd nethogs net-tools ngspice ninja-build nmap ocrmypdf octave openjdk-21-jdk openssh-client openssh-server openssl optipng p7zip-full pandoc perl perl-tk pkg-config plantuml poppler-utils procps pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-pip python3-requests python3-venv qalc qpdf shellcheck shfmt socat sqlite3 strace sudo tar tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert tesseract-ocr-eng tesseract-ocr-jpn tesseract-ocr-jpn-vert tmux trash-cli tree tsocks unrar unzip uuid-runtime verilator vim-gtk3 w3m webp wget wget2 xdotool xmlstarlet xz-utils zip zsh zstd 2048'
 # shellcheck disable=2086
 if [ "$TEST" -eq 0 ]; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 else
-	sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 fi
 PKG='apparmor-utils aria2 bridge-utils clang-uml clinfo dnscrypt-proxy fcitx5 fcitx5-* filelight flatpak fwupd gtkwave kate krita language-pack-gnome-en libfuse2t64 libvirt-daemon-system libvirt-clients lxc lxc-templates ntfs-3g obs-studio ovmf pipewire pipewire-audio-client-libraries qalculate-gtk qbittorrent qemu-system-gui qemu-system-x86 qemu-user-binfmt qemu-user qemu-utils qtspeech5-speechd-plugin quickemu remmina remmina-plugin-rdp remmina-plugin-secret snapd spice-vdagent swtpm swtpm-tools testdisk torbrowser-launcher ufw uidmap unattended-upgrades virt-manager virt-viewer wireplumber wl-clipboard xclip'
 
 # shellcheck disable=2086
 if [ "$TEST" -eq 0 ]; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 else
-	sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 fi
 sudo snap set system refresh.retain=2
 echo '[ids]
@@ -1360,14 +1360,14 @@ export INPUT_METHOD=fcitx
 export SDL_IM_MODULE=fcitx
 EOF
 if [ "${XDG_CURRENT_DESKTOP:-}" = "KDE" ] || [[ "${DESKTOP_SESSION:-}" == *plasma* ]] || [ "${KDE_FULL_SESSION:-}" = "true" ]; then
-	if [ "$TEST" -eq 0 ]; then
-		sudo DEBIAN_FRONTEND=noninteractive apt install plasma-discover-backend-flatpak -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
-	else
-		sudo DEBIAN_FRONTEND=noninteractive apt install plasma-discover-backend-flatpak -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
-	fi
+  if [ "$TEST" -eq 0 ]; then
+    sudo DEBIAN_FRONTEND=noninteractive apt install plasma-discover-backend-flatpak -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  else
+    sudo DEBIAN_FRONTEND=noninteractive apt install plasma-discover-backend-flatpak -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  fi
 else
-	mkdir -p ~/.config/autostart
-	cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
+  mkdir -p ~/.config/autostart
+  cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
 fi
 mkdir ~/.JetBrainsMono
 cd ~/.JetBrainsMono || exit
@@ -1389,9 +1389,9 @@ sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://b
 sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
 sudo apt update
 if [ "$TEST" -eq 0 ]; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install brave-browser -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  sudo DEBIAN_FRONTEND=noninteractive apt install brave-browser -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 else
-	sudo DEBIAN_FRONTEND=noninteractive apt install brave-browser -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  sudo DEBIAN_FRONTEND=noninteractive apt install brave-browser -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 fi
 curl -fsSL https://download.onlyoffice.com/GPG-KEY-ONLYOFFICE | gpg --no-default-keyring --keyring gnupg-ring:/tmp/onlyoffice.gpg --import
 chmod 644 /tmp/onlyoffice.gpg
@@ -1400,9 +1400,9 @@ sudo mv /tmp/onlyoffice.gpg /usr/share/keyrings/onlyoffice.gpg
 echo 'deb [signed-by=/usr/share/keyrings/onlyoffice.gpg] https://download.onlyoffice.com/repo/debian squeeze main' | sudo tee /etc/apt/sources.list.d/onlyoffice.list >/dev/null
 sudo apt update
 if [ "$TEST" -eq 0 ]; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install onlyoffice-desktopeditors -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  sudo DEBIAN_FRONTEND=noninteractive apt install onlyoffice-desktopeditors -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 else
-	sudo DEBIAN_FRONTEND=noninteractive apt install onlyoffice-desktopeditors -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  sudo DEBIAN_FRONTEND=noninteractive apt install onlyoffice-desktopeditors -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 fi
 gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' rustdesk/rustdesk 'rustdesk-*-x86_64.deb'
 sudo DEBIAN_FRONTEND=noninteractive apt install ./rustdesk-*-x86_64.deb -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
@@ -1441,22 +1441,22 @@ NPMGALLOW='deno http-server prettier'
 NPMGIGNORE='opencode-ai @earendil-works/pi-coding-agent'
 # shellcheck disable=2086
 if [ "$TEST" -eq 0 ]; then
-	npmig $NPMGALLOW
-	npm i -g --ignore-scripts $NPMGIGNORE
+  npmig $NPMGALLOW
+  npm i -g --ignore-scripts $NPMGIGNORE
 else
-	npmig -o --dry-run $NPMGALLOW
-	npm i -g --ignore-scripts --dry-run $NPMGIGNORE
+  npmig -o --dry-run $NPMGALLOW
+  npm i -g --ignore-scripts --dry-run $NPMGIGNORE
 fi
 gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' yt-dlp/yt-dlp yt-dlp
 chmod +x yt-dlp
 mv yt-dlp ~/.local/bin/
 curl -LsSf https://astral.sh/uv/install.sh | sh
 if [ "$TEST" -eq 0 ]; then
-	for pkg in autopep8 gallery-dl gh2md img2pdf jupyterlab jupytext libretranslate meson notebook pylatexenc tldr xmljson yamllint; do
-		uv tool install "$pkg"
-	done
-	uv tool install fdroidserver
-	uv tool install 'git+https://github.com/jpstotz/better-adb-sync#BetterADBSync'
+  for pkg in autopep8 gallery-dl gh2md img2pdf jupyterlab jupytext libretranslate meson notebook pylatexenc tldr xmljson yamllint; do
+    uv tool install "$pkg"
+  done
+  uv tool install fdroidserver
+  uv tool install 'git+https://github.com/jpstotz/better-adb-sync#BetterADBSync'
 fi
 cat >~/.config/systemd/user/libretranslate.service <<EOF
 [Unit]
@@ -1487,24 +1487,24 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
 BREW='bat bottom broot dust fd ffmpeg-full fzf git-delta lazygit procs resvg ripgrep sevenzip yazi yq zoxide'
 CASK='altersend'
 if [ "$TEST" -eq 0 ]; then
-	# shellcheck disable=2086
-	if ! echo y | brew install $BREW; then
-		echo y | brew install $BREW
-	fi
-	# shellcheck disable=2086
-	if ! echo y | brew install --cask $CASK; then
-		echo y | brew install --cask $CASK
-	fi
-	git config --global core.pager delta
-	git config --global interactive.diffFilter 'delta --color-only'
-	git config --global delta.navigate true
-	git config --global merge.conflictStyle zdiff3
-	broot --set-install-state installed && mkdir -p "$HOME/.config/broot/launcher/bash" && broot --print-shell-function bash >"$HOME/.config/broot/launcher/bash/br" && chmod +x "$HOME/.config/broot/launcher/bash/br"
+  # shellcheck disable=2086
+  if ! echo y | brew install $BREW; then
+    echo y | brew install $BREW
+  fi
+  # shellcheck disable=2086
+  if ! echo y | brew install --cask $CASK; then
+    echo y | brew install --cask $CASK
+  fi
+  git config --global core.pager delta
+  git config --global interactive.diffFilter 'delta --color-only'
+  git config --global delta.navigate true
+  git config --global merge.conflictStyle zdiff3
+  broot --set-install-state installed && mkdir -p "$HOME/.config/broot/launcher/bash" && broot --print-shell-function bash >"$HOME/.config/broot/launcher/bash/br" && chmod +x "$HOME/.config/broot/launcher/bash/br"
 else
-	# shellcheck disable=2086
-	echo y | brew install $BREW --dry-run
-	# shellcheck disable=2086
-	echo y | brew install --cask $CASK --dry-run
+  # shellcheck disable=2086
+  echo y | brew install $BREW --dry-run
+  # shellcheck disable=2086
+  echo y | brew install --cask $CASK --dry-run
 fi
 brew cleanup
 curl -fsSL https://raw.githubusercontent.com/Willie169/vim-config/refs/heads/main/install.sh | sh
@@ -1530,13 +1530,13 @@ sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install incus -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 sudo adduser "$USER" incus-admin
 if findmnt -no FSTYPE / | grep -q btrfs; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install btrfs-progs -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
-	STORAGE_DRIVER=btrfs
+  sudo DEBIAN_FRONTEND=noninteractive apt install btrfs-progs -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  STORAGE_DRIVER=btrfs
 elif findmnt -no FSTYPE / | grep -q zfs; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install zfsutils-linux -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
-	STORAGE_DRIVER=zfs
+  sudo DEBIAN_FRONTEND=noninteractive apt install zfsutils-linux -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  STORAGE_DRIVER=zfs
 else
-	STORAGE_DRIVER=dir
+  STORAGE_DRIVER=dir
 fi
 cat <<EOF | sudo incus admin init --preseed
 config: {}
@@ -1587,17 +1587,17 @@ wget --tries=100 --retry-connrefused --waitretry=5 -qO - https://gitlab.com/paul
 echo -e 'Types: deb\nURIs: https://download.vscodium.com/debs\nSuites: vscodium\nComponents: main\nArchitectures: amd64 arm64\nSigned-by: /usr/share/keyrings/vscodium-archive-keyring.gpg' | sudo tee /etc/apt/sources.list.d/vscodium.sources >/dev/null
 sudo apt update
 if [ "$TEST" -eq 0 ]; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install codium -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  sudo DEBIAN_FRONTEND=noninteractive apt install codium -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 else
-	sudo DEBIAN_FRONTEND=noninteractive apt install codium -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  sudo DEBIAN_FRONTEND=noninteractive apt install codium -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 fi
 curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
 echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list >/dev/null
 sudo apt update
 if [ "$TEST" -eq 0 ]; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install glow -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  sudo DEBIAN_FRONTEND=noninteractive apt install glow -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 else
-	sudo DEBIAN_FRONTEND=noninteractive apt install glow -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  sudo DEBIAN_FRONTEND=noninteractive apt install glow -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 fi
 wget --tries=100 --retry-connrefused --waitretry=5 -O- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | sudo tee /usr/share/keyrings/deb.torproject.org-keyring.gpg >/dev/null
 sudo tee /etc/apt/sources.list.d/tor.list >/dev/null <<EOF
@@ -1606,17 +1606,17 @@ deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg
 EOF
 sudo apt update
 if [ "$TEST" -eq 0 ]; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install tor torsocks deb.torproject.org-keyring -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  sudo DEBIAN_FRONTEND=noninteractive apt install tor torsocks deb.torproject.org-keyring -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 else
-	sudo DEBIAN_FRONTEND=noninteractive apt install tor torsocks deb.torproject.org-keyring -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  sudo DEBIAN_FRONTEND=noninteractive apt install tor torsocks deb.torproject.org-keyring -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 fi
 sudo wget --tries=100 --retry-connrefused --waitretry=5 -O /usr/share/keyrings/element-io-archive-keyring.gpg https://packages.element.io/debian/element-io-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/element-io-archive-keyring.gpg] https://packages.element.io/debian/ default main" | sudo tee /etc/apt/sources.list.d/element-io.list >/dev/null
 sudo apt update
 if [ "$TEST" -eq 0 ]; then
-	sudo DEBIAN_FRONTEND=noninteractive apt install element-desktop -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  sudo DEBIAN_FRONTEND=noninteractive apt install element-desktop -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 else
-	sudo DEBIAN_FRONTEND=noninteractive apt install element-desktop -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+  sudo DEBIAN_FRONTEND=noninteractive apt install element-desktop -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 fi
 [ "$TEST" -eq 0 ] && sudo docker pull ghcr.io/gchq/cyberchef:latest
 cat >~/.config/systemd/user/cyberchef.service <<EOF
@@ -1718,9 +1718,9 @@ sudo DEBIAN_FRONTEND=noninteractive apt install clinfo ocl-icd-opencl-dev -y -o 
 git clone --depth=1 https://github.com/lightvector/KataGo.git
 cd KataGo/cpp || exit
 if clinfo -l | grep -q 'Platform'; then
-	cmake . -G Ninja -DUSE_BACKEND=OPENCL
+  cmake . -G Ninja -DUSE_BACKEND=OPENCL
 else
-	cmake . -G Ninja -DUSE_BACKEND=EIGEN
+  cmake . -G Ninja -DUSE_BACKEND=EIGEN
 fi
 ninja
 cd ../.. || exit
@@ -1756,11 +1756,11 @@ git clone --depth=1 https://github.com/fairy-stockfish/Fairy-Stockfish.git
 cd Fairy-Stockfish/src || exit
 ARCH=$(uname -m)
 if [ "$ARCH" == "x86_64" ]; then
-	ARCH="x86-64"
+  ARCH="x86-64"
 elif [ "$ARCH" == "aarch64" ]; then
-	ARCH="armv8"
+  ARCH="armv8"
 elif [ "$ARCH" == "arm" ]; then
-	ARCH="armv7"
+  ARCH="armv7"
 fi
 make -j ARCH="$ARCH" profile-build largeboards=yes nnue=yes
 mv stockfish ~/.local/bin/
@@ -1844,14 +1844,14 @@ chmod +x kiwix-desktop_x86_64.appimage
 ail-cli integrate kiwix-desktop_x86_64.appimage
 cd ~ || exit
 if [ "$TEST" -eq 0 ]; then
-	wget --tries=100 --retry-connrefused --waitretry=5 --no-check-certificate https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-	tar -xzf install-tl-unx.tar.gz
-	rm install-tl-unx.tar.gz*
-	cd install-tl-* || exit
-	sudo perl ./install-tl --no-interaction
-	cd ~ || exit
-	rm -rf install-tl-*
-	sudo /usr/local/texlive/2026/bin/x86_64-linux/tlmgr update --all --self --reinstall-forcibly-removed
+  wget --tries=100 --retry-connrefused --waitretry=5 --no-check-certificate https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+  tar -xzf install-tl-unx.tar.gz
+  rm install-tl-unx.tar.gz*
+  cd install-tl-* || exit
+  sudo perl ./install-tl --no-interaction
+  cd ~ || exit
+  rm -rf install-tl-*
+  sudo /usr/local/texlive/2026/bin/x86_64-linux/tlmgr update --all --self --reinstall-forcibly-removed
 fi
 mkdir -p ~/.config/fontconfig/conf.d
 cat >~/.config/fontconfig/conf.d/00-noto.conf <<'EOF'
@@ -1975,8 +1975,8 @@ sudo DEBIAN_FRONTEND=noninteractive apt autoremove --purge -y -o Dpkg::Options::
 sudo apt clean
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 if [ "$FULL" -eq 0 ]; then
-	kill "$SUDOPIDFIRST"
-	kill "$SUDOPIDSECOND"
+  kill "$SUDOPIDFIRST"
+  kill "$SUDOPIDSECOND"
 fi
 # shellcheck disable=2155
 POSTDF=$(df --output=used / | tail -n1)

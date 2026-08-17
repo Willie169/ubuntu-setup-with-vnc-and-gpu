@@ -2,7 +2,7 @@
 
 cd ~/xmrig/build || exit
 if ! ss -ltnp 2>/dev/null | grep -q ':9054.*tor'; then
-  rm -r .tor 2>/dev/null || true
+  rm -rf .tor
   mkdir .tor
   cat >.tor/torrc <<'EOF'
 SocksPort 9054

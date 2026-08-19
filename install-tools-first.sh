@@ -1438,14 +1438,11 @@ echo y | npm --help || true
 echo y | corepack enable yarn
 echo y | yarn --help || true
 NPMGALLOW='deno http-server prettier'
-NPMGIGNORE='opencode-ai @earendil-works/pi-coding-agent'
 # shellcheck disable=2086
 if [ "$TEST" -eq 0 ]; then
   npmig $NPMGALLOW
-  npm i -g --ignore-scripts $NPMGIGNORE
 else
   npmig -o --dry-run $NPMGALLOW
-  npm i -g --ignore-scripts --dry-run $NPMGIGNORE
 fi
 gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' yt-dlp/yt-dlp yt-dlp
 chmod +x yt-dlp

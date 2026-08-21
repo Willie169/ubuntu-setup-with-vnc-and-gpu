@@ -1873,6 +1873,11 @@ wget --tries=100 --retry-connrefused --waitretry=5 --no-check-certificate https:
 chmod +x kiwix-desktop_x86_64.appimage
 ail-cli integrate kiwix-desktop_x86_64.appimage
 cd ~ || exit
+git clone https://github.com/jojo2357/kiwix-zim-updater.git
+ln -sf "$HOME/kiwix-zim-updater/kiwix-zim-updater.sh" "$HOME/.local/bin/kiwix-zim-updater"
+mkdir kiwix-zims
+touch kiwix-zims/archlinux_en_all_maxi_1970-01.zim
+kiwix-zim-updater -d ~/kiwix-zims
 if [ "$TEST" -eq 0 ]; then
   wget --tries=100 --retry-connrefused --waitretry=5 --no-check-certificate https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
   tar -xzf install-tl-unx.tar.gz

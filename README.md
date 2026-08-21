@@ -400,7 +400,16 @@ You can configure Fcitx5 input methods in `Fcitx Configuration`.
 
 #### Rime
 
-Execute [fcitx5-rime.sh](fcitx5-rime.sh) to install it. Configurations can be set in `~/.local/share/fcitx5/rime`
+Execute [fcitx5-rime.sh](fcitx5-rime.sh) to install it. Configurations can be set in `~/.local/share/fcitx5/rime`.
+
+Example `default.custom.yaml`:
+```yaml
+patch:
+  schema_list:
+    - schema: bopomofo
+```
+
+My [**vim-config**](https://github.com/Willie169/vim-config) and [**nvim-config**](https://github.com/Willie169/nvim-config), which are installed in [`install-tools-first.sh`](install-tools-first.sh), are designed to for Fcitx5 English with Rime Chinese instead of Rime Chinese with ASCII mode (aka Latin mode).
 
 ### Tailscale
 

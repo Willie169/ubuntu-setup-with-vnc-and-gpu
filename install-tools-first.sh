@@ -1426,6 +1426,10 @@ rm jadx*.zip*
 chmod +x bin/jadx
 chmod +x bin/jadx-gui
 cd ~ || exit
+wget --tries=100 --retry-connrefused --waitretry=5 https://github.com/dvaoru/ApkRenamer/releases/latest/download/ApkRenamer.zip
+unzip ApkRenamer.zip
+rm ApkRenamer.zip*
+find ApkRenamer -type d -exec chmod 775 {} +
 NVM_VERSION=$(curl -fsSL "https://api.github.com/repos/nvm-sh/nvm/releases/latest" | jq -r '.tag_name')
 PROFILE=/dev/null bash -c "curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh | bash"
 export NVM_DIR="$HOME/.nvm"

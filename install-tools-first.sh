@@ -1637,7 +1637,7 @@ RestartSec=5
 WantedBy=default.target
 EOF
 systemctl --user daemon-reload
-systemctl --user enable --now cyberchef
+[ "$FULL" -eq 0 ] && systemctl --user enable --now cyberchef
 mkdir -p ~/stirlingpdf/stirling-data/configs
 cd ~/stirlingpdf || exit
 cat >docker-compose.yml <<'EOF'
@@ -1673,7 +1673,7 @@ RestartSec=5
 WantedBy=default.target
 EOF
 systemctl --user daemon-reload
-systemctl --user enable --now stirlingpdf
+[ "$FULL" -eq 0 ] && systemctl --user enable --now stirlingpdf
 mkdir ~/typetype-stack
 cat >~/typetype-stack/.env <<'EOF'
 ALLOWED_ORIGINS=http://localhost:9082,http://127.0.0.1:9082,http://localhost:5173,http://127.0.0.1:5173
@@ -1706,7 +1706,7 @@ RestartSec=5
 WantedBy=default.target
 EOF
 systemctl --user daemon-reload
-systemctl --user enable --now typetype
+[ "$FULL" -eq 0 ] && systemctl --user enable --now typetype
 wget --tries=100 --retry-connrefused --waitretry=5 -O studio.html https://developer.android.com/studio
 # shellcheck disable=2155
 export CMDLINETOOLS="$(awk '/<table class="download">/ { count++ }

@@ -1742,6 +1742,10 @@ gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' gulp
 unzip rclone-linux-amd64.zip
 rm rclone-linux-amd64.zip*
 mv rclone ~/.local/bin/
+gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Willie169/bnkextr bnkextr-linux-glibc-x86_64.zip
+unzip bnkextr-linux-glibc-x86_64.zip
+rm bnkextr-linux-glibc-x86_64.zip*
+mv bnkextr ~/.local/bin/
 gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Genymobile/scrcpy 'scrcpy-linux-x86_64-*.tar.gz'
 tar -xzf scrcpy-linux-x86_64-*.tar.gz
 mv scrcpy-linux-x86_64-*/adb ~/.local/bin/

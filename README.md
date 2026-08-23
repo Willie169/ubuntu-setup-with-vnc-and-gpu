@@ -151,7 +151,7 @@ to login to GitHub and optionally run
 <pre><code>gh config set git_protocol ssh
 git config --global url."git@github.com:".insteadOf "https://github.com/"
 </code></pre> if you want to use ssh instead of https.</li>
-<li>Config git with <code>git config --global user.name [your_name] &amp;&amp; git config --global user.email [your_email]</code>, <code>git config --global pull.rebase true</code> etc.</li>
+<li>Config git with <code>git config --global user.name [your_name]</code> and <code>git config --global user.email [your_email]</code>.</li>
 <li>Run <code>flatpak run com.mikeasoft.pied</code> to setup Pied.</li>
 <li>Setup RustDesk. Refer to <a href="#rustdesk">RustDesk</a> for more information.</li>
 <li>Run <code>code</code> or click the <strong>VSCodium</strong> icon to setup VSCodium.</li>

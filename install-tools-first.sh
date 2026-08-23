@@ -1485,7 +1485,7 @@ conda config --add channels pypi
 conda config --add channels pytorch
 conda config --add channels conda-forge
 git config --global pull.rebase true
-git config --global init.defaultBranch
+git config --global init.defaultBranch main
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
 BREW='bat bottom broot dust fd ffmpeg-full fzf git-delta hugo lazygit procs resvg ripgrep sevenzip vgmstream yazi yq zoxide'

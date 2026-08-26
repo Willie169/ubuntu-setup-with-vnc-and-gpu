@@ -1887,6 +1887,7 @@ ln -sf "$HOME/kiwix-zim-updater/kiwix-zim-updater.sh" "$HOME/.local/bin/kiwix-zi
 mkdir kiwix-zims
 touch kiwix-zims/archlinux_en_all_maxi_1970-01.zim
 kiwix-zim-updater -d ~/kiwix-zims
+rm download.log
 if [ "$TEST" -eq 0 ]; then
   wget --tries=100 --retry-connrefused --waitretry=5 --no-check-certificate https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
   tar -xzf install-tl-unx.tar.gz

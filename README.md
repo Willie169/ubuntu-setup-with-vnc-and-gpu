@@ -599,6 +599,24 @@ If you have another non-NVIDIA GPU alongside (e.g., integrated GPU), you may
 
 Refer to <https://github.com/Quackdoc/waydroid-scripts> for more information.
 
+#### Start and Stop
+
+To launch Waydroid, run:
+```
+waydroid
+```
+or click the desktop entry.
+
+If you click Power off in Waydroid GUI and then try to restart, or click Restart in Waydroid, but it doesn't start a new session, run:
+```
+waydroid session stop
+```
+and then run:
+```
+waydroid
+```
+or click the desktop entry.
+
 #### Prevent Flutter Apps Crashes
 
 To prevent Vulkan from crashing in Flutter apps, edit `/var/lib/waydroid/waydroid.cfg` and add
@@ -614,7 +632,7 @@ sudo systemctl restart waydroid-container
 
 #### Spoof Device to Bypass Root Detections
 
-Some root detections can be bypassed by editting `/var/lib/waydroid/waydroid.cfg` and adding
+Some root detections can be bypassed by editing `/var/lib/waydroid/waydroid.cfg` and adding
 ```
 ro.product.brand=google
 ro.product.manufacturer=Google
@@ -670,9 +688,9 @@ See <https://github.com/casualsnek/waydroid_script> for more information.
 
 #### Google Play Certificate
 
-This only work with GAPPS installed. For Vanilla build, install Aurora Store: <https://gitlab.com/AuroraOSS/AuroraStore> from F-Droid: <https://f-droid.org/packages/com.aurora.store>.
+This only work with Gapps installed.
 
-Run:
+Start Waydroid and run:
 ```
 sudo waydroid shell
 ```
@@ -685,26 +703,6 @@ in it to get the Google Services Framework Android ID. Use the numbers printed t
 Run `exit` inside Waydroid's ADB shell to exit it.
 
 Give the Google services some minutes to reflect the change, then restart Waydroid.
-
-#### Restart
-
-If you click Power off in Waydroid GUI and then try to restart, or click Restart in Waydroid, but it doesn't start a new session, run
-```
-waydroid session stop
-```
-and then you can start it with desktop entry or running
-```
-waydroid session start
-```
-If you run
-```
-waydroid session stop
-```
-to stop Waydroid instead of from GUI, and restarting by running
-```
-waydroid session start
-```
-doesn't start a new session, start it with desktop entry.
 
 #### Storage
 
@@ -755,17 +753,14 @@ Next time Waydroid will start in multi-window mode.
 
 #### Use ADB with Waydroid
 
-Grab waydroid IP address from `Android Settings > About`
-
-And start adb:
+Find Waydroid IP address in `Settings > About` in Waydroid and run:
 ```
 adb connect <IP>:5555
 ```
-Alternatively, you can run
+For ADB shell, alternatively, run
 ```
 sudo waydroid shell
 ```
-to access Waydroid's ADB shell.
 
 #### Disable On-Screen Keyboard
 

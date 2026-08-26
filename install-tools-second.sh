@@ -5,7 +5,7 @@
 PREDF=$(df --output=used / | tail -n1)
 . <(curl -fsSL 'https://raw.githubusercontent.com/Willie169/bashrc/refs/heads/main/bashrc.d/30-shared-functions.sh')
 flatpak --user override --filesystem=xdg-config/fontconfig:ro
-flatpak install flathub com.usebottles.bottles fr.handbrake.ghb io.ente.auth io.gitlab.news_flash.NewsFlash me.timschneeberger.jdsp4linux org.freecad.FreeCAD org.gimp.GIMP org.kde.kdenlive org.localsend.localsend_app org.luanti.luanti org.musescore.MuseScore org.videolan.VLC -y
+flatpak install flathub com.usebottles.bottles fr.handbrake.ghb io.ente.auth io.gitlab.news_flash.NewsFlash io.sourceforge.pysolfc.PySolFC me.timschneeberger.jdsp4linux org.freecad.FreeCAD org.gimp.GIMP org.kde.kdenlive org.localsend.localsend_app org.luanti.luanti org.musescore.MuseScore org.videolan.VLC -y
 gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Elleo/pied com.mikeasoft.pied.flatpak
 if [ "$TEST" -eq 0 ]; then
   sudo flatpak install com.mikeasoft.pied.flatpak -y

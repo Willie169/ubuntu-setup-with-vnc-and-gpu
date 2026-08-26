@@ -117,11 +117,10 @@ sudo add-apt-repository universe -y
 sudo add-apt-repository multiverse -y
 sudo add-apt-repository restricted -y
 sudo add-apt-repository ppa:bkryza/clang-uml -y
-sudo mv /etc/apt/sources.list.d/bkryza-ubuntu-clang-uml-*.sources /etc/apt/sources.list.d/bkryza-ubuntu-clang-uml-noble.sources || true
-sudo sed -i 's/^Suites: .*$/Suites: noble/' /etc/apt/sources.list.d/bkryza-ubuntu-clang-uml-noble.sources
 sudo add-apt-repository ppa:flexiondotorg/quickemu -y
 sudo add-apt-repository ppa:git-core/ppa -y
 sudo add-apt-repository ppa:libreoffice/ppa -y
+sudo add-apt-repository ppa:libretro/stable -y
 sudo add-apt-repository ppa:longsleep/golang-backports -y
 sudo add-apt-repository ppa:obsproject/obs-studio -y
 sudo add-apt-repository ppa:openjdk-r/ppa -y

@@ -146,7 +146,7 @@ and wait for the shell to exit automatically. It may prompt you to choose passwo
 to login to Tailscale via the URL shown and click <strong>Connect</strong>. Google, Microsoft, GitHub, Apple, and passkey are available.</li>
 <li>Configure git with <code>git config --global user.name [your_name]</code> and <code>git config --global user.email [your_email]</code>.</li>
 <li>Login and configure GitHub CLI, e.g.,
-<pre><code>echo 'githuh_token' | gh auth login -p ssh --with-token
+<pre><code>echo 'githuh_token' | gh auth login -p ssh -h github.com --with-token
 gh config set git_protocol ssh
 git config --global url."git@github.com:".insteadOf "https://github.com/"
 </code></pre>.</li>

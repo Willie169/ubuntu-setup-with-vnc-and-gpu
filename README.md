@@ -144,14 +144,17 @@ and wait for the shell to exit automatically. It may prompt you to choose passwo
 <pre><code>sudo tailscale up
 </code></pre>
 to login to Tailscale via the URL shown and click <strong>Connect</strong>. Google, Microsoft, GitHub, Apple, and passkey are available.</li>
-<li>Run
-<pre><code>gh auth login --scopes repo,read:org,admin:org,workflow,gist,notifications,delete_repo,write:packages,read:packages
-</code></pre>
-to login to GitHub and optionally run
-<pre><code>gh config set git_protocol ssh
+<li>Configure git with <code>git config --global user.name [your_name]</code> and <code>git config --global user.email [your_email]</code>.</li>
+<li>Login and configure GitHub CLI, e.g.,
+<pre><code>echo 'githuh_token' | gh auth login -p ssh --with-token
+gh config set git_protocol ssh
 git config --global url."git@github.com:".insteadOf "https://github.com/"
-</code></pre> if you want to use ssh instead of https.</li>
-<li>Config git with <code>git config --global user.name [your_name]</code> and <code>git config --global user.email [your_email]</code>.</li>
+</code></pre>.</li>
+<li>Login and configure GitLab CLI, e.g.,
+<pre><code>echo 'glab_token' | glab auth login -g ssh --hostname gitlab.com --stdin
+glab config set --global git_protocol ssh
+git config --global url."git@gitlab.com:".insteadOf "https://gitlab.com/"
+</code></pre>.</li>
 <li>Run <code>flatpak run com.mikeasoft.pied</code> to setup Pied.</li>
 <li>Setup RustDesk. Refer to <a href="#rustdesk">RustDesk</a> for more information.</li>
 <li>Run <code>code</code> or click the <strong>VSCodium</strong> icon to setup VSCodium.</li>

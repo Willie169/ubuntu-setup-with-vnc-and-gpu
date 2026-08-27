@@ -144,7 +144,7 @@ fi
 EOF
 [[ $(echo "$VERSION_ID" | cut -d. -f1) -lt 26 ]] && sudo add-apt-repository ppa:keyd-team/ppa -y
 sudo apt update
-sudo DEBIAN_FRONTEND=noninteractive apt purge fcitx* neovim rustup texlive* tree-sitter-cli yq -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+sudo DEBIAN_FRONTEND=noninteractive apt purge fcitx* neovim rustup tree-sitter-cli yq -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 sudo DEBIAN_FRONTEND=noninteractive apt install apt-transport-https bash build-essential ca-certificates coreutils cmake curl dbus openjdk-21-jdk g++ gcc git gnupg grep gzip jq locales lsb-release make ninja-build openssh-server perl perl-tk python-is-python3 python3 vim-gtk3 wget xz-utils -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 sudo DEBIAN_FRONTEND=noninteractive apt install apparmor-utils clinfo dnscrypt-proxy fcitx5 fcitx5-configtool fcitx5-frontend-all fcitx5-rime flatpak keyd language-pack-gnome-en pipewire pipewire-audio-client-libraries snapd ufw unattended-upgrades wireplumber -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 rm -rf ~/.bashrc ~/.bashrc.d

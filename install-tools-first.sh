@@ -1487,15 +1487,10 @@ git config --global init.defaultBranch main
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
 BREW='bat bottom broot dust fd ffmpeg fzf git-delta hugo lazygit procs resvg ripgrep sevenzip vgmstream yazi yq zoxide'
-CASK='altersend'
 if [ "$TEST" -eq 0 ]; then
   # shellcheck disable=2086
   if ! echo y | brew install $BREW; then
     echo y | brew install $BREW
-  fi
-  # shellcheck disable=2086
-  if ! echo y | brew install --cask $CASK; then
-    echo y | brew install --cask $CASK
   fi
   git config --global core.pager delta
   git config --global interactive.diffFilter 'delta --color-only'
@@ -1505,8 +1500,6 @@ if [ "$TEST" -eq 0 ]; then
 else
   # shellcheck disable=2086
   echo y | brew install $BREW --dry-run
-  # shellcheck disable=2086
-  echo y | brew install --cask $CASK --dry-run
 fi
 brew cleanup
 curl -fsSL https://raw.githubusercontent.com/Willie169/vim-config/refs/heads/main/install.sh | sh

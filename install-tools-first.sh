@@ -1689,7 +1689,7 @@ Requires=docker.service
 After=docker.service
 
 [Service]
-WorkingDirectory=${HOME}/typetype-stack
+WorkingDirectory=$HOME/typetype-stack
 ExecStart=/usr/bin/docker compose -f docker-compose.yml --env-file .env up
 ExecStop=/usr/bin/docker compose -f docker-compose.yml stop
 Restart=always

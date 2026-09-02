@@ -1614,7 +1614,7 @@ else
   sudo DEBIAN_FRONTEND=noninteractive apt install element-desktop -y -s -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 fi
 [ "$TEST" -eq 0 ] && sudo docker pull ghcr.io/gchq/cyberchef:latest
-cat >~/.config/systemd/user/cyberchef.service <<EOF
+sudo tee /etc/systemd/system/cyberchef.service >/dev/null <<'EOF'
 [Unit]
 Description=CyberChef
 Requires=docker.service
@@ -1629,8 +1629,8 @@ RestartSec=5
 [Install]
 WantedBy=default.target
 EOF
-systemctl --user daemon-reload
-[ "$FULL" -eq 0 ] && systemctl --user enable --now cyberchef
+sudo systemctl daemon-reload
+[ "$FULL" -eq 1 ] || sudo systemctl enable --now cyberchef
 mkdir -p ~/stirlingpdf/stirling-data/configs
 cd ~/stirlingpdf || exit
 cat >docker-compose.yml <<'EOF'
@@ -1649,7 +1649,7 @@ services:
 EOF
 [ "$TEST" -eq 0 ] && sudo docker compose pull
 cd ~ || exit
-cat >~/.config/systemd/user/stirlingpdf.service <<EOF
+sudo tee /etc/systemd/system/stirlingpdf.service >/dev/null <<EOF
 [Unit]
 Description=Stirling PDF
 Requires=docker.service
@@ -1665,8 +1665,8 @@ RestartSec=5
 [Install]
 WantedBy=default.target
 EOF
-systemctl --user daemon-reload
-[ "$FULL" -eq 0 ] && systemctl --user enable --now stirlingpdf
+sudo systemctl daemon-reload
+[ "$FULL" -eq 1 ] || sudo systemctl enable --now stirlingpdf
 mkdir ~/typetype-stack
 cat >~/typetype-stack/.env <<'EOF'
 ALLOWED_ORIGINS=http://localhost:9082,http://127.0.0.1:9082,http://localhost:5173,http://127.0.0.1:5173
@@ -1682,10 +1682,10 @@ curl -fsSL https://raw.githubusercontent.com/TypeType-Video/TypeType/main/script
 cd ~/typetype-stack || exit
 sudo docker compose -f docker-compose.yml pull
 cd ~ || exit
-mkdir -p ~/.config/systemd/user
-cat >~/.config/systemd/user/typetype.service <<EOF
+sudo tee /etc/systemd/system/typetype.service >/dev/null <<EOF
 [Unit]
 Description=TypeType
+Requires=docker.service
 After=docker.service
 
 [Service]
@@ -1698,8 +1698,8 @@ RestartSec=5
 [Install]
 WantedBy=default.target
 EOF
-systemctl --user daemon-reload
-[ "$FULL" -eq 0 ] && systemctl --user enable --now typetype
+sudo systemctl daemon-reload
+[ "$FULL" -eq 1 ] || sudo systemctl enable --now typetype
 wget --tries=100 --retry-connrefused --waitretry=5 -O studio.html https://developer.android.com/studio
 # shellcheck disable=2155
 export CMDLINETOOLS="$(awk '/<table class="download">/ { count++ }

@@ -201,6 +201,10 @@ Refer to [CUDA](#cuda) section.
 
 Installs KiCad and creates desktop entry `~/.local/share/applications/kicad.desktop` for it.
 
+### [`nvidia-container-toolkit.sh`](nvidia-container-toolkit.sh)
+
+Refer to [NVIDIA Container Toolkit](#nvidia-container-toolkit) section.
+
 ### [`steam.sh`](steam.sh)
 
 Installs Steam Flatpak. You need execute
@@ -330,11 +334,24 @@ You can check with
 ```
 nvcc --version
 ```
-Non-LTS is not supported, use sandboxed solutions such as Docker or Incus instead.
-
 It's not recommended to use sources other than this, including Ubuntu official repo, to avoid too old CUDA version that contains bugs.
 
-Use sandboxed solutions such as Docker or Incus if you need other versions of CUDA.
+#### NVIDIA Container Toolkit
+
+To install NVIDIA Container Toolkit on an Ubuntu LTS, first ensure drivers are installed using `ubuntu-drivers`, and then execute [`nvidia-container-toolkit.sh`](nvidia-container-toolkit.sh).
+```
+./nvidia-container-toolkit.sh
+```
+For use with Docker, run
+```
+sudo nvidia-ctk runtime configure --runtime=docker
+sudo systemctl restart docker
+```
+And check with
+```
+sudo docker run --rm --runtime=nvidia --gpus all ubuntu nvidia-smi
+```
+Refer to [Installing the NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) for more information.
 
 ### Wayland
 

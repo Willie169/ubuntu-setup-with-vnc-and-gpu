@@ -395,7 +395,7 @@ Unattended-Upgrade::Skip-Updates-On-Metered-Connections "false";
 // as unattended-upgrade will not be waiting.
 // Unattended-Upgrade::Postpone-Wait-Time "300";
 ' | sudo tee /etc/apt/apt.conf.d/50unattended-upgrades >/dev/null
-PKG='2048 alsa-utils apksigner apt-transport-https aptitude audacity automake barcode bash bc bear bindfs bison bookletimposer build-essential bzip2 ca-certificates calcurse checkinstall clang clang-format cmake command-not-found cowsay cronie curl dbus dbus-x11 dconf-cli debconf-utils diffoscope distro-info dnsutils dvisvgm fastfetch fdupes file flex fontconfig fonts-cns11643-kai fonts-cns11643-sung fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei fortune-mod g++ gcc gdb gh ghostscript git git-sizer glab gnupg gnupg2 golang-go gperf grep gzip hwinfo hyperfine iftop imagemagick info inkscape inxi iotop-c iproute2 jpegoptim jq lftp libavif-bin libheif-examples libimage-exiftool-perl libjxl-tools lsb-release lsd lshw luajit lzip make maven mediainfo mesa-utils mktorrent mplayer mpv nano ncdu net-tools netcat-openbsd nethogs ngspice ninja-build nmap ocrmypdf octave openjdk-21-jdk openssh-client openssh-server openssl optipng p7zip-full pandoc perl perl-tk pkg-config plantuml poppler-utils procps pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-pip python3-requests python3-venv qalc qpdf qrencode rtorrent shellcheck shfmt socat sqlite3 strace sudo tar tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert tesseract-ocr-eng tesseract-ocr-jpn tesseract-ocr-jpn-vert tmux traceroute trash-cli tree tsocks unar unrar unzip uuid-runtime verilator vim-gtk3 w3m webp wget wget2 xdotool xmlstarlet xz-utils zbar-tools zip zsh zstd'
+PKG='2048 alsa-utils apksigner apt-transport-https aptitude audacity automake barcode bash bc bear bindfs bison bookletimposer build-essential bzip2 ca-certificates calcurse checkinstall clang cmake command-not-found cowsay cronie curl dbus dbus-x11 dconf-cli debconf-utils diffoscope distro-info dnsutils dvisvgm fastfetch fdupes file flex fontconfig fonts-cns11643-kai fonts-cns11643-sung fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-wqy-zenhei fortune-mod g++ gcc gdb gh ghostscript git git-sizer glab gnupg gnupg2 golang-go gperf grep gzip hwinfo hyperfine iftop imagemagick info inkscape inxi iotop-c iproute2 jpegoptim jq lftp libavif-bin libheif-examples libimage-exiftool-perl libjxl-tools lsb-release lsd lshw luajit lzip make maven mediainfo mesa-utils mktorrent mplayer mpv nano ncdu net-tools netcat-openbsd nethogs ngspice ninja-build nmap ocrmypdf octave openjdk-21-jdk openssh-client openssh-server openssl optipng p7zip-full pandoc perl perl-tk pkg-config plantuml poppler-utils procps pv pwgen python-is-python3 python3-all-dev python3-argcomplete python3-httpx python3-jinja2 python3-pip python3-requests python3-venv qalc qpdf qrencode rtorrent shellcheck socat sqlite3 strace sudo tar tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert tesseract-ocr-eng tesseract-ocr-jpn tesseract-ocr-jpn-vert tmux traceroute trash-cli tree tsocks unar unrar unzip uuid-runtime verilator vim-gtk3 w3m webp wget wget2 xdotool xmlstarlet xz-utils zbar-tools zip zsh zstd'
 # shellcheck disable=2086
 if [ "$TEST" -eq 0 ]; then
   sudo DEBIAN_FRONTEND=noninteractive apt install $PKG -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
@@ -1392,7 +1392,6 @@ sudo ufw allow ssh
 sudo ufw reload
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
 . "$HOME/.cargo/env"
-cargo install stylua
 curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
@@ -1446,7 +1445,7 @@ echo y | corepack enable npm
 echo y | npm --help || true
 echo y | corepack enable yarn
 echo y | yarn --help || true
-NPMGALLOW='deno http-server prettier'
+NPMGALLOW='deno http-server'
 # shellcheck disable=2086
 if [ "$TEST" -eq 0 ]; then
   npmig $NPMGALLOW

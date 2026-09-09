@@ -152,7 +152,7 @@ EOF
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt purge fcitx* neovim rustup tree-sitter-cli yq -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 sudo DEBIAN_FRONTEND=noninteractive apt install apt-transport-https bash build-essential ca-certificates coreutils cmake curl dbus openjdk-21-jdk g++ gcc git gnupg grep gzip jq locales lsb-release make ninja-build openssh-server perl perl-tk python-is-python3 python3 vim-gtk3 wget xz-utils -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
-sudo DEBIAN_FRONTEND=noninteractive apt install apparmor-utils clinfo dnscrypt-proxy fcitx5 fcitx5-configtool fcitx5-frontend-all fcitx5-rime flatpak keyd language-pack-gnome-en pipewire pipewire-audio-client-libraries snapd ufw unattended-upgrades wireplumber -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+sudo DEBIAN_FRONTEND=noninteractive apt install apparmor-utils clinfo dnscrypt-proxy fcitx5 fcitx5-configtool fcitx5-frontend-all fcitx5-rime flatpak keyd kiwix language-pack-gnome-en pipewire pipewire-audio-client-libraries snapd ufw unattended-upgrades wireplumber -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 rm -rf ~/.bashrc ~/.bashrc.d
 git clone --depth=1 https://github.com/Willie169/bashrc ~/.bashrc.d
 ln -sf "$HOME/.bashrc.d/bashrc.d/bashrc" "$HOME/.bashrc"

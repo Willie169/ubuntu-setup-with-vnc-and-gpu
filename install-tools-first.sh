@@ -1860,10 +1860,6 @@ destination = ~/Applications
 enable_daemon = true
 EOF
 systemctl --user enable --now appimagelauncherd
-cd ~/Applications || exit
-wget --tries=100 --retry-connrefused --waitretry=5 --no-check-certificate https://download.kiwix.org/release/kiwix-desktop/kiwix-desktop_x86_64.appimage
-chmod +x kiwix-desktop_x86_64.appimage
-ail-cli integrate kiwix-desktop_x86_64.appimage
 cd ~ || exit
 git clone https://github.com/jojo2357/kiwix-zim-updater.git
 ln -sf "$HOME/kiwix-zim-updater/kiwix-zim-updater.sh" "$HOME/.local/bin/kiwix-zim-updater"

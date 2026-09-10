@@ -115,6 +115,7 @@ command -v gsettings >/dev/null 2>&1 && {
 test -f /etc/xdg/autostart/org.kde.discover.notifier.desktop && sudo mv /etc/xdg/autostart/org.kde.discover.notifier.desktop /etc/xdg/autostart/org.kde.discover.notifier.desktop.bak || true
 [ "$FULL" -eq 0 ] && sudo timedatectl set-local-rtc 1
 [ "$FULL" -eq 0 ] && sudo timedatectl set-ntp true
+source /etc/os-release
 sudo apt update
 # shellcheck disable=2155
 VERSION_ID=$(if grep -q '^NAME="Linux Mint"' /etc/os-release; then inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'; else . /etc/os-release && echo "$VERSION_ID"; fi)
@@ -157,7 +158,6 @@ rm -rf ~/.bashrc ~/.bashrc.d
 git clone --depth=1 https://github.com/Willie169/bashrc ~/.bashrc.d
 ln -sf "$HOME/.bashrc.d/bashrc.d/bashrc" "$HOME/.bashrc"
 source ~/.bashrc
-source /etc/os-release
 cat >~/.profile <<'EOF'
 if [ -n "$BASH_VERSION" ]; then
   if [ -f "$HOME/.bashrc" ]; then
@@ -1419,6 +1419,23 @@ sudo systemctl enable --now rustdesk
 sudo ufw allow 21118/udp
 sudo ufw allow 21118/tcp
 sudo ufw reload
+# shellcheck disable=2155
+export UBUNTU_VERSION_ID=$(
+  if grep -q '^NAME="Linux Mint"' /etc/os-release; then
+    inxi -Sx | awk -F': ' '/base/{print $2}' | awk '{print $2}'
+  else
+    . /etc/os-release
+    echo "$VERSION_ID"
+  fi
+)
+wget --tries=100 --retry-connrefused --waitretry=5 -O linux.html https://www.bleachbit.org/download/linux
+url=$(cat linux.html | grep "_all_ubuntu${UBUNTU_VERSION_ID/./}\.deb" | sed 's/^.*href="//' | sed "s/_all_ubuntu${UBUNTU_VERSION_ID/./}\.deb.*$/_all_ubuntu${UBUNTU_VERSION_ID/./}\.deb/")
+rm linux.html*
+wget --tries=100 --retry-connrefused --waitretry=5 "$url"
+# shellcheck disable=2001
+deb=$(echo "$url" | sed 's|https://download.bleachbit.org/get/||')
+sudo DEBIAN_FRONTEND=noninteractive apt install "./$deb" -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+rm "$deb"*
 sudo DEBIAN_FRONTEND=noninteractive apt install git-lfs -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 git lfs install
 wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool

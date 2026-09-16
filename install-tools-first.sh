@@ -1509,7 +1509,7 @@ git config --global init.defaultBranch main
 git config --global advice.detachedHead false
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
-BREW='bat bottom broot dust fd ffmpeg fzf git-delta hugo lazygit procs resvg ripgrep sevenzip vgmstream yazi yq zoxide'
+BREW='bat bottom brogue broot dust fd ffmpeg fzf git-delta hugo lazygit procs resvg ripgrep sevenzip vgmstream yazi yq zoxide'
 if [ "$TEST" -eq 0 ]; then
   # shellcheck disable=2086
   if ! echo y | brew install $BREW; then

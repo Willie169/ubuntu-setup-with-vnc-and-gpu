@@ -1747,7 +1747,7 @@ gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Will
 unzip bnkextr-linux-glibc-x86_64.zip
 rm bnkextr-linux-glibc-x86_64.zip*
 mv bnkextr ~/.local/bin/
-gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Genymobile/scrcpy 'scrcpy-linux-x86_64-*.tar.gz'
+gh_release -w --wget_option '--tries=100 --retry-connrefused --waitretry=5' Willie169/scrcpy-6007-workaround 'scrcpy-linux-x86_64-*.tar.gz'
 tar -xzf scrcpy-linux-x86_64-*.tar.gz
 mv scrcpy-linux-x86_64-*/adb ~/.local/bin/
 mv scrcpy-linux-x86_64-*/scrcpy ~/.local/bin/
